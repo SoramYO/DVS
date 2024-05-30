@@ -1,0 +1,63 @@
+.request-detail-container {
+  padding: 24px;
+  position: relative; /* Add relative positioning to the container */
+}
+
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-title .ant-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.info-card {
+  margin-bottom: 16px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.icon {
+  font-size: 24px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.diamond-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.icon-customer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px; 
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.icon-request {
+  display: flex;
+  align-items: center;
+}
+
+.info-card p {
+  margin: 0 0 10px 0; 
+}
+

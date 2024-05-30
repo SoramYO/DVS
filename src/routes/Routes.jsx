@@ -9,7 +9,10 @@ import Request from "../pages/ValuationStaff/Request";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ProtectedRoute from "../config/ProtectedRoute";
-
+import RequestDetail from "../pages/ValuationStaff/RequestDetail";
+import Valuation from "../pages/ValuationStaff/Valuation";
+import ValuationResult from "../pages/ValuationStaff/ValuationResult";
+import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
 export const route = createBrowserRouter([
   {
     path: "/",
@@ -24,24 +27,47 @@ export const route = createBrowserRouter([
   },
   {
     path: "/consultingStaff",
-    element: <ProtectedRoute requiredRoles={['Consulting Staff']}><ConsultingStaffLayout /></ProtectedRoute>,
+    element: (
+      <ProtectedRoute requiredRoles={['Consulting Staff']}>
+        <ConsultingStaffLayout />
+      </ProtectedRoute>),
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <Order />,
       },
+      {
+        path: "requests/detail/:id",
+        element: <RequestDetailConsul />,
+      },
     ],
   },
   {
     path: "/valuationStaff",
-    element: <ProtectedRoute requiredRoles={['Valuation Staff']}><ValuationStaffLayout /></ProtectedRoute>,
+    element: (
+      <ProtectedRoute requiredRoles={['Valuation Staff']}>
+        <ValuationStaffLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <Request />,
       },
+      {
+        path: "requests/detail/:id",
+        element: <RequestDetail />,
+      },
+      {
+        path: "valuation/:id",
+        element: <Valuation />,
+      },
+      {
+        path: "valuationResult",
+        element: <ValuationResult />,
+      }
     ],
   },
   {
