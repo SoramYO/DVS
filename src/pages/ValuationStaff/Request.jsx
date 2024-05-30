@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Card, Row, Col, Radio } from "antd";
+import { Space, Table, Tag, Card, Row, Col } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { EditOutlined } from "@ant-design/icons";
@@ -7,8 +7,6 @@ import MySpin from "../../components/MySpin";
 
 const Request = () => {
   const [requests, setRequests] = useState([]);
-  const [filter, setFilter] = useState("All");
-  const [serviceFilter, setServiceFilter] = useState("All");
 
   useEffect(() => {
     const getAllRequests = async () => {
@@ -98,7 +96,7 @@ const Request = () => {
       key: "detail",
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/requests/detail/${record.RequestID}`}>
+          <Link to={`/valuationStaff/requests/detail/${record.RequestID}`}>
             <EditOutlined />
           </Link>
         </Space>
@@ -106,23 +104,10 @@ const Request = () => {
     },
   ];
 
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
-  };
-
-  const handleServiceFilterChange = (e) => {
-    setServiceFilter(e.target.value);
-  };
-
   const filteredRequests = requests.filter(request => {
-    if (filter !== "All" && request.processStatus !== filter) {
-      return false;
-    }
-    if (serviceFilter !== "All" && request.serviceName !== serviceFilter) {
-      return false;
-    }
-    return true;
+    return request.processStatus === "Received";
   });
+
 
   if (!requests.length) return <MySpin />;
 
@@ -134,29 +119,6 @@ const Request = () => {
             bordered={false}
             className="criclebox tablespace mb-24"
             title="Requests Table"
-            extra={
-              <>
-                <div style={{ margin: " 10px 0 10px 0" }}>
-                  <Radio.Group onChange={handleFilterChange} defaultValue="All">
-                    <Radio.Button value="All">All</Radio.Button>
-                    <Radio.Button value="Pending">Pending</Radio.Button>
-                    <Radio.Button value="Approved">Approved</Radio.Button>
-                    <Radio.Button value="Received">Received</Radio.Button>
-                    <Radio.Button value="Valuated">Valuated</Radio.Button>
-                    <Radio.Button value="Completed">Completed</Radio.Button>
-                    <Radio.Button value="Locked">Locked</Radio.Button>
-                    <Radio.Button value="Losted">Losted</Radio.Button>
-                  </Radio.Group>
-                </div>
-                <div style={{ margin: " 10px 0 10px 0" }}>
-                  <Radio.Group onChange={handleServiceFilterChange} defaultValue="All">
-                    <Radio.Button value="All">All</Radio.Button>
-                    <Radio.Button value="Vip">VIP</Radio.Button>
-                    <Radio.Button value="Normal">Normal</Radio.Button>
-                  </Radio.Group>
-                </div>
-              </>
-            }
           >
             <div className="table-responsive">
               <Table
