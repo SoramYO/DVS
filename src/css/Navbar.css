@@ -1,0 +1,78 @@
+.navbarContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+    border-bottom: 1px solid black;
+}
+.navbarLeft{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.navbarLogo{
+    width: 150px;
+    cursor: pointer;
+}
+.navbarMenu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+.navbarMenu h5{
+    font-size: 20px;
+    margin-right: 40px;
+}
+.navbarRight{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.searchContainer{
+    width: 400px;
+    padding: 10px;
+    display: flex;
+    border-radius: 10px;
+    margin-right: 60px;
+    border: 1px solid gray;
+}
+.searchContainer input{
+    width: 90%;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+}
+.searchIcon{
+    font-size: 25px;
+    margin-right: 20px;
+}
+.signInButton{
+    background-color: #3E9C35;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.profileContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profileContainer p{
+    font-size: 18px;
+}
+.userIcon{
+    font-size: 25px;
+    margin-right: 20px;
+}
