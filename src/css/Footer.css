@@ -2,25 +2,64 @@
     padding: 20px;
     background-color: #f8f8f8;
     display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
-h1{
+h1 {
     margin-bottom: 10px;
 }
+
 .contact-information,
 .newsletter {
     margin-bottom: 20px;
     flex: 5;
+    margin-left: 10px;
 }
 
-.contact-information h3,
-.newsletter h3 {
+.contact-information h1,
+.newsletter h1 {
     margin-bottom: 10px;
 }
 
-.newsletter h3 {
+.newsletter h1 {
+    text-align: center;
+}
+
+.newsletter h1 {
     flex: 7;
+}
+
+.email-form {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.email-form input[type="email"] {
+    padding: 10px;
+    font-size: 16px;
+    flex: 1;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.email-form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.email-form button:hover {
+    background-color: green;
 }
 
 .contact-item .icon {
@@ -37,3 +76,12 @@ h1{
     cursor: pointer;
     border-radius: 10px;
 }
+
+.contact-item {
+    font-size: 18px;
+}
+.footer-band{
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
