@@ -1,0 +1,130 @@
+.homepage {
+    font-family: Arial, sans-serif;
+}
+
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-content,
+.hero-image {
+    flex: 1;
+}
+
+.hero-content {
+    margin-right: 20px;
+}
+
+.hero-section h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    margin-bottom: 10px;
+    font-weight: 10px;
+}
+
+.valuation-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    font-size: 25px;
+    width: 250px;
+    height: 50px;
+    margin: 20px;
+}
+
+.hero-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.help-section {
+    padding: 20px;
+
+}
+
+.help-section-detail {
+    display: flex;
+    width: 100%;
+}
+
+.help-section h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 50px;
+}
+
+.help-cards {
+    flex: 7;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.help-cards p{
+    margin-top: 10px;
+}
+
+.check-price {
+    background-color: #f8f8f8;
+    padding: 15px;
+    margin: 10px;
+    flex: 5;
+    min-width: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    background-color: #f8f8f8;
+    padding: 15px;
+    margin: 10px;
+    flex: 6;
+    min-width: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.check-price-button {
+    display: block;
+    margin: 20px auto;
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 25px;
+    width: 250px;
+    height: 50px;
+}
+
+.footer {
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.contact-information,
+.newsletter {
+    margin-bottom: 20px;
+}
+
+.contact-information h3,
+.newsletter h3 {
+    margin-bottom: 10px;
+}
+
+.subscribe-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}

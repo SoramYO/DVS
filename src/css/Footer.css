@@ -1,0 +1,22 @@
+.footer {
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.contact-information,
+.newsletter {
+    margin-bottom: 20px;
+}
+
+.contact-information h3,
+.newsletter h3 {
+    margin-bottom: 10px;
+}
+
+.subscribe-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
