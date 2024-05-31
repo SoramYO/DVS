@@ -14,7 +14,6 @@ const Request = () => {
                 .get("http://localhost:8080/api/requests", { withCredentials: true })
                 .then((res) => {
                     setRequests(res.data.requests);
-                    console.log(res.data.requests);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -23,6 +22,7 @@ const Request = () => {
         getAllRequests();
     }, []);
 
+    console.log(requests)
     const statusColors = {
         Pending: "blue",
         Approved: "green",
@@ -75,26 +75,28 @@ const Request = () => {
         },
         {
             title: "Process",
-            key: "process",
-            render: (text, record) => (
-                <Tag color={statusColors[record.processStatus]}>
-                    {record.processStatus}
+            dataIndex: "processStatus",
+            key: "processStatus",
+            render: (record) => (
+                <Tag color={statusColors[record]}>
+                    {record}
                 </Tag>
             ),
         },
         {
             title: "Service",
-            key: "service",
-            render: (text, record) => (
-                <Tag color={serviceColors[record.serviceName]}>
-                    {record.serviceName}
+            dataIndex: "serviceName",
+            key: "serviceName",
+            render: (record) => (
+                <Tag color={serviceColors[record]}>
+                    {record}
                 </Tag>
             ),
         },
         {
             title: "Detail",
             key: "detail",
-            render: (text, record) => (
+            render: (record) => (
                 <Space size="middle">
                     <Link to={`/valuationStaff/requests/detail/${record.RequestID}`}>
                         <EditOutlined />
