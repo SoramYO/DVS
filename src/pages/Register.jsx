@@ -1,98 +1,154 @@
-import React, { useState } from "react";
+import React from "react";
+import { Button, Form, Input, message, Row, Col } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import "../css/Register.css";
-import { message } from "antd";
 import axios from "axios";
+import '../css/Register.css';
+import { CheckOutlined } from "@ant-design/icons";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-  });
-  const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
-  };
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const [form] = Form.useForm();
 
-    try {
-      await axios
-        .post("http://localhost:8080/api/register", credentials)
-        .then((res) => {
-          message.success(res.data.message);
-          navigate("/login");
-        });
-    } catch (err) {
-      message.error(err.response.data.message);
-    }
+  const onFinish = (values) => {
+    axios
+      .post("http://localhost:8080/api/users", values, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        message.success("Created successfully");
+        navigate("/accounts");
+      })
+      .catch((error) => {
+        message.error(error.response.data.message);
+      });
   };
+
+  const styleText = {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "10px",
+  };
+
+  const styleIcon = {
+    paddingRight: "4px",
+    fontSize: "20px",
+  };
+
   return (
-    <div className="registerContainer">
-      <div className="registerImageContent">
-        <img
-          src="https://static.scientificamerican.com/sciam/cache/file/D78728AD-1FD6-431E-9F2933C6D544D339_source.jpg?w=1200"
-          alt=""
-          className="registerImage"
-        />
-      </div>
-      <div className="registerForm">
-        <h2>Register</h2>
-        <div className="registerInput">
-          <input
-            type="text"
-            placeholder="Username"
-            id="username"
-            value={credentials.username}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
-            value={credentials.password}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="First Name"
-            id="firstName"
-            value={credentials.firstName}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            id="lastName"
-            value={credentials.lastName}
-            onChange={handleChange}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            id="email"
-            value={credentials.email}
-            onChange={handleChange}
-          />
-          <input
-            type="phone"
-            placeholder="Phone"
-            id="phone"
-            value={credentials.phone}
-            onChange={handleChange}
-          />
-          <button onClick={handleClick}>Create an account</button>
+    <Row className="register-container">
+      <Col span={12} className="info-section">
+        <div className="hero-content">
+          <h2>Diamond Valuation</h2>
+          <ul>
+            <div style={styleText}>
+              <CheckOutlined style={styleIcon} />
+              <li>Quick and free sign-up<br />Enter your email address to create an account.</li>
+            </div>
+            <div style={styleText}>
+              <CheckOutlined style={styleIcon} />
+              <li>Get started quickly<br />Once signed up immediately start favoriting diamonds and setting price alerts.</li>
+            </div>
+            <div style={styleText}>
+              <CheckOutlined style={styleIcon} />
+              <li>Trusted by buyers<br />Thousands have trusted us to get the best diamond.</li>
+            </div>
+          </ul>
         </div>
-        <div className="loginLink">
-          Already has an account
-          <Link to={"/login"}>Sign in</Link>
+      </Col>
+      <Col span={12} className="form-section">
+        <div className="form-container">
+          <h2>Register</h2>
+          <Form
+            form={form}
+            name="register"
+            onFinish={onFinish}
+            layout="vertical"
+          >
+            <Form.Item
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your username!",
+                },
+              ]}
+            >
+              <Input placeholder="Username" />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <Input.Password placeholder="Password" />
+            </Form.Item>
+            <Form.Item
+              name="firstName"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your first name!",
+                },
+              ]}
+            >
+              <Input placeholder="First Name" />
+            </Form.Item>
+            <Form.Item
+              name="lastName"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your last name!",
+                },
+              ]}
+            >
+              <Input placeholder="Last Name" />
+            </Form.Item>
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your email!",
+                },
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+              ]}
+            >
+              <Input placeholder="Email address" />
+            </Form.Item>
+            <Form.Item
+              name="phone"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your phone number!",
+                },
+              ]}
+            >
+              <Input placeholder="Phone" />
+            </Form.Item>
+            <Form.Item>
+              <Button className="button-create" type="primary" htmlType="submit" block>
+                Create an account
+              </Button>
+            </Form.Item>
+            <Form.Item>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <div>Already has an account?</div>
+                <Link style={{ paddingLeft: "10px" }} to={"/login"}>Login</Link>
+              </div>
+            </Form.Item>
+          </Form>
         </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 

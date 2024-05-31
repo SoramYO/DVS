@@ -40,7 +40,7 @@ const Navbar = () => {
       <div className="navbarRight">
         <div className="searchContainer">
           <SearchOutlined className="searchIcon" />
-          <input type="text" placeholder="search..." />
+          <input type="text" placeholder="Search..." />
         </div>
         {!user ? (
           <Link to={"/login"}>

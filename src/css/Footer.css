@@ -85,3 +85,7 @@ h1 {
     height: auto;
     margin-top: 20px;
   }
+.footer-content{
+    display: flex;
+    
+}

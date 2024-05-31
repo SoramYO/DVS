@@ -23,6 +23,16 @@ export const route = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
+      {
+        path: "/login",
+        element: <Login />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+        errorElement: <ErrorPage />,
+      },
     ],
   },
   {

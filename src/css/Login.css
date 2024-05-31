@@ -59,6 +59,11 @@
     text-align: center;
     font-size: 25px;
 }
+.loginButton:hover{
+    background-color: #4096f8;
+    color: white;
+    cursor: pointer;
+}
 
 .registerLink{
     font-size: 20px;

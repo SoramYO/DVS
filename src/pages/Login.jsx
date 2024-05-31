@@ -57,7 +57,7 @@ const Login = () => {
     <div className="loginContainer">
       <div className="loginImageContent">
         <img
-          src="https://static.scientificamerican.com/sciam/cache/file/D78728AD-1FD6-431E-9F2933C6D544D339_source.jpg?w=1200"
+          src="https://cdn.dribbble.com/users/22930/screenshots/2063689/media/0979e0e7470ae3c789cc23202826d5b2.gif"
           alt=""
           className="loginImage"
         />
@@ -79,7 +79,7 @@ const Login = () => {
             value={credentials.password}
             onChange={handleChange}
           />
-          <button onClick={handleClick}>Log in</button>
+          <button className="loginButton" onClick={handleClick}>Log in</button>
         </div>
         <div className="registerLink">
           Don't have an account?
