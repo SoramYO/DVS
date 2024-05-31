@@ -2,10 +2,14 @@ import React from 'react';
 import { Row, Col, Card, Button, Typography } from 'antd';
 import { SketchOutlined } from '@ant-design/icons';
 import '../css/HomePage.css';
-
+import { useNavigate } from "react-router-dom";
 const { Title, Paragraph } = Typography;
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const calculateDiamond = () => {
+    navigate(`/calculateDiamond`);
+  };
   return (
     <div className="homepage">
       <section className="hero-section">
@@ -54,7 +58,7 @@ const HomePage = () => {
             <Card>
               <Title level={2}>Check Prices</Title>
               <Paragraph>Track diamond prices with our historical price charts & proprietary diamond price indexes.</Paragraph>
-              <Button type="primary" size="large" className="check-price-button">Check price</Button>
+              <Button type="primary" size="large" className="check-price-button" onClick={calculateDiamond}>Check price</Button>
             </Card>
           </Col>
         </Row>
