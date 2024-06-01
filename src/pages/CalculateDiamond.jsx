@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Layout, Row, Col, Form, Input, Button, Typography, Radio, Card } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGem, faFlask } from '@fortawesome/free-solid-svg-icons';
+import { Layout, Row, Col, Form, Button, Typography, Radio, Card, ConfigProvider, Space, Slider, InputNumber } from 'antd';
+import { TinyColor } from '@ctrl/tinycolor';
+
 import 'antd/dist/reset.css';
 import '../css/CalculateDiamond.css';
 
@@ -58,10 +58,35 @@ const calculateDiamondPrice = (carat, color, clarity) => {
   return totalPrice;
 };
 
+
+const colors1 = ['#253E12', '#2D9EFE'];
+const colors2 = ['#fc6076', '#ff9a44'];
+const colors3 = ['#40e495', '#30dd8a'];
+const colors4 = ['#ff7e5f', '#feb47b'];
+const colors5 = ['#596c7b', '#2a363b'];
+const colors6 = ['#ff9ff3', '#ff79c6'];
+const colors7 = ['#52575d', '#6e7679'];
+const colors8 = ['#ffb997', '#ff6e7f'];
+const colors9 = ['#5d5179', '#f3ff'];
+const colors10 = ['#ff8a5b', '#ff2e63'];
+
+const getHoverColors = (colors) =>
+  colors.map((color) => new TinyColor(color).lighten(5).toString());
+const getActiveColors = (colors) =>
+  colors.map((color) => new TinyColor(color).darken(5).toString());
+
 const CalculateDiamond = () => {
-  const [moreInputs, setMoreInputs] = useState(false);
   const [form] = Form.useForm();
-  const [priceData, setPriceData] = useState(null);
+  const [priceData, setPriceData] = useState(0);
+  const [selectedShape, setSelectedShape] = useState('ROUND');
+  const [selectedColor, setSelectedColor] = useState('D');
+  const [selectedClarity, setSelectedClarity] = useState('IF');
+  const [carat, setInputValue] = useState(0);
+
+  const totalPrice = calculateDiamondPrice(carat, selectedColor, selectedClarity);
+
+
+
 
   const handleFormSubmit = (values) => {
     const { carat, color, clarity } = values;
@@ -69,6 +94,24 @@ const CalculateDiamond = () => {
     setPriceData({ fairPrice: totalPrice, carat, color, clarity });
   };
 
+  const handleShapeChange = (shape) => {
+    setSelectedShape(shape);
+  };
+
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
+  };
+
+  const handleClarityChange = (clarity) => {
+    setSelectedClarity(clarity);
+  };
+
+  const onChange = (value) => {
+    if (isNaN(value)) {
+      return;
+    }
+    setInputValue(value);
+  };
   return (
     <Layout className="layout">
       <Content style={{ padding: '0 50px' }}>
@@ -77,51 +120,268 @@ const CalculateDiamond = () => {
           <Form layout="vertical" className="input-form" form={form} onFinish={handleFormSubmit}>
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item label="Diamond Origin" name="origin" initialValue="natural">
-                  <Radio.Group buttonStyle="solid">
-                    <Radio.Button value="natural">
-                      <FontAwesomeIcon icon={faGem} /> Natural
-                    </Radio.Button>
-                    <Radio.Button value="labGrown">
-                      <FontAwesomeIcon icon={faFlask} /> Lab Grown
-                    </Radio.Button>
-                  </Radio.Group>
+                <Form.Item label="Diamond Shape" name="origin" initialValue="natural">
+                  <Space>
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(135deg, ${colors1.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(135deg, ${getHoverColors(colors1).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(135deg, ${getActiveColors(colors1).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button
+                        type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('ROUND')}
+                        style={{ background: selectedShape === 'ROUND' ? '#1890ff' : '' }}
+                      >
+                        ROUND
+                      </Button>
+                    </ConfigProvider>
+
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(90deg,  ${colors2.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(90deg, ${getHoverColors(colors2).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(90deg, ${getActiveColors(colors2).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('CUSHION')}
+                        style={{ background: selectedShape === 'CUSHION' ? '#1890ff' : '' }}>
+                        CUSHION
+                      </Button>
+                    </ConfigProvider>
+
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(116deg,  ${colors3.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(colors3).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(colors3).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('EMERALD')}
+                        style={{ background: selectedShape === 'EMERALD' ? '#1890ff' : '' }}>
+                        EMERALD
+                      </Button>
+                    </ConfigProvider>
+
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(116deg,  ${colors4.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(colors4).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(colors4).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('OVAL')}
+                        style={{ background: selectedShape === 'OVAL' ? '#1890ff' : '' }}>
+                        OVAL
+                      </Button>
+                    </ConfigProvider>
+
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(116deg,  ${colors5.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(colors5).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(colors5).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('PRINCESS')}
+                        style={{ background: selectedShape === 'PRINCESS' ? '#1890ff' : '' }}>
+                        PRINCESS
+                      </Button>
+                    </ConfigProvider>
+                  </Space>
+                  <Space>
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(116deg,  ${colors6.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(colors6).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(colors6).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('PEAR')}
+                        style={{ background: selectedShape === 'PEAR' ? '#1890ff' : '' }}>
+                        PEAR
+                      </Button>
+                    </ConfigProvider>
+
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(116deg,  ${colors7.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(colors7).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(colors7).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('RADIANT')}
+                        style={{ background: selectedShape === 'RADIANT' ? '#1890ff' : '' }}>
+                        RADIANT
+                      </Button>
+                    </ConfigProvider>
+
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(116deg,  ${colors8.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(colors8).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(colors8).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('MARQUISE')}
+                        style={{ background: selectedShape === 'MARQUISE' ? '#1890ff' : '' }}>
+                        MARQUISE
+                      </Button>
+                    </ConfigProvider>
+
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(116deg,  ${colors9.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(colors9).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(colors9).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('ASSCHER')}
+                        style={{ background: selectedShape === 'ASSCHER' ? '#1890ff' : '' }}>
+                        ASSCHER
+                      </Button>
+                    </ConfigProvider>
+
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Button: {
+                            colorPrimary: `linear-gradient(116deg,  ${colors10.join(', ')})`,
+                            colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(colors10).join(', ')})`,
+                            colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(colors10).join(', ')})`,
+                            lineWidth: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Button type="primary"
+                        size="large"
+                        onClick={() => handleShapeChange('HEART')}
+                        style={{ background: selectedShape === 'HEART' ? '#1890ff' : '' }}>
+                        HEART
+                      </Button>
+                    </ConfigProvider>
+                  </Space>
                 </Form.Item>
               </Col>
-              <Col span={12}>
-                <Form.Item label="Carat Weight" name="carat" rules={[{ required: true, message: 'Please input the carat weight!' }]}>
-                  <Input />
-                </Form.Item>
+              <Col span={24}>
+                <Row>
+                  <Col span={12}>
+                    <Slider
+                      min={0.01}
+                      max={0.89}
+                      onChange={onChange}
+                      value={typeof carat === 'number' ? carat : 0}
+                      step={0.01}
+                    />
+                  </Col>
+                  <Col span={4}>
+                    <InputNumber
+                      min={0}
+                      max={10}
+                      style={{ margin: '0 16px' }}
+                      step={0.01}
+                      value={carat}
+                      onChange={onChange}
+                    />
+                  </Col>
+                </Row>
               </Col>
             </Row>
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item label="Color Grade" name="color" rules={[{ required: true, message: 'Please select the color grade!' }]}>
                   <Radio.Group>
-                    <Radio value="D">D</Radio>
-                    <Radio value="E">E</Radio>
-                    <Radio value="F">F</Radio>
-                    <Radio value="G">G</Radio>
-                    <Radio value="H">H</Radio>
-                    <Radio value="I">I</Radio>
-                    <Radio value="J">J</Radio>
-                    <Radio value="K">K</Radio>
-                    <Radio value="L">L</Radio>
-                    <Radio value="M">M</Radio>
-                    <Radio value="N">N</Radio>
+                    <Button value="D" onClick={() => handleColorChange('D')} style={{ background: selectedColor === 'D' ? '#1890ff' : '#fff', color: selectedColor === 'D' ? '#fff' : '#000' }}>D</Button>
+                    <Button value="E" onClick={() => handleColorChange('E')} style={{ background: selectedColor === 'E' ? '#1890ff' : '#fff', color: selectedColor === 'E' ? '#fff' : '#000' }}>E</Button>
+                    <Button value="F" onClick={() => handleColorChange('F')} style={{ background: selectedColor === 'F' ? '#1890ff' : '#fff', color: selectedColor === 'F' ? '#fff' : '#000' }}>F</Button>
+                    <Button value="G" onClick={() => handleColorChange('G')} style={{ background: selectedColor === 'G' ? '#1890ff' : '#fff', color: selectedColor === 'G' ? '#fff' : '#000' }}>G</Button>
+                    <Button value="H" onClick={() => handleColorChange('H')} style={{ background: selectedColor === 'H' ? '#1890ff' : '#fff', color: selectedColor === 'H' ? '#fff' : '#000' }}>H</Button>
+                    <Button value="I" onClick={() => handleColorChange('I')} style={{ background: selectedColor === 'I' ? '#1890ff' : '#fff', color: selectedColor === 'I' ? '#fff' : '#000' }}>I</Button>
+                    <Button value="J" onClick={() => handleColorChange('J')} style={{ background: selectedColor === 'J' ? '#1890ff' : '#fff', color: selectedColor === 'J' ? '#fff' : '#000' }}>J</Button>
+                    <Button value="K" onClick={() => handleColorChange('K')} style={{ background: selectedColor === 'K' ? '#1890ff' : '#fff', color: selectedColor === 'K' ? '#fff' : '#000' }}>K</Button>
+                    <Button value="L" onClick={() => handleColorChange('L')} style={{ background: selectedColor === 'L' ? '#1890ff' : '#fff', color: selectedColor === 'L' ? '#fff' : '#000' }}>L</Button>
+                    <Button value="M" onClick={() => handleColorChange('M')} style={{ background: selectedColor === 'M' ? '#1890ff' : '#fff', color: selectedColor === 'M' ? '#fff' : '#000' }}>M</Button>
                   </Radio.Group>
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item label="Clarity Grade" name="clarity" rules={[{ required: true, message: 'Please select the clarity grade!' }]}>
                   <Radio.Group>
-                    <Radio value="IF">IF</Radio>
-                    <Radio value="VVS1">VVS1</Radio>
-                    <Radio value="VVS2">VVS2</Radio>
-                    <Radio value="VS1">VS1</Radio>
-                    <Radio value="VS2">VS2</Radio>
-                    <Radio value="SI1">SI1</Radio>
-                    <Radio value="SI2">SI2</Radio>
+                    <Button value="IF" onClick={() => handleClarityChange('IF')} style={{ background: selectedClarity === 'IF' ? '#1890ff' : '#fff', color: selectedClarity === 'IF' ? '#fff' : '#000' }}>IF</Button>
+                    <Button value="VVS1" onClick={() => handleClarityChange('VVS1')} style={{ background: selectedClarity === 'VVS1' ? '#1890ff' : '#fff', color: selectedClarity === 'VVS1' ? '#fff' : '#000' }}>VVS1</Button>
+                    <Button value="VVS2" onClick={() => handleClarityChange('VVS2')} style={{ background: selectedClarity === 'VVS2' ? '#1890ff' : '#fff', color: selectedClarity === 'VVS2' ? '#fff' : '#000' }}>VVS2</Button>
+                    <Button value="VS1" onClick={() => handleClarityChange('VS1')} style={{ background: selectedClarity === 'VS1' ? '#1890ff' : '#fff', color: selectedClarity === 'VS1' ? '#fff' : '#000' }}>VS1</Button>
+                    <Button value="VS2" onClick={() => handleClarityChange('VS2')} style={{ background: selectedClarity === 'VS2' ? '#1890ff' : '#fff', color: selectedClarity === 'VS2' ? '#fff' : '#000' }}>VS2</Button>
+                    <Button value="SI1" onClick={() => handleClarityChange('SI1')} style={{ background: selectedClarity === 'SI1' ? '#1890ff' : '#fff', color: selectedClarity === 'SI1' ? '#fff' : '#000' }}>SI1</Button>
+                    <Button value="SI2" onClick={() => handleClarityChange('SI2')} style={{ background: selectedClarity === 'SI2' ? '#1890ff' : '#fff', color: selectedClarity === 'SI2' ? '#fff' : '#000' }}>SI2</Button>
+                    <Button value="SI3" onClick={() => handleClarityChange('SI3')} style={{ background: selectedClarity === 'SI3' ? '#1890ff' : '#fff', color: selectedClarity === 'SI3' ? '#fff' : '#000' }}>SI3</Button>
+                    <Button value="I1" onClick={() => handleClarityChange('I1')} style={{ background: selectedClarity === 'I1' ? '#1890ff' : '#fff', color: selectedClarity === 'I1' ? '#fff' : '#000' }}>I1</Button>
+                    <Button value="I2" onClick={() => handleClarityChange('I2')} style={{ background: selectedClarity === 'I2' ? '#1890ff' : '#fff', color: selectedClarity === 'I2' ? '#fff' : '#000' }}>I2</Button>
+                    <Button value="I3" onClick={() => handleClarityChange('I3')} style={{ background: selectedClarity === 'I3' ? '#1890ff' : '#fff', color: selectedClarity === 'I3' ? '#fff' : '#000' }}>I3</Button>
                   </Radio.Group>
                 </Form.Item>
               </Col>
@@ -130,17 +390,20 @@ const CalculateDiamond = () => {
               <Button type="primary" htmlType="submit">Calculate Price</Button>
             </Form.Item>
           </Form>
-          {priceData && (
-            <Card title="Price Information">
-              <Paragraph>Carat: {priceData.carat}</Paragraph>
-              <Paragraph>Color: {priceData.color}</Paragraph>
-              <Paragraph>Clarity: {priceData.clarity}</Paragraph>
-              <Paragraph>Fair Price: ${priceData.fairPrice.toFixed(2)}</Paragraph>
-            </Card>
-          )}
+          <Card title="Price Information">
+            {priceData && (
+              <>
+                <Paragraph>Carat: {priceData.carat}</Paragraph>
+                <Paragraph>Color: {priceData.color}</Paragraph>
+                <Paragraph>Clarity: {priceData.clarity}</Paragraph>
+                <Paragraph>Fair Price: ${priceData.fairPrice.toFixed(2)}</Paragraph>
+                <Paragraph>Total Price: ${totalPrice.toFixed(2)}</Paragraph>
+              </>
+            )}
+          </Card>
         </div>
       </Content>
-    </Layout>
+    </Layout >
   );
 };
 
