@@ -10,6 +10,7 @@ const HomePage = () => {
   const calculateDiamond = () => {
     navigate(`/calculateDiamond`);
   };
+
   return (
     <div className="homepage">
       <section className="hero-section">

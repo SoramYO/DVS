@@ -11,6 +11,8 @@ import {
   Modal,
   Select,
   message,
+  Image,
+  Space,
 } from "antd";
 import {
   UserOutlined,
@@ -52,7 +54,18 @@ const RequestDetail = () => {
     setIsModalVisible(true);
   };
 
-  const valuation = () => {
+  const valuation = async () => {
+    try {
+      await axios.put(
+        `http://localhost:8080/api/changeProcess/${id}`,
+        {
+          processId: 4,
+        },
+        { withCredentials: true }
+      );
+    } catch (error) {
+      message.error("Cập nhật trạng thái xử lý thất bại");
+    }
     navigate(`/valuationStaff/valuation/${request.RequestID}`);
   };
 
@@ -213,12 +226,23 @@ const RequestDetail = () => {
         </Col>
         <Col span={8} className="diamond-card-container">
           <Card title="Ảnh kim cương" bordered={false} className="info-card">
-            <img
-              src={request.requestImage}
-              alt="Request"
-              className="diamond-image"
-            />
+            <Image.PreviewGroup>
+              <Space size={12}>
+                <Image
+                  width={200}
+                  src={request.requestImage}
+                  placeholder={
+                    <Image
+                      preview={false}
+                      src={request.requestImage}
+                      width={200}
+                    />
+                  }
+                />
+              </Space>
+            </Image.PreviewGroup>
           </Card>
+
         </Col>
       </Row>
       <Button

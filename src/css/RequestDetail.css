@@ -51,6 +51,10 @@
   align-items: center;
 
 }
+.header-container p{
+  padding-left: 150px;
+
+}
 
 .icon-request {
   display: flex;

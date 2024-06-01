@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Card, List, Spin, Button, Form, Input, Select, message } from "antd";
+import { Row, Col, Card, List, Spin, Button, Form, Input, Select, message, Steps } from "antd";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 const { Option } = Select;
@@ -49,6 +49,13 @@ function Valuation() {
 
     const handleSubmit = async () => {
         try {
+            await axios.put(
+                `http://localhost:8080/api/changeProcess/${id}`,
+                {
+                    processId: 5,
+                },
+                { withCredentials: true }
+            );
             await form.validateFields();
             const values = form.getFieldsValue();
             const response = await axios.put(`http://localhost:8080/api/valuation/${id}`, values, { withCredentials: true });
@@ -71,20 +78,25 @@ function Valuation() {
                     <Card
                         bordered={false}
                         className="header-solid h-full ant-invoice-card"
-                        title={<h6 className="font-semibold m-0">Invoices</h6>}
+                        title={<h6 className="font-semibold m-2">Process</h6>}
                     >
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={results}
-                            renderItem={(item) => (
-                                <List.Item onClick={() => handleResultChange(item)}>
-                                    <List.Item.Meta
-                                        title={<a href="#">{item.companyName}</a>}
-                                        description={`Date Valued: ${new Date(item.dateValued).toLocaleDateString("en-GB")}`}
-                                    />
-                                    <div className="amount">{`$${item.price}`}</div>
-                                </List.Item>
-                            )}
+                        <Steps
+                            direction="vertical"
+                            current={1}
+                            items={[
+                                {
+                                    title: 'Received',
+                                    description: "The diamond has been received by the valuation staff.",
+                                },
+                                {
+                                    title: 'In Progress',
+                                    description: "The diamond is being valuated by the valuation staff.",
+                                },
+                                {
+                                    title: 'Done',
+                                    description: "The diamond has been valuated by the valuation staff.",
+                                },
+                            ]}
                         />
                     </Card>
                 </Col>
