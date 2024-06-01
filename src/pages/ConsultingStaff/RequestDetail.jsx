@@ -37,10 +37,6 @@ const RequestDetail = () => {
     setIsModalVisible(true);
   };
 
-  const valuation = () => {
-    navigate(`/valuationStaff/valuation/${request.RequestID}`);
-  }
-
   const handleOk = async () => {
     try {
       await axios.put(`http://localhost:8080/api/changeProcess/${id}`, {

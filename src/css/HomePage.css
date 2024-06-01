@@ -1,107 +1,74 @@
 .homepage {
     font-family: Arial, sans-serif;
+    padding: 20px;
 }
 
 .hero-section {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     padding: 20px;
+    position: relative;
 }
 
-.hero-content,
-.hero-image {
-    flex: 1;
+.hero-content-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .hero-content {
-    margin-right: 20px;
-}
-
-.hero-section h1 {
-    font-size: 50px;
-    margin-bottom: 10px;
-}
-
-.hero-section p {
-    margin-bottom: 10px;
-    font-weight: 10px;
+    padding-right: 20px;
 }
 
 .valuation-button {
-    background-color: green;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    border: none;
-    font-size: 25px;
-    width: 250px;
-    height: 50px;
-    margin: 20px;
+    margin-top: 20px;
 }
 
 .hero-image {
-    max-width: 100%;
+    flex: 5; /* 60% */
+    max-width: 60%;
     height: auto;
+}
+
+.hero-svg {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    z-index: -1;
 }
 
 .help-section {
     padding: 20px;
+    position: relative;
+}
 
+.help-title {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .help-section-detail {
     display: flex;
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.help-section h1 {
+.help-card {
+    background-color: #f8f8f8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 10px;
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 50px;
-}
-
-.help-cards {
-    flex: 7;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.help-cards p{
-    margin-top: 10px;
 }
 
 .check-price {
-    background-color: #f8f8f8;
-    padding: 15px;
-    margin: 10px;
-    flex: 5;
-    min-width: 200px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.card {
-    background-color: #f8f8f8;
-    padding: 15px;
-    margin: 10px;
-    flex: 6;
-    min-width: 200px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 20px;
 }
 
 .check-price-button {
-    display: block;
-    margin: 20px auto;
-    background-color: green;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 10px;
-    font-size: 25px;
-    width: 250px;
-    height: 50px;
+    margin-top: 20px;
 }
