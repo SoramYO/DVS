@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
-import "../css/Navbar.css";
-import { AuthContext } from "../context/AuthContext";
+import { Menu, Dropdown, Button, Input } from "antd";
 import { Link } from "react-router-dom";
-import { Menu, Dropdown } from "antd";
+import { AuthContext } from "../context/AuthContext";
+import "../css/Navbar.css";
 
 const Navbar = () => {
   const { user, dispatch } = useContext(AuthContext);
+
   const logout = () => {
     dispatch({ type: "LOGOUT" });
   };
+
   const userMenu = (
     <Menu>
       <Menu.Item key="profile">
@@ -20,31 +22,39 @@ const Navbar = () => {
       </Menu.Item>
     </Menu>
   );
+
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
         <div className="navbarLogo">
-          <img
-            src="https://marketplace.canva.com/EAFqberfhMA/1/0/1600w/canva-black-gold-luxury-modern-diamond-brand-store-logo-VmwEPkcpqzE.jpg"
-            alt=""
-            style={{ width: "100%" }}
-          />
+          <Link to="/">
+            <img
+              src="https://marketplace.canva.com/EAFqberfhMA/1/0/1600w/canva-black-gold-luxury-modern-diamond-brand-store-logo-VmwEPkcpqzE.jpg"
+              alt="Logo"
+              style={{ width: "100%" }}
+            />
+          </Link>
         </div>
         <div className="navbarMenu">
-          <h5>Diamonds</h5>
-          <h5>Education</h5>
-          <h5>Guides</h5>
-          <h5>Services</h5>
+          <Link to="/diamonds">Diamonds</Link>
+          <Link to="/education">Education</Link>
+          <Link to="/guides">Guides</Link>
+          <Link to="/services">Services</Link>
         </div>
       </div>
       <div className="navbarRight">
         <div className="searchContainer">
-          <SearchOutlined className="searchIcon" />
-          <input type="text" placeholder="Search..." />
+          <Input
+            prefix={<SearchOutlined className="searchIcon" />}
+            placeholder="Search..."
+            className="searchInput"
+          />
         </div>
         {!user ? (
-          <Link to={"/login"}>
-            <button className="signInButton">Sign in</button>
+          <Link to="/login">
+            <Button type="primary" className="signInButton">
+              Sign in
+            </Button>
           </Link>
         ) : (
           <Dropdown overlay={userMenu}>

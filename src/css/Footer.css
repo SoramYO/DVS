@@ -80,10 +80,9 @@ h1 {
 .contact-item {
     font-size: 18px;
 }
-.footer-band{
-    width: 100%;
-    height: auto;
-    margin-top: 20px;
+.footerBand{
+    height: 200px;
+    width: 1825px;
   }
 .footer-content{
     display: flex;
