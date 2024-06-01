@@ -19,7 +19,7 @@ const HomePage = () => {
             <Paragraph>Navigate the diamond knowledge effortlessly.</Paragraph>
             <Button type="primary" size="large" className="valuation-button">Valuation Now</Button>
           </div>
-          <img src="https://th.bing.com/th/id/R.3d9f7532a5285b99aec5702c006ec003?rik=8e%2fVjmdPVzhp1g&riu=http%3a%2f%2fwallsev.com%2fwp-content%2fuploads%2f2014%2f03%2fdiamonds-wallpaper.jpg&ehk=9dTkUU2xuehmYVeOD3ndCxhDTfeVfwwXbPuPeEUARo4%3d&risl=&pid=ImgRaw&r=0" alt="Diamond" className="hero-image" />
+          <img src="https://troyobrien.com.au/wp-content/uploads/2019/05/714B3D35-3343-4FC8-8680-B62C33E41EB8.jpeg" alt="Diamond" className="hero-image" />
         </div>
       </section>
       <hr />

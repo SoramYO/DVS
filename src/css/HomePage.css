@@ -20,7 +20,6 @@
 }
 
 .hero-content {
-    flex: 4; /* 40% */
     padding-right: 20px;
 }
 
@@ -29,8 +28,8 @@
 }
 
 .hero-image {
-    flex: 6; /* 60% */
-    max-width: 70%;
+    flex: 5; /* 60% */
+    max-width: 60%;
     height: auto;
 }
 
