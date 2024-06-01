@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Space, Table, Tag, Card, Row, Col } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, CheckCircleOutlined, InboxOutlined, PhoneOutlined, CloseCircleOutlined, ExclamationCircleOutlined, ClockCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import MySpin from "../../components/MySpin";
 
 const Request = () => {
@@ -22,20 +22,38 @@ const Request = () => {
         getAllRequests();
     }, []);
 
-    console.log(requests)
     const statusColors = {
         Pending: "blue",
-        Approved: "green",
-        Received: "cyan",
+        Called: "cyan",
+        Received: "green",
+        "Start Valuated": "gold",
         Valuated: "purple",
-        Completed: "gold",
-        Locked: "red",
+        Completed: "green",
+        "Pending Locked": "orange",
+        "Pending Losted": "orange",
         Losted: "grey",
+        Locked: "red"
     };
+
     const serviceColors = {
         Vip: "black",
         Normal: "",
     };
+
+    const statusIcons = {
+        Pending: <ClockCircleOutlined />,
+        Called: <PhoneOutlined />,
+        Received: <InboxOutlined />,
+        "Start Valuated": <ClockCircleOutlined />,
+        Valuated: <ExclamationCircleOutlined />,
+        Completed: <CheckCircleOutlined />,
+        "Pending Locked": <ClockCircleOutlined />,
+        "Pending Losted": <ClockCircleOutlined />,
+        Losted: <MinusCircleOutlined />,
+        Locked: <CloseCircleOutlined />
+    };
+
+
 
     const columns = [
         {
@@ -75,11 +93,10 @@ const Request = () => {
         },
         {
             title: "Process",
-            dataIndex: "processStatus",
-            key: "processStatus",
-            render: (record) => (
-                <Tag color={statusColors[record]}>
-                    {record}
+            key: "process",
+            render: (text, record) => (
+                <Tag icon={statusIcons[record.processStatus]} color={statusColors[record.processStatus]}>
+                    {record.processStatus}
                 </Tag>
             ),
         },

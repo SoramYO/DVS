@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Card, Row, Col } from "antd";
+import { Space, Table, Tag, Card, Row, Col, FloatButton } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, CheckCircleOutlined, InboxOutlined, PhoneOutlined, CloseCircleOutlined, ExclamationCircleOutlined, ClockCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import MySpin from "../../components/MySpin";
 
 const Request = () => {
@@ -10,31 +10,46 @@ const Request = () => {
 
   useEffect(() => {
     const getAllRequests = async () => {
-      await axios
-        .get("http://localhost:8080/api/requests", { withCredentials: true })
-        .then((res) => {
-          setRequests(res.data.requests);
-          console.log(res.data.requests);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      try {
+        const res = await axios.get("http://localhost:8080/api/requests", { withCredentials: true });
+        setRequests(res.data.requests);
+        console.log(res.data.requests);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getAllRequests();
   }, []);
 
   const statusColors = {
     Pending: "blue",
-    Approved: "green",
-    Received: "cyan",
+    Called: "cyan",
+    Received: "green",
+    "Start Valuated": "gold",
     Valuated: "purple",
-    Completed: "gold",
-    Locked: "red",
+    Completed: "green",
+    "Pending Locked": "orange",
+    "Pending Losted": "orange",
     Losted: "grey",
+    Locked: "red"
   };
+
   const serviceColors = {
     Vip: "black",
     Normal: "",
+  };
+
+  const statusIcons = {
+    Pending: <ClockCircleOutlined />,
+    Called: <PhoneOutlined />,
+    Received: <InboxOutlined />,
+    "Start Valuated": <ClockCircleOutlined />,
+    Valuated: <ExclamationCircleOutlined />,
+    Completed: <CheckCircleOutlined />,
+    "Pending Locked": <ClockCircleOutlined />,
+    "Pending Losted": <ClockCircleOutlined />,
+    Losted: <MinusCircleOutlined />,
+    Locked: <CloseCircleOutlined />
   };
 
   const columns = [
@@ -77,7 +92,7 @@ const Request = () => {
       title: "Process",
       key: "process",
       render: (text, record) => (
-        <Tag color={statusColors[record.processStatus]}>
+        <Tag icon={statusIcons[record.processStatus]} color={statusColors[record.processStatus]}>
           {record.processStatus}
         </Tag>
       ),
@@ -105,14 +120,21 @@ const Request = () => {
   ];
 
   const filteredRequests = requests.filter(request => {
-    return request.processStatus === "Received";
+    return request.processStatus === "Received" || request.processStatus === "Start Valuated";
   });
-
 
   if (!requests.length) return <MySpin />;
 
   return (
     <div className="tabled">
+      <FloatButton
+        href=""
+        tooltip={<div>New diamond for valuate</div>}
+        badge={{
+          count: filteredRequests.length,
+          color: 'blue',
+        }}
+      />
       <Row gutter={[24, 0]}>
         <Col xs="24" xl={24}>
           <Card

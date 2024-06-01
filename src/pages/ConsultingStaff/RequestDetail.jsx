@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Card, Row, Col, Spin, Typography, Button, Modal, Select, message } from "antd";
+import { Card, Row, Col, Spin, Typography, Button, Modal, Select, message, Image, Space } from "antd";
 import { UserOutlined, InfoCircleOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import "../../css/RequestDetail.css";
 
@@ -31,7 +31,7 @@ const RequestDetail = () => {
 
   useEffect(() => {
     getRequestDetail();
-  },);
+  }, [id]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -130,8 +130,23 @@ const RequestDetail = () => {
         </Col>
         <Col span={8} className="diamond-card-container">
           <Card title="Ảnh kim cương" bordered={false} className="info-card">
-            <img src={request.requestImage} alt="Request" className="diamond-image" />
+            <Image.PreviewGroup>
+              <Space size={12}>
+                <Image
+                  width={200}
+                  src={request.requestImage}
+                  placeholder={
+                    <Image
+                      preview={false}
+                      src={request.requestImage}
+                      width={200}
+                    />
+                  }
+                />
+              </Space>
+            </Image.PreviewGroup>
           </Card>
+
         </Col>
       </Row>
       <Modal title="Chỉnh trạng thái xử lý" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
