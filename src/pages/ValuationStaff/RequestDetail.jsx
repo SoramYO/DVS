@@ -59,7 +59,7 @@ const RequestDetail = () => {
       await axios.put(
         `http://localhost:8080/api/changeProcess/${id}`,
         {
-          processId: 4,
+          processId: 5,
         },
         { withCredentials: true }
       );
