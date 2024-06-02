@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Card, List, Spin, Button, Form, Input, Select, message, Steps } from "antd";
+import { Row, Col, Card, Spin, Button, Form, Input, Select, message, Steps } from "antd";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 const { Option } = Select;
@@ -37,11 +37,6 @@ function Valuation() {
     if (!results) {
         return <div>No request found</div>;
     }
-
-    const handleResultChange = (result) => {
-        setSelectedResult(result);
-        form.setFieldsValue(result);
-    };
 
     const handleFormChange = (changedFields) => {
         setSelectedResult((prevResult) => ({ ...prevResult, ...changedFields }));
