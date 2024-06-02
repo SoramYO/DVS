@@ -14,7 +14,7 @@ function Valuation() {
     useEffect(() => {
         const getAllRequests = async () => {
             await axios
-                .get("http://localhost:8080/api/results", { withCredentials: true })
+                .get("https://dvs-be-kappa.vercel.app/api/results", { withCredentials: true })
                 .then((res) => {
                     setResults(res.data.results);
                     setSelectedResult(res.data.results[0]);
@@ -50,7 +50,7 @@ function Valuation() {
     const handleSubmit = async () => {
         try {
             await axios.put(
-                `http://localhost:8080/api/changeProcess/${id}`,
+                `https://dvs-be-kappa.vercel.app/api/changeProcess/${id}`,
                 {
                     processId: 5,
                 },
@@ -58,7 +58,7 @@ function Valuation() {
             );
             await form.validateFields();
             const values = form.getFieldsValue();
-            const response = await axios.put(`http://localhost:8080/api/valuation/${id}`, values, { withCredentials: true });
+            const response = await axios.put(`https://dvs-be-kappa.vercel.app/api/valuation/${id}`, values, { withCredentials: true });
             if (response.data.errCode === 0) {
                 message.success(response.data.message);
                 valuation();
