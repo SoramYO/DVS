@@ -34,7 +34,7 @@ const RequestDetail = () => {
 
   const getRequestDetail = async () => {
     try {
-      const res = await axios.get(`https://dvs-be-kappa.vercel.app/api/requests/${id}`, {
+      const res = await axios.get(`http://soramyo.id.vn/api/requests/${id}`, {
         withCredentials: true,
       });
       setRequest(res.data.request[0]);
@@ -57,7 +57,7 @@ const RequestDetail = () => {
   const valuation = async () => {
     try {
       await axios.put(
-        `https://dvs-be-kappa.vercel.app/api/changeProcess/${id}`,
+        `http://soramyo.id.vn/api/changeProcess/${id}`,
         {
           processId: 5,
         },
@@ -72,7 +72,7 @@ const RequestDetail = () => {
   const handleOk = async () => {
     try {
       await axios.put(
-        `https://dvs-be-kappa.vercel.app/api/changeProcess/${id}`,
+        `http://soramyo.id.vn/api/changeProcess/${id}`,
         {
           processId,
         },

@@ -11,7 +11,7 @@ const Register = () => {
 
   const onFinish = (values) => {
     axios
-      .post("https://dvs-be-kappa.vercel.app/api/users", values, {
+      .post("http://soramyo.id.vn/api/users", values, {
         withCredentials: true,
       })
       .then((res) => {

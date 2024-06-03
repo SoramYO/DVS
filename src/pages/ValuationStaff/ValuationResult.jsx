@@ -11,7 +11,7 @@ const Request = () => {
     useEffect(() => {
         const getAllRequests = async () => {
             await axios
-                .get("https://dvs-be-kappa.vercel.app/api/requests", { withCredentials: true })
+                .get("http://soramyo.id.vn/api/requests", { withCredentials: true })
                 .then((res) => {
                     setRequests(res.data.requests);
                 })
