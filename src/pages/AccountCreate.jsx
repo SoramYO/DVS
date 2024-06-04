@@ -26,7 +26,7 @@ const AccountCreate = () => {
 
   const onFinish = (values) => {
     axios
-      .post("http://localhost:8080/api/users", values, {
+      .post("http://soramyo.id.vn/api/users", values, {
         withCredentials: true,
       })
       .then((res) => {

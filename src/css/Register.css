@@ -1,41 +1,42 @@
-.register-container {
+.benefit-container {
     display: flex;
     min-height: 100vh;
   }
   
   .info-section,
   .form-section {
-    background-color: #ffffff; /* Set the same background color for both sections */
+    background-color: #ffffff; 
   }
   
   .info-section {
     padding: 50px;
-
   }
   
-  .hero-content {
+  .benefit-content {
     max-width: 400px;
     margin-top: 100px;
     margin-left: 200px;
   }
   
-  .hero-content h2 {
+  .benefit-content h2 {
     font-size: 24px;
     margin-bottom: 20px;
   }
   
-  .hero-content ul {
+  .benefit-content ul {
     list-style: none;
     padding: 0;
   }
   
-  .hero-content li {
+  .benefit-content p {
     margin-bottom: 20px;
     font-size: 16px;
     line-height: 1.5;
   }
   
   .form-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
     display: flex;
     align-items: center;
     justify-content: left;

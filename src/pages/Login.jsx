@@ -24,7 +24,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/login",
+        "http://soramyo.id.vn/api/login",
         credentials,
         { withCredentials: true }
       );

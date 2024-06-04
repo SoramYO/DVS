@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="navbarMenu">
           <Link to="/diamonds">Diamonds</Link>
           <Link to="/education">Education</Link>
-          <Link to="/guide">Guides</Link>
+          <Link to="/guides">Guides</Link>
           <Link to="/services">Services</Link>
         </div>
       </div>
@@ -50,22 +50,22 @@ const Navbar = () => {
             className="searchInput"
           />
         </div>
-        {!user ? (
-          <Link to="/login">
-            <Button type="primary" className="signInButton">
-              Sign in
-            </Button>
-          </Link>
-        ) : (
-          <Dropdown overlay={userMenu}>
-            <div className="profileContainer">
-              <UserOutlined className="userIcon" />
-              <p>
-                Welcome, {user.firstName} {user.lastName}
-              </p>
-            </div>
-          </Dropdown>
-        )}
+        <div className="signInButton">
+          {!user ? (
+            <Link to="/login">
+              <Button type="primary">Sign in</Button>
+            </Link>
+          ) : (
+            <Dropdown overlay={userMenu}>
+              <div className="profileContainer" style={{ alignItems: 'center' }}> {/* Added style */}
+                <UserOutlined className="userIcon" />
+                <p>
+                  Welcome, {user.firstName} {user.lastName}
+                </p>
+              </div>
+            </Dropdown>
+          )}
+        </div>
       </div>
     </div>
   );

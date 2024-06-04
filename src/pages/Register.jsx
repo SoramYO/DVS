@@ -11,7 +11,7 @@ const Register = () => {
 
   const onFinish = (values) => {
     axios
-      .post("http://localhost:8080/api/users", values, {
+      .post("http://soramyo.id.vn/api/users", values, {
         withCredentials: true,
       })
       .then((res) => {
@@ -37,20 +37,20 @@ const Register = () => {
   return (
     <Row className="register-container">
       <Col span={12} className="info-section">
-        <div className="hero-content">
+        <div className="benefit-content">
           <h2>Diamond Valuation</h2>
           <ul>
             <div style={styleText}>
               <CheckOutlined style={styleIcon} />
-              <li>Quick and free sign-up<br />Enter your email address to create an account.</li>
+              <p>Quick and free sign-up<br />Enter your email address to create an account.</p>
             </div>
             <div style={styleText}>
               <CheckOutlined style={styleIcon} />
-              <li>Get started quickly<br />Once signed up immediately start favoriting diamonds and setting price alerts.</li>
+              <p>Get started quickly<br />Once signed up immediately start favoriting diamonds and setting price alerts.</p>
             </div>
             <div style={styleText}>
               <CheckOutlined style={styleIcon} />
-              <li>Trusted by buyers<br />Thousands have trusted us to get the best diamond.</li>
+              <p>Trusted by buyers<br />Thousands have trusted us to get the best diamond.</p>
             </div>
           </ul>
         </div>

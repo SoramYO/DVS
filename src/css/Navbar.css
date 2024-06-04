@@ -59,11 +59,10 @@
   }
   
   .signInButton {
-    font-size: 18px;
-    padding: 0 15px;
-    border-radius: 7px;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 20px;
   }
-  
   .profileContainer {
     display: flex;
     align-items: center;
@@ -79,47 +78,5 @@
   .userIcon {
     font-size: 22px;
   }
-  
 
-  @media (max-width: 768px) {
-    .navbarContainer {
-      flex-direction: column;
-      height: auto;
-      padding: 10px;
-    }
-  
-    .navbarLeft,
-    .navbarRight {
-      flex: 1;
-      justify-content: center;
-    }
-  
-    .navbarMenu {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .navbarMenu a {
-      margin: 10px 0;
-    }
-  
-    .searchContainer {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  
-    .signInButton {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-    }
-  
-    .profileContainer p {
-      font-size: 14px;
-    }
-  
-    .userIcon {
-      font-size: 20px;
-    }
-  }
   

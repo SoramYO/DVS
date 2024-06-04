@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Card, List, Spin, Button, Form, Input, Select, message, Steps } from "antd";
+import { Row, Col, Card, Spin, Button, Form, Input, Select, message, Steps } from "antd";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 const { Option } = Select;
@@ -14,7 +14,7 @@ function Valuation() {
     useEffect(() => {
         const getAllRequests = async () => {
             await axios
-                .get("http://localhost:8080/api/results", { withCredentials: true })
+                .get("http://soramyo.id.vn/api/results", { withCredentials: true })
                 .then((res) => {
                     setResults(res.data.results);
                     setSelectedResult(res.data.results[0]);
@@ -38,11 +38,6 @@ function Valuation() {
         return <div>No request found</div>;
     }
 
-    const handleResultChange = (result) => {
-        setSelectedResult(result);
-        form.setFieldsValue(result);
-    };
-
     const handleFormChange = (changedFields) => {
         setSelectedResult((prevResult) => ({ ...prevResult, ...changedFields }));
     };
@@ -50,7 +45,7 @@ function Valuation() {
     const handleSubmit = async () => {
         try {
             await axios.put(
-                `http://localhost:8080/api/changeProcess/${id}`,
+                `http://soramyo.id.vn/api/changeProcess/${id}`,
                 {
                     processId: 5,
                 },
@@ -58,7 +53,7 @@ function Valuation() {
             );
             await form.validateFields();
             const values = form.getFieldsValue();
-            const response = await axios.put(`http://localhost:8080/api/valuation/${id}`, values, { withCredentials: true });
+            const response = await axios.put(`http://soramyo.id.vn/api/valuation/${id}`, values, { withCredentials: true });
             if (response.data.errCode === 0) {
                 message.success(response.data.message);
                 valuation();
