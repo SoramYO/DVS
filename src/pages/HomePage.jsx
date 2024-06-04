@@ -1,8 +1,8 @@
 import React from 'react';
-import { Row, Col, Card, Button, Typography } from 'antd';
+import { Row, Card, Button, Typography } from 'antd';
 import { SketchOutlined } from '@ant-design/icons';
 import '../css/HomePage.css';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const { Title, Paragraph } = Typography;
 
 const HomePage = () => {
@@ -13,14 +13,16 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <section className="hero-section">
-        <div className="hero-content-header">
-          <div className="hero-content">
+      <section className="homepage-section">
+        <div className="homepage-content-header">
+          <div className="homepage-content">
             <Title level={1}>Compare Top-Rated Jewelers & Save</Title>
             <Paragraph>Navigate the diamond knowledge effortlessly.</Paragraph>
-            <Button type="primary" size="large" className="valuation-button">Valuation Now</Button>
+            <Link to="/requests">
+              <button type="button" className="valuation-button">Valuation Now</button>
+            </Link>
           </div>
-          <img src="https://troyobrien.com.au/wp-content/uploads/2019/05/714B3D35-3343-4FC8-8680-B62C33E41EB8.jpeg" alt="Diamond" className="hero-image" />
+          <img src="https://troyobrien.com.au/wp-content/uploads/2019/05/714B3D35-3343-4FC8-8680-B62C33E41EB8.jpeg" alt="Diamond" className="homepage-image" />
         </div>
       </section>
       <hr />
@@ -59,7 +61,9 @@ const HomePage = () => {
             <Card className='check-price-card'>
               <Title style={{ color: "green" }} level={1}>Check Prices</Title>
               <Paragraph>Track diamond prices with our historical price charts & proprietary diamond price indexes.</Paragraph>
-              <Button type="primary" size="large" className="check-price-button" onClick={calculateDiamond}>Check price</Button>
+              <div className='check-button'>
+                <Button type="primary" size="large" className="check-price-button" onClick={calculateDiamond}>Check price</Button>
+              </div>
             </Card>
           </div>
         </div>

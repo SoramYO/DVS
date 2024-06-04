@@ -1,34 +1,93 @@
 .educationContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .verticalFrames {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .frame {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .frame h2 {
-    color: #333;
-  }
-  
-  .frame ul {
-    list-style-type: disc;
-    padding-left: 20px;
-  }
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 20px auto 20px auto;
+  padding: 40px;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
 
-  .frame a {
-    color: #4ea1ee;
-    text-decoration: none;
-  }
-  
-  
+.educationContainer h1, .educationContainer h2, .educationContainer h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.educationContainer h1 {
+  font-size: 2.5em;
+}
+
+.educationContainer h2 {
+  font-size: 2em;
+}
+
+.educationContainer h3 {
+  font-size: 1.5em;
+}
+
+.educationContainer p, .educationContainer ul {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.educationContainer ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.educationContainer li {
+  margin-bottom: 10px;
+}
+
+.educationContainer a {
+  color: #4ea1ee;
+  text-decoration: none;
+}
+
+.educationContainer a:hover {
+  text-decoration: underline;
+}
+
+.verticalFrames {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.frame {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.frame h2 {
+  color: #333;
+}
+
+.frame ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.frame a {
+  color: #4ea1ee;
+  text-decoration: none;
+}
+
+.frame a:hover {
+  text-decoration: underline;
+}
+
+.image-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

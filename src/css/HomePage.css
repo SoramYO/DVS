@@ -3,7 +3,7 @@
     padding: 20px;
 }
 
-.hero-section {
+.homepage-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,37 +12,39 @@
     position: relative;
 }
 
-.hero-content-header {
+.homepage-content-header {
     display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
+
+}
+.homepage-content {
+    margin:200px 20px 200px 20px;
+}
+.homepage-image {
+    padding-left: 0;  
 }
 
-.hero-content {
-    padding-right: 20px;
-}
 
 .valuation-button {
-    margin-top: 20px;
+    background-color: #1890ff;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: background-color 0.3s;
 }
 .valuation-button:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); 
   }
 
-.hero-image {
+.homepage-image {
     flex: 5; 
     max-width: 60%;
     height: auto;
 }
 
-.hero-svg {
-    position: absolute;
-    top: -50px;
-    left: -50px;
-    z-index: -1;
-}
 .help-section-detail{
     display: flex;
     padding: 20px;
@@ -81,6 +83,10 @@
 .check-price-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); 
+}
+.check-button{
+    margin-top: 150px;
+
 }
 
 .check-price-button {
