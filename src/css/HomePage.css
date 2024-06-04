@@ -43,9 +43,12 @@
     left: -50px;
     z-index: -1;
 }
+.help-section-detail{
+    display: flex;
+    padding: 20px;
+}
 
 .help-section {
-
     padding: 20px;
     position: relative;
 }
@@ -55,17 +58,10 @@
     margin-bottom: 20px;
 }
 
-.help-section-detail {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
 .help-card {
     max-width: 500px;
     background-color: #f8f8f8;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
     transition: transform 0.3s, box-shadow 0.3s; 
     margin-right: 20px;
 }
@@ -75,16 +71,10 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-.check-price {
-    text-align: center;
-}
-
 .check-price-card {
-    padding: -24px;
-    height: 385px;
+    height: 430px;
     background-color: #f8f8f8;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
     transition: transform 0.3s, box-shadow 0.3s; 
 }
 

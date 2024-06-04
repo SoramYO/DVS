@@ -42,7 +42,12 @@ export const route = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/guide",
+        path: "/education",
+        element: <Education />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/guides",
         element: <Guides />,
         errorElement: <ErrorPage />,
       },
@@ -103,14 +108,5 @@ export const route = createBrowserRouter([
     element: <Register />,
     errorElement: <ErrorPage />,
   },
-  {
-    path: "/education",
-    element: <Education />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/guides",
-    element: <Guides />,
-    errorElement: <ErrorPage />,
-  },
+
 ]);

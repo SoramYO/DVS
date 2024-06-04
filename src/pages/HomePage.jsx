@@ -26,51 +26,41 @@ const HomePage = () => {
       <hr />
       <section className="help-section">
         <Title level={1} className="help-title">How us helps you buy better</Title>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Row gutter={[16, 16]} className="help-section-detail">
-            <div style={{ display: 'flex' }}>
-              <div>
-                <Col>
-                  <Card className="help-card">
-                    <SketchOutlined style={{ fontSize: '30px' }} />
-                    <Title level={2}>Handpicked Premium</Title>
-                    <Paragraph>We only sell the top 1% of diamonds, individually handpicked by our team</Paragraph>
-                  </Card>
-                </Col>
-                <Col>
-                  <Card className="help-card">
-                    <SketchOutlined style={{ fontSize: '30px' }} />
-                    <Title level={2}>Ethically Sourced</Title>
-                    <Paragraph>We only ever deal with ethically sourced, conflict-free diamonds</Paragraph>
-                  </Card>
-                </Col>
-              </div>
-              <div>
-                <Col>
-                  <Card className="help-card">
-                    <SketchOutlined style={{ fontSize: '30px' }} />
-                    <Title level={2}>70% Cheaper than retail</Title>
-                    <Paragraph>By removing the middleman, we pass the saving directly to you, ensuring you pay a much lower price</Paragraph>
-                  </Card>
-                </Col>
-                <Col>
-                  <Card className="help-card">
-                    <SketchOutlined style={{ fontSize: '30px' }} />
-                    <Title level={2}>Worry-Free</Title>
-                    <Paragraph>Free Shipping, 14 Days return, Certified & Guaranteed</Paragraph>
-                  </Card>
-                </Col>
-              </div>
-            </div>
-          </Row>
+        <div className="help-section-detail">
           <div>
-            <Col className="check-price">
-              <Card className='check-price-card'>
-                <Title level={1}>Check Prices</Title>
-                <Paragraph>Track diamond prices with our historical price charts & proprietary diamond price indexes.</Paragraph>
-                <Button type="primary" size="large" className="check-price-button" onClick={calculateDiamond}>Check price</Button>
-              </Card>
-            </Col>
+            <Row >
+              <Row>
+                <Card className="help-card">
+                  <SketchOutlined style={{ fontSize: '30px' }} />
+                  <Title level={2}>Expert Valuation</Title>
+                  <Paragraph>Receive precise diamond valuations from our team of experts, ensuring you understand the true worth of your gem.</Paragraph>
+                </Card>
+                <Card className="help-card">
+                  <SketchOutlined style={{ fontSize: '30px' }} />
+                  <Title level={2}>Ethical Standards</Title>
+                  <Paragraph>Our valuations are conducted with the highest ethical standards, guaranteeing conflict-free and responsibly sourced diamonds.</Paragraph>
+                </Card>
+              </Row>
+              <Row>
+                <Card className="help-card">
+                  <SketchOutlined style={{ fontSize: '30px' }} />
+                  <Title level={2}>Cost-Effective Service</Title>
+                  <Paragraph>Our transparent pricing structure ensures you get a fair valuation without hidden fees, saving you money compared to traditional appraisal methods.</Paragraph>
+                </Card>
+                <Card className="help-card">
+                  <SketchOutlined style={{ fontSize: '30px' }} />
+                  <Title level={2}>Convenient and Secure</Title>
+                  <Paragraph>Enjoy the convenience of free shipping and a 14-day return policy, with all valuations certified and guaranteed for accuracy.</Paragraph>
+                </Card>
+              </Row>
+            </Row>
+          </div>
+          <div>
+            <Card className='check-price-card'>
+              <Title style={{ color: "green" }} level={1}>Check Prices</Title>
+              <Paragraph>Track diamond prices with our historical price charts & proprietary diamond price indexes.</Paragraph>
+              <Button type="primary" size="large" className="check-price-button" onClick={calculateDiamond}>Check price</Button>
+            </Card>
           </div>
         </div>
       </section>
