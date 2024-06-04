@@ -14,6 +14,8 @@ import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
 import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
 import CalculateDiamond from "../pages/CalculateDiamond";
+import Guide from "../pages/Guide";
+
 export const route = createBrowserRouter([
   {
     path: "/",
@@ -37,6 +39,11 @@ export const route = createBrowserRouter([
       {
         path: "/calculateDiamond",
         element: <CalculateDiamond />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/guide",
+        element: <Guide />,
         errorElement: <ErrorPage />,
       },
     ],
