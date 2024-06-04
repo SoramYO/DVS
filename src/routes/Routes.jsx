@@ -16,7 +16,7 @@ import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
 import CalculateDiamond from "../pages/CalculateDiamond";
 import Education from "../pages/Education";
 import Guides from "../pages/Guides";
-import Guide from "../pages/Guide";
+
 export const route = createBrowserRouter([
   {
     path: "/",
@@ -43,8 +43,13 @@ export const route = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/guide",
-        element: <Guide />,
+        path: "/education",
+        element: <Education />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/guides",
+        element: <Guides />,
         errorElement: <ErrorPage />,
       },
     ],
@@ -104,14 +109,5 @@ export const route = createBrowserRouter([
     element: <Register />,
     errorElement: <ErrorPage />,
   },
-  {
-    path: "/education",
-    element: <Education />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/guides",
-    element: <Guides />,
-    errorElement: <ErrorPage />,
-  },
+
 ]);
