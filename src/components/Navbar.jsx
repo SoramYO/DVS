@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="navbarMenu">
           <Link to="/diamonds">Diamonds</Link>
           <Link to="/education">Education</Link>
-          <Link to="/guides">Guides</Link>
+          <Link to="/guide">Guides</Link>
           <Link to="/services">Services</Link>
         </div>
       </div>

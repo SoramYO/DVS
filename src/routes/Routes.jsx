@@ -16,6 +16,7 @@ import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
 import CalculateDiamond from "../pages/CalculateDiamond";
 import Education from "../pages/Education";
 import Guides from "../pages/Guides";
+import Guide from "../pages/Guide";
 export const route = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +40,11 @@ export const route = createBrowserRouter([
       {
         path: "/calculateDiamond",
         element: <CalculateDiamond />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/guide",
+        element: <Guide />,
         errorElement: <ErrorPage />,
       },
     ],
