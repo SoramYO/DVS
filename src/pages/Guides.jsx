@@ -36,12 +36,12 @@ const Guides = () => {
       <p>
         - It's very important to understand the different facts of diamond grading before you select your stone. We advice you to visit our Diamond Learning Center to learn our more about certified diamonds, diamond characteristics and quality.
       </p>
-      <h3><span style="color: green;">Need help finding what you are looking for?</span></h3>
+      <h3><span style={{ color: "green" }}>Need help finding what you are looking for?</span></h3>
       <p>
         Here is a simple chart with all details about how your diamond’s value is determined:
       </p>
       <p>
-        <img src="/assets/dia.jpg" alt="Diamond detail" /> 
+        <img src="/assets/dia.jpg" alt="Diamond detail" />
       </p>
       <p>
         Still having trouble? Not to worry, our enthusiast and professional teams are available to help you all the way.
