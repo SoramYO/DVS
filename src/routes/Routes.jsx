@@ -14,8 +14,8 @@ import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
 import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
 import CalculateDiamond from "../pages/CalculateDiamond";
-import Guide from "../pages/Guide";
-
+import Education from "../pages/Education";
+import Guides from "../pages/Guides";
 export const route = createBrowserRouter([
   {
     path: "/",
@@ -101,6 +101,16 @@ export const route = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/education",
+    element: <Education />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/guides",
+    element: <Guides />,
     errorElement: <ErrorPage />,
   },
 ]);

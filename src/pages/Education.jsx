@@ -1,5 +1,5 @@
 import React from 'react';
-import './Education.css';
+import '../css/Education.css';
 
 const Education = () => {
   return (
@@ -67,7 +67,7 @@ const Education = () => {
         - The <a href="https://www.diamonds.pro/education/gia-diamonds/" target="_blank" rel="noopener noreferrer">GIA</a> (Gemological Institute of America) is a leading authority with an advanced system for grading diamond characteristics.
       </p>
       <p>
-        - We <span style="color: red;">highly recommend</span> obtaining a diamond certificate from GIA due to its consistency.
+        - We <span style={{ color: "red" }}>highly recommend</span> obtaining a diamond certificate from GIA due to its consistency.
       </p>
       <p>
         - Each of the 4 Cs is graded on a scale to assess quality. While universal terms and standards are used, grading can differ between various <a href="https://www.diamonds.pro/education/diamond-certification/" target="_blank" rel="noopener noreferrer">lab.</a>
@@ -79,7 +79,7 @@ const Education = () => {
         - The 4 Cs' grading are key in determining a diamond's value and quality, and sellers often set prices based on these reports. Understanding these basics helps when comparing similar diamonds, but the most important factor is how the diamond looks to the naked eye and its overall appeal.
       </p>
       <p>
-        - Therefore, <span style="color: red;">having a fundamental knowledge of the 4 Cs is crucial for buyers</span>, ensure you don't overspend on aspects that might not be noticeable.
+        - Therefore, <span style={{ color: "red" }}>having a fundamental knowledge of the 4 Cs is crucial for buyers</span>, ensure you don't overspend on aspects that might not be noticeable.
       </p>
       <h2>Diamond Quality</h2>
       <p>
@@ -92,7 +92,7 @@ const Education = () => {
         - An objective guide helps identify consumers high or low-quality diamonds more easily. Each of the 4 Cs gives a measurable description of quality, making it simpler to assess if a diamond is worth its price.
       </p>
       <p>
-      <span style="color: red;">Diamond Quality chart:</span>
+        <span style={{ color: "red" }}>Diamond Quality chart:</span>
       </p>
       <p>
         <img src="/assets/edu1.png" alt="Diamond detail" />
