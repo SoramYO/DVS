@@ -82,7 +82,7 @@ h1 {
 }
 .footerBand{
     height: 200px;
-    width: 1825px;
+    width: 100%;
   }
 .footer-content{
     display: flex;
