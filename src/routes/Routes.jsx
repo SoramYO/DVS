@@ -43,7 +43,7 @@ export const route = createBrowserRouter([
       },
       {
         path: "/guide",
-        element: <Guide />,
+        element: <Guides />,
         errorElement: <ErrorPage />,
       },
     ],
