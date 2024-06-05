@@ -25,7 +25,7 @@
 
 
 .valuation-button {
-    background-color: #1890ff;
+  background-color: #1890ff;
   color: white;
   padding: 15px 30px;
   border: none;
@@ -66,6 +66,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s; 
     margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .help-card:hover {
@@ -86,6 +87,7 @@
 }
 .check-button{
     margin-top: 150px;
+    margin-left: 75px;
 
 }
 
