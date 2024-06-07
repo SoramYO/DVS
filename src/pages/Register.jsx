@@ -16,7 +16,7 @@ const Register = () => {
       })
       .then((res) => {
         message.success("Created successfully");
-        navigate("/accounts");
+        navigate("/login");
       })
       .catch((error) => {
         message.error(error.response.data.message);
