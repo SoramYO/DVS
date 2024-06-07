@@ -9,24 +9,30 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.educationContainer h1, .educationContainer h2, .educationContainer h3 {
+.educationContainer h1,
+.educationContainer h2,
+.educationContainer h3 {
   color: #333;
   margin-bottom: 20px;
 }
 
 .educationContainer h1 {
   font-size: 2.5em;
+  text-align: center;
 }
 
 .educationContainer h2 {
   font-size: 2em;
+  text-align: center;
 }
 
 .educationContainer h3 {
   font-size: 1.5em;
+  text-align: center;
 }
 
-.educationContainer p, .educationContainer ul {
+.educationContainer p,
+.educationContainer ul {
   color: #555;
   margin-bottom: 20px;
 }

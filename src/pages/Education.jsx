@@ -1,10 +1,11 @@
 import React from 'react';
 import '../css/Education.css';
+import { Link } from 'react-router-dom';
 
 const Education = () => {
   return (
     <div className="educationContainer">
-      <h1>The 4 C’s of Diamonds: Evaluating Diamond Quality</h1>
+      <h2><strong>The 4 C’s of Diamonds: Evaluating Diamond Quality</strong></h2>
       <p>
         The 4 Cs – cut, color, clarity, and carat – are the widely accepted standard characteristics for a diamond that determine its quality and <a href="https://www.diamonds.pro/education/diamond-prices/" target="_blank" rel="noopener noreferrer">value</a>. While each ‘C’ plays a role, cut is the most important in determining a diamond's brilliance and sparkle. Finding the perfect harmony between these 4 Cs will help you balance beauty and value when looking for a diamond.
       </p>
@@ -13,7 +14,7 @@ const Education = () => {
       </div>
       <div className="verticalFrames">
         <div className="frame">
-          <h2>Carat</h2>
+          <h3>Carat</h3>
           <ul>
             <li>Carat refers to the diamond’s weight, such as a <a href="https://www.diamonds.pro/education/2-carat-diamond-ring/" target="_blank" rel="noopener noreferrer">2 carat</a> or <a href="https://www.diamonds.pro/education/3-carat-diamond-ring/" target="_blank" rel="noopener noreferrer">3 carat diamond</a>.</li>
             <li>Carat weight can be important to some, but a diamond of any carat weight can be extraordinary.</li>
@@ -21,7 +22,7 @@ const Education = () => {
           </ul>
         </div>
         <div className="frame">
-          <h2>Color</h2>
+          <h3>Color</h3>
           <ul>
             <li>A diamond can be colorless to the naked eye, or have some tint to it.</li>
             <li>It’s best to find a diamond that appears white once mounted in a setting.</li>
@@ -30,7 +31,7 @@ const Education = () => {
           </ul>
         </div>
         <div className="frame">
-          <h2>Clarity</h2>
+          <h3>Clarity</h3>
           <ul>
             <li>Almost all diamonds have imperfections.</li>
             <li>A <a href="https://www.diamonds.pro/education/clarity/" target="_blank" rel="noopener noreferrer">diamond's clarity</a> refers to how many blemishes and inclusions the diamond has, along with how noticeable they are.</li>
@@ -39,14 +40,14 @@ const Education = () => {
           </ul>
         </div>
         <div className="frame">
-          <h2>Cut</h2>
+          <h3>Cut</h3>
           <ul>
             <li>Often confused with <a href="https://www.diamonds.pro/education/shapes/" target="_blank" rel="noopener noreferrer">diamond shape</a>, cut refers to <a href="https://www.diamonds.pro/education/shapes/" target="_blank" rel="noopener noreferrer">how well a diamond is cut</a> and polished.</li>
             <li>Cut is the biggest factor that plays into how brilliant and beautiful a diamond is.</li>
           </ul>
         </div>
       </div>
-      <h2>What are the 4 C's of diamonds?</h2>
+      <h3><strong>What are the 4 C's of diamonds?</strong></h3>
       <p>
         The 4 Cs of diamonds—Carat, Cut, Color, and Clarity—are key factors that determine a diamond's beauty and quality. These characteristics interact to influence how the diamond looks and performs.
       </p>
@@ -60,9 +61,9 @@ const Education = () => {
         These qualities are graded consistently by experts, helping you assess a diamond's value. Understanding the 4 Cs lets you choose a high-quality diamond that meets your preferences.
       </p>
       <p>
-        For more details: which is more important—<a href="https://www.diamonds.pro/education/color-vs-clarity/" target="_blank" rel="noopener noreferrer">clarity vs color</a>— <a href="https://4cs.gia.edu/en-us/4cs-diamond-quality/" target="_blank" rel="noopener noreferrer">GIA explains why and how diamond grades got created.</a>
+        For more details: which is more important—<a href="https://www.diamonds.pro/education/color-vs-clarity/" target="_blank" rel="noopener noreferrer">clarity vs color</a>— <a href="https://4cs.gia.edu/en-us/4cs-diamond-quality/" target="_blank" rel="noopener noreferrer">GIA explains why and how diamond grades got created</a>.
       </p>
-      <h2>The Characteristics of Diamonds</h2>
+      <h3><strong>The Characteristics of Diamonds</strong></h3>
       <p>
         The <a href="https://www.diamonds.pro/education/gia-diamonds/" target="_blank" rel="noopener noreferrer">GIA</a> (Gemological Institute of America) is a leading authority with an advanced system for grading diamond characteristics.
       </p>
@@ -81,7 +82,7 @@ const Education = () => {
       <p>
         Therefore, <span style={{ color: "red" }}>having a fundamental knowledge of the 4 Cs is crucial for buyers</span>, ensuring you don't overspend on aspects that might not be noticeable.
       </p>
-      <h2>Diamond Quality</h2>
+      <h3><strong>Diamond Quality</strong></h3>
       <p>
         The 4 Cs of diamonds provide an objective method to measure and evaluate diamond quality.
       </p>
@@ -92,10 +93,25 @@ const Education = () => {
         An objective guide helps identify high or low-quality diamonds more easily. Each of the 4 Cs gives a measurable description of quality, making it simpler to assess if a diamond is worth its price.
       </p>
       <p>
-        <span style={{ color: "red" }}>Diamond Quality chart:</span>
+        <span style={{ color: "green" }}>Diamond Quality chart:</span>
       </p>
       <div className="image-container">
         <img src="/assets/edu1.png" alt="Diamond detail" />
+      </div>
+      <div>
+        <Link to="/cut">Learn more about Cut</Link>
+      </div>
+      <div>
+        <Link to="/color">Learn more about Color</Link>
+      </div>
+      <div>
+        <Link to="/clarity">Learn more about Clarity</Link>
+      </div>
+      <div>
+        <Link to="/carat">Learn more about Carat Weight</Link>
+      </div>
+      <div>
+        <Link to="/conclusion">Conclusion</Link>
       </div>
     </div>
   );
