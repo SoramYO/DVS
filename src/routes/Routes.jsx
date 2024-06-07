@@ -16,6 +16,11 @@ import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
 import CalculateDiamond from "../pages/CalculateDiamond";
 import Education from "../pages/Education";
 import Guides from "../pages/Guides";
+import CutSection from "../pages/CutSection";
+import ColorSection from "../pages/ColorSection";
+import ClaritySection from "../pages/ClaritySection";
+import CaratSection from "../pages/CaratSection";
+import Conclusion from "../pages/Conclusion";
 
 export const route = createBrowserRouter([
   {
@@ -50,6 +55,31 @@ export const route = createBrowserRouter([
       {
         path: "/guides",
         element: <Guides />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/cut",  
+        element: <CutSection />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/color",  
+        element: <ColorSection />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/clarity",  
+        element: <ClaritySection />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/carat",  
+        element: <CaratSection />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/conclusion",  
+        element: <Conclusion />,
         errorElement: <ErrorPage />,
       },
     ],
