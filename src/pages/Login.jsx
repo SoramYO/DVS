@@ -24,7 +24,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://soramyo.id.vn/api/login",
+        "https://dvs-be-sooty.vercel.app/api/login",
         credentials,
         { withCredentials: true }
       );
