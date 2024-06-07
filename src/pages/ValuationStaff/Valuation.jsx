@@ -14,7 +14,7 @@ function Valuation() {
     useEffect(() => {
         const getAllRequests = async () => {
             await axios
-                .get("http://soramyo.id.vn/api/results", { withCredentials: true })
+                .get("https://dvs-be-sooty.vercel.app/api/results", { withCredentials: true })
                 .then((res) => {
                     setResults(res.data.results);
                     setSelectedResult(res.data.results[0]);
@@ -45,7 +45,7 @@ function Valuation() {
     const handleSubmit = async () => {
         try {
             await axios.put(
-                `http://soramyo.id.vn/api/changeProcess/${id}`,
+                `https://dvs-be-sooty.vercel.app/api/changeProcess/${id}`,
                 {
                     processId: 5,
                 },
@@ -53,7 +53,7 @@ function Valuation() {
             );
             await form.validateFields();
             const values = form.getFieldsValue();
-            const response = await axios.put(`http://soramyo.id.vn/api/valuation/${id}`, values, { withCredentials: true });
+            const response = await axios.put(`https://dvs-be-sooty.vercel.app/api/valuation/${id}`, values, { withCredentials: true });
             if (response.data.errCode === 0) {
                 message.success(response.data.message);
                 valuation();

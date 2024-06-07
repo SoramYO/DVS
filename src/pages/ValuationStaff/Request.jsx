@@ -5,13 +5,15 @@ import { Link } from "react-router-dom";
 import { EditOutlined, CheckCircleOutlined, InboxOutlined, PhoneOutlined, CloseCircleOutlined, ExclamationCircleOutlined, ClockCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import MySpin from "../../components/MySpin";
 
+axios.defaults.withCredentials = true;
+
 const Request = () => {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
     const getAllRequests = async () => {
       try {
-        const res = await axios.get("http://soramyo.id.vn/api/requests", { withCredentials: true });
+        const res = await axios.get("https://dvs-be-sooty.vercel.app/api/requests", { withCredentials: true });
         setRequests(res.data.requests);
         console.log(res.data.requests);
       } catch (error) {

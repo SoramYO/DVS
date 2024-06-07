@@ -19,7 +19,7 @@ const RequestDetail = () => {
 
   const getRequestDetail = async () => {
     try {
-      const res = await axios.get(`http://soramyo.id.vn/api/requests/${id}`, { withCredentials: true });
+      const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, { withCredentials: true });
       setRequest(res.data.request[0]);
       setProcessId(res.data.request[0].processId);
       setLoading(false);
@@ -39,7 +39,7 @@ const RequestDetail = () => {
 
   const handleOk = async () => {
     try {
-      await axios.put(`http://soramyo.id.vn/api/changeProcess/${id}`, {
+      await axios.put(`https://dvs-be-sooty.vercel.app/api/changeProcess/${id}`, {
         processId
       }, { withCredentials: true });
       message.success("Trạng thái xử lý đã được cập nhật thành công");

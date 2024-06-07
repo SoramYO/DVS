@@ -26,7 +26,7 @@ const AccountCreate = () => {
 
   const onFinish = (values) => {
     axios
-      .post("http://soramyo.id.vn/api/users", values, {
+      .post("https://dvs-be-sooty.vercel.app/api/users", values, {
         withCredentials: true,
       })
       .then((res) => {
