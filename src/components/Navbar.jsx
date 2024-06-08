@@ -36,10 +36,11 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbarMenu">
-          <Link to="/">Home Page</Link>
+          <Link to="/">HomePage</Link>
           <Link to="/education">Education</Link>
           <Link to="/guides">Guides</Link>
           <Link to="/services">Services</Link>
+          <Link to="/pricing">Pricing</Link>
         </div>
       </div>
       <div className="navbarRight">

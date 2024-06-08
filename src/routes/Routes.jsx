@@ -21,6 +21,8 @@ import ColorSection from "../pages/ColorSection";
 import ClaritySection from "../pages/ClaritySection";
 import CaratSection from "../pages/CaratSection";
 import Conclusion from "../pages/Conclusion";
+import Service from "../pages/Service";
+import Pricing from "../pages/Pricing";
 
 export const route = createBrowserRouter([
   {
@@ -80,6 +82,16 @@ export const route = createBrowserRouter([
       {
         path: "/conclusion",  
         element: <Conclusion />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/services",  
+        element: <Service />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/pricing",  
+        element: <Pricing />,
         errorElement: <ErrorPage />,
       },
     ],
