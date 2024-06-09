@@ -15,7 +15,6 @@ const Request = () => {
       try {
         const res = await axios.get("https://dvs-be-sooty.vercel.app/api/requests", { withCredentials: true });
         setRequests(res.data.requests);
-        console.log(res.data.requests);
       } catch (error) {
         console.log(error);
       }
