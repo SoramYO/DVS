@@ -1,17 +1,26 @@
-.serviceContainer {
-    font-family: Arial, sans-serif;
-    max-width: 900px;
-    margin: 20px auto 20px auto;
-    padding: 40px;
-    line-height: 1.6;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  }
-  .serviceContainer h2 {
-    font-size: 2em;
-  }
-  li{
-    color:rgb(0, 174, 255);
-    margin-left: 20px;
-  }
+.service-container {
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 40px;
+}
+
+.service-container h1 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.service-section {
+  margin-bottom: 20px;
+}
+
+.service-card {
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.service-card ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}

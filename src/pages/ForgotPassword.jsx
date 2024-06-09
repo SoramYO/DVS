@@ -19,7 +19,7 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
             <Card title="Reset password" style={{ width: 400 }}>
                 <Form
                     form={form}
