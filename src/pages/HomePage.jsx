@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Card, Button, Typography, Modal } from 'antd';
+import { Row, Card, Button, Typography } from 'antd';
 import { SketchOutlined } from '@ant-design/icons';
 import '../css/HomePage.css';
 import { Link, useNavigate } from "react-router-dom";

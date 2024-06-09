@@ -8,6 +8,8 @@ import ValuationStaffLayout from "../layout/ValuationStaffLayout";
 import Request from "../pages/ValuationStaff/Request";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
 import ProtectedRoute from "../config/ProtectedRoute";
 import RequestDetail from "../pages/ValuationStaff/RequestDetail";
 import Valuation from "../pages/ValuationStaff/Valuation";
@@ -40,6 +42,16 @@ export const route = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
+        errorElement: <ErrorPage />,
+      },
+      {
         path: "/register",
         element: <Register />,
         errorElement: <ErrorPage />,
@@ -60,37 +72,37 @@ export const route = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/cut",  
+        path: "/cut",
         element: <CutSection />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/color",  
+        path: "/color",
         element: <ColorSection />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/clarity",  
+        path: "/clarity",
         element: <ClaritySection />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/carat",  
+        path: "/carat",
         element: <CaratSection />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/conclusion",  
+        path: "/conclusion",
         element: <Conclusion />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/services",  
+        path: "/services",
         element: <Service />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/pricing",  
+        path: "/pricing",
         element: <Pricing />,
         errorElement: <ErrorPage />,
       },

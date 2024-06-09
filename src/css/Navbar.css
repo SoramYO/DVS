@@ -28,14 +28,14 @@
   
   .navbarMenu a {
     font-size: 18px;
-
-    padding: 40px;
+    padding: 30px;
     color: black;
     text-decoration: none;
   }
   
-  .navbarMenu a:hover {
-    color: #3E9C35;
+  .navbarMenu :hover {
+    color: #1890FF;
+    background-color:  rgba(24, 144, 255, 0.1);
   }
   
   .navbarRight {

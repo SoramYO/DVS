@@ -44,7 +44,7 @@
 
 .loginInput button{
     padding: 20px;
-    background-color: #3E9C35;
+    background-color: #1677FF;
     color: white;
     text-align: center;
     font-size: 25px;
@@ -54,7 +54,7 @@
 
 .loginButton{
     width: 100%;
-    background-color: #3E9C35;
+    background-color: #1677FF;
     color: white;
     text-align: center;
     font-size: 25px;
@@ -66,5 +66,9 @@
 }
 
 .registerLink{
+    font-size: 20px;
+}
+.forgotPasswordLink{
+    padding-top: 20px;
     font-size: 20px;
 }

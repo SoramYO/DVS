@@ -31,7 +31,8 @@ const Register = () => {
 
   const styleIcon = {
     paddingRight: "4px",
-    fontSize: "20px",
+    fontSize: "25px",
+    marginBottom: "20px",
   };
 
   return (
@@ -42,15 +43,15 @@ const Register = () => {
           <ul>
             <div style={styleText}>
               <CheckOutlined style={styleIcon} />
-              <p>Quick and free sign-up<br />Enter your email address to create an account.</p>
+              <p>Accurate and instant valuations<br />Enter your diamond details to get a precise valuation in minutes.</p>
             </div>
             <div style={styleText}>
               <CheckOutlined style={styleIcon} />
-              <p>Get started quickly<br />Once signed up immediately start favoriting diamonds and setting price alerts.</p>
+              <p>Expert insights<br />Gain access to professional evaluations and detailed diamond reports.</p>
             </div>
             <div style={styleText}>
               <CheckOutlined style={styleIcon} />
-              <p>Trusted by buyers<br />Thousands have trusted us to get the best diamond.</p>
+              <p>Trusted by industry professionals<br />Thousands of jewelers and collectors rely on us for accurate diamond assessments.</p>
             </div>
           </ul>
         </div>
@@ -143,6 +144,9 @@ const Register = () => {
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <div>Already has an account?</div>
                 <Link style={{ paddingLeft: "10px" }} to={"/login"}>Login</Link>
+              </div>
+              <div className="forgotPasswordLink">
+                <Link to={"/forgot-password"}>Forgot password?</Link>
               </div>
             </Form.Item>
           </Form>

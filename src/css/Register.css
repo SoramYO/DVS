@@ -59,9 +59,15 @@
     display: block;
     text-align: center;
     margin-top: 20px;
-    color: #3E9C35;
+    color: #1677FF;
   }
   
   .button-create{
-    background-color: #3E9C35;
+    background-color: #1677FF;
+  }
+  .forgotPasswordLink{
+    font-size: 15px;
+    display: block;
+    text-align: center;
+    color: #1677FF;
   }

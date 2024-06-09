@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../css/Footer.css";
 import AddressIcon from '../assets/icons/map.svg';
 import PhoneIcon from '../assets/icons/phone.svg';
@@ -16,8 +16,29 @@ import DHL from '../assets/imgs/DHL.png';
 import Fedex from '../assets/imgs/Fedex.png';
 import Ideal from '../assets/imgs/Ideal.png';
 import Malca from '../assets/imgs/Malca.png';
-
+import axios from 'axios';
+import { Form, Input, Button, notification } from 'antd';
 const Footer = () => {
+  const onFinish = async (values) => {
+    setLoading(true);
+    try {
+      const response = await axios.post('http://localhost:8080/api/registerMail', { email: values.email });
+      notification.success({
+        message: 'Subscription Successful',
+        description: response.data.message,
+      });
+      form.resetFields();
+    } catch (error) {
+      notification.error({
+        message: 'Subscription Failed',
+        description: error.response ? error.response.data.message : 'Server error, please try again later.',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -26,8 +47,7 @@ const Footer = () => {
           <address>
             <div className="contact-item">
               <img src={AddressIcon} alt="Address Icon" className="icon" />
-              Antwerpdiamonds.direct.<br />
-              Pelikaanstraat 78 - room 2002, 2018 Antwerp, BE
+              diamondvaluation@gmail.com
             </div>
             <div className="contact-item">
               <img src={PhoneIcon} alt="Phone Icon" className="icon" />
@@ -35,20 +55,34 @@ const Footer = () => {
             </div>
             <div className="contact-item">
               <img src={EmailIcon} alt="Email Icon" className="icon" />
-              info@antwerpdiamonds.direct
+              VRG2+27 Dĩ An, Bình Dương, Việt Nam
             </div>
           </address>
         </div>
         <hr />
         <div className="newsletter">
           <h1>Sign up to not miss any news</h1>
-          <form className="email-form">
-            <input type="email" placeholder="Enter your email" required />
-            <button type="submit" className="subscribe-button">Subscribe</button>
-          </form>
+          <Form
+            form={form}
+            className="email-form"
+            onFinish={onFinish}
+          >
+            <Form.Item
+              name="email"
+              rules={[{ required: true, type: 'email', message: 'Please enter a valid email!' }]}
+            >
+              <Input type="email" placeholder="Enter your email" />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" loading={loading} className="subscribe-button">
+                Subscribe
+              </Button>
+            </Form.Item>
+          </Form>
           <p>Receive our latest offers, news, and promotions straight to your inbox. Just enter your email address to join our world of diamonds!</p>
         </div>
       </div>
+
       <div className="footer-bottom">
         <div className="footer-section">
           <span>Certificates</span>

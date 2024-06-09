@@ -1,84 +1,93 @@
 .footer {
-    padding: 20px;
-    background-color: #f8f8f8;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  h1 {
-    margin-bottom: 10px;
-  }
-  
-  .contact-information,
-  .newsletter {
-    margin-bottom: 20px;
-    flex: 5;
-    margin-left: 10px;
-  }
-  
-  .contact-information h1,
-  .newsletter h1 {
-    margin-bottom: 10px;
-  }
-  
-  .newsletter h1 {
-    text-align: center;
-  }
-  
-  .email-form {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-    width: 100%;
-  }
-  
-  .email-form input[type="email"] {
-    padding: 10px;
-    font-size: 16px;
-    flex: 1;
-    margin-right: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .email-form button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: green;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .email-form button:hover {
-    background-color: darkgreen;
-  }
-  
-  .contact-item .icon {
-    margin-right: 10px;
-    width: 24px;
-    height: 24px;
-  }
-  
-  .subscribe-button {
-    background-color: green;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .contact-item {
-    font-size: 18px;
-  }
-  
-  .footer-content {
-    display: flex;
-  }
+  padding: 20px;
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.footer-content {
+  width: 100%;
+  display: flex;
+}
+
+.contact-information {
+  margin-bottom: 20px;
+  flex: 5;
+  margin-left: 10px;
+}
+
+.newsletter {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.email-form {
+  display: flex;
+  width: 100%;
+}
+.ant-input {
+  width: 400px;
+}
+
+.subscribe-button {
+  color: white;
+  margin-left: 20px;
+  width: 100px;
+  height: 46px;
+  border: none;
+  cursor: pointer;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+.contact-information h1 {
+  margin-right: 500px;
+}
+
+.newsletter h1 {
+  margin-bottom: 10px;
+}
+
+.newsletter h1 {
+  text-align: center;
+}
+
+.email-form input[type="email"] {
+  padding: 10px;
+  font-size: 16px;
+  flex: 1;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.email-form button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #34D8F5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.email-form button:hover {
+  background-color: #4596FF;
+}
+
+.contact-item .icon {
+  margin-right: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+.contact-item {
+  font-size: 18px;
+}
+
   
   .footer-bottom {
     display: flex;
