@@ -25,6 +25,7 @@ import CaratSection from "../pages/CaratSection";
 import Conclusion from "../pages/Conclusion";
 import Service from "../pages/Service";
 import Pricing from "../pages/Pricing";
+import Profile from "../pages/Profile";
 
 export const route = createBrowserRouter([
   {
@@ -106,6 +107,11 @@ export const route = createBrowserRouter([
         element: <Pricing />,
         errorElement: <ErrorPage />,
       },
+      {
+        path: "/profile",
+        element: <Profile />,
+        errorElement: <ErrorPage />,
+      },
     ],
   },
   {
@@ -153,6 +159,7 @@ export const route = createBrowserRouter([
       }
     ],
   },
+  
   {
     path: "/login",
     element: <Login />,
