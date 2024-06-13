@@ -1,32 +1,32 @@
 import { createBrowserRouter } from "react-router-dom";
-import CustomerLayout from "../layout/CustomerLayout";
-import HomePage from "../pages/HomePage";
-import ErrorPage from "../pages/ErrorPage";
-import ConsultingStaffLayout from "../layout/ConsultingStaffLayout";
-import Order from "../pages/ConsultingStaff/Order";
-import ValuationStaffLayout from "../layout/ValuationStaffLayout";
-import Request from "../pages/ValuationStaff/Request";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import ForgotPassword from "../pages/ForgotPassword";
-import ResetPassword from "../pages/ResetPassword";
 import ProtectedRoute from "../config/ProtectedRoute";
+import ConsultingStaffLayout from "../layout/ConsultingStaffLayout";
+import CustomerLayout from "../layout/CustomerLayout";
+import ValuationStaffLayout from "../layout/ValuationStaffLayout";
+import CalculateDiamond from "../pages/CalculateDiamond";
+import CaratSection from "../pages/CaratSection";
+import ClaritySection from "../pages/ClaritySection";
+import ColorSection from "../pages/ColorSection";
+import Conclusion from "../pages/Conclusion";
+import Order from "../pages/ConsultingStaff/Order";
+import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
+import CustomerRequest from "../pages/CustomerRequest";
+import CutSection from "../pages/CutSection";
+import Education from "../pages/Education";
+import ErrorPage from "../pages/ErrorPage";
+import ForgotPassword from "../pages/ForgotPassword";
+import Guides from "../pages/Guides";
+import HomePage from "../pages/HomePage";
+import Login from "../pages/Login";
+import Pricing from "../pages/Pricing";
+import Profile from "../pages/Profile";
+import Register from "../pages/Register";
+import ResetPassword from "../pages/ResetPassword";
+import Service from "../pages/Service";
+import Request from "../pages/ValuationStaff/Request";
 import RequestDetail from "../pages/ValuationStaff/RequestDetail";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
-import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
-import CalculateDiamond from "../pages/CalculateDiamond";
-import Education from "../pages/Education";
-import Guides from "../pages/Guides";
-import CutSection from "../pages/CutSection";
-import ColorSection from "../pages/ColorSection";
-import ClaritySection from "../pages/ClaritySection";
-import CaratSection from "../pages/CaratSection";
-import Conclusion from "../pages/Conclusion";
-import Service from "../pages/Service";
-import Pricing from "../pages/Pricing";
-import Profile from "../pages/Profile";
-import CustomerRequest from "../pages/CustomerRequest";
 
 export const route = createBrowserRouter([
   {
@@ -109,8 +109,21 @@ export const route = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/profile",
-        element: <Profile />,
+        path: "/request",
+        element: (
+          <ProtectedRoute requiredRoles={["Customer"]}>
+            <CustomerRequest />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/profile/:id",
+        element: (
+          <ProtectedRoute requiredRoles={["Customer"]}>
+            <Profile />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
       },
       {
@@ -122,6 +135,7 @@ export const route = createBrowserRouter([
         ),
         errorElement: <ErrorPage />,
       },
+
     ],
   },
   {
@@ -181,4 +195,5 @@ export const route = createBrowserRouter([
     element: <Register />,
     errorElement: <ErrorPage />,
   },
+  
 ]);

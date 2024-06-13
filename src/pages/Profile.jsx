@@ -1,19 +1,44 @@
-import React, { useState } from 'react';
+import { EditOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Empty, Form, Input, List, Modal, Row } from 'antd';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 import "../css/Profile.css";
-import { Card, Row, Col, Button, Modal, Input, Form, Empty, List } from 'antd';
-import { MailOutlined, PhoneOutlined, EditOutlined } from '@ant-design/icons';
 
-const userInitial = {
-  name: 'John Wick',
-  email: 'customer1@gmail.com',
-  phone: '0123456789',
-};
 
 const Profile = () => {
-  const [user, setUser] = useState(userInitial);
+  const { id } = useParams();
+  const [user, setUser] = useState([]);
   const [requests, setRequests] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentField, setCurrentField] = useState(null);
+
+  useEffect(() => {
+  const getUserProfile = async () => {
+    try {
+      const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/users/${id}`, {
+        withCredentials: true,
+      });
+      setUser(res.data.user[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getUserProfile();
+  }, [id]);
+
+  useEffect(() => {
+    const getAllRequestsByUser = async () => {
+      try {
+        const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/getRequestByUser/${id}`, { withCredentials: true });
+        console.log(res.data.data);
+        setRequests(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllRequestsByUser();
+  }, [id]);
 
   const showModal = (field) => {
     setCurrentField(field);
@@ -46,7 +71,8 @@ const Profile = () => {
             <Card.Meta
               title={
                 <div>
-                  {user.name} {renderEditButton('name')}
+                  {user.firstName} <></>
+                  {user.lastName} {renderEditButton('name')}
                 </div>
               }
               description={
@@ -63,9 +89,9 @@ const Profile = () => {
          {/* Cái này của phần hiện thị người dùng có định giá cái nào chưa, 
             tại profile ngắn quá nên viết thêm cho dài,
             theo sql là thuộc bảng request,  */}
-        <Col xs={24} sm={24} md={12}>
+        <Col xs={12} sm={12} md={12}>
           <div className="request-list">
-            {requests.length === 0 ? (
+            {requests === 0 ? (
               <Empty description="You have no requests" />
             ) : (
               <List
@@ -77,8 +103,11 @@ const Profile = () => {
                         title={`Request ID: ${request.id}`}
                         description={
                           <div>
-                            <p>Date: {request.date}</p>
+                            <img src={request.image} alt="diamond" />
+                            <p>Date: {request.createdDate}</p>
                             <p>Status: {request.status}</p>
+                            <p>Service: {request.serviceName}</p>
+                            <p>Process: {request.paymentStatus}</p>
                           </div>
                         }
                       />

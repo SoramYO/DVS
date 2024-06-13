@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { Menu, Dropdown, Button, Input, Row, Col } from "antd";
+import { Button, Col, Dropdown, Input, Menu, Row } from "antd";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../css/Navbar.css";
@@ -34,7 +34,7 @@ const Navbar = () => {
   const userMenu = (
     <Menu>
       <Menu.Item key="profile">
-        <Link to="/profile">Profile</Link>
+        <Link to={`/profile/${user.id}`}>Profile</Link>
       </Menu.Item>
       <Menu.Item key="logout" onClick={logout}>
         Logout
