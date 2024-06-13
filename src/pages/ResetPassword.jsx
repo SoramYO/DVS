@@ -1,7 +1,7 @@
-import React, { useEffect, useState, } from 'react';
-import { Form, Input, Button, Card, message } from 'antd';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Button, Card, Form, Input, message } from 'antd';
 import axios from 'axios';
+import React, { useEffect, useState, } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ResetPassword = () => {
     const [form] = Form.useForm();
@@ -26,7 +26,7 @@ const ResetPassword = () => {
 
     const onFinish = async (values) => {
         try {
-            const response = await axios.put('http://localhost:8080/api/reset-password', {
+            const response = await axios.put('https://dvs-be-sooty.vercel.app/api/reset-password', {
                 token,
                 userId,
                 password: values.password,

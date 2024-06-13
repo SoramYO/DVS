@@ -1,13 +1,13 @@
-import React from 'react';
-import { Form, Input, Button, Card, message } from 'antd';
+import { Button, Card, Form, Input, message } from 'antd';
 import axios from 'axios';
+import React from 'react';
 
 const ForgotPassword = () => {
     const [form] = Form.useForm();
 
     const onFinish = async (values) => {
         try {
-            const response = await axios.post('http://localhost:8080/api/forgot-password', { email: values.email });
+            const response = await axios.post('https://dvs-be-sooty.vercel.app/api/forgot-password', { email: values.email });
             if (response.data.errCode === 0) {
                 message.success('Password reset link sent to your email.');
             } else {

@@ -1,8 +1,9 @@
-import React from 'react';
-import { Row, Card, Button, Typography } from 'antd';
 import { SketchOutlined } from '@ant-design/icons';
-import '../css/HomePage.css';
+import { Button, Card, Row, Typography } from 'antd';
+import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import HomePageImage from '../assets/imgs/homepage-image.jpeg';
+import '../css/HomePage.css';
 const { Title, Paragraph } = Typography;
 
 const HomePage = () => {
@@ -23,7 +24,7 @@ const HomePage = () => {
                 <button type="button" className="valuation-button">Valuation Now</button>
               </Link>
             </div>
-            <img src="https://troyobrien.com.au/wp-content/uploads/2019/05/714B3D35-3343-4FC8-8680-B62C33E41EB8.jpeg" alt="Diamond" className="homepage-image" />
+            <img src={HomePageImage} alt="Diamond" className="homepage-image" />
           </div>
         </section>
         <hr />

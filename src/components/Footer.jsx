@@ -1,28 +1,28 @@
+import { Button, Form, Input, notification } from 'antd';
+import axios from 'axios';
 import React, { useState } from 'react';
-import "../css/Footer.css";
+import EmailIcon from '../assets/icons/mail.svg';
 import AddressIcon from '../assets/icons/map.svg';
 import PhoneIcon from '../assets/icons/phone.svg';
-import EmailIcon from '../assets/icons/mail.svg';
-import GIA from '../assets/imgs/GIA.png';
-import HRD from '../assets/imgs/HRD.png';
-import IGI from '../assets/imgs/IGI.png';
-import Visa from '../assets/imgs/Visa.png';
-import Mastercard from '../assets/imgs/MasterCard.png';
 import Amex from '../assets/imgs/Amex.png';
-import Paypal from '../assets/imgs/PayPal.png';
 import Bancontact from '../assets/imgs/Bancontact.png';
 import Banktransfer from '../assets/imgs/Banktransfer.png';
 import DHL from '../assets/imgs/DHL.png';
 import Fedex from '../assets/imgs/Fedex.png';
+import GIA from '../assets/imgs/GIA.png';
+import HRD from '../assets/imgs/HRD.png';
+import IGI from '../assets/imgs/IGI.png';
 import Ideal from '../assets/imgs/Ideal.png';
 import Malca from '../assets/imgs/Malca.png';
-import axios from 'axios';
-import { Form, Input, Button, notification } from 'antd';
+import Mastercard from '../assets/imgs/MasterCard.png';
+import Paypal from '../assets/imgs/PayPal.png';
+import Visa from '../assets/imgs/Visa.png';
+import "../css/Footer.css";
 const Footer = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8080/api/registerMail', { email: values.email });
+      const response = await axios.post('https://dvs-be-sooty.vercel.app/api/registerMail', { email: values.email });
       notification.success({
         message: 'Subscription Successful',
         description: response.data.message,

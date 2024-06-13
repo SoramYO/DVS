@@ -2,6 +2,7 @@ import { SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Col, Dropdown, Input, Menu, Row } from "antd";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import Logo from "../assets/imgs/logo.webp";
 import { AuthContext } from "../context/AuthContext";
 import "../css/Navbar.css";
 
@@ -50,7 +51,7 @@ const Navbar = () => {
             <div className="navbarLogo">
               <Link to="/">
                 <img
-                  src="https://marketplace.canva.com/EAFqberfhMA/1/0/1600w/canva-black-gold-luxury-modern-diamond-brand-store-logo-VmwEPkcpqzE.jpg"
+                  src={Logo}
                   alt="Logo"
                   className="navbarLogo"
                 />

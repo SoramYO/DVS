@@ -1,39 +1,25 @@
-import React, { useState, useContext } from "react";
-import {
-  Layout,
-  Row,
-  Col,
-  Form,
-  Button,
-  Typography,
-  Radio,
-  Slider,
-  InputNumber,
-  Input,
-  Upload,
-  message,
-  Select,
-} from "antd";
-import "antd/dist/reset.css";
-import "../css/CalculateDiamond.css";
 import { UploadOutlined } from "@ant-design/icons";
+import { Button, Col, Form, Input, InputNumber, Layout, Radio, Row, Select, Slider, Typography, Upload, message } from "antd";
+import "antd/dist/reset.css";
+import React, { useContext, useState } from "react";
+import "../css/CalculateDiamond.css";
 
-import roundImg from "../assets/imgs/round.png";
-import cushionImg from "../assets/imgs/cushion.png";
-import emeraldImg from "../assets/imgs/emerald.png";
-import ovalImg from "../assets/imgs/oval.png";
-import princessImg from "../assets/imgs/princess.png";
-import pearImg from "../assets/imgs/pear.png";
-import radiantImg from "../assets/imgs/radiant.png";
-import marquiseImg from "../assets/imgs/marquise.png";
-import asscherImg from "../assets/imgs/asscher.png";
-import heartImg from "../assets/imgs/heart.png";
-import { AuthContext } from "../context/AuthContext";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../firebase/firebase";
 import { Option } from "antd/es/mentions";
 import axios from "axios";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import asscherImg from "../assets/imgs/asscher.png";
+import cushionImg from "../assets/imgs/cushion.png";
+import emeraldImg from "../assets/imgs/emerald.png";
+import heartImg from "../assets/imgs/heart.png";
+import marquiseImg from "../assets/imgs/marquise.png";
+import ovalImg from "../assets/imgs/oval.png";
+import pearImg from "../assets/imgs/pear.png";
+import princessImg from "../assets/imgs/princess.png";
+import radiantImg from "../assets/imgs/radiant.png";
+import roundImg from "../assets/imgs/round.png";
+import { AuthContext } from "../context/AuthContext";
+import { storage } from "../firebase/firebase";
 const { Content } = Layout;
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -189,18 +175,18 @@ const CustomerRequest = () => {
     };
     handleCreateRequest(requestData)
   };
-  const handleCreateRequest = async(values) => {
+  const handleCreateRequest = async (values) => {
     axios
-    .post("https://dvs-be-sooty.vercel.app/api/createNewRequest", values, {
-      withCredentials: true,
-    })
-    .then((res) => {
-      message.success("Created successfully");
-      navigate("/");
-    })
-    .catch((error) => {
-      message.error(error.response.data.message);
-    });
+      .post("https://dvs-be-sooty.vercel.app/api/createNewRequest", values, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        message.success("Created successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        message.error(error.response.data.message);
+      });
   }
   return (
     <Layout className="layout">
