@@ -26,6 +26,7 @@ import Conclusion from "../pages/Conclusion";
 import Service from "../pages/Service";
 import Pricing from "../pages/Pricing";
 import Profile from "../pages/Profile";
+import CustomerRequest from "../pages/CustomerRequest";
 
 export const route = createBrowserRouter([
   {
@@ -112,14 +113,24 @@ export const route = createBrowserRouter([
         element: <Profile />,
         errorElement: <ErrorPage />,
       },
+      {
+        path: "/request",
+        element: (
+          <ProtectedRoute requiredRoles={["Customer"]}>
+            <CustomerRequest />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
     ],
   },
   {
     path: "/consultingStaff",
     element: (
-      <ProtectedRoute requiredRoles={['Consulting Staff']}>
+      <ProtectedRoute requiredRoles={["Consulting Staff"]}>
         <ConsultingStaffLayout />
-      </ProtectedRoute>),
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -135,7 +146,7 @@ export const route = createBrowserRouter([
   {
     path: "/valuationStaff",
     element: (
-      <ProtectedRoute requiredRoles={['Valuation Staff']}>
+      <ProtectedRoute requiredRoles={["Valuation Staff"]}>
         <ValuationStaffLayout />
       </ProtectedRoute>
     ),
@@ -156,7 +167,7 @@ export const route = createBrowserRouter([
       {
         path: "valuationResult",
         element: <ValuationResult />,
-      }
+      },
     ],
   },
   
@@ -170,5 +181,4 @@ export const route = createBrowserRouter([
     element: <Register />,
     errorElement: <ErrorPage />,
   },
-
 ]);

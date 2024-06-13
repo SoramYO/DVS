@@ -19,7 +19,7 @@ const HomePage = () => {
             <div className="homepage-content">
               <Title level={1}>Compare Top-Rated Jewelers & Save</Title>
               <Paragraph>Navigate the diamond knowledge effortlessly.</Paragraph>
-              <Link to="/requests">
+              <Link to="/request">
                 <button type="button" className="valuation-button">Valuation Now</button>
               </Link>
             </div>
