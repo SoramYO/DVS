@@ -3,8 +3,8 @@ import { Button, Card, Col, Empty, Form, Input, List, Modal, Row } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
+import MySpin from "../components/MySpin";
 import "../css/Profile.css";
-
 
 const Profile = () => {
   const { id } = useParams();
@@ -61,7 +61,7 @@ const Profile = () => {
       onClick={() => showModal(field)}
     />
   );
-
+  if (!requests.length && !user.length) return <MySpin />;
   return (
     <div className="profile-container">
       <h1 className="profile-header"><strong>MY PROFILE</strong></h1>
