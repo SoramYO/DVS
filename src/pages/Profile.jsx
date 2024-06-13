@@ -3,8 +3,8 @@ import { Button, Card, Col, Empty, Form, Input, List, Modal, Row } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
+import MySpin from "../components/MySpin";
 import "../css/Profile.css";
-
 
 const Profile = () => {
   const { id } = useParams();
@@ -14,17 +14,17 @@ const Profile = () => {
   const [currentField, setCurrentField] = useState(null);
 
   useEffect(() => {
-  const getUserProfile = async () => {
-    try {
-      const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/users/${id}`, {
-        withCredentials: true,
-      });
-      setUser(res.data.user[0]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  getUserProfile();
+    const getUserProfile = async () => {
+      try {
+        const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/users/${id}`, {
+          withCredentials: true,
+        });
+        setUser(res.data.user[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserProfile();
   }, [id]);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const Profile = () => {
       onClick={() => showModal(field)}
     />
   );
-
+  if (!requests.length && !user.length) return <MySpin />;
   return (
     <div className="profile-container">
       <h1 className="profile-header"><strong>MY PROFILE</strong></h1>
@@ -86,7 +86,7 @@ const Profile = () => {
         </Col>
 
 
-         {/* Cái này của phần hiện thị người dùng có định giá cái nào chưa, 
+        {/* Cái này của phần hiện thị người dùng có định giá cái nào chưa, 
             tại profile ngắn quá nên viết thêm cho dài,
             theo sql là thuộc bảng request,  */}
         <Col xs={12} sm={12} md={12}>
@@ -121,8 +121,8 @@ const Profile = () => {
       </Row>
 
 
-       {/* Cái này của phần người dùng edit thông tin, tại profile ngắn quá nên viết thêm cho dài */}
-      <Modal  
+      {/* Cái này của phần người dùng edit thông tin, tại profile ngắn quá nên viết thêm cho dài */}
+      <Modal
         title={`Edit ${currentField}`}
         visible={isModalVisible}
         onCancel={handleCancel}
