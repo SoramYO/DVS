@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../css/Conclusion.css';
 import { Link } from 'react-router-dom';
 
 const Conclusion = () => {
+    const conSectionContainerRef = useRef(null);
+
+    useEffect(() => {
+        conSectionContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, []);
     return (
-        <div className="conSectionContainer">
+        <div ref={conSectionContainerRef} id="conSectionContainer" className="conSectionContainer">
             <h2><strong>Conclusion</strong></h2>
             <p>
                 Each of the <span style={{ color: "red" }}>4 Cs</span> contributes to the <span style={{ color: "darkkhaki" }}>overall beauty of a diamond</span>, making each stone unique. However, a diamond should be viewed <span style={{ color: "darkkhaki" }}>as an integrated whole</span>. Since it is challenging for the eye to distinguish one characteristic, such as clarity or color, on its own, it is <span style={{ color: "mediumorchid" }}>essential</span> to consider <span style={{ color: "red" }}>how the 4 Cs interact and affect each other</span>.

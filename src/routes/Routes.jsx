@@ -184,7 +184,7 @@ export const route = createBrowserRouter([
       },
     ],
   },
-  
+
   {
     path: "/login",
     element: <Login />,
@@ -195,5 +195,5 @@ export const route = createBrowserRouter([
     element: <Register />,
     errorElement: <ErrorPage />,
   },
-  
+
 ]);

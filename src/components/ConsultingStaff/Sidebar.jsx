@@ -1,5 +1,5 @@
 import React from "react";
-import { DesktopOutlined, UserOutlined, SolutionOutlined } from "@ant-design/icons";
+import { DesktopOutlined, SolutionOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 const { Sider } = Layout;
