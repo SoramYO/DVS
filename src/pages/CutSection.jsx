@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../css/Section.css';
 import { Link } from 'react-router-dom';
 
 const CutSection = () => {
+  const cutSectionContainerRef = useRef(null);
+
+  useEffect(() => {
+    cutSectionContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, []);
   return (
-    <div className="cutSectionContainer">
+    <div ref={cutSectionContainerRef} id="cutSectionContainer" className="cutSectionContainer">
       <h2><strong>Cut</strong></h2>
       <p>
         The <strong>'Cut'</strong> is arguably the most crucial factor affecting a diamond's beauty.

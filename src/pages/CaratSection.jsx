@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../css/Section.css';
 import { Link } from 'react-router-dom';
 
 const CaratSection = () => {
+    const cutSectionContainerRef = useRef(null);
+
+    useEffect(() => {
+        cutSectionContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, []);
     return (
-        <div className="cutSectionContainer">
+        <div ref={cutSectionContainerRef} id="cutSectionContainer" className="cutSectionContainer">
             <h2><strong>Carat Weight</strong></h2>
             <p>
                 Often, when people hear the term "<a href="https://www.diamonds.pro/education/carat-weight/" target="_blank" rel="noopener noreferrer">carat weight</a>," they think it refers to the size of the diamond. In reality, carat refers to <span style={{ color: "red" }}>the weight of the diamond</span>, <strong>not</strong> its <span style={{ color: "mediumorchid" }}>size</span>.
