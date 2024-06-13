@@ -12,6 +12,7 @@ const Navbar = () => {
   const logout = () => {
     dispatch({ type: "LOGOUT" });
   };
+
   const educationMenu = (
     <Menu>
       <Menu.Item>
@@ -35,7 +36,7 @@ const Navbar = () => {
   const userMenu = (
     <Menu>
       <Menu.Item key="profile">
-        <Link to={`/profile/${user.id}`}>Profile</Link>
+        {user ? <Link to={`/profile/${user.id}`}>Profile</Link> : null}
       </Menu.Item>
       <Menu.Item key="logout" onClick={logout}>
         Logout
@@ -46,31 +47,25 @@ const Navbar = () => {
   return (
     <div className="navbarContainer">
       <Row justify="space-between" align="middle">
-        <Col>
+        <Col xs={24} sm={12} md={12} lg={12}>
           <div className="navbarLeft">
             <div className="navbarLogo">
               <Link to="/">
-                <img
-                  src={Logo}
-                  alt="Logo"
-                  className="navbarLogo"
-                />
+                <img src={Logo} alt="Logo" className="navbarLogo" />
               </Link>
             </div>
-            <Row>
-              <div className="navbarMenu">
-                <Link to="/">HomePage</Link>
-                <Dropdown overlay={educationMenu}>
-                  <Link to="/education">Education</Link>
-                </Dropdown>
-                <Link to="/guides">Guides</Link>
-                <Link to="/services">Services</Link>
-                <Link to="/pricing">Pricing</Link>
-              </div>
-            </Row>
+            <div className="navbarMenu">
+              <Link to="/">HomePage</Link>
+              <Dropdown overlay={educationMenu}>
+                <Link to="/education">Education</Link>
+              </Dropdown>
+              <Link to="/guides">Guides</Link>
+              <Link to="/services">Services</Link>
+              <Link to="/pricing">Pricing</Link>
+            </div>
           </div>
         </Col>
-        <Col>
+        <Col xs={4} sm={12} md={12} lg={10} className="navbarRightContainer">
           <div className="navbarRight">
             <div className="searchContainer">
               <Input

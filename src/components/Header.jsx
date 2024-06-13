@@ -1,19 +1,19 @@
-import React from "react";
 import {
   DownOutlined,
+  MailFilled,
   PhoneFilled,
   TwitchFilled,
-  MailFilled,
 } from "@ant-design/icons";
+import React from "react";
 import "../css/Header.css";
 const Header = () => {
   return (
     <div className="headerContainer">
       <div className="headerLeft">
         <div className="languageIcon">
-          <img src="assets/language.png" alt="" className="languageIconImage"/>
+          <img src="../assets/language.png" alt="" className="languageIconImage" />
         </div>
-          <DownOutlined className="downIcon"/>
+        <DownOutlined className="downIcon" />
         <h4>English</h4>
       </div>
       <div className="headerRight">
