@@ -25,6 +25,7 @@ import CaratSection from "../pages/CaratSection";
 import Conclusion from "../pages/Conclusion";
 import Service from "../pages/Service";
 import Pricing from "../pages/Pricing";
+import Profile from "../pages/Profile";
 import CustomerRequest from "../pages/CustomerRequest";
 
 export const route = createBrowserRouter([
@@ -108,6 +109,11 @@ export const route = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
+        path: "/profile",
+        element: <Profile />,
+        errorElement: <ErrorPage />,
+      },
+      {
         path: "/request",
         element: (
           <ProtectedRoute requiredRoles={["Customer"]}>
@@ -164,6 +170,7 @@ export const route = createBrowserRouter([
       },
     ],
   },
+  
   {
     path: "/login",
     element: <Login />,
