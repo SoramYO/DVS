@@ -6,6 +6,7 @@
   }
   
   .navbarLeft {
+    float: left;
     display: flex;
     justify-content: center;
   }
@@ -31,6 +32,7 @@
   }
   
   .navbarRight {
+    float: right;
     flex: 1;
     display: inline-flex;
     align-items: center;
@@ -66,5 +68,7 @@
   .userIcon {
     font-size: 22px;
   }
+
+  
 
   

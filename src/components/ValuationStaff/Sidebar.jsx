@@ -1,7 +1,8 @@
-import React from "react";
-import { DesktopOutlined, UserOutlined, SolutionOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { DesktopOutlined, SolutionOutlined, UserOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
+import React from "react";
+import { Link } from "react-router-dom";
+import Logo from "../../assets/imgs/logo.webp";
 const { Sider } = Layout;
 
 
@@ -17,7 +18,7 @@ const Sidebar = () => {
       <div
       >
         <img
-          src="https://t4.ftcdn.net/jpg/02/39/44/75/360_F_239447528_qWYSonUIwGoNC290SfOBq8Gvy3x8ownV.jpg"
+          src={Logo}
           alt="logo"
           style={{ width: "100%", height: "180px" }}
         />
