@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../css/Section.css';
 import { Link } from 'react-router-dom';
 
 const ClaritySection = () => {
+    const cutSectionContainerRef = useRef(null);
+
+    useEffect(() => {
+        cutSectionContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, []);
     return (
-        <div className="cutSectionContainer">
+        <div ref={cutSectionContainerRef} id="cutSectionContainer" className="cutSectionContainer">
             <h2><strong>Clarity</strong></h2>
             <p>
                 A diamond’s clarity grade evaluates how clean a diamond is from both inclusions and blemishes. Clarity is graded by the GIA on the following <a href="https://www.diamonds.pro/education/clarity/" target="_blank" rel="noopener noreferrer">diamond clarity chart</a>:
@@ -22,9 +27,9 @@ const ClaritySection = () => {
                 <li>I2 (Inclusions 2)</li>
             </ul>
             <p>
-                Note that each diamond <span style={{ color: "mediumorchid" }}>differs slightly</span>. Rather than sticking to a particular grade on the diamond clarity chart, review each diamond to see if you notice imperfections.
+                <strong>Note:</strong> that each diamond <span style={{ color: "mediumorchid" }}>differs slightly</span>. Rather than sticking to a particular grade on the diamond clarity chart, review each diamond to see if you notice imperfections.
             </p>
-            <h2>Diamond Clarity Chart</h2>
+            <h3><strong>Diamond Clarity Chart</strong></h3>
             <p>
                 This diamond clarity grading scale <span style={{ color: "darkkhaki" }}>summarizes each clarity grade</span> and <span style={{ color: "darkkhaki" }}>illustrates how the visibility of inclusions changes</span>.
             </p>
@@ -74,8 +79,8 @@ const ClaritySection = () => {
             <div>
                 <Link to="/carat">Learn more about Carat Weight</Link>
                 <div>
-                <Link to="/conclusion">Conclusion</Link>
-            </div>
+                    <Link to="/conclusion">Conclusion</Link>
+                </div>
             </div>
         </div>
     );

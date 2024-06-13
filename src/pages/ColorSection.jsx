@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../css/Section.css';
 import { Link } from 'react-router-dom';
 
 const ColorSection = () => {
+    const cutSectionContainerRef = useRef(null);
+
+    useEffect(() => {
+        cutSectionContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, []);
     return (
-        <div className="cutSectionContainer">
+        <div ref={cutSectionContainerRef} id="cutSectionContainer" className="cutSectionContainer">
             <h2><strong>Color</strong></h2>
             <p>
                 <a href="https://www.diamonds.pro/education/color/" target="_blank" rel="noopener noreferrer">Diamond color</a> is graded based on how white or colorless a diamond is.
@@ -36,9 +41,9 @@ const ColorSection = () => {
             <p>
                 <strong>Note:</strong> Fancy colored diamonds, like pink or green ones, are valued differently from traditional white diamonds and have their own color grading system, not shown on the standard diamond color chart.
             </p>
-            <p>
+            <p><strong>
                 <span style={{ color: "green" }}>Diamond Quality chart:</span>
-            </p>
+            </strong></p>
             <div className="image-container">
                 <img src="/assets/edu3.png" alt="Diamond Color Chart" />
             </div>
@@ -51,8 +56,8 @@ const ColorSection = () => {
             <div>
                 <Link to="/carat">Learn more about Carat Weight</Link>
                 <div>
-                <Link to="/conclusion">Conclusion</Link>
-            </div>
+                    <Link to="/conclusion">Conclusion</Link>
+                </div>
             </div>
         </div>
     );

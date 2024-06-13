@@ -16,14 +16,17 @@
 
 .guidesContainer h1 {
   font-size: 2.5em;
+  text-align: center;
 }
 
 .guidesContainer h2 {
   font-size: 2em;
+  text-align: center;
 }
 
 .guidesContainer h3 {
   font-size: 1.5em;
+  text-align: center;
 }
 
 .guidesContainer p, .guidesContainer ul {
