@@ -1,5 +1,19 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, InputNumber, Layout, Radio, Row, Select, Slider, Typography, Upload, message } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  InputNumber,
+  Layout,
+  Radio,
+  Row,
+  Select,
+  Slider,
+  Typography,
+  Upload,
+  message,
+} from "antd";
 import "antd/dist/reset.css";
 import React, { useContext, useState } from "react";
 import "../css/CalculateDiamond.css";
@@ -66,13 +80,12 @@ const claritys = [
 ];
 
 const services = [
-  { id: 1, name: "Normal" },
-  { id: 2, name: "Vip" },
+  { id: 1, name: "Normal - 300.000VNĐ" },
+  { id: 2, name: "Vip - 450.000VNĐ" },
 ];
 
 const CustomerRequest = () => {
   const [form] = Form.useForm();
-  const navigate = useNavigate();
   const [fileList, setFileList] = useState([]);
   const [selectedShape, setSelectedShape] = useState("ROUND");
   const [selectedColor, setSelectedColor] = useState("D");
@@ -173,21 +186,75 @@ const CustomerRequest = () => {
       userId: user?.id,
       serviceId: service,
     };
-    handleCreateRequest(requestData)
+    handleCreateRequest(requestData);
+    handlePayment(requestData.serviceId);
   };
+
+  const handleCreatePayment = async (requestId, serviceId) => {
+    const paymentData =
+      serviceId === 1
+        ? {
+            paymentAmount: 300000,
+          }
+        : {
+            paymentAmount: 450000,
+          };
+    try {
+      await axios.put(
+        `https://dvs-be-sooty.vercel.app/api/payment/${requestId}`,
+        paymentData,
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   const handleCreateRequest = async (values) => {
-    axios
-      .post("https://dvs-be-sooty.vercel.app/api/createNewRequest", values, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        message.success("Created successfully");
-        navigate("/");
-      })
-      .catch((error) => {
-        message.error(error.response.data.message);
-      });
-  }
+    try {
+      const response = await axios.post(
+        "https://dvs-be-sooty.vercel.app/api/createNewRequest",
+        values,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        message.success("Created success");
+        const requestId = response.data.data.id
+        const serviceId = values.serviceId
+        handleCreatePayment(requestId, serviceId)
+      }
+    } catch (error) {
+      message.error(error.response.data.message);
+    }
+  };
+
+  const handlePayment = async (serviceId) => {
+    const paymentData =
+      serviceId === 1
+        ? {
+            amount: 300000,
+            bankCode: null,
+            language: "vn",
+          }
+        : {
+            amount: 450000,
+            bankCode: null,
+            language: "vn",
+          };
+    try {
+      const response = await axios.post(
+        "https://dvs-be-sooty.vercel.app/api/create_payment_url",
+        paymentData, {withCredentials: true}
+      );
+      window.open(response.data.data, '_self')
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Layout className="layout">
       <Content style={{ padding: "0 50px" }}>
