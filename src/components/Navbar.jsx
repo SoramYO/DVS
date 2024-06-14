@@ -55,7 +55,7 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="navbarMenu">
-              <Link to="/">HomePage</Link>
+              <Link to="/request">Valuation</Link>
               <Dropdown overlay={educationMenu}>
                 <Link to="/education">Education</Link>
               </Dropdown>
@@ -84,7 +84,7 @@ const Navbar = () => {
                   <div className="profileContainer">
                     <UserOutlined className="userIcon" />
                     <p>
-                      Welcome, {user.firstName} {user.lastName}
+                      Welcome,{user.firstName} {user.lastName}
                     </p>
                   </div>
                 </Dropdown>
