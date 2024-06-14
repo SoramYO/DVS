@@ -27,6 +27,7 @@ import Request from "../pages/ValuationStaff/Request";
 import RequestDetail from "../pages/ValuationStaff/RequestDetail";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
+import PaymentSucces from "../pages/PaymentSucces";
 
 export const route = createBrowserRouter([
   {
@@ -106,6 +107,11 @@ export const route = createBrowserRouter([
       {
         path: "/pricing",
         element: <Pricing />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/paymentSuccess",
+        element: <PaymentSucces />,
         errorElement: <ErrorPage />,
       },
       {
