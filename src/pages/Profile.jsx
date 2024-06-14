@@ -1,5 +1,5 @@
 import { EditOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Empty, Form, Input, List, Modal, Row } from 'antd';
+import { Button, Card, Col, Empty, Form, Input, Modal, Pagination, Row } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
@@ -8,10 +8,12 @@ import "../css/Profile.css";
 
 const Profile = () => {
   const { id } = useParams();
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
   const [requests, setRequests] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentField, setCurrentField] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(8); // Số yêu cầu mỗi trang
 
   useEffect(() => {
     const getUserProfile = async () => {
@@ -31,7 +33,10 @@ const Profile = () => {
     const getAllRequestsByUser = async () => {
       try {
         const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/getRequestByUser/${id}`, { withCredentials: true });
-        console.log(res.data.data);
+        console.log(res.data.data); // Kiểm tra dữ liệu trả về từ API
+        res.data.data.forEach(request => {
+          console.log(request.image); // Kiểm tra từng URL ảnh
+        });
         setRequests(res.data.data);
       } catch (error) {
         console.log(error);
@@ -61,22 +66,36 @@ const Profile = () => {
       onClick={() => showModal(field)}
     />
   );
-  if (!requests.length && !user.length) return <MySpin />;
+
+  if (!requests.length && !user.firstName) return <MySpin />;
+
+  const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+  };
+
+  const paginatedRequests = requests.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
   return (
     <div className="profile-container">
       <h1 className="profile-header"><strong>MY PROFILE</strong></h1>
-      <Row justify="center" gutter={16}>
+      
+      <Row justify="center">
         <Col xs={24} sm={24} md={12}>
           <Card className="profile-card">
             <Card.Meta
               title={
-                <div>
-                  {user.firstName} <></>
-                  {user.lastName} {renderEditButton('name')}
+                <div className="ant-card-meta-title">
+                  {user.firstName} {user.lastName} {renderEditButton('name')}
                 </div>
               }
               description={
-                <div>
+                <div className="ant-card-meta-description">
                   <p><MailOutlined /> {user.email} {renderEditButton('email')}</p>
                   <p><PhoneOutlined /> {user.phone} {renderEditButton('phone')}</p>
                 </div>
@@ -84,44 +103,52 @@ const Profile = () => {
             />
           </Card>
         </Col>
+      </Row>
 
-
-        {/* Cái này của phần hiện thị người dùng có định giá cái nào chưa, 
-            tại profile ngắn quá nên viết thêm cho dài,
-            theo sql là thuộc bảng request,  */}
-        <Col xs={12} sm={12} md={12}>
+      <h1 className="profile-header"><strong>MY REQUEST</strong></h1>
+      <Row justify="center" style={{ marginTop: 16 }}>
+        <Col xs={24} sm={24} md={18}>
           <div className="request-list">
-            {requests === 0 ? (
+            {requests.length === 0 ? (
               <Empty description="You have no requests" />
             ) : (
-              <List
-                dataSource={requests}
-                renderItem={request => (
-                  <List.Item key={request.id} className="request-item">
-                    <Card>
-                      <Card.Meta
-                        title={`Request ID: ${request.id}`}
-                        description={
-                          <div>
-                            <img src={request.image} alt="diamond" />
-                            <p>Date: {request.createdDate}</p>
-                            <p>Status: {request.status}</p>
-                            <p>Service: {request.serviceName}</p>
-                            <p>Process: {request.paymentStatus}</p>
-                          </div>
+              <>
+                <Row gutter={[16, 16]}>
+                  {paginatedRequests.map(request => (
+                    <Col key={request.id} xs={24} sm={12} md={6}>
+                      <Card
+                        cover={
+                          <img src={request.requestImage} alt="diamond" className="profile-card-img" />
                         }
-                      />
-                    </Card>
-                  </List.Item>
-                )}
-              />
+                      >
+                        <Card.Meta
+                          title={`Request ID: ${request.id}`}
+                          description={
+                            <div>
+                              <p><strong>Date</strong>: {formatDate(request.createdDate)}</p>
+                              <p><strong>Status</strong>: {request.status}</p>
+                              <p><strong>Service</strong>: {request.serviceName}</p>
+                              <p><strong>Process</strong>: {request.paymentStatus}</p>
+                            </div>
+                          }
+                        />
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+                <Pagination
+                  current={currentPage}
+                  pageSize={pageSize}
+                  total={requests.length}
+                  onChange={handlePageChange}
+                  style={{ textAlign: 'center', marginTop: '16px' }}
+                />
+              </>
             )}
           </div>
         </Col>
       </Row>
 
-
-      {/* Cái này của phần người dùng edit thông tin, tại profile ngắn quá nên viết thêm cho dài */}
       <Modal
         title={`Edit ${currentField}`}
         visible={isModalVisible}
