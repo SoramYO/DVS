@@ -1,0 +1,38 @@
+.contact-form-modal {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form-modal .ant-modal-header {
+    background-color: #f0f2f5;
+}
+
+.contact-form-modal .ant-modal-title {
+    color: #1890ff;
+    text-align: center;
+}
+
+.contact-form-modal .ant-modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.contact-form-modal .ant-form-item-label>label {
+    color: #595959;
+    font-weight: 500;
+}
+
+.contact-form-modal .ant-input,
+.contact-form-modal .ant-input-textarea {
+    border-radius: 4px;
+}
+
+.contact-form-modal .ant-btn-primary {
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+
+.contact-form-modal .ant-btn-primary:hover {
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+}
