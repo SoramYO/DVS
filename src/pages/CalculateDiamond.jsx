@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Row, Col, Form, Button, Typography, Radio, Card, Slider, InputNumber } from 'antd';
+import { Button, Card, Col, Form, InputNumber, Layout, Radio, Row, Slider, Typography } from 'antd';
 import 'antd/dist/reset.css';
+import React, { useEffect, useState } from 'react';
 import '../css/CalculateDiamond.css';
 
-import roundImg from '../assets/imgs/round.png';
+import asscherImg from '../assets/imgs/asscher.png';
 import cushionImg from '../assets/imgs/cushion.png';
 import emeraldImg from '../assets/imgs/emerald.png';
-import ovalImg from '../assets/imgs/oval.png';
-import princessImg from '../assets/imgs/princess.png';
-import pearImg from '../assets/imgs/pear.png';
-import radiantImg from '../assets/imgs/radiant.png';
-import marquiseImg from '../assets/imgs/marquise.png';
-import asscherImg from '../assets/imgs/asscher.png';
 import heartImg from '../assets/imgs/heart.png';
+import marquiseImg from '../assets/imgs/marquise.png';
+import ovalImg from '../assets/imgs/oval.png';
+import pearImg from '../assets/imgs/pear.png';
+import princessImg from '../assets/imgs/princess.png';
+import radiantImg from '../assets/imgs/radiant.png';
+import roundImg from '../assets/imgs/round.png';
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
@@ -391,6 +391,11 @@ const CalculateDiamond = () => {
     setInputValue(0.01);
   };
 
+  const handleCalculatePrice = () => {
+    const totalPrice = calculateDiamondPrice(carat, selectedColor, selectedClarity);
+    setPriceData({ fairPrice: totalPrice, carat, color: selectedColor, clarity: selectedClarity, shape: selectedShape });
+  };
+
   return (
     <Layout className="layout">
       <Content style={{ padding: '0 50px' }}>
@@ -465,7 +470,12 @@ const CalculateDiamond = () => {
               </Col>
             </Row>
             <Form.Item>
-              <Button type="primary" onClick={handleReset}>Reset</Button>
+              <Button type="primary" onClick={handleCalculatePrice}>
+                Check Price
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+                Reset
+              </Button>
             </Form.Item>
           </Form>
           {priceData && (
@@ -476,7 +486,7 @@ const CalculateDiamond = () => {
                 <Paragraph>Carat: {priceData.carat}</Paragraph>
                 <Paragraph>Color: {priceData.color}</Paragraph>
                 <Paragraph>Clarity: {priceData.clarity}</Paragraph>
-                <Paragraph className="result-card-price">Fair Price: ${priceData.fairPrice.toFixed(2)}</Paragraph>
+                <Paragraph className="result-card-price">Fair Price: ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</Paragraph>
               </div>
             </Card>
           )}
