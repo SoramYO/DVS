@@ -497,3 +497,167 @@ const CalculateDiamond = () => {
 };
 
 export default CalculateDiamond;
+
+// const CalculateDiamond = () => {
+//   const [form] = Form.useForm();
+//   const [priceData, setPriceData] = useState(null);
+//   const [selectedShape, setSelectedShape] = useState('ROUND');
+//   const [selectedColor, setSelectedColor] = useState('D');
+//   const [selectedClarity, setSelectedClarity] = useState('IF');
+//   const [carat, setCarat] = useState(0.01);
+
+//   const handleShapeChange = (shape) => {
+//     setSelectedShape(shape);
+//   };
+
+//   const handleColorChange = (color) => {
+//     setSelectedColor(color);
+//   };
+
+//   const handleClarityChange = (clarity) => {
+//     setSelectedClarity(clarity);
+//   };
+
+//   const onChangeCarat = (value) => {
+//     if (!isNaN(value)) {
+//       setCarat(value);
+//     }
+//   };
+
+//   const handleReset = () => {
+//     form.resetFields();
+//     setPriceData(null);
+//     setSelectedShape('ROUND');
+//     setSelectedColor('D');
+//     setSelectedClarity('IF');
+//     setCarat(0.01);
+//   };
+
+//   const handleCalculatePrice = () => {
+//     axios.post('http://127.0.0.1:5000/predict', {
+//       carat,
+//       cut: selectedShape,
+//       color: selectedColor,
+//       clarity: selectedClarity,
+//       depth: 60,   // Thay bằng giá trị thực tế từ form hoặc mặc định
+//       table: 55,   // Thay bằng giá trị thực tế từ form hoặc mặc định
+//       x: 5,        // Thay bằng giá trị thực tế từ form hoặc mặc định
+//       y: 5,        // Thay bằng giá trị thực tế từ form hoặc mặc định
+//       z: 3         // Thay bằng giá trị thực tế từ form hoặc mặc định
+//     })
+//       .then(response => {
+//         console.log('Predicted price:', response.data.predicted_price);
+//         setPriceData({
+//           shape: selectedShape,
+//           carat,
+//           color: selectedColor,
+//           clarity: selectedClarity,
+//           fairPrice: response.data.predicted_price
+//         });
+//       })
+//       .catch(error => {
+//         console.error('Error predicting price:', error);
+//       });
+//   };
+
+//   return (
+//     <Layout className="layout">
+//       <Content style={{ padding: '0 50px' }}>
+//         <div className="site-layout-content">
+//           <Title>Calculate Diamond Price</Title>
+//           <Form layout="vertical" className="input-form" form={form}>
+//             <Row gutter={16} className="section-spacing">
+//               <Col span={24}>
+//                 <Form.Item label="Diamond Shape" name="shape" initialValue="ROUND">
+//                   <Radio.Group value={selectedShape} onChange={(e) => handleShapeChange(e.target.value)} className="radio-group">
+//                     {shapes.map(shape => (
+//                       <Radio.Button key={shape.name} value={shape.name} className="radio-button">
+//                         <div className="radio-button-label">
+//                           <img src={shape.img} alt={shape.name} className="radio-button-img" />
+//                           <div className="radio-button-text">{shape.name}</div>
+//                         </div>
+//                       </Radio.Button>
+//                     ))}
+//                   </Radio.Group>
+//                 </Form.Item>
+//               </Col>
+//             </Row>
+//             <Row gutter={16} className="section-spacing">
+//               <Col span={24}>
+//                 <Form.Item label="Carat">
+//                   <Row>
+//                     <Col span={12}>
+//                       <Slider
+//                         min={0.01}
+//                         max={10.99}
+//                         onChange={onChangeCarat}
+//                         value={carat}
+//                         step={0.01}
+//                       />
+//                     </Col>
+//                     <Col span={4}>
+//                       <InputNumber
+//                         min={0.01}
+//                         max={10.99}
+//                         style={{ margin: '0 16px' }}
+//                         step={0.01}
+//                         value={carat}
+//                         onChange={onChangeCarat}
+//                       />
+//                     </Col>
+//                   </Row>
+//                 </Form.Item>
+//               </Col>
+//             </Row>
+//             <Row gutter={16} className="section-spacing">
+//               <Col span={12}>
+//                 <Form.Item label="Color Grade" name="color" rules={[{ required: true, message: 'Please select the color grade!' }]}>
+//                   <Radio.Group value={selectedColor} onChange={(e) => handleColorChange(e.target.value)} className="radio-group-styled">
+//                     {Object.keys(rapaportPrices["0.01-0.03"]).map(color => (
+//                       <Radio.Button key={color} value={color} className="radio-button-styled">
+//                         {color}
+//                       </Radio.Button>
+//                     ))}
+//                   </Radio.Group>
+//                 </Form.Item>
+//               </Col>
+//               <Col span={12}>
+//                 <Form.Item label="Clarity Grade" name="clarity" rules={[{ required: true, message: 'Please select the clarity grade!' }]}>
+//                   <Radio.Group value={selectedClarity} onChange={(e) => handleClarityChange(e.target.value)} className="radio-group-styled">
+//                     {Object.keys(rapaportPrices["0.01-0.03"]["D"]).map(clarity => (
+//                       <Radio.Button key={clarity} value={clarity} className="radio-button-styled">
+//                         {clarity}
+//                       </Radio.Button>
+//                     ))}
+//                   </Radio.Group>
+//                 </Form.Item>
+//               </Col>
+//             </Row>
+//             <Form.Item>
+//               <Button type="primary" onClick={handleCalculatePrice}>
+//                 Check Price
+//               </Button>
+//               <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+//                 Reset
+//               </Button>
+//             </Form.Item>
+//           </Form>
+//           {priceData && (
+//             <Card title="Price Information" className="result-card">
+//               <div className="result-card-title">Diamond Price Details</div>
+//               <div className="result-card-content">
+//                 <Paragraph>Shape: {priceData.shape}</Paragraph>
+//                 <Paragraph>Carat: {priceData.carat}</Paragraph>
+//                 <Paragraph>Color: {priceData.color}</Paragraph>
+//                 <Paragraph>Clarity: {priceData.clarity}</Paragraph>
+//                 <Paragraph className="result-card-price">Fair Price: ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</Paragraph>
+//               </div>
+//             </Card>
+//           )}
+//         </div>
+//       </Content>
+//     </Layout>
+//   );
+// };
+
+// export default CalculateDiamond;
