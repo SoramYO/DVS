@@ -2,23 +2,23 @@ import { CheckOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, message } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from "react-router-dom";
 import '../css/Register.css';
 
 const Register = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [captchaToken, setCaptchaToken] = useState(null);
+  // const [captchaToken, setCaptchaToken] = useState(null);
 
   const onFinish = (values) => {
-    if (!captchaToken) {
-      message.error("Please verify that you are not a robot.");
-      return;
-    }
-    const data = { ...values, captchaToken };
+    // if (!captchaToken) {
+    //   message.error("Please verify that you are not a robot.");
+    //   return;
+    // }
+    // const data = { ...values, captchaToken };
     axios
-      .post("https://dvs-be-sooty.vercel.app/api/register", data, {
+      .post("https://dvs-be-sooty.vercel.app/api/register", values, {
         withCredentials: true,
       })
       .then((res) => {
@@ -30,9 +30,9 @@ const Register = () => {
       });
   };
 
-  const onCaptchaChange = (token) => {
-    setCaptchaToken(token);
-  };
+  // const onCaptchaChange = (token) => {
+  //   setCaptchaToken(token);
+  // };
 
   const styleText = {
     display: "flex",
@@ -146,12 +146,12 @@ const Register = () => {
             >
               <Input placeholder="Phone" />
             </Form.Item>
-            <Form.Item>
+            {/* <Form.Item>
               <ReCAPTCHA
                 sitekey="6LeQv_kpAAAAAPv37gbLx6LwXOD-W2oGBqhtA1CY"
                 onChange={onCaptchaChange}
               />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item>
               <Button className="button-create" type="primary" htmlType="submit" block>
                 Create an account

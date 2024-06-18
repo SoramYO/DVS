@@ -1,9 +1,9 @@
 import { Button, Form, Input, notification } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
-import EmailIcon from '../assets/icons/mail.svg';
-import AddressIcon from '../assets/icons/map.svg';
-import PhoneIcon from '../assets/icons/phone.svg';
+// import EmailIcon from '../assets/icons/mail.svg';
+// import AddressIcon from '../assets/icons/map.svg';
+// import PhoneIcon from '../assets/icons/phone.svg';
 import Amex from '../assets/imgs/Amex.png';
 import Bancontact from '../assets/imgs/Bancontact.png';
 import Banktransfer from '../assets/imgs/Banktransfer.png';
@@ -46,15 +46,15 @@ const Footer = () => {
           <h1>Contact information</h1>
           <address>
             <div className="contact-item">
-              <img src={AddressIcon} alt="Address Icon" className="icon" />
+              <img className="icon" />
               diamondvaluation@gmail.com
             </div>
             <div className="contact-item">
-              <img src={PhoneIcon} alt="Phone Icon" className="icon" />
+              <img className="icon" />
               0032-3-233-91-60
             </div>
             <div className="contact-item">
-              <img src={EmailIcon} alt="Email Icon" className="icon" />
+              <img className="icon" />
               VRG2+27 Dĩ An, Bình Dương, Việt Nam
             </div>
           </address>
