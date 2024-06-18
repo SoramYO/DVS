@@ -176,37 +176,36 @@ const CustomerRequest = () => {
       return;
     }
     const requestData = {
-      shape: selectedShape,
-      color: selectedColor,
-      clarity: selectedClarity,
-      caratWeight: carat,
       requestImage: image,
-      diamondOrigin: origin,
+      // diamondOrigin: origin,
       note: note,
       userId: user?.id,
       serviceId: service,
     };
     handleCreateRequest(requestData);
-    handlePayment(requestData.serviceId);
+    // handlePayment(requestData.serviceId);
   };
 
   const handleCreatePayment = async (requestId, serviceId) => {
     const paymentData =
       serviceId === 1
         ? {
-            paymentAmount: 300000,
+          amount: 300000,
+            requestId: requestId
           }
         : {
-            paymentAmount: 450000,
+          amount: 450000,
+          requestId: requestId
           };
     try {
-      await axios.put(
-        `https://dvs-be-sooty.vercel.app/api/payment/${requestId}`,
+      const response = await axios.post(
+        `https://dvs-be-sooty.vercel.app/api/paypal`,
         paymentData,
         {
           withCredentials: true,
         }
       );
+      window.open(response.data.data, '_self')
     } catch (error) {
       console.log(error)
     }
@@ -232,29 +231,29 @@ const CustomerRequest = () => {
     }
   };
 
-  const handlePayment = async (serviceId) => {
-    const paymentData =
-      serviceId === 1
-        ? {
-            amount: 300000,
-            bankCode: null,
-            language: "vn",
-          }
-        : {
-            amount: 450000,
-            bankCode: null,
-            language: "vn",
-          };
-    try {
-      const response = await axios.post(
-        "https://dvs-be-sooty.vercel.app/api/create_payment_url",
-        paymentData, {withCredentials: true}
-      );
-      window.open(response.data.data, '_self')
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handlePayment = async (serviceId) => {
+  //   const paymentData =
+  //     serviceId === 1
+  //       ? {
+  //           amount: 300000,
+  //           bankCode: null,
+  //           language: "vn",
+  //         }
+  //       : {
+  //           amount: 450000,
+  //           bankCode: null,
+  //           language: "vn",
+  //         };
+  //   try {
+  //     const response = await axios.post(
+  //       "https://dvs-be-sooty.vercel.app/api/create_payment_url",
+  //       paymentData, {withCredentials: true}
+  //     );
+  //     window.open(response.data.data, '_self')
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <Layout className="layout">
       <Content style={{ padding: "0 50px" }}>
@@ -267,7 +266,7 @@ const CustomerRequest = () => {
             onFinish={handleSubmit}
           >
             <Row gutter={16} className="section-spacing">
-              <Col span={12}>
+              {/* <Col span={12}>
                 <Form.Item
                   label="Origin"
                   name="diamondOrigin"
@@ -283,7 +282,7 @@ const CustomerRequest = () => {
                     onChange={(e) => setOrigin(e.target.value)}
                   />
                 </Form.Item>
-              </Col>
+              </Col> */}
               <Col span={12}>
                 <Form.Item name="serviceId" label="Service" initialValue={1}>
                   <Select
@@ -297,7 +296,7 @@ const CustomerRequest = () => {
                 </Form.Item>
               </Col>
             </Row>
-            <Row gutter={16} className="section-spacing">
+            {/* <Row gutter={16} className="section-spacing">
               <Col span={24}>
                 <Form.Item
                   label="Diamond Shape"
@@ -355,8 +354,8 @@ const CustomerRequest = () => {
                   </Row>
                 </Form.Item>
               </Col>
-            </Row>
-            <Row gutter={16} className="section-spacing">
+            </Row> */}
+            {/* <Row gutter={16} className="section-spacing">
               <Col span={12}>
                 <Form.Item label="Color Grade" name="color" initialValue="D">
                   <Radio.Group
@@ -399,7 +398,7 @@ const CustomerRequest = () => {
                   </Radio.Group>
                 </Form.Item>
               </Col>
-            </Row>
+            </Row> */}
             <Row>
               <Form.Item
                 label="Request Image"
