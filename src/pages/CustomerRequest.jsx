@@ -87,20 +87,10 @@ const services = [
 const CustomerRequest = () => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
-  const [selectedShape, setSelectedShape] = useState("ROUND");
-  const [selectedColor, setSelectedColor] = useState("D");
-  const [selectedClarity, setSelectedClarity] = useState("IF");
   const [service, setService] = useState(1);
-  const [carat, setCarat] = useState(0.01);
-  const [origin, setOrigin] = useState("");
+
   const [image, setImage] = useState("");
   const [note, setNote] = useState("");
-  const onCaratChange = (value) => {
-    if (isNaN(value)) {
-      return;
-    }
-    setCarat(value);
-  };
   const { user } = useContext(AuthContext);
 
   const handleRemove = (file) => {
@@ -177,13 +167,12 @@ const CustomerRequest = () => {
     }
     const requestData = {
       requestImage: image,
-      // diamondOrigin: origin,
       note: note,
       userId: user?.id,
       serviceId: service,
     };
+    console.log(requestData)
     handleCreateRequest(requestData);
-    // handlePayment(requestData.serviceId);
   };
 
   const handleCreatePayment = async (requestId, serviceId) => {
@@ -214,7 +203,7 @@ const CustomerRequest = () => {
   const handleCreateRequest = async (values) => {
     try {
       const response = await axios.post(
-        "https://dvs-be-sooty.vercel.app/api/createNewRequest",
+        "https://dvs-be-sooty.vercel.app/api/request",
         values,
         {
           withCredentials: true,
@@ -222,7 +211,7 @@ const CustomerRequest = () => {
       );
       if (response.status === 200) {
         message.success("Created success");
-        const requestId = response.data.data.id
+        const requestId = response.data.requestId
         const serviceId = values.serviceId
         handleCreatePayment(requestId, serviceId)
       }
@@ -231,29 +220,6 @@ const CustomerRequest = () => {
     }
   };
 
-  // const handlePayment = async (serviceId) => {
-  //   const paymentData =
-  //     serviceId === 1
-  //       ? {
-  //           amount: 300000,
-  //           bankCode: null,
-  //           language: "vn",
-  //         }
-  //       : {
-  //           amount: 450000,
-  //           bankCode: null,
-  //           language: "vn",
-  //         };
-  //   try {
-  //     const response = await axios.post(
-  //       "https://dvs-be-sooty.vercel.app/api/create_payment_url",
-  //       paymentData, {withCredentials: true}
-  //     );
-  //     window.open(response.data.data, '_self')
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   return (
     <Layout className="layout">
       <Content style={{ padding: "0 50px" }}>
