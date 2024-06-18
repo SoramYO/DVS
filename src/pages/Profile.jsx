@@ -52,7 +52,7 @@ const UserRequests = ({ requests, currentPage, pageSize, handlePageChange }) => 
         <>
           <Row gutter={[16, 16]}>
             {paginatedRequests.map(request => (
-              <Col key={request.id} xs={24} sm={12} md={6}>
+              <Col key={request.id} xs={24} sm={12} md={8}>
                 <Card
                   cover={
                     <img src={request.requestImage} alt="request" className="profile-card-img" />
@@ -92,14 +92,14 @@ const Profile = () => {
   const [requests, setRequests] = useState(null);
   const [currentTab, setCurrentTab] = useState('info');
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(8);
+  const [pageSize, setPageSize] = useState(3);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentField, setCurrentField] = useState(null);
 
   useEffect(() => {
     const getUserProfile = async () => {
       try {
-        const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/profile/${id}`, {
+        const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/users/${id}`, {
           withCredentials: true,
         });
         setUser(res.data.user[0]);
