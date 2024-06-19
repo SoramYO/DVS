@@ -1,7 +1,7 @@
-import { message } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+
 
 const PaymentSucces = () => {
   const location = useLocation();

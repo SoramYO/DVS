@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Button, Card, Col, Empty, Form, Input, Modal, Pagination, Row } from 'antd';
 import { EditOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
-import "../css/Profile.css";
+import { Button, Card, Col, Empty, Form, Input, Modal, Pagination, Row, message } from 'antd';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import MySpin from "../components/MySpin";
+import "../css/Profile.css";
 
 const UserInfo = ({ user, showModal }) => {
   return (
@@ -108,7 +107,6 @@ const UserRequests = ({
 };
 
 const Profile = () => {
-  const { id } = useParams();
   const [user, setUser] = useState(null);
   const [requests, setRequests] = useState(null);
   const [currentTab, setCurrentTab] = useState("info");
@@ -120,24 +118,24 @@ const Profile = () => {
     const getUserProfile = async () => {
       try {
         const res = await axios.get(
-          `https://dvs-be-sooty.vercel.app/api/users/${id}`,
+          `https://dvs-be-sooty.vercel.app/api/profile`,
           {
             withCredentials: true,
           }
         );
-        setUser(res.data.user[0]);
+        setUser(res.data.userProfile);
       } catch (error) {
         console.log(error);
       }
     };
     getUserProfile();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     const getAllRequestsByUser = async () => {
       try {
         const res = await axios.get(
-          `https://dvs-be-sooty.vercel.app/api/getRequestByUser/${id}`,
+          `https://dvs-be-sooty.vercel.app/api/getRequestByUser`,
           { withCredentials: true }
         );
         setRequests(res.data.data);
@@ -146,15 +144,32 @@ const Profile = () => {
       }
     };
     getAllRequestsByUser();
-  }, [id]);
+  }, []);
 
   const showModal = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk = (values) => {
-    setUser({ ...user, ...values });
-    setIsModalVisible(false);
+  const handleOk = async (values) => {
+    try {
+      const res = await axios.put(
+        `https://dvs-be-sooty.vercel.app/api/profile`,
+        values,
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.data.errCode === 0) {
+        message.success('Profile updated successfully');
+        setUser({ ...user, ...values });
+        setIsModalVisible(false);
+      } else {
+        message.error('Failed to update profile');
+      }
+    } catch (error) {
+      console.error(error);
+      message.error('Server error');
+    }
   };
 
   const handleCancel = () => {
