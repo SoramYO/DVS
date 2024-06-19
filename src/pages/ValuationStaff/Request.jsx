@@ -13,7 +13,7 @@ const Request = () => {
   useEffect(() => {
     const getAllRequests = async () => {
       try {
-        const res = await axios.get("https://dvs-be-sooty.vercel.app/api/requests", { withCredentials: true });
+        const res = await axios.get("http://localhost:8080/api/requests", { withCredentials: true });
         setRequests(res.data.requests);
       } catch (error) {
         console.log(error);
@@ -24,7 +24,7 @@ const Request = () => {
 
   const statusColors = {
     Pending: "blue",
-    Called: "cyan",
+    "Booked Appointment": "cyan",
     Received: "green",
     "Start Valuated": "gold",
     Valuated: "purple",
@@ -42,7 +42,7 @@ const Request = () => {
 
   const statusIcons = {
     Pending: <ClockCircleOutlined />,
-    Called: <PhoneOutlined />,
+    "Booked Appointment": <PhoneOutlined />,
     Received: <InboxOutlined />,
     "Start Valuated": <ClockCircleOutlined />,
     Valuated: <ExclamationCircleOutlined />,

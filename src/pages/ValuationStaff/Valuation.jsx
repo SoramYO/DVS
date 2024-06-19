@@ -25,7 +25,7 @@ function Valuation() {
     useEffect(() => {
         const getAllRequests = async () => {
             await axios
-                .get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, {
+                .get(`http://localhost:8080/api/requests/${id}`, {
                     withCredentials: true,
                 })
                 .then((res) => {
@@ -61,7 +61,7 @@ function Valuation() {
     const handleSubmit = async () => {
         try {
             await axios.put(
-                `https://dvs-be-sooty.vercel.app/api/changeProcess/${id}`,
+                `http://localhost:8080/api/changeProcess/${id}`,
                 {
                     processId: 5,
                 },
@@ -70,7 +70,7 @@ function Valuation() {
             await form.validateFields();
             const values = form.getFieldsValue();
             const response = await axios.put(
-                `https://dvs-be-sooty.vercel.app/api/valuation/${id}`,
+                `http://localhost:8080/api/valuation/${id}`,
                 values,
                 { withCredentials: true }
             );

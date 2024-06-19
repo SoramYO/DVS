@@ -1,7 +1,7 @@
-import React from "react";
-import { Button, Form, Input, Select, Space, message, Card, Row, Col } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Button, Card, Col, Form, Input, Row, Select, Space, message } from "antd";
 import axios from "axios";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -26,7 +26,7 @@ const AccountCreate = () => {
 
   const onFinish = (values) => {
     axios
-      .post("https://dvs-be-sooty.vercel.app/api/users", values, {
+      .post("http://localhost:8080/api/users", values, {
         withCredentials: true,
       })
       .then((res) => {

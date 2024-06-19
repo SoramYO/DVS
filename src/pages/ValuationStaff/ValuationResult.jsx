@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Card, Row, Col } from "antd";
+import { CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, EditOutlined, ExclamationCircleOutlined, InboxOutlined, MinusCircleOutlined, PhoneOutlined } from "@ant-design/icons";
+import { Card, Col, Row, Space, Table, Tag } from "antd";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { EditOutlined, CheckCircleOutlined, InboxOutlined, PhoneOutlined, CloseCircleOutlined, ExclamationCircleOutlined, ClockCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import MySpin from "../../components/MySpin";
 
 const Request = () => {
@@ -11,7 +11,7 @@ const Request = () => {
     useEffect(() => {
         const getAllRequests = async () => {
             await axios
-                .get("https://dvs-be-sooty.vercel.app/api/requests", { withCredentials: true })
+                .get("http://localhost:8080/api/requests", { withCredentials: true })
                 .then((res) => {
                     setRequests(res.data.requests);
                 })
@@ -24,7 +24,7 @@ const Request = () => {
 
     const statusColors = {
         Pending: "blue",
-        Called: "cyan",
+        "Booked Appointment": "cyan",
         Received: "green",
         "Start Valuated": "gold",
         Valuated: "purple",
@@ -42,7 +42,7 @@ const Request = () => {
 
     const statusIcons = {
         Pending: <ClockCircleOutlined />,
-        Called: <PhoneOutlined />,
+        "Booked Appointment": <PhoneOutlined />,
         Received: <InboxOutlined />,
         "Start Valuated": <ClockCircleOutlined />,
         Valuated: <ExclamationCircleOutlined />,

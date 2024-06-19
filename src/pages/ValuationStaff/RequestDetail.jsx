@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 import {
+  ArrowLeftOutlined,
+  InfoCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import {
+  Button,
   Card,
-  Row,
   Col,
+  Image,
+  Modal,
+  Row,
+  Select,
+  Space,
   Spin,
   Typography,
-  Button,
-  Modal,
-  Select,
   message,
-  Image,
-  Space,
 } from "antd";
-import {
-  UserOutlined,
-  InfoCircleOutlined,
-  ArrowLeftOutlined,
-} from "@ant-design/icons";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../css/RequestDetail.css";
 
 const { Title, Text } = Typography;
@@ -34,7 +34,7 @@ const RequestDetail = () => {
 
   const getRequestDetail = async () => {
     try {
-      const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, {
+      const res = await axios.get(`http://localhost:8080/api/requests/${id}`, {
         withCredentials: true,
       });
       setRequest(res.data.request[0]);
@@ -57,7 +57,7 @@ const RequestDetail = () => {
   const valuation = async () => {
     try {
       await axios.put(
-        `https://dvs-be-sooty.vercel.app/api/changeProcess/${id}`,
+        `http://localhost:8080/api/changeProcess/${id}`,
         {
           processId: 5,
         },
@@ -72,7 +72,7 @@ const RequestDetail = () => {
   const handleOk = async () => {
     try {
       await axios.put(
-        `https://dvs-be-sooty.vercel.app/api/changeProcess/${id}`,
+        `http://localhost:8080/api/changeProcess/${id}`,
         {
           processId,
         },

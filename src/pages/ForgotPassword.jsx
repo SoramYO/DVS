@@ -7,7 +7,7 @@ const ForgotPassword = () => {
 
     const onFinish = async (values) => {
         try {
-            const response = await axios.post('https://dvs-be-sooty.vercel.app/api/forgot-password', { email: values.email });
+            const response = await axios.post('http://localhost:8080/api/forgot-password', { email: values.email });
             if (response.data.errCode === 0) {
                 message.success('Password reset link sent to your email.');
             } else {

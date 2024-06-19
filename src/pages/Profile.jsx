@@ -118,7 +118,7 @@ const Profile = () => {
     const getUserProfile = async () => {
       try {
         const res = await axios.get(
-          `https://dvs-be-sooty.vercel.app/api/profile`,
+          `http://localhost:8080/api/profile`,
           {
             withCredentials: true,
           }
@@ -135,7 +135,7 @@ const Profile = () => {
     const getAllRequestsByUser = async () => {
       try {
         const res = await axios.get(
-          `https://dvs-be-sooty.vercel.app/api/getRequestByUser`,
+          `http://localhost:8080/api/getRequestByUser`,
           { withCredentials: true }
         );
         setRequests(res.data.data);
@@ -153,7 +153,7 @@ const Profile = () => {
   const handleOk = async (values) => {
     try {
       const res = await axios.put(
-        `https://dvs-be-sooty.vercel.app/api/profile`,
+        `http://localhost:8080/api/profile`,
         values,
         {
           withCredentials: true,

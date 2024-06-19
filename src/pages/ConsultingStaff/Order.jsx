@@ -1,60 +1,84 @@
-import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Card, Row, Col, Radio, FloatButton } from "antd";
+import { CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, InboxOutlined, MinusCircleOutlined, PhoneOutlined } from "@ant-design/icons";
+import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message } from "antd";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { EditOutlined, CheckCircleOutlined, InboxOutlined, PhoneOutlined, CloseCircleOutlined, ExclamationCircleOutlined, ClockCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
-import MySpin from "../../components/MySpin";
+
 
 const Request = () => {
   const [requests, setRequests] = useState([]);
-  const [filter, setFilter] = useState("All");
   const [serviceFilter, setServiceFilter] = useState("All");
 
+  const getAllRequests = async () => {
+    await axios
+      .get("http://localhost:8080/api/new-request", { withCredentials: true })
+      .then((res) => {
+        setRequests(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
-    const getAllRequests = async () => {
-      await axios
-        .get("https://dvs-be-sooty.vercel.app/api/requests", { withCredentials: true })
-        .then((res) => {
-          setRequests(res.data.requests);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
     getAllRequests();
   }, []);
 
+  const takeRequest = async (requestId) => {
+    try {
+      let response = await axios.post('http://localhost:8080/api/take-request', { requestId }, { withCredentials: true });
+      if (response.data.message) {
+        message.success(response.data.message);
+        getAllRequests();
+      } else {
+        message.error('Failed to take request');
+      }
+    } catch (error) {
+      console.error('Error taking request:', error);
+      message.error('Error taking request');
+    }
+  };
+
   const statusColors = {
-    Pending: "blue",
-    Called: "cyan",
-    Received: "green",
+    "Pending": "blue",
+    "Booked Appointment": "cyan",
+    "Received": "green",
+    "Approved": "gold",
+    "In Progress": "gold",
+    "Sent to Valuation": "purple",
+    "Completed": "green",
     "Start Valuated": "gold",
-    Valuated: "purple",
-    Completed: "green",
-    "Pending Locked": "orange",
-    "Pending Losted": "orange",
-    Losted: "grey",
-    Locked: "red"
+    "Valuated": "purple",
+    "Commitment": "orange",
+    "Sealing": "orange",
+    "Result Sent to Customer": "purple",
+    "Received for Valuation": "cyan",
+    "Sent to Consulting": "cyan",
+    "Unprocessed": "red"
   };
 
   const serviceColors = {
-    Vip: "black",
-    Normal: "",
+    "Advanced Valuation": "black",
+    "Basic Valuation": ""
   };
 
   const statusIcons = {
-    Pending: <ClockCircleOutlined />,
-    Called: <PhoneOutlined />,
-    Received: <InboxOutlined />,
+    "Pending": <ClockCircleOutlined />,
+    "Booked Appointment": <PhoneOutlined />,
+    "Received": <InboxOutlined />,
+    "Approved": <ExclamationCircleOutlined />,
+    "In Progress": <ClockCircleOutlined />,
+    "Sent to Valuation": <ClockCircleOutlined />,
+    "Completed": <CheckCircleOutlined />,
     "Start Valuated": <ClockCircleOutlined />,
-    Valuated: <ExclamationCircleOutlined />,
-    Completed: <CheckCircleOutlined />,
-    "Pending Locked": <ClockCircleOutlined />,
-    "Pending Losted": <ClockCircleOutlined />,
-    Losted: <MinusCircleOutlined />,
-    Locked: <CloseCircleOutlined />
+    "Valuated": <ExclamationCircleOutlined />,
+    "Commitment": <ClockCircleOutlined />,
+    "Sealing": <ClockCircleOutlined />,
+    "Result Sent to Customer": <ExclamationCircleOutlined />,
+    "Received for Valuation": <InboxOutlined />,
+    "Sent to Consulting": <InboxOutlined />,
+    "Unprocessed": <MinusCircleOutlined />
   };
-
 
   const columns = [
     {
@@ -87,17 +111,11 @@ const Request = () => {
       render: (date) => new Date(date).toLocaleDateString("en-GB"),
     },
     {
-      title: "Updated Date",
-      dataIndex: "updatedDate",
-      key: "updatedDate",
-      render: (date) => new Date(date).toLocaleDateString("en-GB"),
-    },
-    {
       title: "Process",
       key: "process",
       render: (text, record) => (
         <Tag icon={statusIcons[record.processStatus]} color={statusColors[record.processStatus]}>
-          {record.processStatus}
+          {record.processStatus || "Unprocessed"}
         </Tag>
       ),
     },
@@ -111,37 +129,29 @@ const Request = () => {
       ),
     },
     {
-      title: "Detail",
+      title: "Action",
       key: "detail",
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/consultingStaff/requests/detail/${record.RequestID}`}>
-            <EditOutlined />
-          </Link>
+          <Button onClick={() => takeRequest(record.requestId)}>
+            <Link to={`/consultingStaff/requestReceived/detail/${record.requestId}`}>Take request</Link>
+          </Button>
         </Space>
       ),
     },
   ];
-
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
-  };
 
   const handleServiceFilterChange = (e) => {
     setServiceFilter(e.target.value);
   };
 
   const filteredRequests = requests.filter(request => {
-    if (filter !== "All" && request.processStatus !== filter) {
-      return false;
-    }
     if (serviceFilter !== "All" && request.serviceName !== serviceFilter) {
       return false;
     }
     return true;
   });
 
-  if (!requests.length) return <MySpin />;
 
   return (
     <div className="tabled">
@@ -161,23 +171,17 @@ const Request = () => {
             title="Requests Table"
             extra={
               <>
-                <div style={{ margin: " 10px 0 10px 0" }}>
-                  <Radio.Group onChange={handleFilterChange} defaultValue="All">
-                    <Radio.Button value="All">All</Radio.Button>
-                    <Radio.Button value="Pending">Pending</Radio.Button>
-                    <Radio.Button value="Approved">Approved</Radio.Button>
-                    <Radio.Button value="Received">Received</Radio.Button>
-                    <Radio.Button value="Valuated">Valuated</Radio.Button>
-                    <Radio.Button value="Completed">Completed</Radio.Button>
-                    <Radio.Button value="Pending Locked">Locked</Radio.Button>
-                    <Radio.Button value="Pending Losted">Losted</Radio.Button>
-                  </Radio.Group>
-                </div>
-                <div style={{ margin: " 10px 0 10px 0" }}>
-                  <Radio.Group onChange={handleServiceFilterChange} defaultValue="All">
-                    <Radio.Button value="All">All</Radio.Button>
-                    <Radio.Button value="Vip">VIP</Radio.Button>
-                    <Radio.Button value="Normal">Normal</Radio.Button>
+                <div style={{ textAlign: "center", margin: "10px 0" }}>
+                  <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
+                    <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px" }}>
+                      All
+                    </Radio.Button>
+                    <Radio.Button value="Advanced Valuation" style={{ padding: "10px 20px", backgroundColor: "#ffc107", color: "#fff", border: "none", borderRadius: "5px", margin: "5px" }}>
+                      Advanced Valuation
+                    </Radio.Button>
+                    <Radio.Button value="Basic Valuation" style={{ padding: "10px 20px", backgroundColor: "#6c757d", color: "#fff", border: "none", borderRadius: "5px", margin: "5px" }}>
+                      Basic Valuation
+                    </Radio.Button>
                   </Radio.Group>
                 </div>
               </>

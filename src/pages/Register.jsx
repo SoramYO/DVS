@@ -18,7 +18,7 @@ const Register = () => {
     // }
     // const data = { ...values, captchaToken };
     axios
-      .post("https://dvs-be-sooty.vercel.app/api/register", values, {
+      .post("http://localhost:8080/api/register", values, {
         withCredentials: true,
       })
       .then((res) => {

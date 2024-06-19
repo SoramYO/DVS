@@ -26,7 +26,7 @@ const ResetPassword = () => {
 
     const onFinish = async (values) => {
         try {
-            const response = await axios.put('https://dvs-be-sooty.vercel.app/api/reset-password', {
+            const response = await axios.put('http://localhost:8080/api/reset-password', {
                 token,
                 userId,
                 password: values.password,
