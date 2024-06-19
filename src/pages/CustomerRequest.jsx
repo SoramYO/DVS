@@ -4,15 +4,12 @@ import {
   Col,
   Form,
   Input,
-  InputNumber,
   Layout,
-  Radio,
   Row,
   Select,
-  Slider,
   Typography,
   Upload,
-  message,
+  message
 } from "antd";
 import "antd/dist/reset.css";
 import React, { useContext, useState } from "react";
@@ -21,63 +18,13 @@ import "../css/CalculateDiamond.css";
 import { Option } from "antd/es/mentions";
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
-import asscherImg from "../assets/imgs/asscher.png";
-import cushionImg from "../assets/imgs/cushion.png";
-import emeraldImg from "../assets/imgs/emerald.png";
-import heartImg from "../assets/imgs/heart.png";
-import marquiseImg from "../assets/imgs/marquise.png";
-import ovalImg from "../assets/imgs/oval.png";
-import pearImg from "../assets/imgs/pear.png";
-import princessImg from "../assets/imgs/princess.png";
-import radiantImg from "../assets/imgs/radiant.png";
-import roundImg from "../assets/imgs/round.png";
 import { AuthContext } from "../context/AuthContext";
 import { storage } from "../firebase/firebase";
 const { Content } = Layout;
 const { Title } = Typography;
 const { TextArea } = Input;
 
-const shapes = [
-  { name: "ROUND", img: roundImg },
-  { name: "CUSHION", img: cushionImg },
-  { name: "EMERALD", img: emeraldImg },
-  { name: "OVAL", img: ovalImg },
-  { name: "PRINCESS", img: princessImg },
-  { name: "PEAR", img: pearImg },
-  { name: "RADIANT", img: radiantImg },
-  { name: "MARQUISE", img: marquiseImg },
-  { name: "ASSCHER", img: asscherImg },
-  { name: "HEART", img: heartImg },
-];
 
-const colors = [
-  { id: 1, name: "D" },
-  { id: 2, name: "E" },
-  { id: 3, name: "F" },
-  { id: 4, name: "G" },
-  { id: 5, name: "H" },
-  { id: 6, name: "I" },
-  { id: 7, name: "J" },
-  { id: 8, name: "K" },
-  { id: 9, name: "L" },
-  { id: 10, name: "M" },
-  { id: 11, name: "N" },
-];
-
-const claritys = [
-  { id: 1, name: "IF" },
-  { id: 2, name: "VVS1" },
-  { id: 3, name: "VVS2" },
-  { id: 4, name: "VS1" },
-  { id: 5, name: "VS2" },
-  { id: 6, name: "SI1" },
-  { id: 7, name: "SI2" },
-  { id: 8, name: "SI3" },
-  { id: 9, name: "I1" },
-  { id: 10, name: "I2" },
-  { id: 11, name: "I3" },
-];
 
 const services = [
   { id: 1, name: "Normal - 300.000VNĐ" },
@@ -180,12 +127,12 @@ const CustomerRequest = () => {
       serviceId === 1
         ? {
           amount: 300000,
-            requestId: requestId
-          }
+          requestId: requestId
+        }
         : {
           amount: 450000,
           requestId: requestId
-          };
+        };
     try {
       const response = await axios.post(
         `https://dvs-be-sooty.vercel.app/api/paypal`,

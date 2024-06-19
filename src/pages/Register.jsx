@@ -1,7 +1,7 @@
 import { CheckOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, message } from "antd";
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 // import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from "react-router-dom";
 import '../css/Register.css';
