@@ -11,13 +11,13 @@ const PaymentSucces = () => {
 
   const fetchSuccess = async () => {
     const res = await axios.get(
-      `http://localhost:8080/api/paypalReturn?paymentId=${paymentId}&PayerID=${payerId}`,
+      `https://dvs-be-sooty.vercel.app/api/paypalReturn?paymentId=${paymentId}&PayerID=${payerId}`,
       { withCredentials: true }
     );
     const requestId = res.data.data.transactions[0].item_list.items[0].sku;
     console.log(requestId)
     const update = await axios.put(
-      "http://localhost:8080/api/payment",
+      "https://dvs-be-sooty.vercel.app/api/payment",
       { requestId: requestId },
       { withCredentials: true }
     );

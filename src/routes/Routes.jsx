@@ -27,7 +27,7 @@ import Register from "../pages/Register";
 import ResetPassword from "../pages/ResetPassword";
 import Service from "../pages/Service";
 import Request from "../pages/ValuationStaff/Request";
-import RequestDetail from "../pages/ValuationStaff/RequestDetail";
+import TakedRequestByValuation from "../pages/ValuationStaff/TakedRequestByValuation";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
 
@@ -187,8 +187,8 @@ export const route = createBrowserRouter([
         element: <Request />,
       },
       {
-        path: "requests/detail/:id",
-        element: <RequestDetail />,
+        path: "takedRequest",
+        element: <TakedRequestByValuation />,
       },
       {
         path: "valuation/:id",

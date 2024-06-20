@@ -23,7 +23,7 @@ const Footer = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8080/api/registerMail', { email: values.email });
+      const response = await axios.post('https://dvs-be-sooty.vercel.app/api/registerMail', { email: values.email });
       notification.success({
         message: 'Subscription Successful',
         description: response.data.message,

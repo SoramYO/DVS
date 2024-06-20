@@ -11,7 +11,7 @@ const Request = () => {
 
   const getAllRequests = async () => {
     await axios
-      .get("http://localhost:8080/api/new-request", { withCredentials: true })
+      .get("https://dvs-be-sooty.vercel.app/api/new-request", { withCredentials: true })
       .then((res) => {
         setRequests(res.data.data);
       })
@@ -26,7 +26,7 @@ const Request = () => {
 
   const takeRequest = async (requestId) => {
     try {
-      let response = await axios.post('http://localhost:8080/api/take-request', { requestId }, { withCredentials: true });
+      let response = await axios.post('https://dvs-be-sooty.vercel.app/api/take-request', { requestId }, { withCredentials: true });
       if (response.data.message) {
         message.success(response.data.message);
         getAllRequests();

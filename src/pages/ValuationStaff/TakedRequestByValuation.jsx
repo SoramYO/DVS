@@ -4,13 +4,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const TakedRequest = () => {
+const TakedRequestByValuation = () => {
     const [requests, setRequests] = useState([]);
     const [serviceFilter, setServiceFilter] = useState("All");
 
     const getAllRequests = async () => {
         await axios
-            .get("https://dvs-be-sooty.vercel.app/api/take-request", { withCredentials: true })
+            .get("https://dvs-be-sooty.vercel.app/api/take-request-by-valuation", { withCredentials: true })
             .then((res) => {
                 setRequests(res.data.data);
             })
@@ -23,12 +23,12 @@ const TakedRequest = () => {
         getAllRequests();
     }, []);
 
-    const handleSendToValuationStaff = async (requestId) => {
+    const handleSendToConsultingStaff = async (requestId) => {
         try {
             const response = await axios.post('https://dvs-be-sooty.vercel.app/api/send-diamond-to-valuationStaff', { requestId }, { withCredentials: true });
             if (response.data.message) {
                 message.success(response.data.message);
-                getAllRequests(); // Refresh the requests list
+                getAllRequests();
             } else {
                 message.error('Failed to send request to valuation staff');
             }
@@ -134,13 +134,13 @@ const TakedRequest = () => {
             key: "detail",
             render: (text, record) => (
                 <Space size="middle">
-                    {record.processStatus === "Ready for valuation" ? (
-                        <Button onClick={() => handleSendToValuationStaff(record.requestId)}>
-                            Send to valuation staff
+                    {record.processStatus === "Valuated" ? (
+                        <Button onClick={() => handleSendToConsultingStaff(record.requestId)}>
+                            Send to consulting staff
                         </Button>
                     ) : (
                         <Button disabled={record.processStatus === "Start Valuated"}>
-                            <Link to={`/consultingStaff/takedRequest/detail/${record.requestId}`}>Receive Diamond</Link>
+                            <Link to={`/valuationStaff/valuation/${record.requestId}`}>Receive Diamond</Link>
                         </Button>
                     )}
                 </Space>
@@ -208,4 +208,4 @@ const TakedRequest = () => {
     );
 };
 
-export default TakedRequest;
+export default TakedRequestByValuation;

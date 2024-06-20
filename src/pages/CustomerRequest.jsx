@@ -135,7 +135,7 @@ const CustomerRequest = () => {
         };
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/paypal`,
+        `https://dvs-be-sooty.vercel.app/api/paypal`,
         paymentData,
         {
           withCredentials: true,
@@ -150,7 +150,7 @@ const CustomerRequest = () => {
   const handleCreateRequest = async (values) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/request",
+        "https://dvs-be-sooty.vercel.app/api/request",
         values,
         {
           withCredentials: true,

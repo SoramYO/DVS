@@ -17,7 +17,7 @@ const TakenRequestDetail = () => {
 
     const getRequestDetail = async () => {
         try {
-            const res = await axios.get(`http://localhost:8080/api/requests/${id}`, { withCredentials: true });
+            const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, { withCredentials: true });
             setRequest(res.data.request[0]);
             setLoading(false);
         } catch (error) {
@@ -32,7 +32,7 @@ const TakenRequestDetail = () => {
 
     const takeRequest = async () => {
         try {
-            let response = await axios.post('http://localhost:8080/api/receive-diamond', { requestId: id }, { withCredentials: true });
+            let response = await axios.post('https://dvs-be-sooty.vercel.app/api/receive-diamond', { requestId: id }, { withCredentials: true });
             if (response.data.message) {
                 message.success(response.data.message);
             } else {
@@ -51,7 +51,7 @@ const TakenRequestDetail = () => {
             return;
         }
         try {
-            await axios.put(`http://localhost:8080/api/appointment`, { appointmentDate, id }, { withCredentials: true });
+            await axios.put(`https://dvs-be-sooty.vercel.app/api/appointment`, { appointmentDate, id }, { withCredentials: true });
             message.success("Trạng thái xử lý đã được cập nhật thành công");
             getRequestDetail();
         } catch (error) {
