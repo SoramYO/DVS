@@ -31,7 +31,7 @@ const Sidebar = () => {
           <Link to="/consultingStaff/takedRequest">Request received</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<SolutionOutlined />}>
-          <Link to="/consultingStaff/takedRequest">Notifications</Link>
+          <Link to="/consultingStaff/finishRequest">Request Finish</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<SolutionOutlined />}>
           <Link>Messages</Link>

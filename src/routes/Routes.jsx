@@ -8,6 +8,7 @@ import CaratSection from "../pages/CaratSection";
 import ClaritySection from "../pages/ClaritySection";
 import ColorSection from "../pages/ColorSection";
 import Conclusion from "../pages/Conclusion";
+import FinishRequest from "../pages/ConsultingStaff/FinishRequest";
 import Order from "../pages/ConsultingStaff/Order";
 import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
 import TakedRequest from "../pages/ConsultingStaff/TakenRequest";
@@ -170,6 +171,10 @@ export const route = createBrowserRouter([
       {
         path: "takedRequest/detail/:id",
         element: <TakenRequestDetail />,
+      },
+      {
+        path: "finishRequest",
+        element: <FinishRequest />,
       }
     ],
   },
