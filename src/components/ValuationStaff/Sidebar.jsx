@@ -28,7 +28,7 @@ const Sidebar = () => {
           <Link to="/valuationStaff">Requests</Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<UserOutlined />}>
-          <Link to="/valuationStaff/valuationResult">Valuation Result</Link>
+          <Link to="/valuationStaff/takedRequest">Request received</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<SolutionOutlined />}>
           <Link>Notifications</Link>

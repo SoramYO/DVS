@@ -10,6 +10,8 @@ import ColorSection from "../pages/ColorSection";
 import Conclusion from "../pages/Conclusion";
 import Order from "../pages/ConsultingStaff/Order";
 import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
+import TakedRequest from "../pages/ConsultingStaff/TakenRequest";
+import TakenRequestDetail from "../pages/ConsultingStaff/TakenRequestDetail";
 import CustomerRequest from "../pages/CustomerRequest";
 import CutSection from "../pages/CutSection";
 import Education from "../pages/Education";
@@ -18,16 +20,16 @@ import ForgotPassword from "../pages/ForgotPassword";
 import Guides from "../pages/Guides";
 import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
+import PaymentSucces from "../pages/PaymentSucces";
 import Pricing from "../pages/Pricing";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";
 import ResetPassword from "../pages/ResetPassword";
 import Service from "../pages/Service";
 import Request from "../pages/ValuationStaff/Request";
-import RequestDetail from "../pages/ValuationStaff/RequestDetail";
+import TakedRequestByValuation from "../pages/ValuationStaff/TakedRequestByValuation";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
-import PaymentSucces from "../pages/PaymentSucces";
 
 export const route = createBrowserRouter([
   {
@@ -158,9 +160,17 @@ export const route = createBrowserRouter([
         element: <Order />,
       },
       {
-        path: "requests/detail/:id",
+        path: "requestReceived/detail/:id",
         element: <RequestDetailConsul />,
       },
+      {
+        path: "takedRequest",
+        element: <TakedRequest />,
+      },
+      {
+        path: "takedRequest/detail/:id",
+        element: <TakenRequestDetail />,
+      }
     ],
   },
   {
@@ -177,8 +187,8 @@ export const route = createBrowserRouter([
         element: <Request />,
       },
       {
-        path: "requests/detail/:id",
-        element: <RequestDetail />,
+        path: "takedRequest",
+        element: <TakedRequestByValuation />,
       },
       {
         path: "valuation/:id",
