@@ -140,7 +140,7 @@ const TakedRequestByValuation = () => {
                         </Button>
                     ) : (
                         <Button disabled={record.processStatus === "Sent to Consulting"}>
-                            <Link to={`/valuationStaff/valuation/${record.requestId}`}>Send to consulting staff</Link>
+                            <Link to={`/valuationStaff/valuation/${record.requestId}`}>Continute valuation</Link>
                         </Button>
                     )}
                 </Space>
