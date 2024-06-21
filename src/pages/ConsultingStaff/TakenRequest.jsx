@@ -146,14 +146,19 @@ const TakedRequest = () => {
                         <Button onClick={() => handleSendToValuationStaff(record.requestId)}>
                             Send to valuation staff
                         </Button>
+                    ) : record.processStatus === "Completed" ? (
+                        <Button>
+                            Another action
+                        </Button>
                     ) : (
-                        <Button disabled={record.processStatus === "Start Valuated"}>
+                        <Button disabled={record.processStatus === "Start Valuated" || record.processStatus === "Sent to Consulting" || record.processStatus === "Valuated"}>
                             <Link to={`/consultingStaff/takedRequest/detail/${record.requestId}`}>Receive Diamond</Link>
                         </Button>
                     )}
                 </Space>
             ),
         },
+        
     ];
 
     const handleServiceFilterChange = (e) => {

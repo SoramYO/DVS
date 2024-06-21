@@ -29,9 +29,10 @@ const FinishRequest = () => {
         setLoading(true)
         try {
             const response = await axios.post('https://dvs-be-sooty.vercel.app/api/send-valuation-result-customer', { requestId }, { withCredentials: true });
-            if (response.data.message) {
+            const sendMailResponse = await axios.post('https://dvs-be-sooty.vercel.app/api/notification-valuation-success', { requestId }, { withCredentials: true });
+            if (response.data.message && sendMailResponse.data.message) {
                 setLoading(false)
-                message.success(response.data.message);
+                message.success(response.data.message && sendMailResponse.data.message);
                 getAllRequests(); // Refresh the requests list
             } else {
                 message.error('Failed to send result to customer');

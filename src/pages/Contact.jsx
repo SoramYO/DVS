@@ -1,7 +1,7 @@
-import React from 'react';
-import { Modal, Form, Input, Button, message, Row, Col } from 'antd';
+import { Button, Col, Form, Input, Modal, Row, message } from 'antd';
 import axios from 'axios';
-import '../css/Contact.css';  
+import React from 'react';
+import '../css/Contact.css';
 
 const Contact = ({ visible, onClose }) => {
     const [form] = Form.useForm();

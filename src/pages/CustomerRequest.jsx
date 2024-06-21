@@ -1,15 +1,15 @@
 import { UploadOutlined } from "@ant-design/icons";
 import {
-  Button,
-  Col,
-  Form,
-  Input,
-  Layout,
-  Row,
-  Select,
-  Typography,
-  Upload,
-  message
+    Button,
+    Col,
+    Form,
+    Input,
+    Layout,
+    Row,
+    Select,
+    Typography,
+    Upload,
+    message
 } from "antd";
 import "antd/dist/reset.css";
 import React, { useContext, useState } from "react";
