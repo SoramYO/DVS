@@ -20,6 +20,7 @@ import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { AuthContext } from "../context/AuthContext";
 import { storage } from "../firebase/firebase";
+import MySpin from "../components/MySpin";
 const { Content } = Layout;
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -33,6 +34,7 @@ const services = [
 
 const CustomerRequest = () => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false)
   const [fileList, setFileList] = useState([]);
   const [service, setService] = useState(1);
 
@@ -148,6 +150,7 @@ const CustomerRequest = () => {
   };
 
   const handleCreateRequest = async (values) => {
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://dvs-be-sooty.vercel.app/api/request",
@@ -160,12 +163,18 @@ const CustomerRequest = () => {
         message.success("Created success");
         const requestId = response.data.requestId
         const serviceId = values.serviceId
+        setLoading(false)
         handleCreatePayment(requestId, serviceId)
       }
     } catch (error) {
+      setLoading(false)
       message.error(error.response.data.message);
     }
   };
+
+  if(loading){
+    return <MySpin />
+  }
 
   return (
     <Layout className="layout">
