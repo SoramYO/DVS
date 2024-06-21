@@ -7,15 +7,19 @@ import MySpin from "../../components/MySpin";
 
 const Request = () => {
     const [requests, setRequests] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true);
         const getAllRequests = async () => {
             await axios
                 .get("https://dvs-be-sooty.vercel.app/api/requests", { withCredentials: true })
                 .then((res) => {
+                    setLoading(false)
                     setRequests(res.data.requests);
                 })
                 .catch((error) => {
+                    setLoading(false)
                     console.log(error);
                 });
         };
@@ -128,7 +132,7 @@ const Request = () => {
     });
 
 
-    if (!requests.length) return <MySpin />;
+    if (loading) return <MySpin />;
 
     return (
         <div className="tabled">
