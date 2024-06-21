@@ -27,10 +27,13 @@ const Sidebar = () => {
         <Menu.Item key="1" icon={<DesktopOutlined />}>
           <Link to="/consultingStaff">Orders</Link>
         </Menu.Item>
-        <Menu.Item key="2" icon={<SolutionOutlined />}>
-          <Link>Notifications</Link>
+        <Menu.Item key="2" icon={<DesktopOutlined />}>
+          <Link to="/consultingStaff/takedRequest">Request received</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<SolutionOutlined />}>
+          <Link to="/consultingStaff/finishRequest">Request Finish</Link>
+        </Menu.Item>
+        <Menu.Item key="4" icon={<SolutionOutlined />}>
           <Link>Messages</Link>
         </Menu.Item>
       </Menu>
