@@ -25,7 +25,7 @@ const TakedRequestByValuation = () => {
 
     const handleSendToConsultingStaff = async (requestId) => {
         try {
-            const response = await axios.post('https://dvs-be-sooty.vercel.app/api/send-diamond-to-valuationStaff', { requestId }, { withCredentials: true });
+            const response = await axios.post('https://dvs-be-sooty.vercel.app/api/send-valuation-result', { requestId }, { withCredentials: true });
             if (response.data.message) {
                 message.success(response.data.message);
                 getAllRequests();
