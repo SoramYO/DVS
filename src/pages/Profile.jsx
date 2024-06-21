@@ -136,7 +136,7 @@ const Profile = () => {
     const getFinishRequest = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/finish-request-by-user`,
+          `https://dvs-be-sooty.vercel.app/api/finish-request-by-user`,
           {
             withCredentials: true,
           }
@@ -218,6 +218,14 @@ const Profile = () => {
           <UserInfo user={user} showModal={showModal} />
         )}
         {currentTab === "requests" && (
+          <UserRequests
+            requests={requests}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            handlePageChange={handlePageChange}
+          />
+        )}
+        {currentTab === "finishRequest" && (
           <UserRequests
             requests={requests}
             currentPage={currentPage}
