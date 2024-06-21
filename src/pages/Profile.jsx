@@ -109,6 +109,7 @@ const UserRequests = ({
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [requests, setRequests] = useState(null);
+  const [finishRequest, setFinishRequest] = useState(null);
   const [currentTab, setCurrentTab] = useState("info");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(3);
@@ -129,6 +130,24 @@ const Profile = () => {
       }
     };
     getUserProfile();
+  }, []);
+
+  useEffect(() => {
+    const getFinishRequest = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8080/api/finish-request-by-user`,
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(res.data.data)
+        setFinishRequest(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFinishRequest();
   }, []);
 
   useEffect(() => {
