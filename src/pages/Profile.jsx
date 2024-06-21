@@ -1,5 +1,5 @@
 import { EditOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Empty, Form, Input, Modal, Pagination, Row, message } from 'antd';
+import { Button, Card, Col, Empty, Form, Input, Modal, Pagination, Row, Select, message } from 'antd';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import MySpin from "../components/MySpin";
@@ -41,18 +41,34 @@ const UserRequests = ({
   currentPage,
   pageSize,
   handlePageChange,
+  filter,
+  handleFilterChange,
 }) => {
   const formatDate = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
+  const filteredRequests = requests?.filter(request => 
+    filter === 'all' ? true : request.paymentStatus === filter
+  );
+
   const paginatedRequests =
-    requests?.slice((currentPage - 1) * pageSize, currentPage * pageSize) || [];
+    filteredRequests?.slice((currentPage - 1) * pageSize, currentPage * pageSize) || [];
 
   return (
     <div className="content">
-      {requests?.length === 0 ? (
+      <Select
+        value={filter}
+        onChange={handleFilterChange}
+        style={{ marginBottom: 16, width: 200 }}
+      >
+        <Select.Option value="all">All</Select.Option>
+        <Select.Option value="Paid">Paid</Select.Option>
+        <Select.Option value="Pending">Pending</Select.Option>
+      </Select>
+
+      {filteredRequests?.length === 0 ? (
         <Empty description="You have no requests" />
       ) : (
         <>
@@ -96,7 +112,7 @@ const UserRequests = ({
           <Pagination
             current={currentPage}
             pageSize={pageSize}
-            total={requests?.length || 0}
+            total={filteredRequests?.length || 0}
             onChange={handlePageChange}
             style={{ textAlign: "center", marginTop: "16px" }}
           />
@@ -112,8 +128,9 @@ const Profile = () => {
   const [finishRequest, setFinishRequest] = useState(null);
   const [currentTab, setCurrentTab] = useState("info");
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(6);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     const getUserProfile = async () => {
@@ -200,6 +217,11 @@ const Profile = () => {
     setPageSize(pageSize);
   };
 
+  const handleFilterChange = (value) => {
+    setFilter(value);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
   if (user === null || requests === null) return <MySpin />;
 
   return (
@@ -223,6 +245,8 @@ const Profile = () => {
             currentPage={currentPage}
             pageSize={pageSize}
             handlePageChange={handlePageChange}
+            filter={filter}
+            handleFilterChange={handleFilterChange}
           />
         )}
       </div>
