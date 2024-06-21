@@ -3,18 +3,23 @@ import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import MySpin from "../../components/MySpin";
 
 const TakedRequestByValuation = () => {
     const [requests, setRequests] = useState([]);
     const [serviceFilter, setServiceFilter] = useState("All");
+    const [loading, setLoading] = useState(false);
 
     const getAllRequests = async () => {
+        setLoading(true);
         await axios
             .get("https://dvs-be-sooty.vercel.app/api/take-request-by-valuation", { withCredentials: true })
             .then((res) => {
+                setLoading(false);
                 setRequests(res.data.data);
             })
             .catch((error) => {
+                setLoading(false);
                 console.log(error);
             });
     };
@@ -27,12 +32,14 @@ const TakedRequestByValuation = () => {
         try {
             const response = await axios.post('https://dvs-be-sooty.vercel.app/api/send-valuation-result', { requestId }, { withCredentials: true });
             if (response.data.message) {
+                setLoading(false);
                 message.success(response.data.message);
                 getAllRequests();
             } else {
                 message.error('Failed to send request to valuation staff');
             }
         } catch (error) {
+            setLoading(false);
             console.error('Error sending request to valuation staff:', error);
             message.error('Error sending request to valuation staff');
         }
@@ -159,6 +166,10 @@ const TakedRequestByValuation = () => {
         return true;
     });
 
+    if(loading) {
+        return <MySpin />
+    }
+
     return (
         <div className="tabled">
             <FloatButton
@@ -179,13 +190,13 @@ const TakedRequestByValuation = () => {
                             <>
                                 <div style={{ textAlign: "center", margin: "10px 0" }}>
                                     <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
-                                        <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px" }}>
+                                        <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             All
                                         </Radio.Button>
-                                        <Radio.Button value="Advanced Valuation" style={{ padding: "10px 20px", backgroundColor: "#ffc107", color: "#fff", border: "none", borderRadius: "5px", margin: "5px" }}>
+                                        <Radio.Button value="Advanced Valuation" style={{ padding: "10px 20px", backgroundColor: "#ffc107", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             Advanced Valuation
                                         </Radio.Button>
-                                        <Radio.Button value="Basic Valuation" style={{ padding: "10px 20px", backgroundColor: "#6c757d", color: "#fff", border: "none", borderRadius: "5px", margin: "5px" }}>
+                                        <Radio.Button value="Basic Valuation" style={{ padding: "10px 20px", backgroundColor: "#6c757d", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             Basic Valuation
                                         </Radio.Button>
                                     </Radio.Group>
