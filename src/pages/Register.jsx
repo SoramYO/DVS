@@ -1,38 +1,34 @@
 import { CheckOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, message } from "antd";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 // import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from "react-router-dom";
 import '../css/Register.css';
+import MySpin from "../components/MySpin";
 
 const Register = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
   // const [captchaToken, setCaptchaToken] = useState(null);
 
   const onFinish = (values) => {
-    // if (!captchaToken) {
-    //   message.error("Please verify that you are not a robot.");
-    //   return;
-    // }
-    // const data = { ...values, captchaToken };
+    setLoading(true);
     axios
       .post("https://dvs-be-sooty.vercel.app/api/register", values, {
         withCredentials: true,
       })
       .then((res) => {
+        setLoading(false);
         message.success("Created successfully");
         navigate("/login");
       })
       .catch((error) => {
+        setLoading(false);
         message.error(error.response.data.message);
       });
   };
-
-  // const onCaptchaChange = (token) => {
-  //   setCaptchaToken(token);
-  // };
 
   const styleText = {
     display: "flex",
@@ -45,6 +41,10 @@ const Register = () => {
     fontSize: "25px",
     marginBottom: "20px",
   };
+
+  if(loading) {
+    return <MySpin />
+  }
 
   return (
     <Row className="register-container">

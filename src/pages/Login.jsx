@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../css/Login.css";
+import MySpin from "../components/MySpin";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -11,7 +12,7 @@ const Login = () => {
     password: "",
   });
 
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -53,6 +54,10 @@ const Login = () => {
       message.error(err.response.data.message);
     }
   };
+
+  if (loading) {
+    return <MySpin />
+  }
   return (
     <div className="loginContainer">
       <div className="loginImageContent">

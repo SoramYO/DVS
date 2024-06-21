@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import MySpin from "../components/MySpin";
 
 
 const PaymentSucces = () => {
   const location = useLocation();
+  const [loading, setLoading] = useState(true);
   const params = new URLSearchParams(location.search);
   const paymentId = params.get("paymentId");
   const payerId = params.get("PayerID");
@@ -15,17 +17,22 @@ const PaymentSucces = () => {
       { withCredentials: true }
     );
     const requestId = res.data.data.transactions[0].item_list.items[0].sku;
-    console.log(requestId)
     const update = await axios.put(
       "https://dvs-be-sooty.vercel.app/api/payment",
       { requestId: requestId },
       { withCredentials: true }
     );
-    console.log(update)
+    if (update.status === 200){
+      setLoading(false);
+    }
   };
   useEffect(() => {
     fetchSuccess();
   }, []);
+
+  if(loading) {
+    return <MySpin />
+  }
 
   return (
     <div
