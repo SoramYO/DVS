@@ -234,13 +234,28 @@ const TakedRequest = () => {
             key: "anotherAction",
             render: (text, record) => {
                 const isSealing = record.finishDate && moment().diff(moment(record.finishDate), 'days') > 7 && record.processStatus === "Completed";
-                return (
-                    <Button onClick={isSealing ? handleSealingRequest(record.requestId) : handleCommitmentRequest(record.requestId)} style={{ color: isSealing ? 'red' : 'blue' }}>
-                        {isSealing ? "Sealing" : "Commitment"}
-                    </Button>
-                );
+                const isCommitment = record.processStatus === "Completed";
+                // Chỉ hiển thị nút khi cả hai điều kiện đều đúng
+                if (isSealing && isCommitment) {
+                    return (
+                        <Button onClick={() => handleSealingRequest(record.requestId)} style={{ color: 'red' }}>
+                            Sealing
+                        </Button>
+                    );
+                } else if (!isSealing && isCommitment) {
+                    // Hiển thị nút "Commitment" khi chỉ có điều kiện isCommitment đúng
+                    return (
+                        <Button onClick={() => handleCommitmentRequest(record.requestId)} style={{ color: 'blue' }}>
+                            Commitment
+                        </Button>
+                    );
+                } else {
+                    // Trường hợp còn lại không hiển thị nút gì cả
+                    return null;
+                }
             },
         },
+
     ];
 
     const handleServiceFilterChange = (e) => {

@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../css/CalculateDiamond.css';
 
+import { Link } from 'react-router-dom';
 import asscherImg from '../assets/imgs/asscher.png';
 import cushionImg from '../assets/imgs/cushion.png';
 import emeraldImg from '../assets/imgs/emerald.png';
@@ -152,192 +153,202 @@ const CalculateDiamond = () => {
   };
 
   return (
-    <Layout className="layout">
-      <Content style={{ padding: '0 50px' }}>
-        <div className="site-layout-content">
-          <Title>Calculate Diamond Price</Title>
-          <Form layout="vertical" className="input-form" form={form}>
-            <Row gutter={16} className="section-spacing">
-              <Col span={24}>
-                <Form.Item label="Diamond Shape" name="shape" initialValue="ROUND">
-                  <Radio.Group value={selectedShape} onChange={(e) => handleShapeChange(e.target.value)} className="radio-group">
-                    {shapes.map(shape => (
-                      <Radio.Button key={shape.name} value={shape.name} className="radio-button">
-                        <div className="radio-button-label">
-                          <img src={shape.img} alt={shape.name} className="radio-button-img" />
-                          <div className="radio-button-text">{shape.name}</div>
-                        </div>
-                      </Radio.Button>
-                    ))}
-                  </Radio.Group>
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={16} className="section-spacing">
-              <Col span={24}>
-                <Form.Item label="Carat">
-                  <Row>
+    <div style={{ padding: '12px' }}>
+      <div style={{ marginBottom: '16px' }}>
+        <Link to="/calculateDiamond">
+          <Button type="primary">Calculate Diamond</Button>
+        </Link>
+        <Link to="/checkPriceByCertificateID">
+          <Button type="primary" style={{ marginLeft: '8px' }}>Check Price by Certificate ID</Button>
+        </Link>
+      </div>
+      <Layout className="layout">
+        <Content style={{ padding: '0 50px' }}>
+          <div className="site-layout-content">
+            <Title>Calculate Diamond Price</Title>
+            <Form layout="vertical" className="input-form" form={form}>
+              <Row gutter={16} className="section-spacing">
+                <Col span={24}>
+                  <Form.Item label="Diamond Shape" name="shape" initialValue="ROUND">
+                    <Radio.Group value={selectedShape} onChange={(e) => handleShapeChange(e.target.value)} className="radio-group">
+                      {shapes.map(shape => (
+                        <Radio.Button key={shape.name} value={shape.name} className="radio-button">
+                          <div className="radio-button-label">
+                            <img src={shape.img} alt={shape.name} className="radio-button-img" />
+                            <div className="radio-button-text">{shape.name}</div>
+                          </div>
+                        </Radio.Button>
+                      ))}
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16} className="section-spacing">
+                <Col span={24}>
+                  <Form.Item label="Carat">
+                    <Row>
+                      <Col span={12}>
+                        <Slider
+                          min={0.01}
+                          max={10.99}
+                          onChange={onChange}
+                          value={typeof carat === 'number' ? carat : 0}
+                          step={0.01}
+                        />
+                      </Col>
+                      <Col span={4}>
+                        <InputNumber
+                          min={0}
+                          max={10}
+                          style={{ margin: '0 16px' }}
+                          step={0.01}
+                          value={carat}
+                          onChange={onChange}
+                        />
+                      </Col>
+                    </Row>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16} className="section-spacing">
+                <Col span={12}>
+                  <Form.Item label="Color Grade" name="color" rules={[{ required: true, message: 'Please select the color grade!' }]}>
+                    <Radio.Group value={selectedColor} onChange={(e) => handleColorChange(e.target.value)} className="radio-group-styled">
+                      {['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'].map(color => (
+                        <Radio.Button key={color} value={color} className="radio-button-styled">
+                          {color}
+                        </Radio.Button>
+                      ))}
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item label="Clarity Grade" name="clarity" rules={[{ required: true, message: 'Please select the clarity grade!' }]}>
+                    <Radio.Group value={selectedClarity} onChange={(e) => handleClarityChange(e.target.value)} className="radio-group-styled">
+                      {['IF', 'VVS1', 'VVS2', 'VS1', 'VS2', 'SI1', 'SI2', 'SI3', 'I1', 'I2', 'I3'].map(clarity => (
+                        <Radio.Button key={clarity} value={clarity} className="radio-button-styled">
+                          {clarity}
+                        </Radio.Button>
+                      ))}
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Collapse className="section-spacing">
+                <Panel header="Advanced Options" key="1" onClick={handleAdvancedToggle}>
+                  <Row gutter={16} className="section-spacing">
                     <Col span={12}>
-                      <Slider
-                        min={0.01}
-                        max={10.99}
-                        onChange={onChange}
-                        value={typeof carat === 'number' ? carat : 0}
-                        step={0.01}
-                      />
+                      <Form.Item label="Fluorescence" name="fluorescence">
+                        <Radio.Group value={selectedFluorescence} onChange={(e) => handleFluorescenceChange(e.target.value)} className="radio-group-styled">
+                          {['None', 'Faint', 'Medium', 'Strong', 'VeryStrong'].map(fluorescence => (
+                            <Radio.Button key={fluorescence} value={fluorescence} className="radio-button-styled">
+                              {fluorescence}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
                     </Col>
-                    <Col span={4}>
-                      <InputNumber
-                        min={0}
-                        max={10}
-                        style={{ margin: '0 16px' }}
-                        step={0.01}
-                        value={carat}
-                        onChange={onChange}
-                      />
+                    <Col span={12}>
+                      <Form.Item label="Origin" name="origin">
+                        <Radio.Group value={selectedOrigin} onChange={(e) => handleOriginChange(e.target.value)} className="radio-group-styled">
+                          {['Natural', 'Synthetic'].map(origin => (
+                            <Radio.Button key={origin} value={origin} className="radio-button-styled">
+                              {origin}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
                     </Col>
                   </Row>
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={16} className="section-spacing">
-              <Col span={12}>
-                <Form.Item label="Color Grade" name="color" rules={[{ required: true, message: 'Please select the color grade!' }]}>
-                  <Radio.Group value={selectedColor} onChange={(e) => handleColorChange(e.target.value)} className="radio-group-styled">
-                    {['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'].map(color => (
-                      <Radio.Button key={color} value={color} className="radio-button-styled">
-                        {color}
-                      </Radio.Button>
-                    ))}
-                  </Radio.Group>
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item label="Clarity Grade" name="clarity" rules={[{ required: true, message: 'Please select the clarity grade!' }]}>
-                  <Radio.Group value={selectedClarity} onChange={(e) => handleClarityChange(e.target.value)} className="radio-group-styled">
-                    {['IF', 'VVS1', 'VVS2', 'VS1', 'VS2', 'SI1', 'SI2', 'SI3', 'I1', 'I2', 'I3'].map(clarity => (
-                      <Radio.Button key={clarity} value={clarity} className="radio-button-styled">
-                        {clarity}
-                      </Radio.Button>
-                    ))}
-                  </Radio.Group>
-                </Form.Item>
-              </Col>
-            </Row>
-            <Collapse className="section-spacing">
-              <Panel header="Advanced Options" key="1" onClick={handleAdvancedToggle}>
-                <Row gutter={16} className="section-spacing">
-                  <Col span={12}>
-                    <Form.Item label="Fluorescence" name="fluorescence">
-                      <Radio.Group value={selectedFluorescence} onChange={(e) => handleFluorescenceChange(e.target.value)} className="radio-group-styled">
-                        {['None', 'Faint', 'Medium', 'Strong', 'VeryStrong'].map(fluorescence => (
-                          <Radio.Button key={fluorescence} value={fluorescence} className="radio-button-styled">
-                            {fluorescence}
-                          </Radio.Button>
-                        ))}
-                      </Radio.Group>
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="Origin" name="origin">
-                      <Radio.Group value={selectedOrigin} onChange={(e) => handleOriginChange(e.target.value)} className="radio-group-styled">
-                        {['Natural', 'Synthetic'].map(origin => (
-                          <Radio.Button key={origin} value={origin} className="radio-button-styled">
-                            {origin}
-                          </Radio.Button>
-                        ))}
-                      </Radio.Group>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={16} className="section-spacing">
-                  <Col span={12}>
-                    <Form.Item label="Polish" name="polish">
-                      <Radio.Group value={selectedPolish} onChange={(e) => handlePolishChange(e.target.value)} className="radio-group-styled">
-                        {['Excellent', 'VeryGood', 'Good', 'Fair', 'Poor'].map(polish => (
-                          <Radio.Button key={polish} value={polish} className="radio-button-styled">
-                            {polish}
-                          </Radio.Button>
-                        ))}
-                      </Radio.Group>
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="Symmetry" name="symmetry">
-                      <Radio.Group value={selectedSymmetry} onChange={(e) => handleSymmetryChange(e.target.value)} className="radio-group-styled">
-                        {['Excellent', 'VeryGood', 'Good', 'Fair', 'Poor'].map(symmetry => (
-                          <Radio.Button key={symmetry} value={symmetry} className="radio-button-styled">
-                            {symmetry}
-                          </Radio.Button>
-                        ))}
-                      </Radio.Group>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={16} className="section-spacing">
-                  <Col span={12}>
-                    <Form.Item label="Proportions" name="proportions">
-                      <Radio.Group value={selectedProportions} onChange={(e) => handleProportionsChange(e.target.value)} className="radio-group-styled">
-                        {['Ideal', 'Excellent', 'VeryGood', 'Good', 'Fair'].map(proportions => (
-                          <Radio.Button key={proportions} value={proportions} className="radio-button-styled">
-                            {proportions}
-                          </Radio.Button>
-                        ))}
-                      </Radio.Group>
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="Measurements" name="measurements">
-                      <Radio.Group value={selectedMeasurements} onChange={(e) => handleMeasurementsChange(e.target.value)} className="radio-group-styled">
-                        {['Small', 'Medium', 'Large'].map(measurements => (
-                          <Radio.Button key={measurements} value={measurements} className="radio-button-styled">
-                            {measurements}
-                          </Radio.Button>
-                        ))}
-                      </Radio.Group>
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </Panel>
-            </Collapse>
-            <Form.Item>
-              <Button type="primary" onClick={handleCalculatePrice}>
-                Check Price
-              </Button>
-              <Button style={{ marginLeft: 8 }} onClick={handleReset}>
-                Reset
-              </Button>
-            </Form.Item>
-          </Form>
-          {priceData && (
-            <Card title="Price Information" className="result-card">
-              <div className="result-card-content">
-                <Title level={4} className="price-detail-title">Diamond Price Details</Title>
-                <Divider />
-                <Paragraph><strong>Shape:</strong> {priceData.shape}</Paragraph>
-                <Paragraph><strong>Carat:</strong> {priceData.carat}</Paragraph>
-                <Paragraph><strong>Color:</strong> {priceData.color}</Paragraph>
-                <Paragraph><strong>Clarity:</strong> {priceData.clarity}</Paragraph>
-                {advancedOpen && (
-                  <>
-                    <Paragraph><strong>Fluorescence:</strong> {priceData.fluorescence}</Paragraph>
-                    <Paragraph><strong>Origin:</strong> {priceData.origin}</Paragraph>
-                    <Paragraph><strong>Polish:</strong> {priceData.polish}</Paragraph>
-                    <Paragraph><strong>Symmetry:</strong> {priceData.symmetry}</Paragraph>
-                    <Paragraph><strong>Proportions:</strong> {priceData.proportions}</Paragraph>
-                    <Paragraph><strong>Measurements:</strong> {priceData.measurements}</Paragraph>
-                  </>
-                )}
-                <Divider />
-                <Paragraph className="result-card-price">
-                  <strong>Fair Price:</strong> ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </Paragraph>
-              </div>
-            </Card>
-          )}
-        </div>
-      </Content>
-    </Layout>
+                  <Row gutter={16} className="section-spacing">
+                    <Col span={12}>
+                      <Form.Item label="Polish" name="polish">
+                        <Radio.Group value={selectedPolish} onChange={(e) => handlePolishChange(e.target.value)} className="radio-group-styled">
+                          {['Excellent', 'VeryGood', 'Good', 'Fair', 'Poor'].map(polish => (
+                            <Radio.Button key={polish} value={polish} className="radio-button-styled">
+                              {polish}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item label="Symmetry" name="symmetry">
+                        <Radio.Group value={selectedSymmetry} onChange={(e) => handleSymmetryChange(e.target.value)} className="radio-group-styled">
+                          {['Excellent', 'VeryGood', 'Good', 'Fair', 'Poor'].map(symmetry => (
+                            <Radio.Button key={symmetry} value={symmetry} className="radio-button-styled">
+                              {symmetry}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row gutter={16} className="section-spacing">
+                    <Col span={12}>
+                      <Form.Item label="Proportions" name="proportions">
+                        <Radio.Group value={selectedProportions} onChange={(e) => handleProportionsChange(e.target.value)} className="radio-group-styled">
+                          {['Ideal', 'Excellent', 'VeryGood', 'Good', 'Fair'].map(proportions => (
+                            <Radio.Button key={proportions} value={proportions} className="radio-button-styled">
+                              {proportions}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item label="Measurements" name="measurements">
+                        <Radio.Group value={selectedMeasurements} onChange={(e) => handleMeasurementsChange(e.target.value)} className="radio-group-styled">
+                          {['Small', 'Medium', 'Large'].map(measurements => (
+                            <Radio.Button key={measurements} value={measurements} className="radio-button-styled">
+                              {measurements}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Panel>
+              </Collapse>
+              <Form.Item>
+                <Button type="primary" onClick={handleCalculatePrice}>
+                  Check Price
+                </Button>
+                <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+                  Reset
+                </Button>
+              </Form.Item>
+            </Form>
+            {priceData && (
+              <Card title="Price Information" className="result-card">
+                <div className="result-card-content">
+                  <Title level={4} className="price-detail-title">Diamond Price Details</Title>
+                  <Divider />
+                  <Paragraph><strong>Shape:</strong> {priceData.shape}</Paragraph>
+                  <Paragraph><strong>Carat:</strong> {priceData.carat}</Paragraph>
+                  <Paragraph><strong>Color:</strong> {priceData.color}</Paragraph>
+                  <Paragraph><strong>Clarity:</strong> {priceData.clarity}</Paragraph>
+                  {advancedOpen && (
+                    <>
+                      <Paragraph><strong>Fluorescence:</strong> {priceData.fluorescence}</Paragraph>
+                      <Paragraph><strong>Origin:</strong> {priceData.origin}</Paragraph>
+                      <Paragraph><strong>Polish:</strong> {priceData.polish}</Paragraph>
+                      <Paragraph><strong>Symmetry:</strong> {priceData.symmetry}</Paragraph>
+                      <Paragraph><strong>Proportions:</strong> {priceData.proportions}</Paragraph>
+                      <Paragraph><strong>Measurements:</strong> {priceData.measurements}</Paragraph>
+                    </>
+                  )}
+                  <Divider />
+                  <Paragraph className="result-card-price">
+                    <strong>Fair Price:</strong> ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  </Paragraph>
+                </div>
+              </Card>
+            )}
+          </div>
+        </Content>
+      </Layout>
+    </div>
   );
 };
 
