@@ -49,7 +49,7 @@ const UserRequests = ({
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  const filteredRequests = requests?.filter(request => 
+  const filteredRequests = requests?.filter(request =>
     filter === 'all' ? true : request.paymentStatus === filter
   );
 

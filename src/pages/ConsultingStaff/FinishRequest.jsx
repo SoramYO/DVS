@@ -159,7 +159,7 @@ const FinishRequest = () => {
         return true;
     });
 
-    if(loading) {
+    if (loading) {
         return <MySpin />
     }
 

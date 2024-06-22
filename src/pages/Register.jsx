@@ -42,7 +42,7 @@ const Register = () => {
     marginBottom: "20px",
   };
 
-  if(loading) {
+  if (loading) {
     return <MySpin />
   }
 
