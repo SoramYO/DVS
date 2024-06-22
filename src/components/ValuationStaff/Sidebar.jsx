@@ -1,8 +1,7 @@
-import { DesktopOutlined, SolutionOutlined, UserOutlined } from "@ant-design/icons";
+import { DesktopOutlined, UserOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/imgs/logo.webp";
 const { Sider } = Layout;
 
 
@@ -29,12 +28,6 @@ const Sidebar = () => {
         </Menu.Item>
         <Menu.Item key="2" icon={<UserOutlined />}>
           <Link to="/valuationStaff/takedRequest">Request received</Link>
-        </Menu.Item>
-        <Menu.Item key="3" icon={<SolutionOutlined />}>
-          <Link>Notifications</Link>
-        </Menu.Item>
-        <Menu.Item key="4" icon={<SolutionOutlined />}>
-          <Link>Messages</Link>
         </Menu.Item>
       </Menu>
     </Sider>

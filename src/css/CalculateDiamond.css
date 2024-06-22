@@ -117,25 +117,20 @@
 
 .result-card {
   margin-top: 40px;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.result-card-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
 }
 
 .result-card-content {
-  font-size: 18px;
+  padding: 20px;
+}
+
+.price-detail-title {
+  margin-bottom: 12px;
 }
 
 .result-card-price {
-  font-size: 28px;
+  font-size: 50px;
   font-weight: bold;
   color: #1890ff;
-  margin-top: 20px;
 }
