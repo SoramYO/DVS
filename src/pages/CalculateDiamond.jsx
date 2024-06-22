@@ -1,4 +1,4 @@
-import { Button, Card, Col, Collapse, Form, InputNumber, Layout, Radio, Row, Slider, Typography } from 'antd';
+import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, Radio, Row, Slider, Typography } from 'antd';
 import 'antd/dist/reset.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -311,27 +311,30 @@ const CalculateDiamond = () => {
           </Form>
           {priceData && (
             <Card title="Price Information" className="result-card">
-              <div className="result-card-title">Diamond Price Details</div>
               <div className="result-card-content">
-                <Paragraph>Shape: {priceData.shape}</Paragraph>
-                <Paragraph>Carat: {priceData.carat}</Paragraph>
-                <Paragraph>Color: {priceData.color}</Paragraph>
-                <Paragraph>Clarity: {priceData.clarity}</Paragraph>
+                <Title level={4} className="price-detail-title">Diamond Price Details</Title>
+                <Divider />
+                <Paragraph><strong>Shape:</strong> {priceData.shape}</Paragraph>
+                <Paragraph><strong>Carat:</strong> {priceData.carat}</Paragraph>
+                <Paragraph><strong>Color:</strong> {priceData.color}</Paragraph>
+                <Paragraph><strong>Clarity:</strong> {priceData.clarity}</Paragraph>
                 {advancedOpen && (
                   <>
-                    <Paragraph>Fluorescence: {priceData.fluorescence}</Paragraph>
-                    <Paragraph>Origin: {priceData.origin}</Paragraph>
-                    <Paragraph>Polish: {priceData.polish}</Paragraph>
-                    <Paragraph>Symmetry: {priceData.symmetry}</Paragraph>
-                    <Paragraph>Proportions: {priceData.proportions}</Paragraph>
-                    <Paragraph>Measurements: {priceData.measurements}</Paragraph>
+                    <Paragraph><strong>Fluorescence:</strong> {priceData.fluorescence}</Paragraph>
+                    <Paragraph><strong>Origin:</strong> {priceData.origin}</Paragraph>
+                    <Paragraph><strong>Polish:</strong> {priceData.polish}</Paragraph>
+                    <Paragraph><strong>Symmetry:</strong> {priceData.symmetry}</Paragraph>
+                    <Paragraph><strong>Proportions:</strong> {priceData.proportions}</Paragraph>
+                    <Paragraph><strong>Measurements:</strong> {priceData.measurements}</Paragraph>
                   </>
                 )}
-                <Paragraph className="result-card-price">Fair Price: ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</Paragraph>
+                <Divider />
+                <Paragraph className="result-card-price">
+                  <strong>Fair Price:</strong> ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                </Paragraph>
               </div>
             </Card>
           )}
-
         </div>
       </Content>
     </Layout>
