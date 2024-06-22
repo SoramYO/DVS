@@ -166,7 +166,7 @@ const TakedRequestByValuation = () => {
         return true;
     });
 
-    if(loading) {
+    if (loading) {
         return <MySpin />
     }
 

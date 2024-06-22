@@ -160,7 +160,7 @@ const Request = () => {
     return true;
   });
 
-  if(loading) {
+  if (loading) {
     return <MySpin />
   }
 
