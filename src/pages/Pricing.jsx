@@ -15,10 +15,10 @@ const Pricing = () => {
             <p><strong>Standard Diamond Valuation (SDV) [100$]</strong>: Which provide you the basic but throughout details about your diamonds which also include a certificate from one of entrusted partner and professional in the field.</p>
             <p>Receive via digital form (Mail) or a beautifully printed certificate that you can keep and present as needed. This way, you have flexibility and peace of mind, knowing your diamond's value is documented and readily available in the format that suits you best.</p>
             <img src={Certificate1} alt="AGI Standard Valuation Report" className='report-image' />
-            <p><a href="https://www.agigems.com/diamond-valuation-report/" target="_blank" rel="noopener noreferrer">Sample</a></p>
+            <p>You can see a sample <a href="https://www.agigems.com/diamond-valuation-report/" target="_blank" rel="noopener noreferrer">here</a></p>
             <p><strong>Advanced Diamond Valuation (ADV) [300$]</strong>: Which include all the benefits from Standard Valuation plus additional deep-dive document and blueprint (dossier) about how your diamond’s value being defined by their characteristic and traits.</p>
             <img src={Certificate2} alt="AGI Diamond Dossier Report" className='report-image' />
-            <p><a href="https://www.agigems.com/diamond-dossier-report/" target="_blank" rel="noopener noreferrer">Sample</a></p>
+            <p>You can see a sample <a href="https://www.agigems.com/diamond-dossier-report/" target="_blank" rel="noopener noreferrer">here</a></p>
             <h3><i>We are committed to providing you with clear, fair, and transparent pricing for all our diamonds. </i></h3>
             <h3><i>If you have any questions or need further assistance, our expert team is here to help. Explore our selection with confidence, knowing that Shine values your satisfaction and trust.</i></h3>
             <h3><strong><i>Find the perfect diamond today and let us  <span style={{ color: "red" }}>help you shine brighter than ever</span>!</i></strong></h3>
