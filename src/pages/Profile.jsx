@@ -122,6 +122,76 @@ const UserRequests = ({
   );
 };
 
+const FinishedRequests = ({
+  requests,
+  currentPage,
+  pageSize,
+  handlePageChange,
+}) => {
+  const formatDate = (dateString) => {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const paginatedRequests =
+    requests?.slice((currentPage - 1) * pageSize, currentPage * pageSize) || [];
+
+  return (
+    <div className="content">
+      {requests?.length === 0 ? (
+        <Empty description="You have no finished requests" />
+      ) : (
+        <>
+          <Row gutter={[16, 16]}>
+            {paginatedRequests.map((request) => (
+              <Col key={request.id} xs={24} sm={12} md={8}>
+                <Card
+                  cover={
+                    <img
+                      src={request.requestImage}
+                      alt="request"
+                      className="profile-card-img"
+                    />
+                  }
+                >
+                  <Card.Meta
+                    title={`Request ID: ${request.requestId}`}
+                    description={
+                      <div>
+                        <p>
+                          <strong>Date</strong>:{" "}
+                          {formatDate(request.createdDate)}
+                        </p>
+                        <p>
+                          <strong>Status</strong>: {request.status}
+                        </p>
+                        <p>
+                          <strong>Service</strong>: {request.serviceName}
+                        </p>
+                        <p>
+                          <strong>Process</strong>: {request.paymentStatus}
+                        </p>
+                      </div>
+                    }
+                  />
+                </Card>
+              </Col>
+            ))}
+          </Row>
+
+          <Pagination
+            current={currentPage}
+            pageSize={pageSize}
+            total={requests?.length || 0}
+            onChange={handlePageChange}
+            style={{ textAlign: "center", marginTop: "16px" }}
+          />
+        </>
+      )}
+    </div>
+  );
+};
+
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [requests, setRequests] = useState(null);
@@ -219,10 +289,10 @@ const Profile = () => {
 
   const handleFilterChange = (value) => {
     setFilter(value);
-    setCurrentPage(1); // Reset to first page when filter changes
+    setCurrentPage(1); 
   };
 
-  if (user === null || requests === null) return <MySpin />;
+  if (user === null || requests === null || finishRequest === null) return <MySpin />;
 
   return (
     <div className="profilUserContainer">
@@ -231,7 +301,10 @@ const Profile = () => {
           <strong>MY PROFILE</strong>
         </button>
         <button onClick={() => setCurrentTab("requests")}>
-          <strong>MY REQUEST</strong>
+          <strong>ALL REQUEST</strong>
+        </button>
+        <button onClick={() => setCurrentTab("finishRequest")}>
+          <strong>FINISH REQUEST</strong>
         </button>
       </nav>
 
@@ -250,8 +323,8 @@ const Profile = () => {
           />
         )}
         {currentTab === "finishRequest" && (
-          <UserRequests
-            requests={requests}
+          <FinishedRequests
+            requests={finishRequest}
             currentPage={currentPage}
             pageSize={pageSize}
             handlePageChange={handlePageChange}
