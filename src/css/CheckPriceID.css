@@ -1,0 +1,59 @@
+/* CheckPriceByCertificateID.css */
+
+.checkPriceContainer {
+    padding: 24px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+  }
+  
+  .buttonContainer {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .buttonContainer .ant-btn {
+    margin-right: 8px;
+  }
+  
+  .cardContainer {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .resultCard {
+    margin-top: 16px;
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .resultCard h4 {
+    margin-bottom: 16px;
+  }
+  
+  .resultCard p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+  
+  .ant-btn-primary {
+    background-color: #1890ff;
+    border-color: #1890ff;
+  }
+  
+  .ant-btn-primary:hover {
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+  }
+  
+  .ant-btn-primary:focus {
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+  }
+  

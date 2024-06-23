@@ -2,6 +2,7 @@ import { Button, Card, Form, Input, Typography, message } from 'antd';
 import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../css/CheckPriceID.css';
 
 const { Title, Paragraph } = Typography;
 
@@ -39,8 +40,8 @@ const CheckPriceByCertificateID = () => {
     };
 
     return (
-        <div style={{ padding: '24px' }}>
-            <div style={{ marginBottom: '16px' }}>
+        <div className="checkPriceContainer">
+            <div className="buttonContainer">
                 <Link to="/calculateDiamond">
                     <Button type="primary">Calculate Diamond</Button>
                 </Link>
@@ -48,29 +49,31 @@ const CheckPriceByCertificateID = () => {
                     <Button type="primary" style={{ marginLeft: '8px' }}>Check Price by Certificate ID</Button>
                 </Link>
             </div>
-            <Card title="Check Diamond Price by Certificate ID">
-                <Form form={form} layout="vertical">
-                    <Form.Item label="Certificate ID" name="certificateId" rules={[{ required: true, message: 'Please enter Certificate ID!' }]}>
-                        <Input placeholder="Enter Certificate ID" />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button type="primary" loading={loading} onClick={handleCheckPrice}>
-                            Check Price
-                        </Button>
-                        <Button style={{ marginLeft: 8 }} onClick={handleReset}>
-                            Reset
-                        </Button>
-                    </Form.Item>
-                </Form>
-                {priceData && (
-                    <div>
-                        <Title level={4}>Diamond Price Details</Title>
-                        <Paragraph className="result-card-price">
-                            Estimated Price: ${priceData.estimatedPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </Paragraph>
-                    </div>
-                )}
-            </Card>
+            <div className="cardContainer">
+                <Card title="Check Diamond Price by Certificate ID">
+                    <Form form={form} layout="vertical">
+                        <Form.Item label="Certificate ID" name="certificateId" rules={[{ required: true, message: 'Please enter Certificate ID!' }]}>
+                            <Input placeholder="Enter Certificate ID" />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" loading={loading} onClick={handleCheckPrice}>
+                                Check Price
+                            </Button>
+                            <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+                                Reset
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                    {priceData && (
+                        <div className="resultCard">
+                            <Title level={4}>Diamond Price Details</Title>
+                            <Paragraph className="result-card-price">
+                                Estimated Price: ${priceData.estimatedPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            </Paragraph>
+                        </div>
+                    )}
+                </Card>
+            </div>
         </div>
     );
 };

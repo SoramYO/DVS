@@ -1,6 +1,6 @@
+import React, { useState, useContext } from "react";
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Col, Dropdown, Input, Menu, Row } from "antd";
-import React, { useContext } from "react";
+import { Button, Col, Dropdown, AutoComplete, Menu, Row, Input } from "antd"; // Import Input here
 import { Link } from "react-router-dom";
 import Logo from "../assets/imgs/logo.webp";
 import { AuthContext } from "../context/AuthContext";
@@ -8,6 +8,35 @@ import "../css/Navbar.css";
 
 const Navbar = () => {
   const { user, dispatch } = useContext(AuthContext);
+  const [searchValue, setSearchValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+  const handleSearch = (value) => {
+    setSearchValue(value);
+    if (value) {
+      setSuggestions([
+        { value: "Cut", link: "/cut" },
+        { value: "Color", link: "/color" },
+        { value: "Clarity", link: "/clarity" },
+        { value: "Carat", link: "/carat" },
+        { value: "Conclusion", link: "/conclusion" },
+        { value: "Profile", link: "/profile/:id" },
+        { value: "Check price by Certificate ID", link: "/checkPriceByCertificateID" },
+        { value: "Guides", link: "/guides" },
+        { value: "Calculate Diamond", link: "/calculateDiamond" },
+        { value: "Home", link: "/" },
+        { value: "Pricing", link: "/pricing" },
+        { value: "Service", link: "/services" },
+        { value: "Valuation Request", link: "/request" },
+        { value: "Contact", link: "/footer" },
+        { value: "List Request", link: "/profile/:id" },
+        
+        // Add more suggestions here
+      ].filter(item => item.value.toLowerCase().includes(value.toLowerCase())));
+    } else {
+      setSuggestions([]);
+    }
+  };
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
@@ -68,11 +97,19 @@ const Navbar = () => {
         <Col xs={4} sm={12} md={12} lg={10} className="navbarRightContainer">
           <div className="navbarRight">
             <div className="searchContainer">
-              <Input
-                prefix={<SearchOutlined className="searchIcon" />}
-                placeholder="Search..."
+              <AutoComplete
+                value={searchValue}
+                options={suggestions.map(suggestion => ({
+                  value: suggestion.value,
+                  label: <Link to={suggestion.link}>{suggestion.value}</Link>
+                }))}
+                onChange={handleSearch}
                 className="searchInput"
-              />
+              >
+                <Input
+                  prefix={<SearchOutlined className="searchIcon" />}
+                />
+              </AutoComplete>
             </div>
             <div className="signInButton">
               {!user ? (
@@ -84,7 +121,7 @@ const Navbar = () => {
                   <div className="profileContainer">
                     <UserOutlined className="userIcon" />
                     <p>
-                      Welcome,{user.firstName} {user.lastName}
+                      Welcome, {user.firstName} {user.lastName}
                     </p>
                   </div>
                 </Dropdown>
