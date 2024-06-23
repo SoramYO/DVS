@@ -3,6 +3,7 @@ import ProtectedRoute from "../config/ProtectedRoute";
 import ConsultingStaffLayout from "../layout/ConsultingStaffLayout";
 import CustomerLayout from "../layout/CustomerLayout";
 import ValuationStaffLayout from "../layout/ValuationStaffLayout";
+import ActivateAccount from "../pages/ActivateAccount";
 import CalculateDiamond from "../pages/CalculateDiamond";
 import CaratSection from "../pages/CaratSection";
 import CheckPriceByCertificateID from "../pages/CheckPriceByCertificateID";
@@ -60,6 +61,11 @@ export const route = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/activateAccount",
+        element: <ActivateAccount />,
         errorElement: <ErrorPage />,
       },
       {

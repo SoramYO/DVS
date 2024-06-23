@@ -1,7 +1,7 @@
 import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, Radio, Row, Slider, Typography } from 'antd';
 import 'antd/dist/reset.css';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../css/CalculateDiamond.css';
 
 import { Link } from 'react-router-dom';

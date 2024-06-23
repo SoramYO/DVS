@@ -2,7 +2,6 @@ import { DesktopOutlined, SolutionOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/imgs/logo.webp";
 const { Sider } = Layout;
 
 

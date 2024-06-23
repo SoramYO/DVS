@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MySpin from "../components/MySpin";
 
@@ -11,24 +11,30 @@ const PaymentSucces = () => {
   const paymentId = params.get("paymentId");
   const payerId = params.get("PayerID");
 
-  const fetchSuccess = async () => {
-    const res = await axios.get(
-      `https://dvs-be-sooty.vercel.app/api/paypalReturn?paymentId=${paymentId}&PayerID=${payerId}`,
-      { withCredentials: true }
-    );
-    const requestId = res.data.data.transactions[0].item_list.items[0].sku;
-    const update = await axios.put(
-      "https://dvs-be-sooty.vercel.app/api/payment",
-      { requestId: requestId },
-      { withCredentials: true }
-    );
-    if (update.status === 200) {
-      setLoading(false);
+  const fetchSuccess = useCallback(async () => {
+    try {
+      const res = await axios.get(
+        `https://dvs-be-sooty.vercel.app/api/paypalReturn?paymentId=${paymentId}&PayerID=${payerId}`,
+        { withCredentials: true }
+      );
+      const requestId = res.data.data.transactions[0].item_list.items[0].sku;
+      const update = await axios.put(
+        "https://dvs-be-sooty.vercel.app/api/payment",
+        { requestId: requestId },
+        { withCredentials: true }
+      );
+      if (update.status === 200) {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error('Error fetching success:', error);
+      setLoading(false); // Ensure to set loading to false in case of an error
     }
-  };
+  }, [paymentId, payerId]);
+
   useEffect(() => {
     fetchSuccess();
-  }, []);
+  }, [fetchSuccess]);
 
   if (loading) {
     return <MySpin />

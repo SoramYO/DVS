@@ -2,7 +2,6 @@ import { CheckOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, message } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
-// import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from "react-router-dom";
 import MySpin from "../components/MySpin";
 import '../css/Register.css';
@@ -11,7 +10,6 @@ const Register = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  // const [captchaToken, setCaptchaToken] = useState(null);
 
   const onFinish = (values) => {
     setLoading(true);
@@ -22,7 +20,7 @@ const Register = () => {
       .then((res) => {
         setLoading(false);
         message.success("Created successfully");
-        navigate("/login");
+        navigate("/activate-account", { state: { username: values.username } });
       })
       .catch((error) => {
         setLoading(false);
@@ -146,12 +144,6 @@ const Register = () => {
             >
               <Input placeholder="Phone" />
             </Form.Item>
-            {/* <Form.Item>
-              <ReCAPTCHA
-                sitekey="6LeQv_kpAAAAAPv37gbLx6LwXOD-W2oGBqhtA1CY"
-                onChange={onCaptchaChange}
-              />
-            </Form.Item> */}
             <Form.Item>
               <Button className="button-create" type="primary" htmlType="submit" block>
                 Create an account
