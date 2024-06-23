@@ -1,7 +1,7 @@
 import { ArrowLeftOutlined, CheckOutlined, InfoCircleOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Col, DatePicker, Image, Row, Spin, Typography, message } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../css/RequestDetail.css";
 
@@ -14,20 +14,20 @@ const RequestDetail = () => {
   const [loading, setLoading] = useState(true);
   const [appointmentDate, setAppointmentDate] = useState(null);
 
-  const getRequestDetail = async () => {
+  const getRequestDetail = useCallback(async () => {
     try {
       const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, { withCredentials: true });
       setRequest(res.data.request[0]);
-      setLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     getRequestDetail();
-  }, [id]);
+  }, [id, getRequestDetail]);
 
   const handleOk = async () => {
     if (appointmentDate && new Date(appointmentDate) < new Date(request.createdDate)) {
