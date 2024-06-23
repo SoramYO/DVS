@@ -47,13 +47,7 @@ const CalculateDiamond = () => {
   const [selectedMeasurements, setSelectedMeasurements] = useState('Medium');
   const [carat, setInputValue] = useState(0.01);
   const [advancedOpen, setAdvancedOpen] = useState(false);
-
-
-  useEffect(() => {
-    if (carat && selectedColor && selectedClarity && selectedShape) {
-      handleCalculatePrice();
-    }
-  }, [carat, selectedColor, selectedClarity, selectedShape, selectedFluorescence, selectedOrigin, selectedPolish, selectedSymmetry, selectedProportions, selectedMeasurements]);
+  const [detailsVisible, setDetailsVisible] = useState(false);
 
   const handleShapeChange = (shape) => {
     setSelectedShape(shape);
@@ -115,6 +109,7 @@ const CalculateDiamond = () => {
     setSelectedProportions('Ideal');
     setSelectedMeasurements('Medium');
     setInputValue(0.01);
+    setDetailsVisible(false);
   };
 
   const handleCalculatePrice = async () => {
@@ -147,6 +142,7 @@ const CalculateDiamond = () => {
         proportions: selectedProportions,
         measurements: selectedMeasurements
       });
+      setDetailsVisible(true);
     } catch (error) {
       console.error('Error calculating diamond price:', error);
     }
@@ -154,7 +150,7 @@ const CalculateDiamond = () => {
 
   return (
     <div style={{ padding: '12px' }}>
-      <div style={{ marginBottom: '16px' }}>
+      <div className="buttonContainer" style={{ marginBottom: '16px' }}>
         <Link to="/calculateDiamond">
           <Button type="primary">Calculate Diamond</Button>
         </Link>
@@ -319,7 +315,7 @@ const CalculateDiamond = () => {
                 </Button>
               </Form.Item>
             </Form>
-            {priceData && (
+            {detailsVisible && priceData && (
               <Card title="Price Information" className="result-card">
                 <div className="result-card-content">
                   <Title level={4} className="price-detail-title">Diamond Price Details</Title>
@@ -351,6 +347,5 @@ const CalculateDiamond = () => {
     </div>
   );
 };
-
 
 export default CalculateDiamond;
