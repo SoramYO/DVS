@@ -20,7 +20,7 @@ const Register = () => {
       .then((res) => {
         setLoading(false);
         message.success("Created successfully");
-        navigate("/activate-account", { state: { username: values.username } });
+        navigate("/activateAccount", { state: { username: values.username } });
       })
       .catch((error) => {
         setLoading(false);
