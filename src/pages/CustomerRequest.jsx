@@ -18,9 +18,9 @@ import "../css/CalculateDiamond.css";
 import { Option } from "antd/es/mentions";
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import MySpin from "../components/MySpin";
 import { AuthContext } from "../context/AuthContext";
 import { storage } from "../firebase/firebase";
-import MySpin from "../components/MySpin";
 const { Content } = Layout;
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -172,7 +172,7 @@ const CustomerRequest = () => {
     }
   };
 
-  if(loading){
+  if (loading) {
     return <MySpin />
   }
 

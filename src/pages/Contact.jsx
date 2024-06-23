@@ -1,5 +1,6 @@
+import { Button, Col, Form, Input, Modal, Row, message } from 'antd';
+import axios from 'axios';
 import React from 'react';
-import { Modal, Form, Input, Button } from 'antd';
 import '../css/Contact.css';
 
 const Contact = ({ visible, onClose }) => {
@@ -8,12 +9,27 @@ const Contact = ({ visible, onClose }) => {
     const handleOk = () => {
         form.validateFields()
             .then(values => {
-                console.log('Contact Form Values:', values);
-                form.resetFields();
-                onClose();
+                const feedback = {
+                    customerName: values.name,
+                    email: values.email,
+                    feedbackText: values.message,
+                };
+
+                axios.post("https://dvs-be-sooty.vercel.app/api/feedback", feedback, {
+                    withCredentials: true,
+                })
+                    .then(res => {
+                        message.success('Feedback submitted successfully');
+                        form.resetFields();
+                        onClose();
+                    })
+                    .catch(error => {
+                        message.error('Failed to submit feedback');
+                        console.error('Error:', error);
+                    });
             })
-            .catch(info => {
-                console.log('Validate Failed:', info);
+            .catch(error => {
+                console.error('Validate Failed:', error);
             });
     };
 
@@ -21,7 +37,7 @@ const Contact = ({ visible, onClose }) => {
         <Modal
             className="contact-form-modal"
             title="Contact Us"
-            visible={visible}
+            open={visible}
             onOk={handleOk}
             onCancel={onClose}
             footer={[
@@ -32,28 +48,35 @@ const Contact = ({ visible, onClose }) => {
                     Submit
                 </Button>,
             ]}
+            centered
         >
             <Form form={form} layout="vertical" name="contact_form">
-                <Form.Item
-                    name="name"
-                    label="Name"
-                    rules={[{ required: true, message: 'Please input your name!' }]}
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    name="email"
-                    label="Email"
-                    rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}
-                >
-                    <Input />
-                </Form.Item>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Form.Item
+                            name="name"
+                            label="Name"
+                            rules={[{ required: true, message: 'Please input your name!' }]}
+                        >
+                            <Input placeholder="Enter your name" />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item
+                            name="email"
+                            label="Email"
+                            rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}
+                        >
+                            <Input placeholder="Enter your email" />
+                        </Form.Item>
+                    </Col>
+                </Row>
                 <Form.Item
                     name="message"
                     label="Message"
                     rules={[{ required: true, message: 'Please input your message!' }]}
                 >
-                    <Input.TextArea rows={4} />
+                    <Input.TextArea rows={4} placeholder="Enter your message" />
                 </Form.Item>
             </Form>
         </Modal>

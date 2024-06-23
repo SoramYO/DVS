@@ -1,6 +1,7 @@
 import { CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, InboxOutlined, MinusCircleOutlined, PhoneOutlined } from "@ant-design/icons";
 import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message } from "antd";
 import axios from "axios";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MySpin from "../../components/MySpin";
@@ -8,19 +9,19 @@ import MySpin from "../../components/MySpin";
 const TakedRequest = () => {
     const [requests, setRequests] = useState([]);
     const [serviceFilter, setServiceFilter] = useState("All");
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const getAllRequests = async () => {
-        setLoading(true)
+        setLoading(true);
         await axios
             .get("https://dvs-be-sooty.vercel.app/api/take-request", { withCredentials: true })
             .then((res) => {
                 setRequests(res.data.data);
-                setLoading(false)
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
-                setLoading(false)
+                setLoading(false);
             });
     };
 
@@ -33,9 +34,9 @@ const TakedRequest = () => {
         try {
             const response = await axios.post('https://dvs-be-sooty.vercel.app/api/send-diamond-to-valuationStaff', { requestId }, { withCredentials: true });
             if (response.data.message) {
-                setLoading(false)
+                setLoading(false);
                 message.success(response.data.message);
-                getAllRequests(); // Refresh the requests list
+                getAllRequests();
             } else {
                 message.error('Failed to send request to valuation staff');
             }
@@ -43,6 +44,64 @@ const TakedRequest = () => {
             setLoading(false);
             console.error('Error sending request to valuation staff:', error);
             message.error('Error sending request to valuation staff');
+        }
+    };
+
+    const handleCustomerTookSample = async (requestId) => {
+        setLoading(true);
+        try {
+            const response = await axios.post('https://dvs-be-sooty.vercel.app/api/customer-took-sample', { requestId }, { withCredentials: true });
+            if (response.data.message) {
+                setLoading(false);
+                message.success(response.data.message);
+                getAllRequests();
+            } else {
+                message.error('Failed to update request status');
+            }
+        } catch (error) {
+            setLoading(false);
+            console.error('Error updating request status:', error);
+            message.error('Error updating request status');
+        }
+    };
+
+    const handleSealingRequest = (requestId) => async () => {
+        setLoading(true);
+        try {
+            const requestType = "Sealing";
+            const description = "Requesting for sealing request.";
+            const response = await axios.post('https://dvs-be-sooty.vercel.app/api/request-approval', { requestId, requestType, description }, { withCredentials: true });
+            if (response.data.message) {
+                setLoading(false);
+                message.success(response.data.message);
+                getAllRequests(); // Refresh the requests list
+            } else {
+                message.error('Failed to update request status');
+            }
+        } catch (error) {
+            setLoading(false);
+            console.error('Error updating request status:', error);
+            message.error('Error updating request status');
+        }
+    };
+
+    const handleCommitmentRequest = (requestId) => async () => {
+        setLoading(true);
+        try {
+            const requestType = "Commitment";
+            const description = "Requesting for commitment.";
+            const response = await axios.post('https://dvs-be-sooty.vercel.app/api/request-approval', { requestId, requestType, description }, { withCredentials: true });
+            if (response.data.message) {
+                setLoading(false);
+                message.success(response.data.message);
+                getAllRequests();
+            } else {
+                message.error('Failed to update request status');
+            }
+        } catch (error) {
+            setLoading(false);
+            console.error('Error updating request status:', error);
+            message.error('Error updating request status');
         }
     };
 
@@ -62,7 +121,8 @@ const TakedRequest = () => {
         "Received for Valuation": "cyan",
         "Sent to Consulting": "cyan",
         "Unprocessed": "red",
-        "Ready for valuation": "blue"
+        "Ready for valuation": "blue",
+        "Done": "green"
     };
 
     const serviceColors = {
@@ -86,7 +146,8 @@ const TakedRequest = () => {
         "Received for Valuation": <InboxOutlined />,
         "Sent to Consulting": <InboxOutlined />,
         "Unprocessed": <MinusCircleOutlined />,
-        "Ready for valuation": <CheckCircleOutlined />
+        "Ready for valuation": <CheckCircleOutlined />,
+        "Done": <CheckCircleOutlined />
     };
 
     const columns = [
@@ -120,6 +181,12 @@ const TakedRequest = () => {
             render: (date) => new Date(date).toLocaleDateString("en-GB"),
         },
         {
+            title: "Finish Date",
+            dataIndex: "finishDate",
+            key: "finishDate",
+            render: (date) => date ? new Date(date).toLocaleDateString("en-GB") : 'N/A',
+        },
+        {
             title: "Process",
             key: "process",
             render: (text, record) => (
@@ -146,14 +213,49 @@ const TakedRequest = () => {
                         <Button onClick={() => handleSendToValuationStaff(record.requestId)}>
                             Send to valuation staff
                         </Button>
+                    ) : record.processStatus === "Completed" ? (
+                        <Button onClick={() => handleCustomerTookSample(record.requestId)}>
+                            Customer Took Sample
+                        </Button>
+                    ) : record.processStatus === "Done" ? (
+                        <Button disabled={record.processStatus === "Done"}>
+                            Customer Took Sample
+                        </Button>
                     ) : (
-                        <Button disabled={record.processStatus === "Start Valuated"}>
+                        <Button disabled={record.processStatus === "Start Valuated" || record.processStatus === "Sent to Consulting" || record.processStatus === "Valuated"}>
                             <Link to={`/consultingStaff/takedRequest/detail/${record.requestId}`}>Receive Diamond</Link>
                         </Button>
                     )}
                 </Space>
             ),
         },
+        {
+            title: "Another Action",
+            key: "anotherAction",
+            render: (text, record) => {
+                const isSealing = record.finishDate && moment().diff(moment(record.finishDate), 'days') > 7 && record.processStatus === "Completed";
+                const isCommitment = record.processStatus === "Completed";
+                // Chỉ hiển thị nút khi cả hai điều kiện đều đúng
+                if (isSealing && isCommitment) {
+                    return (
+                        <Button onClick={() => handleSealingRequest(record.requestId)} style={{ color: 'red' }}>
+                            Sealing
+                        </Button>
+                    );
+                } else if (!isSealing && isCommitment) {
+                    // Hiển thị nút "Commitment" khi chỉ có điều kiện isCommitment đúng
+                    return (
+                        <Button onClick={() => handleCommitmentRequest(record.requestId)} style={{ color: 'blue' }}>
+                            Commitment
+                        </Button>
+                    );
+                } else {
+                    // Trường hợp còn lại không hiển thị nút gì cả
+                    return null;
+                }
+            },
+        },
+
     ];
 
     const handleServiceFilterChange = (e) => {
@@ -167,7 +269,7 @@ const TakedRequest = () => {
         return true;
     });
 
-    if(loading) {
+    if (loading) {
         return <MySpin />
     }
 

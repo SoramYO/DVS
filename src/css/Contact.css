@@ -1,25 +1,47 @@
+/* Contact.css */
 .contact-form-modal {
     max-width: 600px;
-    margin: 0 auto;
+    margin: auto;
+}
+
+.contact-form-modal .ant-modal-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: visible;
 }
 
 .contact-form-modal .ant-modal-header {
-    background-color: #f0f2f5;
+    background-color: #60d964;
+    color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    position: relative;
+    padding: 8px;
+    text-align: center;
 }
 
 .contact-form-modal .ant-modal-title {
-    color: #1890ff;
-    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .contact-form-modal .ant-modal-footer {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+}
+
+.contact-form-modal .ant-btn-primary {
+    background-color: #60d964;
+    border-color: #60d964;
+}
+
+.contact-form-modal .ant-btn-primary:hover {
+    background-color: #45a049;
+    border-color: #45a049;
 }
 
 .contact-form-modal .ant-form-item-label>label {
-    color: #595959;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .contact-form-modal .ant-input,
@@ -27,12 +49,21 @@
     border-radius: 4px;
 }
 
-.contact-form-modal .ant-btn-primary {
-    background-color: #1890ff;
-    border-color: #1890ff;
+.contact-form-modal .ant-modal-close {
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    width: 32px;
+    height: 32px;
+    background-color: #60d964;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.contact-form-modal .ant-btn-primary:hover {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
+.contact-form-modal .ant-modal-close-x {
+    color: white;
+    font-size: 16px;
 }

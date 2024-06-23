@@ -5,6 +5,7 @@ import CustomerLayout from "../layout/CustomerLayout";
 import ValuationStaffLayout from "../layout/ValuationStaffLayout";
 import CalculateDiamond from "../pages/CalculateDiamond";
 import CaratSection from "../pages/CaratSection";
+import CheckPriceByCertificateID from "../pages/CheckPriceByCertificateID";
 import ClaritySection from "../pages/ClaritySection";
 import ColorSection from "../pages/ColorSection";
 import Conclusion from "../pages/Conclusion";
@@ -31,7 +32,6 @@ import Request from "../pages/ValuationStaff/Request";
 import TakedRequestByValuation from "../pages/ValuationStaff/TakedRequestByValuation";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
-
 export const route = createBrowserRouter([
   {
     path: "/",
@@ -65,6 +65,11 @@ export const route = createBrowserRouter([
       {
         path: "/calculateDiamond",
         element: <CalculateDiamond />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/checkPriceByCertificateID",
+        element: <CheckPriceByCertificateID />,
         errorElement: <ErrorPage />,
       },
       {

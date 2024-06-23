@@ -22,7 +22,7 @@ const PaymentSucces = () => {
       { requestId: requestId },
       { withCredentials: true }
     );
-    if (update.status === 200){
+    if (update.status === 200) {
       setLoading(false);
     }
   };
@@ -30,7 +30,7 @@ const PaymentSucces = () => {
     fetchSuccess();
   }, []);
 
-  if(loading) {
+  if (loading) {
     return <MySpin />
   }
 

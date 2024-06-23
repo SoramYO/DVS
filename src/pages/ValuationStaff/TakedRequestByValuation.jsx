@@ -61,7 +61,8 @@ const TakedRequestByValuation = () => {
         "Received for Valuation": "cyan",
         "Sent to Consulting": "cyan",
         "Unprocessed": "red",
-        "Ready for valuation": "blue"
+        "Ready for valuation": "blue",
+        "Done": "green"
     };
 
     const serviceColors = {
@@ -85,7 +86,8 @@ const TakedRequestByValuation = () => {
         "Received for Valuation": <InboxOutlined />,
         "Sent to Consulting": <InboxOutlined />,
         "Unprocessed": <MinusCircleOutlined />,
-        "Ready for valuation": <CheckCircleOutlined />
+        "Ready for valuation": <CheckCircleOutlined />,
+        "Done": <CheckCircleOutlined />
     };
 
     const columns = [
@@ -146,7 +148,7 @@ const TakedRequestByValuation = () => {
                             Send to consulting staff
                         </Button>
                     ) : (
-                        <Button disabled={record.processStatus === "Sent to Consulting"}>
+                        <Button disabled={record.processStatus === "Sent to Consulting" || record.processStatus === "Completed" || record.processStatus === "Done"}>
                             <Link to={`/valuationStaff/valuation/${record.requestId}`}>Continute valuation</Link>
                         </Button>
                     )}
@@ -166,7 +168,7 @@ const TakedRequestByValuation = () => {
         return true;
     });
 
-    if(loading) {
+    if (loading) {
         return <MySpin />
     }
 
