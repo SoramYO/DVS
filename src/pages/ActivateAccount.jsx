@@ -1,9 +1,10 @@
 import { Button, Card, Form, Input, message } from 'antd';
 import axios from 'axios';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ActivateAccount = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const { username } = location.state || {};
     const [form] = Form.useForm();
@@ -14,6 +15,7 @@ const ActivateAccount = () => {
             const response = await axios.post('https://dvs-be-sooty.vercel.app/api/active-account', { code, username });
             if (response.data.errCode === 0) {
                 message.success('Account activated successfully.');
+                navigate("/login");
             } else {
                 message.error(response.data.message);
             }
