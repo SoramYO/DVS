@@ -1,8 +1,9 @@
-import { CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, InboxOutlined, MinusCircleOutlined, PhoneOutlined } from "@ant-design/icons";
-import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message } from "antd";
+import { CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, InboxOutlined, MinusCircleOutlined, PhoneOutlined, PrinterOutlined } from "@ant-design/icons";
+import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message, Typography } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import MySpin from "../../components/MySpin";
+import handlePrintValuationPaper from "./printValuation";
 
 const FinishRequest = () => {
     const [requests, setRequests] = useState([]);
@@ -43,6 +44,7 @@ const FinishRequest = () => {
             message.error('Error sending result to customer');
         }
     };
+
 
     const statusColors = {
         "Pending": "blue",
@@ -140,8 +142,11 @@ const FinishRequest = () => {
             key: "detail",
             render: (text, record) => (
                 <Space size="middle">
-                    <Button onClick={() => handleSendToCustomer(record.requestId)} >
+                    <Button onClick={() => handleSendToCustomer(record.requestId)}>
                         Send Result To Customer
+                    </Button>
+                    <Button onClick={() => handlePrintValuationPaper(record)} style={{ backgroundColor: '#007bff', color: '#fff', border: 'none' }}>
+                        <PrinterOutlined /> Print Valuation 
                     </Button>
                 </Space>
             ),
@@ -159,7 +164,7 @@ const FinishRequest = () => {
         return true;
     });
 
-    if(loading) {
+    if (loading) {
         return <MySpin />
     }
 
