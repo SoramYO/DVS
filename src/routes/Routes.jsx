@@ -33,6 +33,9 @@ import Request from "../pages/ValuationStaff/Request";
 import TakedRequestByValuation from "../pages/ValuationStaff/TakedRequestByValuation";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
+import ConStaffProfile from "../pages/ConsultingStaff/ConStaffProfile";
+import ValStaffProfile from "../pages/ValuationStaff/ValStaffProfile";
+
 export const route = createBrowserRouter([
   {
     path: "/",
@@ -180,6 +183,10 @@ export const route = createBrowserRouter([
         element: <TakedRequest />,
       },
       {
+        path: "constaffprofile",
+        element: <ConStaffProfile />,
+      },
+      {
         path: "takedRequest/detail/:id",
         element: <TakenRequestDetail />,
       },
@@ -213,6 +220,10 @@ export const route = createBrowserRouter([
       {
         path: "valuationResult",
         element: <ValuationResult />,
+      },
+      {
+        path: "valStaffProfile",
+        element: <ValStaffProfile />,
       },
     ],
   },

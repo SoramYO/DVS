@@ -13,7 +13,7 @@ const AppHeader = () => {
   const userMenu = (
     <Menu>
       <Menu.Item key="profile" icon={<UserOutlined />}>
-        <Link to="/profile">Profile</Link>
+        <Link to="/valuationStaff/valStaffProfile">Profile</Link>
       </Menu.Item>
       <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
         Logout
@@ -44,7 +44,7 @@ const AppHeader = () => {
           }}
         >
           <span style={{ color: "#fff", marginLeft: "10px" }}>
-            Welcome, valuation staff
+            Welcome, Valuation Staff
           </span>
         </div>
       </Dropdown>
