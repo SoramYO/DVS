@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Col, Dropdown, AutoComplete, Menu, Row, Input } from "antd"; // Import Input here
+import { AutoComplete, Button, Col, Dropdown, Input, Menu, Row } from "antd"; // Import Input here
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/imgs/logo.webp";
 import { AuthContext } from "../context/AuthContext";
@@ -20,7 +20,7 @@ const Navbar = () => {
         { value: "Clarity", link: "/clarity" },
         { value: "Carat", link: "/carat" },
         { value: "Conclusion", link: "/conclusion" },
-        { value: "Profile", link: "/profile/:id" },
+        { value: "Profile", link: "/profile" },
         { value: "Check price by Certificate ID", link: "/checkPriceByCertificateID" },
         { value: "Guides", link: "/guides" },
         { value: "Calculate Diamond", link: "/calculateDiamond" },
@@ -29,7 +29,7 @@ const Navbar = () => {
         { value: "Service", link: "/services" },
         { value: "Valuation Request", link: "/request" },
         { value: "Contact", link: "/footer" },
-        { value: "List Request", link: "/profile/:id" },
+        { value: "List Request", link: "/profile" },
         
         // Add more suggestions here
       ].filter(item => item.value.toLowerCase().includes(value.toLowerCase())));
@@ -65,7 +65,7 @@ const Navbar = () => {
   const userMenu = (
     <Menu>
       <Menu.Item key="profile">
-        {user ? <Link to={`/profile/${user.id}`}>Profile</Link> : null}
+        {user ? <Link to={`/profile`}>Profile</Link> : null}
       </Menu.Item>
       <Menu.Item key="logout" onClick={logout}>
         Logout
