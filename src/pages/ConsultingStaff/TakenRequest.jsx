@@ -255,7 +255,6 @@ const TakedRequest = () => {
                 }
             },
         },
-
     ];
 
     const handleServiceFilterChange = (e) => {
@@ -263,10 +262,12 @@ const TakedRequest = () => {
     };
 
     const filteredRequests = requests.filter(request => {
-        if (serviceFilter !== "All" && request.serviceName !== serviceFilter) {
-            return false;
-        }
-        return true;
+        if (serviceFilter === "All") return true;
+        if (serviceFilter === "Complete" && request.processStatus === "Completed") return true;
+        if (serviceFilter === "Done" && request.processStatus === "Done") return true;
+        if (serviceFilter === "Approved" && request.processStatus === "Approved") return true;
+        if (request.serviceName === serviceFilter || request.processStatus === serviceFilter) return true;
+        return false;
     });
 
     if (loading) {
@@ -292,7 +293,7 @@ const TakedRequest = () => {
                         extra={
                             <>
                                 <div style={{ textAlign: "center", margin: "10px 0" }}>
-                                    <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
+                                <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
                                         <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             All
                                         </Radio.Button>
@@ -301,6 +302,15 @@ const TakedRequest = () => {
                                         </Radio.Button>
                                         <Radio.Button value="Basic Valuation" style={{ padding: "10px 20px", backgroundColor: "#6c757d", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             Basic Valuation
+                                        </Radio.Button>
+                                        <Radio.Button value="Complete" style={{ padding: "10px 20px", backgroundColor: "red", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            Complete
+                                        </Radio.Button>
+                                        <Radio.Button value="Done" style={{ padding: "10px 20px", backgroundColor: "#28a745", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            Done
+                                        </Radio.Button>
+                                        <Radio.Button value="Approved" style={{ padding: "10px 20px", backgroundColor: "orange", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            Approved
                                         </Radio.Button>
                                     </Radio.Group>
                                 </div>
