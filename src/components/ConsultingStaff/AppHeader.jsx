@@ -13,7 +13,7 @@ const AppHeader = () => {
   const userMenu = (
     <Menu>
       <Menu.Item key="profile" icon={<UserOutlined />}>
-        <Link to="/profile">Profile</Link>
+        <Link to="/consultingStaff/conStaffProfile">Profile</Link>
       </Menu.Item>
       <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
         Logout
@@ -44,7 +44,7 @@ const AppHeader = () => {
           }}
         >
           <span style={{ color: "#fff"}}>
-            Welcome, consulting staff
+            Welcome, Consulting Staff
           </span>
         </div>
       </Dropdown>
