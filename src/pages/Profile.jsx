@@ -296,7 +296,7 @@ const Profile = () => {
 
   return (
     <div className="profilUserContainer">
-      <nav className="sideNav">
+      <nav className="sideNavbar">
         <button onClick={() => setCurrentTab("info")}>
           <strong>MY PROFILE</strong>
         </button>
