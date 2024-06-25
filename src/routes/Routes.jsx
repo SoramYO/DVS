@@ -10,6 +10,7 @@ import CheckPriceByCertificateID from "../pages/CheckPriceByCertificateID";
 import ClaritySection from "../pages/ClaritySection";
 import ColorSection from "../pages/ColorSection";
 import Conclusion from "../pages/Conclusion";
+import ConStaffProfile from "../pages/ConsultingStaff/ConStaffProfile";
 import FinishRequest from "../pages/ConsultingStaff/FinishRequest";
 import Order from "../pages/ConsultingStaff/Order";
 import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
@@ -31,10 +32,9 @@ import ResetPassword from "../pages/ResetPassword";
 import Service from "../pages/Service";
 import Request from "../pages/ValuationStaff/Request";
 import TakedRequestByValuation from "../pages/ValuationStaff/TakedRequestByValuation";
+import ValStaffProfile from "../pages/ValuationStaff/ValStaffProfile";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
-import ConStaffProfile from "../pages/ConsultingStaff/ConStaffProfile";
-import ValStaffProfile from "../pages/ValuationStaff/ValStaffProfile";
 
 export const route = createBrowserRouter([
   {
@@ -141,7 +141,7 @@ export const route = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/profile/:id",
+        path: "/profile",
         element: (
           <ProtectedRoute requiredRoles={["Customer"]}>
             <Profile />
