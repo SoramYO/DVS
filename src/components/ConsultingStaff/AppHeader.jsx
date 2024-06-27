@@ -1,7 +1,7 @@
+import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { Dropdown, Layout, Menu } from "antd";
 import React, { useContext } from "react";
-import { Layout, Menu, Dropdown } from "antd";
 import { Link } from "react-router-dom";
-import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { AuthContext } from "../../context/AuthContext";
 const { Header } = Layout;
 
@@ -28,7 +28,6 @@ const AppHeader = () => {
         display: "flex",
         justifyContent: "end",
         alignItems: "center",
-        position: "fixed",
         zIndex: 1,
         width: "100%",
         padding: "0 17%",
@@ -43,7 +42,7 @@ const AppHeader = () => {
             cursor: "pointer",
           }}
         >
-          <span style={{ color: "#fff"}}>
+          <span style={{ color: "#fff" }}>
             Welcome, Consulting Staff
           </span>
         </div>

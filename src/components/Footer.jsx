@@ -1,10 +1,8 @@
+import { MailOutlined, PhoneOutlined, PushpinOutlined } from '@ant-design/icons';
 import { Button, Form, Input, notification } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
-import { MailOutlined, PhoneOutlined, PushpinOutlined } from '@ant-design/icons';
-import Amex from '../assets/imgs/ameri.png';
 import Bancontact from '../assets/imgs/Bancontact.png';
-import Banktransfer from '../assets/imgs/bank.png';
 import DHL from '../assets/imgs/DHL.png';
 import Fedex from '../assets/imgs/Fedex.png';
 import GIA from '../assets/imgs/GIA.png';
@@ -12,9 +10,11 @@ import HRD from '../assets/imgs/HRD.png';
 import IGI from '../assets/imgs/IGI.png';
 import Ideal from '../assets/imgs/Ideal.png';
 import Malca from '../assets/imgs/Malca.png';
-import Mastercard from '../assets/imgs/master.png';
 import Paypal from '../assets/imgs/PayPal.png';
 import Visa from '../assets/imgs/Visa.png';
+import Amex from '../assets/imgs/ameri.png';
+import Banktransfer from '../assets/imgs/bank.png';
+import Mastercard from '../assets/imgs/master.png';
 import "../css/Footer.css";
 const Footer = () => {
   const onFinish = async (values) => {
