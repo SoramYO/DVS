@@ -289,7 +289,7 @@ const Profile = () => {
 
   const handleFilterChange = (value) => {
     setFilter(value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   if (user === null || requests === null || finishRequest === null) return <MySpin />;
