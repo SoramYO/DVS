@@ -216,7 +216,7 @@ const TakedRequest = () => {
                         <Button onClick={() => handleSendToValuationStaff(record.requestId)}>
                             Send to valuation staff
                         </Button>
-                    ) : record.processStatus === "Completed" ? (
+                    ) : record.processStatus === "Completed" || record.processStatus === "Sealing" || record.processStatus === "Commitment" ? (
                         <Button onClick={() => handleCustomerTookSample(record.requestId)}>
                             Customer Took Sample
                         </Button>
