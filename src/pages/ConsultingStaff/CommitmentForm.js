@@ -14,10 +14,10 @@ import {
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useState } from "react";
+import MySpin from "../../components/MySpin";
+import { AuthContext } from "../../context/AuthContext";
 import "../../css/CommitmentForm.css";
-import MySpin from "../components/MySpin";
-import { AuthContext } from "../context/AuthContext";
-import { storage } from "../firebase/firebase";
+import { storage } from "../../firebase/firebase";
 
 const { Content } = Layout;
 const { Title } = Typography;
