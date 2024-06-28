@@ -13,6 +13,7 @@ import Conclusion from "../pages/Conclusion";
 import ConStaffProfile from "../pages/ConsultingStaff/ConStaffProfile";
 import FinishRequest from "../pages/ConsultingStaff/FinishRequest";
 import Order from "../pages/ConsultingStaff/Order";
+import RequestApproval from "../pages/ConsultingStaff/RequestApproval";
 import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
 import TakedRequest from "../pages/ConsultingStaff/TakenRequest";
 import TakenRequestDetail from "../pages/ConsultingStaff/TakenRequestDetail";
@@ -35,7 +36,6 @@ import TakedRequestByValuation from "../pages/ValuationStaff/TakedRequestByValua
 import ValStaffProfile from "../pages/ValuationStaff/ValStaffProfile";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
-
 export const route = createBrowserRouter([
   {
     path: "/",
@@ -193,6 +193,10 @@ export const route = createBrowserRouter([
       {
         path: "finishRequest",
         element: <FinishRequest />,
+      },
+      {
+        path: "requestApproval",
+        element: <RequestApproval />,
       }
     ],
   },

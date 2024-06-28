@@ -146,7 +146,7 @@ const FinishRequest = () => {
                         Send Result To Customer
                     </Button>
                     <Button onClick={() => handlePrintValuationPaper(record)} style={{ backgroundColor: '#007bff', color: '#fff', border: 'none' }}>
-                        <PrinterOutlined /> Print Valuation 
+                        <PrinterOutlined /> Print Valuation
                     </Button>
                 </Space>
             ),
@@ -204,7 +204,7 @@ const FinishRequest = () => {
                             <Table
                                 columns={columns}
                                 dataSource={filteredRequests}
-                                pagination={false}
+                                pagination={{ pageSize: 10 }}
                                 className="ant-border-space"
                             />
                         </div>

@@ -33,7 +33,7 @@ const Sidebar = () => {
           <Link to="/consultingStaff/finishRequest">Request Finish</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<SolutionOutlined />}>
-          <Link>Messages</Link>
+          <Link to="/consultingStaff/requestApproval">Request Approval</Link>
         </Menu.Item>
       </Menu>
     </Sider>

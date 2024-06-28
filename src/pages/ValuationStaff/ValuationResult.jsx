@@ -147,7 +147,7 @@ const Request = () => {
                             <Table
                                 columns={columns}
                                 dataSource={filteredRequests}
-                                pagination={false}
+                                pagination={{ pageSize: 10 }}
                                 className="ant-border-space"
                             />
                         </div>

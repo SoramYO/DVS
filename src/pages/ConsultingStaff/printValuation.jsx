@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { message } from 'antd';
+import axios from 'axios';
 
 const handlePrintValuationPaper = async (record) => {
     const { requestId } = record;
@@ -150,7 +150,7 @@ const handlePrintValuationPaper = async (record) => {
                 printWindow.document.open();
                 printWindow.document.write(printableContent);
                 printWindow.document.close();
-                printWindow.print(); 
+                printWindow.print();
             } else {
                 message.error('Failed to open print window. Please allow pop-ups for this site.');
             }

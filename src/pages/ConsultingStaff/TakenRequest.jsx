@@ -65,7 +65,7 @@ const TakedRequest = () => {
         }
     };
 
-    const handleSealingRequest = (requestId) => async () => {
+    const handleSealingRequest = async (requestId) => {
         setLoading(true);
         try {
             const requestType = "Sealing";
@@ -76,6 +76,7 @@ const TakedRequest = () => {
                 message.success(response.data.message);
                 getAllRequests(); // Refresh the requests list
             } else {
+                setLoading(false);
                 message.error('Failed to update request status');
             }
         } catch (error) {
@@ -85,7 +86,7 @@ const TakedRequest = () => {
         }
     };
 
-    const handleCommitmentRequest = (requestId) => async () => {
+    const handleCommitmentRequest = async (requestId) => {
         setLoading(true);
         try {
             const requestType = "Commitment";
@@ -96,6 +97,7 @@ const TakedRequest = () => {
                 message.success(response.data.message);
                 getAllRequests();
             } else {
+                setLoading(false);
                 message.error('Failed to update request status');
             }
         } catch (error) {
@@ -104,6 +106,7 @@ const TakedRequest = () => {
             message.error('Error updating request status');
         }
     };
+
 
     const statusColors = {
         "Pending": "blue",
@@ -213,7 +216,7 @@ const TakedRequest = () => {
                         <Button onClick={() => handleSendToValuationStaff(record.requestId)}>
                             Send to valuation staff
                         </Button>
-                    ) : record.processStatus === "Completed" ? (
+                    ) : record.processStatus === "Completed" || record.processStatus === "Sealing" || record.processStatus === "Commitment" ? (
                         <Button onClick={() => handleCustomerTookSample(record.requestId)}>
                             Customer Took Sample
                         </Button>
@@ -293,7 +296,7 @@ const TakedRequest = () => {
                         extra={
                             <>
                                 <div style={{ textAlign: "center", margin: "10px 0" }}>
-                                <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
+                                    <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
                                         <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             All
                                         </Radio.Button>
@@ -321,7 +324,7 @@ const TakedRequest = () => {
                             <Table
                                 columns={columns}
                                 dataSource={filteredRequests}
-                                pagination={false}
+                                pagination={{ pageSize: 10 }}
                                 className="ant-border-space"
                             />
                         </div>
