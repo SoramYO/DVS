@@ -15,7 +15,6 @@ import "antd/dist/reset.css";
 import React, { useContext, useEffect, useState } from "react";
 import "../css/CalculateDiamond.css";
 
-import { Option } from "antd/es/mentions";
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import MySpin from "../components/MySpin";
@@ -24,7 +23,7 @@ import { storage } from "../firebase/firebase";
 const { Content } = Layout;
 const { Title } = Typography;
 const { TextArea } = Input;
-
+const { Option } = Select;
 
 
 const CustomerRequest = () => {
@@ -33,7 +32,7 @@ const CustomerRequest = () => {
   const [fileList, setFileList] = useState([]);
   const [service, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
-  const [price , setPrice] = useState(0)
+  const [price, setPrice] = useState(0)
 
 
   const [image, setImage] = useState("");
@@ -45,11 +44,11 @@ const CustomerRequest = () => {
     try {
       const res = await axios.get("https://dvs-be-sooty.vercel.app/api/user-service", { withCredentials: true });
       setLoading(false);
-      setServices(res.data.services);
-      if (res.data.services.length > 0) {
+      setServices(res.data.services.data); // Access the nested data array here
+      if (res.data.services.data.length > 0) {
         // Set the default selected service and price
-        const defaultService = res.data.services[0];
-        setSelectedService(defaultService.serviceId);
+        const defaultService = res.data.services.data[0];
+        setSelectedService(defaultService.id);
         setPrice(defaultService.price);
       }
     } catch (error) {
@@ -160,7 +159,7 @@ const CustomerRequest = () => {
     try {
       const response = await axios.post(
         `https://dvs-be-sooty.vercel.app/api/paypal`,
-        { amount:price, requestId: requestId},
+        { amount: price, requestId: requestId },
         {
           withCredentials: true,
         }
@@ -242,7 +241,7 @@ const CustomerRequest = () => {
                     placeholder="Select a service"
                   >
                     {service.map((service) => (
-                      <Option key={service.serviceId} value={service.serviceId}>
+                      <Option key={service.id} value={service.id}>
                         {service.serviceName}  {service.price}
                       </Option>
                     ))}
