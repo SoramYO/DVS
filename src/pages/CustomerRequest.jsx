@@ -12,7 +12,7 @@ import {
   message
 } from "antd";
 import "antd/dist/reset.css";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../css/CalculateDiamond.css";
 
 import { Option } from "antd/es/mentions";
@@ -27,20 +27,41 @@ const { TextArea } = Input;
 
 
 
-const services = [
-  { id: 1, name: "Normal - 300.000VNĐ" },
-  { id: 2, name: "Vip - 450.000VNĐ" },
-];
-
 const CustomerRequest = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false)
   const [fileList, setFileList] = useState([]);
-  const [service, setService] = useState(1);
+  const [service, setServices] = useState([]);
+  const [selectedService, setSelectedService] = useState(null);
+  const [price , setPrice] = useState(0)
+
 
   const [image, setImage] = useState("");
   const [note, setNote] = useState("");
   const { user } = useContext(AuthContext);
+
+  const getAllServices = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get("https://dvs-be-sooty.vercel.app/api/services", { withCredentials: true });
+      setLoading(false);
+      setServices(res.data.services);
+      if (res.data.services.length > 0) {
+        // Set the default selected service and price
+        const defaultService = res.data.services[0];
+        setSelectedService(defaultService.serviceId);
+        setPrice(defaultService.price);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+    getAllServices();
+  }, []);
 
   const handleRemove = (file) => {
     // Update the state to remove the file from the list
@@ -118,27 +139,28 @@ const CustomerRequest = () => {
       requestImage: image,
       note: note,
       userId: user?.id,
-      serviceId: service,
+      serviceId: selectedService,
     };
     console.log(requestData)
     handleCreateRequest(requestData);
   };
 
   const handleCreatePayment = async (requestId, serviceId) => {
-    const paymentData =
-      serviceId === 1
-        ? {
-          amount: 300000,
-          requestId: requestId
-        }
-        : {
-          amount: 450000,
-          requestId: requestId
-        };
+    // const paymentData =
+    //   serviceId === 1
+    //     ? {
+    //       amount: service.price,
+    //       requestId: requestId
+    //     }
+    //     : {
+    //       amount: 450000,
+    //       requestId: requestId
+    //     };
+    console.log(price)
     try {
       const response = await axios.post(
         `https://dvs-be-sooty.vercel.app/api/paypal`,
-        paymentData,
+        { amount:price, requestId: requestId},
         {
           withCredentials: true,
         }
@@ -169,6 +191,13 @@ const CustomerRequest = () => {
     } catch (error) {
       setLoading(false)
       message.error(error.response.data.message);
+    }
+  };
+  const handleServiceChange = (value) => {
+    const selectedService = service.find((service) => service.serviceId === value);
+    if (selectedService) {
+      setSelectedService(selectedService.serviceId);
+      setPrice(selectedService.price);
     }
   };
 
@@ -206,13 +235,16 @@ const CustomerRequest = () => {
                 </Form.Item>
               </Col> */}
               <Col span={12}>
-                <Form.Item name="serviceId" label="Service" initialValue={1}>
+              <Form.Item name="serviceId" label="Service" initialValue={selectedService}>
                   <Select
-                    value={service}
-                    onChange={(value) => setService(value)}
+                    value={selectedService}
+                    onChange={handleServiceChange}
+                    placeholder="Select a service"
                   >
-                    {services.map((service) => (
-                      <Option value={service.id}>{service.name}</Option>
+                    {service.map((service) => (
+                      <Option key={service.serviceId} value={service.serviceId}>
+                        {service.serviceName}  {service.price}
+                      </Option>
                     ))}
                   </Select>
                 </Form.Item>
