@@ -43,7 +43,7 @@ const CustomerRequest = () => {
   const getAllServices = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://dvs-be-sooty.vercel.app/api/services", { withCredentials: true });
+      const res = await axios.get("https://dvs-be-sooty.vercel.app/api/user-service", { withCredentials: true });
       setLoading(false);
       setServices(res.data.services);
       if (res.data.services.length > 0) {
