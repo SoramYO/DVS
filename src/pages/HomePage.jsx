@@ -63,7 +63,6 @@ const HomePage = () => {
   ];
 
   return (
-    <>
       <div className="homepage">
         <Carousel autoplay>
           {slides.map((slide, index) => (
@@ -131,8 +130,6 @@ const HomePage = () => {
         </section>
 
       </div>
-
-    </>
   );
 };
 
