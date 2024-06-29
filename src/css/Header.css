@@ -2,26 +2,37 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 2.5px;
-  background-color: white;
-  border-bottom: 1px solid black;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 10px;
 }
 
-.headerLeft {
+.headerLeft, .headerRight {
   flex: 1;
   display: flex;
-  flex-direction: row;
   align-items: center;
 }
 
+.headerLeft {
+  justify-content: flex-start;
+}
+
 .headerLeft h4 {
-  font-size: 12.5px;
-  margin-top: 6px;
+  font-size: 14px;
+  margin: 0 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .languageIcon {
-  width: 50px;
+  width: 42px;
   height: 30px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid #ccc;
 }
 
 .languageIconImage {
@@ -30,43 +41,42 @@
 }
 
 .downIcon {
-  font-size: 12.5px;
-  margin-right: 10px;
-}
-
-.headerRight {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.headerRight h5 {
-  font-size: 12px;
-  margin-top: 8px;
+  font-size: 14px;
   margin-left: 5px;
 }
 
+.headerRight {
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.headerRight h5 {
+  font-size: 14px;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .headerIcon {
-  font-size: 17.5px;
+  font-size: 20px;
   cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  color: #4a4a4a;
+}
+
+.headerIcon:hover {
+  color: #6c63ff;
+  transform: scale(1.1);
 }
 
 .emailIcon {
-  margin-right: 35px;
+  margin-right: 20px;
 }
 
-.clockContainer {
+.clockContainer, .phoneContainer {
   display: flex;
   align-items: center;
-  margin-right: 25px;
 }
 
-.phoneContainer {
-  display: flex;
-  align-items: center;
-  margin-right: 0;
+.clockContainer h5, .phoneContainer h5 {
+  margin-left: 8px;
 }

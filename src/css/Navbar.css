@@ -1,10 +1,14 @@
 .navbarContainer {
-    align-items: center;
-    padding: 0 15px;
-    background-color: white;
-    border-bottom: 1px solid black;
-  }
-  
+  align-items: center;
+  padding: 0 15px;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 10px;
+}
+
   .navbarLeft {
     float: left;
     display: flex;
@@ -13,6 +17,7 @@
   
   .navbarLogo {
     width: 80px;
+    border-radius: 8px;
     cursor: pointer;
   }
   
@@ -29,6 +34,8 @@
   .navbarMenu :hover {
     color: #1890FF;
     background-color:  rgba(24, 144, 255, 0.1);
+    border-radius: 10px;
+
   }
   
   .navbarRight {

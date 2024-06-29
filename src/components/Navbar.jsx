@@ -1,5 +1,5 @@
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { AutoComplete, Button, Col, Dropdown, Input, Menu, Row } from "antd"; // Import Input here
+import { AutoComplete, Button, Col, Dropdown, Input, Menu, Row } from "antd"; 
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/imgs/logo.webp";
@@ -31,7 +31,6 @@ const Navbar = () => {
         { value: "Contact", link: "/footer" },
         { value: "List Request", link: "/profile" },
         
-        // Add more suggestions here
       ].filter(item => item.value.toLowerCase().includes(value.toLowerCase())));
     } else {
       setSuggestions([]);
