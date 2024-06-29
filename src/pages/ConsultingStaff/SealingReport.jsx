@@ -1,205 +1,95 @@
-import { UploadOutlined } from "@ant-design/icons";
-import {
-    Button,
-    Col,
-    DatePicker,
-    Form,
-    Input,
-    Layout,
-    Row,
-    Typography,
-    Upload,
-    message,
-} from "antd";
-import axios from "axios";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import React, { useContext, useState } from "react";
-import MySpin from "../../components/MySpin";
-import { AuthContext } from "../../context/AuthContext";
-import "../../css/SealingReport.css";
-import { storage } from "../../firebase/firebase";
+import { message } from 'antd';
+import axios from 'axios';
 
-const { Content } = Layout;
-const { Title } = Typography;
+const handlePrintSealingReport = async (request) => {
+    try {
+        const response = await axios.get(`https://dvs-be-sooty.vercel.app/api/print-valuation-report?requestId=${request.requestId}`, { withCredentials: true });
+        if (response.status === 200) {
+            const requestData = response.data;
+            const printableContent = `
+                <html>
+                <head>
+                    <title>Biên bản niêm phong</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            line-height: 1.6;
+                            color: #333;
+                        }
+                        .report-wrapper {
+                            max-width: 800px;
+                            margin: 20px auto;
+                            padding: 20px;
+                            border: 2px solid #333;
+                            border-radius: 10px;
+                            background-color: #fff;
+                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                        }
+                        .report-header {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        .report-header h1 {
+                            font-size: 24px;
+                            text-transform: uppercase;
+                            margin: 10px 0;
+                            color: #333;
+                        }
+                        .report-content {
+                            margin-bottom: 20px;
+                        }
+                        .report-content p {
+                            margin: 5px 0;
+                        }
+                        .report-footer {
+                            text-align: center;
+                            margin-top: 20px;
+                            font-style: italic;
+                            color: #555;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="report-wrapper">
+                        <div class="report-header">
+                            <h1>Biên bản niêm phong</h1>
+                        </div>
+                        <div class="report-content">
+                            <p><strong>Số yêu cầu:</strong> ${requestData.requestId}</p>
+                            <p><strong>Ngày niêm phong:</strong> ${new Date(requestData.createdDate).toLocaleDateString('en-US')}</p>
+                            <p><strong>Ngày hẹn:</strong> ${requestData.appointmentDate ? new Date(requestData.appointmentDate).toLocaleDateString('en-US') : 'Chưa có'}</p>
+                            <p><strong>Tình trạng thanh toán:</strong> ${requestData.paymentStatus}</p>
+                            <p><strong>Khách hàng:</strong> ${requestData.customerFirstName} ${requestData.customerLastName}</p>
+                            <p><strong>Ghi chú:</strong> ${requestData.note}</p>
+                            <p><strong>Hình ảnh yêu cầu:</strong> <br/><img src="${requestData.requestImage}" alt="Request Image" style="max-width: 100%; height: auto;"></p>
+                            <!-- Các thông tin khác có thể bổ sung -->
+                        </div>
+                        <div class="report-footer">
+                            <p>Được tạo bởi Công ty của bạn</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
 
-const SealingReport = () => {
-    const [loading, setLoading] = useState(false);
-    const [fileList, setFileList] = useState([]);
-    const [reportData, setReportData] = useState({
-        customerName: "",
-        customerEmail: "",
-        customerPhone: "",
-        sealingDate: null,
-        notes: "",
-        attachedFile: "",
-    });
-    const { user } = useContext(AuthContext);
-
-    const handleInputChange = (e) => {
-        setReportData({ ...reportData, [e.target.name]: e.target.value });
-    };
-
-    const handleDateChange = (date, dateString) => {
-        setReportData({ ...reportData, sealingDate: dateString });
-    };
-
-    const handleRemove = (file) => {
-        setFileList((prevList) => prevList.filter((item) => item.uid !== file.uid));
-        setReportData({ ...reportData, attachedFile: "" });
-        return false;
-    };
-
-    // Upload file to Firebase
-    const uploadFile = async ({ onError, onSuccess, file }) => {
-        try {
-            const storageRef = ref(storage, "sealing-reports/" + file.name);
-            const snapshot = await uploadBytes(storageRef, file);
-            const downloadURL = await getDownloadURL(snapshot.ref);
-            console.log("File available at", downloadURL);
-            setReportData({ ...reportData, attachedFile: downloadURL });
-            onSuccess("ok");
-            setFileList([
-                ...fileList,
-                {
-                    uid: file.uid,
-                    name: file.name,
-                    status: "done",
-                    url: downloadURL,
-                },
-            ]);
-        } catch (error) {
-            console.error("Error uploading file: ", error);
-            onError(error);
-            setFileList([
-                ...fileList,
-                {
-                    uid: file.uid,
-                    name: file.name,
-                    status: "error",
-                    error: { status: "error", message: "Upload failed!" },
-                },
-            ]);
-        }
-    };
-
-    const handleSubmit = async () => {
-        if (!reportData.customerName || !reportData.sealingDate) {
-            message.error("Please fill in all required fields");
-            return;
-        }
-        setLoading(true);
-        try {
-            const response = await axios.post(
-                "https://dvs-be-sooty.vercel.app/api/sealing-report",
-                {
-                    ...reportData,
-                    userId: user?.id,
-                },
-                {
-                    withCredentials: true,
-                }
-            );
-            if (response.status === 200) {
-                message.success("Sealing report created successfully");
-                setLoading(false);
+            const printWindow = window.open('', '_blank');
+            if (printWindow) {
+                printWindow.document.open();
+                printWindow.document.write(printableContent);
+                printWindow.document.close();
+                printWindow.print();
+            } else {
+                message.error('Không thể mở cửa sổ in. Vui lòng cho phép pop-up cho trang này.');
             }
-        } catch (error) {
-            setLoading(false);
-            message.error(error.response?.data?.message || "Error creating report");
+        } else if (response.status === 404) {
+            message.error('Không tìm thấy báo cáo niêm phong. Vui lòng kiểm tra mã yêu cầu.');
+        } else {
+            message.error('Lỗi khi lấy dữ liệu báo cáo niêm phong. Vui lòng thử lại sau.');
         }
-    };
-
-    if (loading) {
-        return <MySpin />;
+    } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu báo cáo niêm phong:', error);
+        message.error('Lỗi khi lấy dữ liệu báo cáo niêm phong. Vui lòng thử lại sau.');
     }
-
-    return (
-        <Layout className="layout">
-            <Content style={{ padding: "0 50px" }}>
-                <div className="site-layout-content">
-                    <Title>Sealing Report</Title>
-                    <Form layout="vertical" className="input-form" onFinish={handleSubmit}>
-                        <Row gutter={16} className="section-spacing">
-                            <Col span={12}>
-                                <Form.Item label="Customer Name" required>
-                                    <Input
-                                        name="customerName"
-                                        value={reportData.customerName}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                                <Form.Item label="Customer Email">
-                                    <Input
-                                        name="customerEmail"
-                                        value={reportData.customerEmail}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={16} className="section-spacing">
-                            <Col span={12}>
-                                <Form.Item label="Customer Phone">
-                                    <Input
-                                        name="customerPhone"
-                                        value={reportData.customerPhone}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                                <Form.Item label="Sealing Date" required>
-                                    <DatePicker
-                                        style={{ width: "100%" }}
-                                        onChange={handleDateChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={24}>
-                                <Form.Item label="Notes">
-                                    <Input.TextArea
-                                        rows={4}
-                                        name="notes"
-                                        value={reportData.notes}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Form.Item label="Attach File" name="attachedFile">
-                                <Upload
-                                    maxCount={1}
-                                    listType="picture"
-                                    beforeUpload={(file) => {
-                                        const isPdf = file.type === "application/pdf";
-                                        if (!isPdf) {
-                                            message.error("You can only upload PDF file!");
-                                        }
-                                        return isPdf;
-                                    }}
-                                    customRequest={uploadFile}
-                                    fileList={fileList}
-                                    onRemove={handleRemove}
-                                >
-                                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                                </Upload>
-                            </Form.Item>
-                        </Row>
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Create Report
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </div>
-            </Content>
-        </Layout>
-    );
 };
 
-export default SealingReport;
+export default handlePrintSealingReport;
