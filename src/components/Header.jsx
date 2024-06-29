@@ -23,7 +23,7 @@ const Header = () => {
     <div className="headerContainer">
       <div className="headerLeft">
         <div className="languageIcon">
-          <img src="../assets/language.png" alt="" className="languageIconImage" />
+          <img src="../assets/language.png" alt="Language" className="languageIconImage" />
         </div>
         <DownOutlined className="downIcon" />
         <h4>English</h4>

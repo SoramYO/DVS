@@ -1,6 +1,10 @@
 .footer {
   padding: 20px;
-  background-color: #f8f8f8;
+  background-color: #a8edea; 
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); 
+  color: #333; 
+  margin: 10px;
+  border-radius: 8px;
 }
 
 .footer-content {
