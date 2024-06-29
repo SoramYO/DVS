@@ -6,16 +6,19 @@ import {
     MinusCircleOutlined,
     PhoneOutlined
 } from "@ant-design/icons";
-import { Card, Col, Radio, Row, Table, Tag } from "antd";
+import { Button, Card, Col, Modal, Radio, Row, Table, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import MySpin from "../../components/MySpin";
+import SealingReport from "./SealingReport";
 
 const RequestApproval = () => {
     const [requests, setRequests] = useState([]);
     const [filter, setFilter] = useState("All");
     const [serviceFilter, setServiceFilter] = useState("All");
     const [loading, setLoading] = useState(true);
+    const [selectedRequest, setSelectedRequest] = useState(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     useEffect(() => {
         const getAllRequests = async () => {
@@ -126,8 +129,19 @@ const RequestApproval = () => {
                 <Tag color={serviceColors[requestType]}>{requestType}</Tag>
             ),
         },
+        {
+            title: "Action",
+            key: "action",
+            render: (text, record) => (
+                <Button type="primary" onClick={() => {
+                    setSelectedRequest(record);
+                    setIsModalVisible(true);
+                }}>
+                    View
+                </Button>
+            ),
+        }
     ];
-
 
     const handleServiceFilterChange = (e) => {
         setServiceFilter(e.target.value);
@@ -174,6 +188,16 @@ const RequestApproval = () => {
                     </Card>
                 </Col>
             </Row>
+
+            <Modal
+                title="Sealing Report"
+                visible={isModalVisible}
+                onCancel={() => setIsModalVisible(false)}
+                footer={null}
+                width={800}
+            >
+                {selectedRequest && <SealingReport reportData={selectedRequest} />}
+            </Modal>
         </div>
     );
 };

@@ -1,204 +1,63 @@
-import { UploadOutlined } from "@ant-design/icons";
-import {
-    Button,
-    Col,
-    DatePicker,
-    Form,
-    Input,
-    Layout,
-    Row,
-    Typography,
-    Upload,
-    message,
-} from "antd";
-import axios from "axios";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import React, { useContext, useState } from "react";
-import MySpin from "../../components/MySpin";
-import { AuthContext } from "../../context/AuthContext";
-import "../../css/SealingReport.css";
-import { storage } from "../../firebase/firebase";
+import React from "react";
 
-const { Content } = Layout;
-const { Title } = Typography;
-
-const SealingReport = () => {
-    const [loading, setLoading] = useState(false);
-    const [fileList, setFileList] = useState([]);
-    const [reportData, setReportData] = useState({
-        customerName: "",
-        customerEmail: "",
-        customerPhone: "",
-        sealingDate: null,
-        notes: "",
-        attachedFile: "",
-    });
-    const { user } = useContext(AuthContext);
-
-    const handleInputChange = (e) => {
-        setReportData({ ...reportData, [e.target.name]: e.target.value });
-    };
-
-    const handleDateChange = (date, dateString) => {
-        setReportData({ ...reportData, sealingDate: dateString });
-    };
-
-    const handleRemove = (file) => {
-        setFileList((prevList) => prevList.filter((item) => item.uid !== file.uid));
-        setReportData({ ...reportData, attachedFile: "" });
-        return false;
-    };
-
-    // Upload file to Firebase
-    const uploadFile = async ({ onError, onSuccess, file }) => {
-        try {
-            const storageRef = ref(storage, "sealing-reports/" + file.name);
-            const snapshot = await uploadBytes(storageRef, file);
-            const downloadURL = await getDownloadURL(snapshot.ref);
-            console.log("File available at", downloadURL);
-            setReportData({ ...reportData, attachedFile: downloadURL });
-            onSuccess("ok");
-            setFileList([
-                ...fileList,
-                {
-                    uid: file.uid,
-                    name: file.name,
-                    status: "done",
-                    url: downloadURL,
-                },
-            ]);
-        } catch (error) {
-            console.error("Error uploading file: ", error);
-            onError(error);
-            setFileList([
-                ...fileList,
-                {
-                    uid: file.uid,
-                    name: file.name,
-                    status: "error",
-                    error: { status: "error", message: "Upload failed!" },
-                },
-            ]);
-        }
-    };
-
-    const handleSubmit = async () => {
-        if (!reportData.customerName || !reportData.sealingDate) {
-            message.error("Please fill in all required fields");
-            return;
-        }
-        setLoading(true);
-        try {
-            const response = await axios.post(
-                "https://dvs-be-sooty.vercel.app/api/sealing-report",
-                {
-                    ...reportData,
-                    userId: user?.id,
-                },
-                {
-                    withCredentials: true,
-                }
-            );
-            if (response.status === 200) {
-                message.success("Sealing report created successfully");
-                setLoading(false);
-            }
-        } catch (error) {
-            setLoading(false);
-            message.error(error.response?.data?.message || "Error creating report");
-        }
-    };
-
-    if (loading) {
-        return <MySpin />;
-    }
-
+const SealingReport = ({ reportData }) => {
     return (
-        <Layout className="layout">
-            <Content style={{ padding: "0 50px" }}>
-                <div className="site-layout-content">
-                    <Title>Sealing Report</Title>
-                    <Form layout="vertical" className="input-form" onFinish={handleSubmit}>
-                        <Row gutter={16} className="section-spacing">
-                            <Col span={12}>
-                                <Form.Item label="Customer Name" required>
-                                    <Input
-                                        name="customerName"
-                                        value={reportData.customerName}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                                <Form.Item label="Customer Email">
-                                    <Input
-                                        name="customerEmail"
-                                        value={reportData.customerEmail}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={16} className="section-spacing">
-                            <Col span={12}>
-                                <Form.Item label="Customer Phone">
-                                    <Input
-                                        name="customerPhone"
-                                        value={reportData.customerPhone}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                                <Form.Item label="Sealing Date" required>
-                                    <DatePicker
-                                        style={{ width: "100%" }}
-                                        onChange={handleDateChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={24}>
-                                <Form.Item label="Notes">
-                                    <Input.TextArea
-                                        rows={4}
-                                        name="notes"
-                                        value={reportData.notes}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Form.Item label="Attach File" name="attachedFile">
-                                <Upload
-                                    maxCount={1}
-                                    listType="picture"
-                                    beforeUpload={(file) => {
-                                        const isPdf = file.type === "application/pdf";
-                                        if (!isPdf) {
-                                            message.error("You can only upload PDF file!");
-                                        }
-                                        return isPdf;
-                                    }}
-                                    customRequest={uploadFile}
-                                    fileList={fileList}
-                                    onRemove={handleRemove}
-                                >
-                                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                                </Upload>
-                            </Form.Item>
-                        </Row>
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Create Report
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </div>
-            </Content>
-        </Layout>
+        <div>
+            <meta charSet="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Diamond Sealing Record</title>
+            <link rel="stylesheet" href="styles.css" />
+            <style dangerouslySetInnerHTML={{ __html: "\n        body {\n            font-family: Arial, sans-serif;\n            background-color: #f4f4f4;\n            margin: 0;\n            padding: 0;\n        }\n\n        .container {\n            width: 80%;\n            margin: auto;\n            background: white;\n            padding: 20px;\n            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n        }\n\n        header {\n            text-align: center;\n            padding-bottom: 20px;\n            border-bottom: 1px solid #ddd;\n        }\n\n        header h1 {\n            margin: 0;\n            font-size: 24px;\n            color: #333;\n        }\n\n        header p {\n            margin: 0;\n            font-size: 16px;\n            color: #666;\n        }\n\n        .details, .security-features, .footer {\n            margin: 20px 0;\n        }\n\n        .details h2, .security-features h2 {\n            font-size: 20px;\n            color: #333;\n            border-bottom: 1px solid #ddd;\n            padding-bottom: 10px;\n        }\n\n        .row {\n            display: flex;\n            justify-content: space-between;\n            margin: 10px 0;\n        }\n\n        .column {\n            flex: 0 0 48%;\n        }\n\n        label {\n            display: block;\n            margin-bottom: 5px;\n            color: #555;\n        }\n\n        input[type=\"text\"] {\n            width: 100%;\n            padding: 8px;\n            margin-bottom: 10px;\n            border: 1px solid #ccc;\n            border-radius: 4px;\n        }\n\n        .signature {\n            margin: 20px 0;\n        }\n\n        .signature label {\n            display: block;\n            margin-bottom: 5px;\n            color: #555;\n        }\n\n        .signature input[type=\"text\"] {\n            width: 100%;\n            padding: 8px;\n            border: 1px solid #ccc;\n            border-radius: 4px;\n        }\n    " }} />
+            <div className="container">
+                <header>
+                    <h1>Diamond Sealing Record</h1>
+                    <p>Ensuring security, authenticity, and transparency</p>
+                </header>
+                <section className="details">
+                    <h2>Diamond Information</h2>
+                    <div className="row">
+                        <div className="column">
+                            <label htmlFor="cert-number">Certificate Number:</label>
+                            <input type="text" id="cert-number" name="cert-number" value={reportData.certNumber} readOnly />
+                        </div>
+                        <div className="column">
+                            <label htmlFor="weight">Weight (carats):</label>
+                            <input type="text" id="weight" name="weight" value={reportData.weight} readOnly />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="column">
+                            <label htmlFor="color">Color Grade:</label>
+                            <input type="text" id="color" name="color" value={reportData.color} readOnly />
+                        </div>
+                        <div className="column">
+                            <label htmlFor="clarity">Clarity Grade:</label>
+                            <input type="text" id="clarity" name="clarity" value={reportData.clarity} readOnly />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="column">
+                            <label htmlFor="cut">Cut Grade:</label>
+                            <input type="text" id="cut" name="cut" value={reportData.cut} readOnly />
+                        </div>
+                        <div className="column">
+                            <label htmlFor="shape">Shape:</label>
+                            <input type="text" id="shape" name="shape" value={reportData.shape} readOnly />
+                        </div>
+                    </div>
+                </section>
+                <section className="footer">
+                    <div className="signature">
+                        <label htmlFor="officer-signature">Officer's Signature:</label>
+                        <input type="text" id="officer-signature" name="officer-signature" />
+                    </div>
+                    <div className="signature">
+                        <label htmlFor="client-signature">Client's Signature:</label>
+                        <input type="text" id="client-signature" name="client-signature" />
+                    </div>
+                </section>
+            </div>
+        </div>
     );
 };
 
