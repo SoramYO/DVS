@@ -1,14 +1,19 @@
 import { CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, InboxOutlined, MinusCircleOutlined, PhoneOutlined, PrinterOutlined } from "@ant-design/icons";
 import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message } from "antd";
 import axios from "axios";
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from "react";
 import MySpin from "../../components/MySpin";
+import SignatureModal from "./SignatureCanvas";
 import handlePrintValuationPaper from "./printValuation";
-
 const FinishRequest = () => {
     const [requests, setRequests] = useState([]);
     const [serviceFilter, setServiceFilter] = useState("All");
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [showSignatureModal, setShowSignatureModal] = useState(false);
+    const [signatureUrl, setSignatureUrl] = useState(null);
+    const [signName, setSignName] = useState('');
+    const [recordForPrint, setRecordForPrint] = useState(null);
 
     const getAllRequests = async () => {
         setLoading(true)
@@ -88,7 +93,30 @@ const FinishRequest = () => {
         "Unprocessed": <MinusCircleOutlined />,
         "Ready for valuation": <CheckCircleOutlined />
     };
-
+    const renderActionButtons = (text, record) => {
+        if (signName !== '' && signatureUrl !== null) {
+            return (
+                <Button
+                    onClick={() => handlePrintValuationPaper(record, signatureUrl, signName)}
+                    style={{ backgroundColor: '#007bff', color: '#fff', border: 'none' }}
+                >
+                    <PrinterOutlined /> Print Sealing Report
+                </Button>
+            );
+        } else {
+            return (
+                <Button
+                    onClick={() => {
+                        setShowSignatureModal(true);
+                        setRecordForPrint(record); // Set record for print
+                    }}
+                    style={{ backgroundColor: '#007bff', color: '#fff', border: 'none' }}
+                >
+                    Sign
+                </Button>
+            );
+        }
+    };
     const columns = [
         {
             title: "No.",
@@ -145,13 +173,46 @@ const FinishRequest = () => {
                     <Button onClick={() => handleSendToCustomer(record.requestId)}>
                         Send Result To Customer
                     </Button>
-                    <Button onClick={() => handlePrintValuationPaper(record)} style={{ backgroundColor: '#007bff', color: '#fff', border: 'none' }}>
-                        <PrinterOutlined /> Print Valuation
-                    </Button>
                 </Space>
             ),
         },
+        {
+            title: 'Action',
+            key: 'action',
+            render: renderActionButtons,
+        },
     ];
+
+
+    const uploadSignatureToFirebase = async (signatureUrl) => {
+        const byteArray = Uint8Array.from(atob(signatureUrl.split(',')[1]), c => c.charCodeAt(0));
+        try {
+            const storage = getStorage();
+            const storageRef = ref(storage, 'signatures/' + new Date().getTime() + '.png');
+            const snapshot = await uploadBytes(storageRef, byteArray);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+            setSignatureUrl(downloadURL);
+            console.log('Signature uploaded:', downloadURL);
+            return downloadURL;
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            return null;
+        }
+    };
+
+    const handlesubmitUploadSignature = async (signature, name) => {
+        setSignName(name); // Set signName state with name input
+        await uploadSignatureToFirebase(signature);
+    };
+
+    const handlePrintSealingReportAfterSigning = async () => {
+        // Check if all necessary data is available
+        if (recordForPrint && signatureUrl && signName) {
+            handlePrintValuationPaper(recordForPrint, signatureUrl, signName);
+        } else {
+            console.warn('Cannot print sealing report: Missing data.');
+        }
+    };
 
     const handleServiceFilterChange = (e) => {
         setServiceFilter(e.target.value);
@@ -211,6 +272,22 @@ const FinishRequest = () => {
                     </Card>
                 </Col>
             </Row>
+            <SignatureModal
+                visible={showSignatureModal}
+                onCancel={() => {
+                    setShowSignatureModal(false);
+                    setRecordForPrint(null); // Reset record for print when modal closes
+                }}
+                onSubmit={handlesubmitUploadSignature}
+            />
+            {recordForPrint && (
+                <Button
+                    onClick={handlePrintSealingReportAfterSigning}
+                    style={{ backgroundColor: '#007bff', color: '#fff', border: 'none', marginTop: '10px' }}
+                >
+                    <PrinterOutlined /> Print Sealing Report
+                </Button>
+            )}
         </div>
     );
 };

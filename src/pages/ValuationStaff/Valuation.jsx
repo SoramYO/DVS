@@ -5,6 +5,7 @@ import {
     Form,
     Image,
     Input,
+    InputNumber,
     Row,
     Select,
     Slider,
@@ -217,7 +218,11 @@ function Valuation() {
                                     name="price"
                                     rules={[{ required: true, message: 'Please enter price' }]}
                                 >
-                                    <Input type="number" />
+                                    <InputNumber
+                                        style={{ width: '100%' }}
+                                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} // Format input as currency
+                                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')} // Parse value into a number
+                                    />
                                 </Form.Item>
                             </Col>
                             <Col span={24}>

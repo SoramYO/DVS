@@ -1,12 +1,18 @@
-import React from 'react';
-import { Row, Col, Card, Typography } from 'antd';
 import { SketchOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Card, Col, Row, Typography } from 'antd';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/Guides.css';
 
 const { Title, Paragraph } = Typography;
 
 const Guides = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (route) => {
+    navigate(route);
+  };
+
   return (
     <div className="guidesContainer">
       <Title level={1}>Master the 4 C's of Diamond Valuation</Title>
@@ -22,28 +28,28 @@ const Guides = () => {
       <Title level={2}>Key Characteristics</Title>
       <Row className="help-section-detail" gutter={[16, 16]}>
         <Col span={12}>
-          <Card className="help-card">
+          <Card onClick={() => handleCardClick("/cut")} className="help-card">
             <SketchOutlined style={{ fontSize: '30px' }} />
             <Title level={3}>Cut</Title>
             <Paragraph>The brilliance or shine of a diamond is determined by its cut. A poorly cut diamond will appear dull and unattractive.</Paragraph>
           </Card>
         </Col>
         <Col span={12}>
-          <Card className="help-card">
+          <Card onClick={() => handleCardClick("/color")} className="help-card">
             <SketchOutlined style={{ fontSize: '30px' }} />
             <Title level={3}>Color</Title>
             <Paragraph>Colorless diamonds are the most valuable. The presence of color in a diamond reduces its value, with grades ranging from D (colorless) to Z (light yellow).</Paragraph>
           </Card>
         </Col>
         <Col span={12}>
-          <Card className="help-card">
+          <Card onClick={() => handleCardClick("/carat")} className="help-card">
             <SketchOutlined style={{ fontSize: '30px' }} />
             <Title level={3}>Carat</Title>
             <Paragraph>Carat is the unit of measurement for diamond weight. One carat equals 0.2 grams. The carat weight influences the size and price of the diamond.</Paragraph>
           </Card>
         </Col>
         <Col span={12}>
-          <Card className="help-card">
+          <Card onClick={() => handleCardClick("/clarity")} className="help-card">
             <SketchOutlined style={{ fontSize: '30px' }} />
             <Title level={3}>Clarity</Title>
             <Paragraph>Clarity measures the number and size of imperfections in a diamond. Diamonds are graded from Flawless (no imperfections) to Included (visible imperfections).</Paragraph>

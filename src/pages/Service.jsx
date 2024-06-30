@@ -1,38 +1,49 @@
-import React from 'react';
 import { Card } from 'antd';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import MySpin from "../components/MySpin";
 import '../css/Service.css';
 
 const Service = () => {
+    const [services, setServices] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        const fetchServices = async () => {
+            try {
+                const response = await axios.get('https://dvs-be-sooty.vercel.app/api/services');
+                setServices(response.data.services);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching services:', error);
+            }
+        };
+
+        fetchServices();
+    }, []);
+
+
+    if (loading) {
+        return <MySpin />
+    }
+
+
     return (
         <div className="service-container">
             <h1>Our Diamond Valuation Services</h1>
-            <div className="service-section">
-                <Card title="Rough Diamond Valuation" bordered={false} className="service-card">
-                    <ul>
-                        <li>From small exploration and delineation samples to large commercial productions</li>
-                        <li>Additional expertise in large and very high value rough stones</li>
-                    </ul>
-                </Card>
-            </div>
-            <div className="service-section">
-                <Card title="Large Diamond Expertise" bordered={false} className="service-card">
-                    <ul>
-                        <li>Valuation</li>
-                        <li>Rough to polished planning & modelling</li>
-                        <li>Specialized marketing channels</li>
-                    </ul>
-                </Card>
-            </div>
-            <div className="service-section">
-                <Card title="Diamond Analysis" bordered={false} className="service-card">
-                    <ul>
-                        <li>Size and value distribution and trends</li>
-                        <li>Sales parcel composition and recommendations</li>
-                        <li>Pricing analysis and comparison to broader market</li>
-                        <li>Advice on management reporting</li>
-                    </ul>
-                </Card>
-            </div>
+            {services.map((service, index) => (
+                <div className="service-section" key={index}>
+                    <Card title={service.serviceName} bordered={false} className="service-card">
+                        <ul>
+                            <li>{service.serviceName}</li>
+                            <li>Price: ${service.price}</li>
+                            <li>Description: {service.description}</li>
+                            <li>Status: {service.status ? 'Active' : 'Inactive'}</li>
+                        </ul>
+                    </Card>
+                </div>
+            ))}
         </div>
     );
 };

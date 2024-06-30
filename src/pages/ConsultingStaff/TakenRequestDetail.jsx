@@ -18,10 +18,12 @@ import {
     message,
 } from "antd";
 import axios from "axios";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../css/RequestDetail.css";
-import ReceiptRequest from "../ConsultingStaff/ReceiptRequest";
+import ReceiptRequest from "./ReceiptRequest";
+import SignatureModal from "./SignatureCanvas";
 
 const { Title, Text } = Typography;
 
@@ -32,6 +34,9 @@ const TakenRequestDetail = () => {
     const [loading, setLoading] = useState(true);
     const [appointmentDate, setAppointmentDate] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [showSignatureModal, setShowSignatureModal] = useState(false);
+    const [signatureUrl, setSignatureUrl] = useState(null);
+    const [signName, setSignName] = useState("");
 
     const getRequestDetail = useCallback(async () => {
         try {
@@ -39,10 +44,10 @@ const TakenRequestDetail = () => {
                 `https://dvs-be-sooty.vercel.app/api/requests/${id}`,
                 { withCredentials: true }
             );
-            console.log(res.data.request[0]);
             setRequest(res.data.request[0]);
         } catch (error) {
-            console.log(error);
+            console.error("Error fetching request detail:", error);
+            message.error("Failed to fetch request detail");
         } finally {
             setLoading(false);
         }
@@ -54,7 +59,7 @@ const TakenRequestDetail = () => {
 
     const takeRequest = async () => {
         try {
-            let response = await axios.post(
+            const response = await axios.post(
                 "https://dvs-be-sooty.vercel.app/api/receive-diamond",
                 { requestId: id },
                 { withCredentials: true }
@@ -90,6 +95,34 @@ const TakenRequestDetail = () => {
         } catch (error) {
             message.error("Cập nhật trạng thái xử lý thất bại");
         }
+    };
+
+
+    const uploadSignatureToFirebase = async (signatureUrl) => {
+        const byteArray = Uint8Array.from(
+            atob(signatureUrl.split(",")[1]),
+            (c) => c.charCodeAt(0)
+        );
+        try {
+            const storage = getStorage();
+            const storageRef = ref(storage, "signatures/" + new Date().getTime() + ".png");
+            const snapshot = await uploadBytes(storageRef, byteArray);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+            setSignatureUrl(downloadURL);
+            return downloadURL;
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            return null;
+        }
+    };
+
+    const handleSubmitUploadSignature = async (signature, name) => {
+        setSignName(name);
+        await uploadSignatureToFirebase(signature);
+    };
+
+    const handlePrintSealingReportAfterSigning = async () => {
+        ReceiptRequest(request, signatureUrl, signName);
     };
 
     const handleDateChange = (dates) => {
@@ -144,11 +177,7 @@ const TakenRequestDetail = () => {
 
             <Row gutter={16}>
                 <Col span={12}>
-                    <Card
-                        title="Thông tin đơn hàng"
-                        bordered={false}
-                        className="info-card"
-                    >
+                    <Card title="Thông tin đơn hàng" bordered={false} className="info-card">
                         <div className="info-item">
                             <Text strong>Ngày tạo:</Text>{" "}
                             {new Date(request.createdDate).toLocaleDateString("en-GB")}
@@ -171,11 +200,7 @@ const TakenRequestDetail = () => {
                         </div>
                     </Card>
 
-                    <Card
-                        title="Thông tin chủ kim cương"
-                        bordered={false}
-                        className="info-card"
-                    >
+                    <Card title="Thông tin chủ kim cương" bordered={false} className="info-card">
                         <div className="icon-customer">
                             <UserOutlined className="icon" />
                         </div>
@@ -209,23 +234,23 @@ const TakenRequestDetail = () => {
                             </Row>
                         </Card>
                     ) : (
-                        <Card
-                            title="Confirm receive diamond"
-                            bordered={false}
-                            className="info-card"
-                        >
+                        <Card title="Confirm receive diamond" bordered={false} className="info-card">
                             <Button onClick={showModal}>Receive Diamond</Button>
-                            <> </>
-                            <Button
-                                onClick={() => ReceiptRequest(request)}
-                                style={{
-                                    backgroundColor: "#007bff",
-                                    color: "#fff",
-                                    border: "none",
-                                }}
-                            >
-                                <PrinterOutlined /> Print Valuation
-                            </Button>
+                            {(signName !== "" && signatureUrl !== null) ? (
+                                <Button
+                                    onClick={handlePrintSealingReportAfterSigning}
+                                    style={{ backgroundColor: "#007bff", color: "#fff", border: "none" }}
+                                >
+                                    <PrinterOutlined /> Print Sealing Report
+                                </Button>
+                            ) : (
+                                <Button
+                                    onClick={() => setShowSignatureModal(true)}
+                                    style={{ backgroundColor: "#007bff", color: "#fff", border: "none" }}
+                                >
+                                    Sign
+                                </Button>
+                            )}
                         </Card>
                     )}
                 </Col>
@@ -233,23 +258,12 @@ const TakenRequestDetail = () => {
                 <Col span={12}>
                     <Row gutter={16}>
                         <Col span={24}>
-                            <Card
-                                title="Ảnh kim cương"
-                                bordered={false}
-                                className="info-card"
-                            >
+                            <Card title="Ảnh kim cương" bordered={false} className="info-card">
                                 <Image
                                     src={request.requestImage}
                                     alt="Diamond"
                                     className="diamond-image"
-                                    placeholder={
-                                        <Image
-                                            preview={false}
-                                            src={request.requestImage}
-                                            alt="Diamond"
-                                            className="diamond-image"
-                                        />
-                                    }
+                                    placeholder={<Image preview={false} src={request.requestImage} alt="Diamond" className="diamond-image" />}
                                 />
                             </Card>
                         </Col>
@@ -267,6 +281,13 @@ const TakenRequestDetail = () => {
             >
                 <p>Bạn chắc chắn đã nhận viên kim cương?</p>
             </Modal>
+            <SignatureModal
+                visible={showSignatureModal}
+                onCancel={() => {
+                    setShowSignatureModal(false);
+                }}
+                onSubmit={handleSubmitUploadSignature}
+            />
         </div>
     );
 };

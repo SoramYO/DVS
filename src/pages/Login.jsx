@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { Button, message } from "antd";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,8 +19,9 @@ const Login = () => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleClick = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     dispatch({ type: "LOGIN_START" });
 
     try {
@@ -56,42 +57,52 @@ const Login = () => {
   };
 
   if (loading) {
-    return <MySpin />
+    return <MySpin />;
   }
+
   return (
-    <div className="loginContainer">
-      <div className="loginImageContent">
-        <img
-          src="https://cdn.dribbble.com/users/22930/screenshots/2063689/media/0979e0e7470ae3c789cc23202826d5b2.gif"
-          alt=""
-          className="loginImage"
-        />
-      </div>
-      <div className="loginForm">
+    <div className="login-container">
+      <div className="login-form">
         <h2>Login</h2>
-        <div className="loginInput">
-          <input
-            type="text"
-            placeholder="Username"
-            id="username"
-            value={credentials.username}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
-            value={credentials.password}
-            onChange={handleChange}
-          />
-          <button className="loginButton" onClick={handleClick}>Log in</button>
-        </div>
-        <div className="registerLink">
-          Don't have an account?
-          <Link to={"/register"}>Sign up</Link>
-        </div>
-        <div className="forgotPasswordLink">
-          <Link to={"/forgot-password"}>Forgot password?</Link>
+        <form onSubmit={handleSubmit}>
+          <div className="form-item">
+            <input
+              type="text"
+              placeholder="Username"
+              id="username"
+              value={credentials.username}
+              onChange={handleChange}
+              className="input-field"
+            />
+          </div>
+          <div className="form-item">
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              value={credentials.password}
+              onChange={handleChange}
+              className="input-field"
+            />
+          </div>
+          <div className="form-item">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-button"
+              block
+            >
+              Log in
+            </Button>
+          </div>
+        </form>
+        <div className="additional-links">
+          <div className="register-link">
+            Don't have an account? <Link to={"/register"}>Sign up</Link>
+          </div>
+          <div className="forgot-password-link">
+            <Link to={"/forgot-password"}>Forgot password?</Link>
+          </div>
         </div>
       </div>
     </div>

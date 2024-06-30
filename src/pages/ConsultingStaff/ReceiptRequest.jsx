@@ -1,43 +1,49 @@
 import { message } from 'antd';
 import axios from 'axios';
 
-const ReceiptRequest = async (request) => {
-    const { RequestID } = request;
+const ReceiptRequest = async (recordForPrint, signatureUrl, signName) => {
+    const { RequestID } = recordForPrint;
 
     try {
         const response = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${RequestID}`, { withCredentials: true });
 
         if (response.status === 200) {
             const valuationData = response.data.request[0];
-            const currentDate = new Date().toLocaleDateString('en-US');
+            const currentDate = new Date().toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'medium' });
 
             const printableContent = `
                 <html>
                 <head>
-                    <title>Valuation Report</title>
+                    <title>Receipt Request</title>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.13/antd.min.css">
                     <style>
                         body {
                             font-family: Arial, sans-serif;
                             background-color: #f0f2f5;
-                            margin: 0;
+                            margin: 20px;
                             padding: 20px;
                         }
                         .container {
-                            max-width: 800px;
+                            width: 800px;
                             margin: auto;
                             padding: 20px;
-                            background-color: #fff;
+                            background: #fff;
                             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                            border-radius: 5px;
+                            border-radius: 10px;
+                            border: 1px solid #ccc;
                         }
                         .header, .footer {
                             text-align: center;
                             margin-bottom: 20px;
                         }
+                        .header img {
+                            max-width: 150px;
+                            margin-bottom: 10px;
+                        }
                         .header h1 {
-                            color: #ff0000;
+                            color: #333;
                             margin: 0;
+                            font-size: 28px;
                         }
                         .details {
                             display: flex;
@@ -94,6 +100,7 @@ const ReceiptRequest = async (request) => {
                 <body>
                     <div class="container">
                         <div class="header">
+                            <img src="https://marketplace.canva.com/EAFqberfhMA/1/0/1600w/canva-black-gold-luxury-modern-diamond-brand-store-logo-VmwEPkcpqzE.jpg" alt="Logo"/>
                             <h1>Receipt Request</h1>
                         </div>
                         <div class="details">
@@ -110,14 +117,14 @@ const ReceiptRequest = async (request) => {
                         </div>
                         <div class="signature">
                             <p>Authorized Signature:</p>
-                            <img src="https://clipground.com/images/make-signature-clipart-1.jpg" alt="Signature"/>
-                            <p class="sign">Brian</p>
-                            <p>Valuation Expert</p>
+                            <img src=${signatureUrl} alt="Signature"/>
+                            <p class="sign">${signName}</p>
+                            <p><strong>Date:</strong> ${new Date().toLocaleString("en-US")}</p>
                         </div>
                         <div class="footer">
                             <h3>Diamond Valuation</h3>
                             <p>VRG2+27 Dĩ An, Bình Dương, Việt Nam</p>
-                            <p>Phone: 0032-3-233-91-60</p>
+                            <p>Phone: 0976457150</p>
                             <p>Email: diamondvaluation@gmail.com</p>
                         </div>
                     </div>
