@@ -1,5 +1,5 @@
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { AutoComplete, Button, Col, Dropdown, Input, Menu, Row } from "antd"; 
+import { AutoComplete, Button, Col, Dropdown, Input, Menu, Row } from "antd";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/imgs/logo.webp";
@@ -30,7 +30,7 @@ const Navbar = () => {
         { value: "Valuation Request", link: "/request" },
         { value: "Contact", link: "/footer" },
         { value: "List Request", link: "/profile" },
-        
+
       ].filter(item => item.value.toLowerCase().includes(value.toLowerCase())));
     } else {
       setSuggestions([]);
@@ -112,9 +112,15 @@ const Navbar = () => {
             </div>
             <div className="signInButton">
               {!user ? (
-                <Link to="/login">
-                  <Button type="primary">Sign in</Button>
-                </Link>
+                <>
+                  <Link to="/login">
+                    <Button style={{ marginRight: "20px" }} type="primary">Sign in</Button>
+                  </Link>
+
+                  <Link to="/register">
+                    <Button type="primary">Sign up</Button>
+                  </Link>
+                </>
               ) : (
                 <Dropdown overlay={userMenu}>
                   <div className="profileContainer">

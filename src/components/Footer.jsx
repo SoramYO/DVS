@@ -49,7 +49,7 @@ const Footer = () => {
             </div>
             <div className="contact-item">
               <PhoneOutlined /><> </>
-              0032-3-233-91-60
+              0976457150
             </div>
             <div className="contact-item">
               <PushpinOutlined /><> </>

@@ -1,11 +1,11 @@
 import { message } from 'antd';
 import axios from 'axios';
 
-const ReceiptRequest = async (recordForPrint, signatureUrl, signName) => {
-    const { RequestID } = recordForPrint;
+const handlePrintCommitmentReport = async (recordForPrint, signatureUrl, signName, preview = false) => {
+    const { requestId } = recordForPrint;
 
     try {
-        const response = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${RequestID}`, { withCredentials: true });
+        const response = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${requestId}`, { withCredentials: true });
 
         if (response.status === 200) {
             const valuationData = response.data.request[0];
@@ -14,7 +14,7 @@ const ReceiptRequest = async (recordForPrint, signatureUrl, signName) => {
             const printableContent = `
                 <html>
                 <head>
-                    <title>Receipt Request</title>
+                    <title>Diamond Return Commitment</title>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.13/antd.min.css">
                     <style>
                         body {
@@ -46,32 +46,15 @@ const ReceiptRequest = async (recordForPrint, signatureUrl, signName) => {
                             font-size: 28px;
                         }
                         .details {
-                            display: flex;
-                            justify-content: space-between;
                             margin-bottom: 20px;
                         }
-                        .info {
-                            flex: 1;
-                            padding-right: 10px;
-                        }
-                        .info p {
+                        .details p {
                             margin: 10px 0;
                             font-size: 1.1em;
                             color: #666;
                         }
-                        .info p strong {
+                        .details p strong {
                             color: #1890ff;
-                        }
-                        .diamond-image {
-                            flex: 1;
-                            text-align: right;
-                            margin-top: 20px;
-                        }
-                        .diamond-image img {
-                            max-width: 70%;
-                            border: 1px solid #ccc;
-                            border-radius: 5px;
-                            padding: 5px;
                         }
                         .signature {
                             text-align: right;
@@ -95,37 +78,48 @@ const ReceiptRequest = async (recordForPrint, signatureUrl, signName) => {
                         .footer p {
                             margin: 5px 0;
                         }
+                        .terms {
+                            margin-top: 20px;
+                            padding: 10px;
+                            background-color: #f9f9f9;
+                            border: 1px solid #ccc;
+                            border-radius: 5px;
+                        }
                     </style>
                 </head>
                 <body>
                     <div class="container">
                         <div class="header">
                             <img src="https://marketplace.canva.com/EAFqberfhMA/1/0/1600w/canva-black-gold-luxury-modern-diamond-brand-store-logo-VmwEPkcpqzE.jpg" alt="Logo"/>
-                            <h1>Receipt Request</h1>
+                            <h1>Diamond Return Commitment</h1>
                         </div>
                         <div class="details">
-                            <div class="info">
-                                <p><strong>Print Date:</strong> ${currentDate}</p>
-                                <p><strong>Appointment Date:</strong> ${new Date(valuationData.appointmentDate).toLocaleDateString('en-US')}</p>
-                                <p><strong>Payment Status:</strong> ${valuationData.paymentStatus}</p>
-                                <p><strong>Customer:</strong> ${valuationData.firstName} ${valuationData.lastName}</p>
-                                <p><strong>Note:</strong> ${valuationData.note}</p>
-                            </div>
-                            <div class="diamond-image">
-                                <img src="${valuationData.requestImage}" alt="Diamond Image"/>
+                            <p><strong>Print Date:</strong> ${currentDate}</p>
+                            <p><strong>Customer:</strong> ${valuationData.firstName} ${valuationData.lastName}</p>
+                            <p><strong>Transaction ID:</strong> ${valuationData.requestId}</p>
+                            <p><strong>Appointment Date:</strong> ${valuationData.appointmentDate ? new Date(valuationData.appointmentDate).toLocaleDateString('en-US') : 'Not available'}</p>
+                            <p><strong>Details:</strong> ${valuationData.note}</p>
+                            <div class="terms">
+                                <p><strong>Terms and Conditions:</strong></p>
+                                <p>I, <strong>${valuationData.firstName} ${valuationData.lastName}</strong>, hereby acknowledge the receipt of the diamond(s) described in the details above and agree to the terms and conditions specified in the original transaction agreement.</p>
                             </div>
                         </div>
                         <div class="signature">
-                            <p>Authorized Signature:</p>
-                            <img src=${signatureUrl} alt="Signature"/>
-                            <p class="sign">${signName}</p>
-                            <p><strong>Date:</strong> ${new Date().toLocaleString("en-US")}</p>
+                            ${preview ? `
+                                <p><strong>Signature:</strong> ____________________</p>
+                                <p><strong>Date:</strong> ____________________</p>
+                            ` : `
+                                <p>Customer Signature:</p>
+                                <img src="${signatureUrl}" alt="Signature"/>
+                                <p class="sign">${signName}</p>
+                                <p><strong>Date:</strong> ${new Date().toLocaleString("en-US")}</p>
+                            `}
                         </div>
                         <div class="footer">
                             <h3>Diamond Valuation</h3>
                             <p>VRG2+27 Dĩ An, Bình Dương, Việt Nam</p>
                             <p>Phone: 0976457150</p>
-                            <p>Email: diamondvaluation@gmail.com</p>
+                            <p>Email: diamondreturn@gmail.com</p>
                         </div>
                     </div>
                 </body>
@@ -137,19 +131,21 @@ const ReceiptRequest = async (recordForPrint, signatureUrl, signName) => {
                 printWindow.document.open();
                 printWindow.document.write(printableContent);
                 printWindow.document.close();
-                printWindow.print();
+                if (!preview) {
+                    printWindow.print();
+                }
             } else {
                 message.error('Failed to open print window. Please allow pop-ups for this site.');
             }
         } else if (response.status === 404) {
-            message.error('Valuation report not found. Please check the request ID.');
+            message.error('Return record not found. Please check the request ID.');
         } else {
-            message.error('Failed to fetch valuation report. Please try again later.');
+            message.error('Failed to fetch return record. Please try again later.');
         }
     } catch (error) {
-        console.error('Error fetching valuation report:', error);
-        message.error('Error fetching valuation report. Please try again later.');
+        console.error('Error fetching return record:', error);
+        message.error('Error fetching return record. Please try again later.');
     }
 };
 
-export default ReceiptRequest;
+export default handlePrintCommitmentReport;

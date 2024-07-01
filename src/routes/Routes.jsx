@@ -10,11 +10,13 @@ import CheckPriceByCertificateID from "../pages/CheckPriceByCertificateID";
 import ClaritySection from "../pages/ClaritySection";
 import ColorSection from "../pages/ColorSection";
 import Conclusion from "../pages/Conclusion";
+import CommitmentForm from "../pages/ConsultingStaff/CommitmentForm";
 import ConStaffProfile from "../pages/ConsultingStaff/ConStaffProfile";
 import FinishRequest from "../pages/ConsultingStaff/FinishRequest";
 import Order from "../pages/ConsultingStaff/Order";
 import RequestApproval from "../pages/ConsultingStaff/RequestApproval";
 import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
+import SealingReport from "../pages/ConsultingStaff/SealingReport";
 import TakedRequest from "../pages/ConsultingStaff/TakenRequest";
 import TakenRequestDetail from "../pages/ConsultingStaff/TakenRequestDetail";
 import CustomerRequest from "../pages/CustomerRequest";
@@ -197,6 +199,14 @@ export const route = createBrowserRouter([
       {
         path: "requestApproval",
         element: <RequestApproval />,
+      },
+      {
+        path: "commitmentForm",
+        element: <CommitmentForm />,
+      },
+      {
+        path: "sealingReport",
+        element: <SealingReport />,
       }
     ],
   },

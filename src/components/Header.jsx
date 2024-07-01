@@ -1,12 +1,12 @@
 import {
+  ClockCircleOutlined,
   DownOutlined,
   MailFilled,
-  PhoneFilled,
-  ClockCircleOutlined
+  PhoneFilled
 } from "@ant-design/icons";
 import React, { useState } from 'react';
-import Contact from "../pages/Contact";
 import "../css/Header.css";
+import Contact from "../pages/Contact";
 
 const Header = () => {
   const [isContactModalVisible, setIsContactModalVisible] = useState(false);
@@ -36,7 +36,7 @@ const Header = () => {
         </div>
         <div className="phoneContainer">
           <PhoneFilled className="headerIcon" />
-          <h5>0032-3-233-91-60</h5>
+          <h5>0976457150</h5>
         </div>
       </div>
       <Contact visible={isContactModalVisible} onClose={handleContactClose} />
