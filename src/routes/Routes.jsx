@@ -31,6 +31,7 @@ import PaymentSucces from "../pages/PaymentSucces";
 import Pricing from "../pages/Pricing";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";
+import RequestDetail from "../pages/RequestDetail";
 import ResetPassword from "../pages/ResetPassword";
 import Service from "../pages/Service";
 import Request from "../pages/ValuationStaff/Request";
@@ -160,6 +161,15 @@ export const route = createBrowserRouter([
         ),
         errorElement: <ErrorPage />,
       },
+      {
+        path: "/requestDetail/:id",
+        element: (
+          <ProtectedRoute requiredRoles={["Customer"]}>
+            <RequestDetail />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      }
 
     ],
   },
