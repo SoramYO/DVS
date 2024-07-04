@@ -140,6 +140,10 @@ const Register = () => {
                   required: true,
                   message: "Please input your phone number!",
                 },
+                {
+                  pattern: /^0\d{9}$/,
+                  message: "Phone number must be 10 digits and start with 0",
+                },
               ]}
             >
               <Input placeholder="Phone" />
