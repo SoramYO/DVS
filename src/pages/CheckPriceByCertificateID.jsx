@@ -30,6 +30,9 @@ const CheckPriceByCertificateID = () => {
 
             // Extract estimated price from API response
             const { estimatedPrice } = response.data.diamond;
+            if (!estimatedPrice) {
+                setPriceData(0);
+            }
             setPriceData({ estimatedPrice });
         } catch (error) {
             console.error('Error checking diamond price by certificate ID:', error);
