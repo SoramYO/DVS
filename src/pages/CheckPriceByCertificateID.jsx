@@ -36,7 +36,6 @@ const CheckPriceByCertificateID = () => {
             setPriceData({ estimatedPrice });
         } catch (error) {
             console.error('Error checking diamond price by certificate ID:', error);
-            message.error('Failed to fetch diamond price. Please try again.');
         } finally {
             setLoading(false);
         }
