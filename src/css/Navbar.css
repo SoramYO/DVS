@@ -9,73 +9,65 @@
   margin: 10px;
 }
 
-  .navbarLeft {
-    float: left;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .navbarLogo {
-    width: 80px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .navbarMenu {
-    display: inline-flex;
-  }
-  
-  .navbarMenu a {
-    font-size: 17px;
-    padding: 30px;
-    color: black;
-  }
-  
-  .navbarMenu :hover {
-    color: #1890FF;
-    background-color:  rgba(24, 144, 255, 0.1);
-    border-radius: 10px;
+.navbarLeft {
+  display: flex;
+  align-items: center;
+}
 
-  }
-  
-  .navbarRight {
-    float: right;
-    flex: 1;
-    display: inline-flex;
-    align-items: center;
-  }
-  
-  .searchContainer {
-    width: 350px;
-    margin-right: 40px;
-  }
-  
-  .searchIcon {
-    font-size: 22px;
-  }
-  
-  .signInButton {
-    align-items: center;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .profileContainer {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .profileContainer p {
-    font-size: 16px;
-    margin-left: 10px;
-    margin-top: 15px;
-  }
-  
-  .userIcon {
-    font-size: 22px;
-  }
+.navbarMenu {
+  display: flex;
+}
 
-  
+.navbarItem {
+  font-size: 17px;
+  padding: 30px;
+  color: black;
+  display: flex;
+  align-items: center;
+}
 
-  
+.navbarItem:hover {
+  color: #1890FF;
+  background-color: rgba(24, 144, 255, 0.1);
+  border-radius: 10px;
+}
+
+.navbarRightContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbarRight {
+  display: flex;
+  align-items: center;
+}
+
+.searchContainer {
+  width: 350px;
+  margin-right: 40px;
+}
+
+.searchIcon {
+  font-size: 22px;
+}
+
+.signInButton {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profileContainer p {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.userIcon {
+  font-size: 22px;
+}
