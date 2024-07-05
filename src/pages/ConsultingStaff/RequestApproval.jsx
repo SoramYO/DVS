@@ -266,9 +266,9 @@ const RequestApproval = () => {
                         extra={
                             <div style={{ margin: '10px 0' }}>
                                 <Radio.Group onChange={handleServiceFilterChange} defaultValue="All">
-                                    <Radio.Button value="All">All</Radio.Button>
-                                    <Radio.Button value="Sealing">Sealing</Radio.Button>
-                                    <Radio.Button value="Commitment">Commitment</Radio.Button>
+                                    <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>All</Radio.Button>
+                                    <Radio.Button value="Sealing" style={{ padding: "10px 20px", backgroundColor: "#e62263", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Sealing</Radio.Button>
+                                    <Radio.Button value="Commitment" style={{ padding: "10px 20px", backgroundColor: "#1bbc9b", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Commitment</Radio.Button>
                                 </Radio.Group>
                             </div>
                         }

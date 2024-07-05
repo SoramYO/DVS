@@ -1,8 +1,7 @@
-import { SearchOutlined, UserOutlined } from "@ant-design/icons";
+import { SearchOutlined, UserOutlined, HomeOutlined } from "@ant-design/icons";
 import { AutoComplete, Button, Col, Dropdown, Input, Menu, Row } from "antd";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/imgs/logo.webp";
 import { AuthContext } from "../context/AuthContext";
 import "../css/Navbar.css";
 
@@ -30,7 +29,6 @@ const Navbar = () => {
         { value: "Valuation Request", link: "/request" },
         { value: "Contact", link: "/footer" },
         { value: "List Request", link: "/profile" },
-
       ].filter(item => item.value.toLowerCase().includes(value.toLowerCase())));
     } else {
       setSuggestions([]);
@@ -77,19 +75,17 @@ const Navbar = () => {
       <Row justify="space-between" align="middle">
         <Col xs={24} sm={12} md={12} lg={12}>
           <div className="navbarLeft">
-            <div className="navbarLogo">
-              <Link to="/">
-                <img src={Logo} alt="Logo" className="navbarLogo" />
-              </Link>
-            </div>
             <div className="navbarMenu">
-              <Link to="/request">Valuation</Link>
+              <Link to="/" className="navbarItem">
+                <HomeOutlined style={{ fontSize: '24px' }} />
+              </Link>
+              <Link to="/request" className="navbarItem">Valuation</Link>
               <Dropdown overlay={educationMenu}>
-                <Link to="/education">Education</Link>
+                <Link to="/education" className="navbarItem">Education</Link>
               </Dropdown>
-              <Link to="/guides">Guides</Link>
-              <Link to="/services">Services</Link>
-              <Link to="/pricing">Pricing</Link>
+              <Link to="/guides" className="navbarItem">Guides</Link>
+              <Link to="/services" className="navbarItem">Services</Link>
+              <Link to="/pricing" className="navbarItem">Pricing</Link>
             </div>
           </div>
         </Col>
@@ -116,7 +112,6 @@ const Navbar = () => {
                   <Link to="/login">
                     <Button style={{ marginRight: "20px" }} type="primary">Sign in</Button>
                   </Link>
-
                   <Link to="/register">
                     <Button type="primary">Sign up</Button>
                   </Link>
