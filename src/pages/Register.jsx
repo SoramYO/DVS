@@ -81,16 +81,33 @@ const Register = () => {
                   required: true,
                   message: "Please input your username!",
                 },
+                {
+                  min: 6,
+                  message: "Username must be at least 6 characters!",
+                },
+                {
+                  max: 26,
+                  message: "Username cannot be longer than 26 characters!",
+                },
               ]}
             >
               <Input placeholder="Username" />
             </Form.Item>
+
             <Form.Item
               name="password"
               rules={[
                 {
                   required: true,
                   message: "Please input your password!",
+                },
+                {
+                  min: 6,
+                  message: "Password must be at least 6 characters!",
+                },
+                {
+                  max: 26,
+                  message: "Password cannot be longer than 26 characters!",
                 },
               ]}
             >
