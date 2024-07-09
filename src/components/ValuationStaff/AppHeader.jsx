@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 const { Header } = Layout;
 
 const AppHeader = () => {
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch, user } = useContext(AuthContext);
   const logout = () => {
     dispatch({ type: "LOGOUT" });
   };
@@ -29,7 +29,7 @@ const AppHeader = () => {
         justifyContent: "end",
         alignItems: "center",
         position: "fixed",
-        zIndex: 1,
+        zIndex: 99,
         width: "100%",
         padding: "0 17%",
         boxSizing: "border-box",
@@ -44,7 +44,7 @@ const AppHeader = () => {
           }}
         >
           <span style={{ color: "#fff", marginLeft: "10px" }}>
-            Welcome, Valuation Staff
+            {user.firstName} {user.lastName}
           </span>
         </div>
       </Dropdown>
