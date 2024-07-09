@@ -35,11 +35,13 @@
 .navbarRightContainer {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .navbarRight {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .searchContainer {
@@ -60,6 +62,7 @@
 .profileContainer {
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 

@@ -121,7 +121,7 @@ const Navbar = () => {
                   <div className="profileContainer">
                     <UserOutlined className="userIcon" />
                     <p>
-                      Welcome, {user.firstName} {user.lastName}
+                      {user.firstName} {user.lastName}
                     </p>
                   </div>
                 </Dropdown>

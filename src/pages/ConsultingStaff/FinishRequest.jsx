@@ -132,15 +132,15 @@ const FinishRequest = () => {
                 <img
                     src={image}
                     alt="Request"
-                    style={{ width: "50px", height: "50px" }}
+                    style={{ width: "50px", height: "50px", borderRadius: 180 }}
                 />
             ),
         },
-        {
-            title: "Note",
-            dataIndex: "note",
-            key: "note",
-        },
+        // {
+        //     title: "Note",
+        //     dataIndex: "note",
+        //     key: "note",
+        // },
         {
             title: "Created Date",
             dataIndex: "createdDate",
@@ -177,7 +177,6 @@ const FinishRequest = () => {
             ),
         },
         {
-            title: 'Action',
             key: 'action',
             render: renderActionButtons,
         },
@@ -244,7 +243,7 @@ const FinishRequest = () => {
                     <Card
                         bordered={false}
                         className="criclebox tablespace mb-24"
-                        title="Requests Table"
+                        // title="Requests Table"
                         extra={
                             <div style={{ textAlign: "center", margin: "10px 0" }}>
                                 <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">

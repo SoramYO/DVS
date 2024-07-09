@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 const { Header } = Layout;
 
 const AppHeader = () => {
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch, user } = useContext(AuthContext);
   const logout = () => {
     dispatch({ type: "LOGOUT" });
   };
@@ -28,10 +28,11 @@ const AppHeader = () => {
         display: "flex",
         justifyContent: "end",
         alignItems: "center",
-        zIndex: 1,
+        zIndex: 99,
         width: "100%",
         padding: "0 17%",
         boxSizing: "border-box",
+        position: 'fixed'
       }}
     >
       <Dropdown overlay={userMenu}>
@@ -43,7 +44,7 @@ const AppHeader = () => {
           }}
         >
           <span style={{ color: "#fff" }}>
-            Welcome, Consulting Staff
+            {user.firstName} {user.lastName}
           </span>
         </div>
       </Dropdown>

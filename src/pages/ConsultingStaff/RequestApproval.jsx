@@ -115,7 +115,7 @@ const RequestApproval = () => {
                             <>
                                 <Button
                                     onClick={() => handlePrintCommitmentReport(record, setShowSignatureModal, setRecordForPrint, true)}
-                                    style={{ backgroundColor: '#007bff', color: '#fff', border: 'none' }}
+                                    style={{ backgroundColor: '#007bff', color: '#fff', border: 'none', marginBottom: '10px' }}
                                 >
                                     <PrinterOutlined /> Read Commitment Report
                                 </Button>
@@ -167,13 +167,13 @@ const RequestApproval = () => {
             title: 'Image',
             dataIndex: 'requestImage',
             key: 'requestImage',
-            render: (image) => <img src={image} alt="Request" style={{ width: '50px', height: '50px' }} />,
+            render: (image) => <img src={image} alt="Request" style={{ width: '50px', height: '50px', borderRadius: 180 }} />,
         },
-        {
-            title: 'Note',
-            dataIndex: 'note',
-            key: 'note',
-        },
+        // {
+        //     title: 'Note',
+        //     dataIndex: 'note',
+        //     key: 'note',
+        // },
         {
             title: 'Created Date',
             dataIndex: 'RequestCreatedDate',
@@ -262,7 +262,7 @@ const RequestApproval = () => {
                     <Card
                         bordered={false}
                         className="criclebox tablespace mb-24"
-                        title="Requests Table"
+                        // title="Requests Table"
                         extra={
                             <div style={{ margin: '10px 0' }}>
                                 <Radio.Group onChange={handleServiceFilterChange} defaultValue="All">
