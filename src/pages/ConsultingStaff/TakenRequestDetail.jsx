@@ -67,6 +67,7 @@ const TakenRequestDetail = () => {
                 { withCredentials: true }
             );
             setLoading(false);
+            navigate("/consultingStaff/takedRequest");
             if (response.data.message) {
                 message.success(response.data.message);
                 setIsDiamondReceived(true);

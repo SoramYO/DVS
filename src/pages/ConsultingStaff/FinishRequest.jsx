@@ -21,6 +21,7 @@ const FinishRequest = () => {
         setLoading(true);
         try {
             const res = await axios.get("https://dvs-be-sooty.vercel.app/api/finished-request", { withCredentials: true });
+            console.log(res.data.data);
             setRequests(res.data.data);
             setLoading(false);
         } catch (error) {
