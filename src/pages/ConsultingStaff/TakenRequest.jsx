@@ -124,27 +124,27 @@ const TakedRequest = () => {
                 <img
                     src={image}
                     alt="Request"
-                    style={{ width: "50px", height: "50px" }}
+                    style={{ width: "50px", height: "50px", borderRadius: 180 }}
                 />
             ),
         },
-        {
-            title: "Note",
-            dataIndex: "note",
-            key: "note",
-        },
-        {
-            title: "Created Date",
-            dataIndex: "createdDate",
-            key: "createdDate",
-            render: (date) => new Date(date).toLocaleDateString("en-GB"),
-        },
-        {
-            title: "Finish Date",
-            dataIndex: "finishDate",
-            key: "finishDate",
-            render: (date) => date ? new Date(date).toLocaleDateString("en-GB") : 'N/A',
-        },
+        // {
+        //     title: "Note",
+        //     dataIndex: "note",
+        //     key: "note",
+        // },
+        // {
+        //     title: "Created Date",
+        //     dataIndex: "createdDate",
+        //     key: "createdDate",
+        //     render: (date) => new Date(date).toLocaleDateString("en-GB"),
+        // },
+        // {
+        //     title: "Finish Date",
+        //     dataIndex: "finishDate",
+        //     key: "finishDate",
+        //     render: (date) => date ? new Date(date).toLocaleDateString("en-GB") : 'N/A',
+        // },
         {
             title: "Process",
             key: "process",
@@ -156,7 +156,30 @@ const TakedRequest = () => {
         },
         {
             title: "Service",
-            key: "service",
+            dataIndex: "service",
+            filters: [
+                {
+                  text: 'Advanced Valuation',
+                  value: 'Advanced Valuation',
+                },
+                {
+                  text: 'Basic Valuation',
+                  value: 'Basic Valuation',
+                },
+                {
+                    text: 'Complete',
+                    value: 'Complete',
+                  },
+                  {
+                    text: 'Done',
+                    value: 'Done',
+                  },
+                  {
+                    text: 'Approved',
+                    value: 'Approved',
+                  },
+              ],
+              onFilter: (value, record) => record.serviceName.indexOf(value) === 0,
             render: (text, record) => (
                 <Tag color={serviceColors[record.serviceName]}>
                     {record.serviceName}
@@ -216,18 +239,18 @@ const TakedRequest = () => {
         },
     ];
 
-    const handleServiceFilterChange = (e) => {
-        setServiceFilter(e.target.value);
-    };
+    // const handleServiceFilterChange = (e) => {
+    //     setServiceFilter(e.target.value);
+    // };
 
-    const filteredRequests = requests.filter(request => {
-        if (serviceFilter === "All") return true;
-        if (serviceFilter === "Complete" && request.processStatus === "Completed") return true;
-        if (serviceFilter === "Done" && request.processStatus === "Done") return true;
-        if (serviceFilter === "Approved" && request.processStatus === "Approved") return true;
-        if (request.serviceName === serviceFilter || request.processStatus === serviceFilter) return true;
-        return false;
-    });
+    // const filteredRequests = requests.filter(request => {
+    //     if (serviceFilter === "All") return true;
+    //     if (serviceFilter === "Complete" && request.processStatus === "Completed") return true;
+    //     if (serviceFilter === "Done" && request.processStatus === "Done") return true;
+    //     if (serviceFilter === "Approved" && request.processStatus === "Approved") return true;
+    //     if (request.serviceName === serviceFilter || request.processStatus === serviceFilter) return true;
+    //     return false;
+    // });
 
     if (loading) {
         return <MySpin />
@@ -238,10 +261,10 @@ const TakedRequest = () => {
             <FloatButton
                 href=""
                 tooltip={<div>New diamond for valuate</div>}
-                badge={{
-                    count: filteredRequests.length,
-                    color: 'blue',
-                }}
+                // badge={{
+                //     count: filteredRequests.length,
+                //     color: 'blue',
+                // }}
             />
             <Row gutter={[24, 0]}>
                 <Col xs="24" xl={24}>
@@ -251,7 +274,7 @@ const TakedRequest = () => {
                         title="Requests Table"
                         extra={
                             <>
-                                <div style={{ textAlign: "center", margin: "10px 0" }}>
+                                {/* <div style={{ textAlign: "center", margin: "10px 0" }}>
                                     <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
                                         <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             All
@@ -272,14 +295,14 @@ const TakedRequest = () => {
                                             Approved
                                         </Radio.Button>
                                     </Radio.Group>
-                                </div>
+                                </div> */}
                             </>
                         }
                     >
                         <div className="table-responsive">
                             <Table
                                 columns={columns}
-                                dataSource={filteredRequests}
+                                dataSource={requests}
                                 pagination={{ pageSize: 10 }}
                                 className="ant-border-space"
                             />
