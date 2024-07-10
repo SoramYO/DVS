@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Modal, Row, message, Spin } from 'antd';
+import { Button, Col, Form, Input, message, Modal, Row, Spin } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
 import '../css/Contact.css';

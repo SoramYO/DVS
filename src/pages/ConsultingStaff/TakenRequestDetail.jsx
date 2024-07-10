@@ -37,6 +37,7 @@ const TakenRequestDetail = () => {
     const [showSignatureModal, setShowSignatureModal] = useState(false);
     const [signatureUrl, setSignatureUrl] = useState(null);
     const [signName, setSignName] = useState("");
+    const [isDiamondReceived, setIsDiamondReceived] = useState(false);
 
     const getRequestDetail = useCallback(async () => {
         try {
@@ -57,24 +58,27 @@ const TakenRequestDetail = () => {
         getRequestDetail();
     }, [id, getRequestDetail]);
 
-    const takeRequest = async () => {
+    const takeRequest = async (signatureUrl, signName) => {
         try {
+            setLoading(true);
             const response = await axios.post(
                 "https://dvs-be-sooty.vercel.app/api/receive-diamond",
-                { requestId: id },
+                { requestId: id, signatureUrl, signName },
                 { withCredentials: true }
             );
+            setLoading(false);
             if (response.data.message) {
                 message.success(response.data.message);
+                setIsDiamondReceived(true);
             } else {
                 message.error("Failed to take request");
             }
-            navigate("/consultingStaff/takedRequest");
         } catch (error) {
             console.error("Error taking request:", error);
             message.error("Error taking request");
         }
     };
+
 
     const handleOk = async () => {
         if (
@@ -97,7 +101,6 @@ const TakenRequestDetail = () => {
         }
     };
 
-
     const uploadSignatureToFirebase = async (signatureUrl) => {
         const byteArray = Uint8Array.from(
             atob(signatureUrl.split(",")[1]),
@@ -118,8 +121,12 @@ const TakenRequestDetail = () => {
 
     const handleSubmitUploadSignature = async (signature, name) => {
         setSignName(name);
-        await uploadSignatureToFirebase(signature);
+        const signatureURL = await uploadSignatureToFirebase(signature);
+        setSignatureUrl(signatureURL);
+        setShowSignatureModal(false);
     };
+
+
 
     const handlePrintSealingReportAfterSigning = async () => {
         ReceiptRequest(request, signatureUrl, signName);
@@ -139,8 +146,9 @@ const TakenRequestDetail = () => {
 
     const handleModalOk = () => {
         setIsModalVisible(false);
-        takeRequest();
+        takeRequest(signatureUrl, signName);
     };
+
 
     const handleModalCancel = () => {
         setIsModalVisible(false);
@@ -235,23 +243,27 @@ const TakenRequestDetail = () => {
                         </Card>
                     ) : (
                         <Card title="Confirm receive diamond" bordered={false} className="info-card">
-                            <Button onClick={showModal}>Receive Diamond</Button>
-                            {(signName !== "" && signatureUrl !== null) ? (
-                                <Button
-                                    onClick={handlePrintSealingReportAfterSigning}
-                                    style={{ backgroundColor: "#007bff", color: "#fff", border: "none" }}
-                                >
-                                    <PrinterOutlined /> Print Sealing Report
-                                </Button>
-                            ) : (
+                            {!signatureUrl ? (
                                 <Button
                                     onClick={() => setShowSignatureModal(true)}
                                     style={{ backgroundColor: "#007bff", color: "#fff", border: "none" }}
                                 >
                                     Sign
                                 </Button>
+                            ) : (
+                                <Button onClick={showModal}>Receive Diamond</Button>
+                            )}
+                            {isDiamondReceived && (
+                                <Button
+                                    onClick={handlePrintSealingReportAfterSigning}
+                                    style={{ backgroundColor: "#007bff", color: "#fff", border: "none" }}
+                                >
+                                    <PrinterOutlined /> Print Sealing Report
+                                </Button>
                             )}
                         </Card>
+
+
                     )}
                 </Col>
 
