@@ -29,7 +29,7 @@ const RequestApproval = () => {
         const getAllRequests = async () => {
             setLoading(true);
             try {
-                const res = await axios.get('https://dvs-be-sooty.vercel.app/api/request-approved', {
+                const res = await axios.get('https://dvs-be-sooty.vercel.app/api/staff-approval', {
                     withCredentials: true,
                 });
                 setLoading(false);
