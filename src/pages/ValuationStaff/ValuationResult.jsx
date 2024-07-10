@@ -1,9 +1,10 @@
-import { CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, EditOutlined, ExclamationCircleOutlined, InboxOutlined, MinusCircleOutlined, PhoneOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { Card, Col, Row, Space, Table, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MySpin from "../../components/MySpin";
+import { serviceColors, statusColors, statusIcons } from '../../components/constants';
 
 const Request = () => {
     const [requests, setRequests] = useState([]);
@@ -26,36 +27,6 @@ const Request = () => {
         getAllRequests();
     }, []);
 
-    const statusColors = {
-        Pending: "blue",
-        "Booked Appointment": "cyan",
-        Received: "green",
-        "Start Valuated": "gold",
-        Valuated: "purple",
-        Completed: "green",
-        "Pending Locked": "orange",
-        "Pending Losted": "orange",
-        Losted: "grey",
-        Locked: "red"
-    };
-
-    const serviceColors = {
-        Vip: "black",
-        Normal: "",
-    };
-
-    const statusIcons = {
-        Pending: <ClockCircleOutlined />,
-        "Booked Appointment": <PhoneOutlined />,
-        Received: <InboxOutlined />,
-        "Start Valuated": <ClockCircleOutlined />,
-        Valuated: <ExclamationCircleOutlined />,
-        Completed: <CheckCircleOutlined />,
-        "Pending Locked": <ClockCircleOutlined />,
-        "Pending Losted": <ClockCircleOutlined />,
-        Losted: <MinusCircleOutlined />,
-        Locked: <CloseCircleOutlined />
-    };
 
 
 

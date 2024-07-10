@@ -1,9 +1,9 @@
-import { CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, InboxOutlined, MinusCircleOutlined, PhoneOutlined } from "@ant-design/icons";
 import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MySpin from "../../components/MySpin";
+import { serviceColors, statusColors, statusIcons } from '../../components/constants';
 
 
 const Request = () => {
@@ -47,46 +47,6 @@ const Request = () => {
     }
   };
 
-  const statusColors = {
-    "Pending": "blue",
-    "Booked Appointment": "cyan",
-    "Received": "green",
-    "Approved": "gold",
-    "In Progress": "gold",
-    "Sent to Valuation": "purple",
-    "Completed": "green",
-    "Start Valuated": "gold",
-    "Valuated": "purple",
-    "Commitment": "orange",
-    "Sealing": "orange",
-    "Result Sent to Customer": "purple",
-    "Received for Valuation": "cyan",
-    "Sent to Consulting": "cyan",
-    "Unprocessed": "red"
-  };
-
-  const serviceColors = {
-    "Advanced Valuation": "black",
-    "Basic Valuation": ""
-  };
-
-  const statusIcons = {
-    "Pending": <ClockCircleOutlined />,
-    "Booked Appointment": <PhoneOutlined />,
-    "Received": <InboxOutlined />,
-    "Approved": <ExclamationCircleOutlined />,
-    "In Progress": <ClockCircleOutlined />,
-    "Sent to Valuation": <ClockCircleOutlined />,
-    "Completed": <CheckCircleOutlined />,
-    "Start Valuated": <ClockCircleOutlined />,
-    "Valuated": <ExclamationCircleOutlined />,
-    "Commitment": <ClockCircleOutlined />,
-    "Sealing": <ClockCircleOutlined />,
-    "Result Sent to Customer": <ExclamationCircleOutlined />,
-    "Received for Valuation": <InboxOutlined />,
-    "Sent to Consulting": <InboxOutlined />,
-    "Unprocessed": <MinusCircleOutlined />
-  };
 
   const columns = [
     {
