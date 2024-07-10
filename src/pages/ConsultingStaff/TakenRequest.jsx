@@ -1,4 +1,4 @@
-import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message } from "antd";
+import { Button, Card, Col, FloatButton, Row, Space, Table, Tag, message } from "antd";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -159,27 +159,27 @@ const TakedRequest = () => {
             dataIndex: "service",
             filters: [
                 {
-                  text: 'Advanced Valuation',
-                  value: 'Advanced Valuation',
+                    text: 'Advanced Valuation',
+                    value: 'Advanced Valuation',
                 },
                 {
-                  text: 'Basic Valuation',
-                  value: 'Basic Valuation',
+                    text: 'Basic Valuation',
+                    value: 'Basic Valuation',
                 },
                 {
                     text: 'Complete',
                     value: 'Complete',
-                  },
-                  {
+                },
+                {
                     text: 'Done',
                     value: 'Done',
-                  },
-                  {
+                },
+                {
                     text: 'Approved',
                     value: 'Approved',
-                  },
-              ],
-              onFilter: (value, record) => record.serviceName.indexOf(value) === 0,
+                },
+            ],
+            onFilter: (value, record) => record.serviceName.indexOf(value) === 0,
             render: (text, record) => (
                 <Tag color={serviceColors[record.serviceName]}>
                     {record.serviceName}
@@ -261,10 +261,10 @@ const TakedRequest = () => {
             <FloatButton
                 href=""
                 tooltip={<div>New diamond for valuate</div>}
-                // badge={{
-                //     count: filteredRequests.length,
-                //     color: 'blue',
-                // }}
+            // badge={{
+            //     count: filteredRequests.length,
+            //     color: 'blue',
+            // }}
             />
             <Row gutter={[24, 0]}>
                 <Col xs="24" xl={24}>
