@@ -1,11 +1,13 @@
-import { CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, InboxOutlined, MinusCircleOutlined, PhoneOutlined, PrinterOutlined } from "@ant-design/icons";
+import { PrinterOutlined } from "@ant-design/icons";
 import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message } from "antd";
 import axios from "axios";
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from "react";
 import MySpin from "../../components/MySpin";
+import { serviceColors, statusColors, statusIcons } from '../../components/constants';
 import SignatureModal from "./SignatureCanvas";
 import handlePrintValuationPaper from "./printValuation";
+
 const FinishRequest = () => {
     const [requests, setRequests] = useState([]);
     const [serviceFilter, setServiceFilter] = useState("All");
@@ -16,13 +18,13 @@ const FinishRequest = () => {
     const [recordForPrint, setRecordForPrint] = useState(null);
 
     const getAllRequests = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
             const res = await axios.get("https://dvs-be-sooty.vercel.app/api/finished-request", { withCredentials: true });
             setRequests(res.data.data);
-            setLoading(false)
+            setLoading(false);
         } catch (error) {
-            setLoading(false)
+            setLoading(false);
             console.log(error);
         }
     };
@@ -32,12 +34,12 @@ const FinishRequest = () => {
     }, []);
 
     const handleSendToCustomer = async (requestId) => {
-        setLoading(true)
+        setLoading(true);
         try {
             const response = await axios.post('https://dvs-be-sooty.vercel.app/api/send-valuation-result-customer', { requestId }, { withCredentials: true });
             const sendMailResponse = await axios.post('https://dvs-be-sooty.vercel.app/api/notification-valuation-success', { requestId }, { withCredentials: true });
             if (response.data.message && sendMailResponse.data.message) {
-                setLoading(false)
+                setLoading(false);
                 message.success(response.data.message && sendMailResponse.data.message);
                 getAllRequests(); // Refresh the requests list
             } else {
@@ -51,57 +53,20 @@ const FinishRequest = () => {
     };
 
 
-    const statusColors = {
-        "Pending": "blue",
-        "Booked Appointment": "cyan",
-        "Received": "green",
-        "Approved": "gold",
-        "In Progress": "gold",
-        "Sent to Valuation": "purple",
-        "Completed": "green",
-        "Start Valuated": "gold",
-        "Valuated": "purple",
-        "Commitment": "orange",
-        "Sealing": "orange",
-        "Result Sent to Customer": "purple",
-        "Received for Valuation": "cyan",
-        "Sent to Consulting": "cyan",
-        "Unprocessed": "red",
-        "Ready for valuation": "blue"
-    };
-
-    const serviceColors = {
-        "Advanced Valuation": "black",
-        "Basic Valuation": ""
-    };
-
-    const statusIcons = {
-        "Pending": <ClockCircleOutlined />,
-        "Booked Appointment": <PhoneOutlined />,
-        "Received": <InboxOutlined />,
-        "Approved": <ExclamationCircleOutlined />,
-        "In Progress": <ClockCircleOutlined />,
-        "Sent to Valuation": <ClockCircleOutlined />,
-        "Completed": <CheckCircleOutlined />,
-        "Start Valuated": <ClockCircleOutlined />,
-        "Valuated": <ExclamationCircleOutlined />,
-        "Commitment": <ClockCircleOutlined />,
-        "Sealing": <ClockCircleOutlined />,
-        "Result Sent to Customer": <ExclamationCircleOutlined />,
-        "Received for Valuation": <InboxOutlined />,
-        "Sent to Consulting": <InboxOutlined />,
-        "Unprocessed": <MinusCircleOutlined />,
-        "Ready for valuation": <CheckCircleOutlined />
-    };
     const renderActionButtons = (text, record) => {
         if (signName !== '' && signatureUrl !== null) {
             return (
-                <Button
-                    onClick={() => handlePrintValuationPaper(record, signatureUrl, signName)}
-                    style={{ backgroundColor: '#007bff', color: '#fff', border: 'none' }}
-                >
-                    <PrinterOutlined /> Print Sealing Report
-                </Button>
+                <Space size="middle">
+                    <Button
+                        onClick={() => handlePrintValuationPaper(record, signatureUrl, signName)}
+                        style={{ backgroundColor: '#007bff', color: '#fff', border: 'none' }}
+                    >
+                        <PrinterOutlined /> Print Valuation Report
+                    </Button>
+                    <Button onClick={() => handleSendToCustomer(record.requestId)}>
+                        Send Result To Customer
+                    </Button>
+                </Space>
             );
         } else {
             return (
@@ -117,6 +82,7 @@ const FinishRequest = () => {
             );
         }
     };
+
     const columns = [
         {
             title: "No.",
@@ -132,15 +98,15 @@ const FinishRequest = () => {
                 <img
                     src={image}
                     alt="Request"
-                    style={{ width: "50px", height: "50px", borderRadius: 180 }}
+                    style={{ width: "50px", height: "50px" }}
                 />
             ),
         },
-        // {
-        //     title: "Note",
-        //     dataIndex: "note",
-        //     key: "note",
-        // },
+        {
+            title: "Note",
+            dataIndex: "note",
+            key: "note",
+        },
         {
             title: "Created Date",
             dataIndex: "createdDate",
@@ -167,21 +133,10 @@ const FinishRequest = () => {
         },
         {
             title: "Action",
-            key: "detail",
-            render: (text, record) => (
-                <Space size="middle">
-                    <Button onClick={() => handleSendToCustomer(record.requestId)}>
-                        Send Result To Customer
-                    </Button>
-                </Space>
-            ),
-        },
-        {
-            key: 'action',
+            key: "action",
             render: renderActionButtons,
         },
     ];
-
 
     const uploadSignatureToFirebase = async (signatureUrl) => {
         const byteArray = Uint8Array.from(atob(signatureUrl.split(',')[1]), c => c.charCodeAt(0));
@@ -225,7 +180,7 @@ const FinishRequest = () => {
     });
 
     if (loading) {
-        return <MySpin />
+        return <MySpin />;
     }
 
     return (
@@ -243,7 +198,7 @@ const FinishRequest = () => {
                     <Card
                         bordered={false}
                         className="criclebox tablespace mb-24"
-                        // title="Requests Table"
+                        title="Requests Table"
                         extra={
                             <div style={{ textAlign: "center", margin: "10px 0" }}>
                                 <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">

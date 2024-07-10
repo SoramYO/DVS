@@ -1,10 +1,10 @@
 import {
+    AutoComplete,
     Button,
     Card,
     Col,
     Form,
     Image,
-    Input,
     InputNumber,
     Row,
     Select,
@@ -16,15 +16,54 @@ import {
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { clarityOptions, colorOptions, countries, cutOptions, fluorescenceOptions, measurementsOptions, polishOptions, proportionsOptions, symmetryOptions } from '../../components/constants';
 const { Option } = Select;
 const { Text } = Typography;
+
 
 function Valuation() {
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
     const [results, setResults] = useState(null);
     const [form] = Form.useForm();
+    const [proportions, setProportions] = useState('');
+    const [measurements, setMeasurements] = useState('');
+    const [polish, setPolish] = useState('');
+    const [fluorescence, setFluorescence] = useState('');
+    const [color, setColor] = useState('');
+    const [cut, setCut] = useState('');
+    const [clarity, setClarity] = useState('');
+    const [symmetry, setSymmetry] = useState('');
+
+
+
+
+    const handleChangeProportions = (value) => {
+        setProportions(value);
+    };
+
+    const handleChangeMeasurements = (value) => {
+        setMeasurements(value);
+    };
+    const handleChangePolish = (value) => {
+        setPolish(value);
+    };
+    const handleChangeFluorescence = (value) => {
+        setFluorescence(value);
+    };
+    const handleChangeColor = (value) => {
+        setColor(value);
+    };
+    const handleChangeCut = (value) => {
+        setCut(value);
+    };
+    const handleChangeClarity = (value) => {
+        setClarity(value);
+    };
+    const handleChangeSymmetry = (value) => {
+        setSymmetry(value);
+    };
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -47,8 +86,14 @@ function Valuation() {
 
     const handleSubmit = async () => {
         try {
+            //check nếu các trường là màng thì thông báo chỉ được chọn 1 giá trị
+            if (proportions.length > 1 || measurements.length > 1 || polish.length > 1 || fluorescence.length > 1 || color.length > 1 || cut.length > 1 || clarity.length > 1 || symmetry.length > 1) {
+                message.error('Please select only 1 value for each field');
+                return;
+            }
             await form.validateFields();
             const values = form.getFieldsValue();
+            message.success('Submit valuation successfully');
             const response = await axios.put(`https://dvs-be-sooty.vercel.app/api/valuation/${id}`, values, { withCredentials: true });
             if (response.data.errCode === 0) {
                 message.success(response.data.message);
@@ -92,8 +137,6 @@ function Valuation() {
                         placeholder={<Image preview={false} src={results.requestImage} alt="Diamond" />}
                     />
                 </Card>
-
-
             </Col>
 
             <Col span={12}>
@@ -106,8 +149,21 @@ function Valuation() {
                                     name="proportions"
                                     rules={[{ required: true, message: 'Please enter proportions' }]}
                                 >
-                                    <Input />
+                                    <Select
+                                        placeholder="Select or enter proportions"
+                                        showSearch={false}
+                                        mode="tags"
+                                        value={proportions}
+                                        onChange={handleChangeProportions}
+                                        allowClear
+                                    >
+                                        {proportionsOptions.map(option => (
+                                            <Option key={option} value={option}>{option}</Option>
+                                        ))}
+                                    </Select>
+
                                 </Form.Item>
+
                             </Col>
                             <Col span={12}>
                                 <Form.Item
@@ -115,7 +171,13 @@ function Valuation() {
                                     name="diamondOrigin"
                                     rules={[{ required: true, message: 'Please enter diamond origin' }]}
                                 >
-                                    <Input />
+                                    <AutoComplete
+                                        placeholder="Select or enter diamond origin"
+                                        options={countries.map(country => ({ value: country }))}
+                                        filterOption={(inputValue, option) =>
+                                            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                        }
+                                    />
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -133,7 +195,18 @@ function Valuation() {
                                     name="measurements"
                                     rules={[{ required: true, message: 'Please enter measurements' }]}
                                 >
-                                    <Input />
+                                    <Select
+                                        placeholder="Select or enter measurements"
+                                        showSearch={false}
+                                        mode="tags"
+                                        value={measurements}
+                                        onChange={handleChangeMeasurements}
+                                        allowClear
+                                    >
+                                        {measurementsOptions.map(option => (
+                                            <Option key={option} value={option}>{option}</Option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -142,7 +215,18 @@ function Valuation() {
                                     name="polish"
                                     rules={[{ required: true, message: 'Please enter polish' }]}
                                 >
-                                    <Input />
+                                    <Select
+                                        placeholder="Select or enter polish"
+                                        showSearch={false}
+                                        mode="tags"
+                                        value={polish}
+                                        onChange={handleChangePolish}
+                                        allowClear
+                                    >
+                                        {polishOptions.map(option => (
+                                            <Option key={option} value={option}>{option}</Option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -151,7 +235,18 @@ function Valuation() {
                                     name="fluorescence"
                                     rules={[{ required: true, message: 'Please enter fluorescence' }]}
                                 >
-                                    <Input />
+                                    <Select
+                                        placeholder="Select or enter fluorescence"
+                                        showSearch={false}
+                                        mode="tags"
+                                        value={fluorescence}
+                                        onChange={handleChangeFluorescence}
+                                        allowClear
+                                    >
+                                        {fluorescenceOptions.map(option => (
+                                            <Option key={option} value={option}>{option}</Option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -160,7 +255,18 @@ function Valuation() {
                                     name="color"
                                     rules={[{ required: true, message: 'Please enter color' }]}
                                 >
-                                    <Input />
+                                    <Select
+                                        placeholder="Select or enter color"
+                                        showSearch={false}
+                                        mode="tags"
+                                        value={color}
+                                        onChange={handleChangeColor}
+                                        allowClear
+                                    >
+                                        {colorOptions.map(option => (
+                                            <Option key={option} value={option}>{option}</Option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -169,7 +275,18 @@ function Valuation() {
                                     name="cut"
                                     rules={[{ required: true, message: 'Please enter cut' }]}
                                 >
-                                    <Input />
+                                    <Select
+                                        placeholder="Select or enter cut"
+                                        showSearch={false}
+                                        mode="tags"
+                                        value={cut}
+                                        onChange={handleChangeCut}
+                                        allowClear
+                                    >
+                                        {cutOptions.map(option => (
+                                            <Option key={option} value={option}>{option}</Option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -178,7 +295,18 @@ function Valuation() {
                                     name="clarity"
                                     rules={[{ required: true, message: 'Please enter clarity' }]}
                                 >
-                                    <Input />
+                                    <Select
+                                        placeholder="Select or enter clarity"
+                                        showSearch={false}
+                                        mode="tags"
+                                        value={clarity}
+                                        onChange={handleChangeClarity}
+                                        allowClear
+                                    >
+                                        {clarityOptions.map(option => (
+                                            <Option key={option} value={option}>{option}</Option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -187,7 +315,18 @@ function Valuation() {
                                     name="symmetry"
                                     rules={[{ required: true, message: 'Please enter symmetry' }]}
                                 >
-                                    <Input />
+                                    <Select
+                                        placeholder="Select or enter symmetry"
+                                        showSearch={false}
+                                        mode="tags"
+                                        value={symmetry}
+                                        onChange={handleChangeSymmetry}
+                                        allowClear
+                                    >
+                                        {symmetryOptions.map(option => (
+                                            <Option key={option} value={option}>{option}</Option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={12}>

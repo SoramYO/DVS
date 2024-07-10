@@ -1,16 +1,11 @@
 import {
-    CheckCircleOutlined,
-    ClockCircleOutlined,
-    ExclamationCircleOutlined,
-    InboxOutlined,
-    MinusCircleOutlined,
-    PhoneOutlined,
-    PrinterOutlined,
+    PrinterOutlined
 } from '@ant-design/icons';
 import { Button, Card, Col, Radio, Row, Table, Tag } from 'antd';
 import axios from 'axios';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
+import { serviceColors, statusColors, statusIcons } from '../../components/constants';
 import MySpin from '../../components/MySpin';
 import handlePrintCommitmentReport from './CommitmentRequest';
 import handlePrintSealingReport from './SealingReport';
@@ -40,51 +35,6 @@ const RequestApproval = () => {
         };
         getAllRequests();
     }, []);
-
-    const statusColors = {
-        Pending: 'blue',
-        'Booked Appointment': 'cyan',
-        Received: 'green',
-        Approved: 'gold',
-        'In Progress': 'gold',
-        'Sent to Valuation': 'purple',
-        Completed: 'green',
-        'Start Valuated': 'gold',
-        Valuated: 'purple',
-        Commitment: 'orange',
-        Sealing: 'orange',
-        'Result Sent to Customer': 'purple',
-        'Received for Valuation': 'cyan',
-        'Sent to Consulting': 'cyan',
-        Unprocessed: 'red',
-        'Ready for valuation': 'blue',
-        Done: 'green',
-    };
-
-    const serviceColors = {
-        Sealing: 'red',
-        Commitment: 'blue',
-    };
-
-    const statusIcons = {
-        Pending: <ClockCircleOutlined />,
-        'Booked Appointment': <PhoneOutlined />,
-        Received: <InboxOutlined />,
-        Approved: <ExclamationCircleOutlined />,
-        'In Progress': <ClockCircleOutlined />,
-        'Sent to Valuation': <ClockCircleOutlined />,
-        Completed: <CheckCircleOutlined />,
-        'Start Valuated': <ClockCircleOutlined />,
-        Valuated: <ExclamationCircleOutlined />,
-        Commitment: <ClockCircleOutlined />,
-        Sealing: <ClockCircleOutlined />,
-        'Result Sent to Customer': <ExclamationCircleOutlined />,
-        'Received for Valuation': <InboxOutlined />,
-        'Sent to Consulting': <InboxOutlined />,
-        Unprocessed: <MinusCircleOutlined />,
-        'Ready for valuation': <CheckCircleOutlined />,
-        Done: <CheckCircleOutlined />,
-    };
 
     const renderActionButtons = (text, record) => {
         const isProcessMatchingType = record.processStatus === record.requestType;
