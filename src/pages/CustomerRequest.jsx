@@ -234,7 +234,7 @@ const CustomerRequest = () => {
                 </Form.Item>
               </Col> */}
               <Col span={12}>
-              <Form.Item name="serviceId" label="Service" initialValue={selectedService}>
+                <Form.Item name="serviceId" label="Service" initialValue={selectedService}>
                   <Select
                     value={selectedService}
                     onChange={handleServiceChange}
