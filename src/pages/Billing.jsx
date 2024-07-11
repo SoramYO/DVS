@@ -52,7 +52,7 @@ const Billing = () => {
       key: "paymentStatus",
       dataIndex: "paymentStatus",
       render: (status) => (
-        <Tag color={status === "Paid" ? "green" : "red"}>{status}</Tag>
+        <Tag color={status === "Paid" ? "green" : "gold"}>{status}</Tag>
       ),
     },
   ];
@@ -64,7 +64,6 @@ const Billing = () => {
   return (
     <div
       style={{
-        height: "100vh",
         width: "100vw",
         paddingTop: "50px",
         paddingLeft: "20px",

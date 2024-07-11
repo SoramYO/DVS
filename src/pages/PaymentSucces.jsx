@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MySpin from "../components/MySpin";
+import { Button } from "antd";
 
 
 const PaymentSucces = () => {
@@ -51,7 +52,25 @@ const PaymentSucces = () => {
       }}
     >
       <h1 style={{ fontSize: "50px" }}>Thank you for using our service.</h1>
+      <div style={{display: 'flex'}}>
       <Link to={"/"}>
+        <button
+          style={{
+            padding: "20px",
+            backgroundColor: "#1677FF",
+            color: "white",
+            textAlign: "center",
+            fontSize: "25px",
+            borderRadius: "20px",
+            border: "1px solid gray",
+            cursor: "pointer",
+            marginRight: '20px'
+          }}
+        >
+          Back homepage
+        </button>
+      </Link>
+      <Link to={"/billing"}>
         <button
           style={{
             padding: "20px",
@@ -64,9 +83,10 @@ const PaymentSucces = () => {
             cursor: "pointer",
           }}
         >
-          Back homepage
+          View billing
         </button>
       </Link>
+      </div>
     </div>
   );
 };
