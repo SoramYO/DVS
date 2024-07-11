@@ -70,8 +70,8 @@ function Valuation() {
         const getAllRequests = async () => {
             try {
                 const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, { withCredentials: true });
-                setResults(res.data.request[0]);
-                form.setFieldsValue(res.data.request[0]);
+                setResults(res.data.request);
+                form.setFieldsValue(res.data.request);
                 setLoading(false);
             } catch (error) {
                 console.log(error);
