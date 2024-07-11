@@ -1,9 +1,23 @@
 import { EditOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Empty, Form, Input, Modal, Pagination, Row, Select, message } from 'antd';
+import {
+  Button,
+  Card,
+  Col,
+  Empty,
+  Form,
+  Input,
+  Modal,
+  Pagination,
+  Row,
+  Select,
+  Tag,
+  message,
+} from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import MySpin from "../components/MySpin";
 import "../css/Profile.css";
+import { Link } from "react-router-dom";
 
 const UserInfo = ({ user, showModal }) => {
   return (
@@ -49,12 +63,15 @@ const UserRequests = ({
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  const filteredRequests = requests?.filter(request =>
-    filter === 'all' ? true : request.paymentStatus === filter
+  const filteredRequests = requests?.filter((request) =>
+    filter === "all" ? true : request.paymentStatus === filter
   );
 
   const paginatedRequests =
-    filteredRequests?.slice((currentPage - 1) * pageSize, currentPage * pageSize) || [];
+    filteredRequests?.slice(
+      (currentPage - 1) * pageSize,
+      currentPage * pageSize
+    ) || [];
 
   return (
     <div className="content">
@@ -85,7 +102,6 @@ const UserRequests = ({
                   }
                 >
                   <Card.Meta
-                    title={`Request ID: ${request.id}`}
                     description={
                       <div>
                         <p>
@@ -93,14 +109,23 @@ const UserRequests = ({
                           {formatDate(request.createdDate)}
                         </p>
                         <p>
-                          <strong>Status</strong>: {request.status}
-                        </p>
-                        <p>
                           <strong>Service</strong>: {request.serviceName}
                         </p>
                         <p>
-                          <strong>Process</strong>: {request.paymentStatus}
+                          <strong>Process</strong>:{" "}
+                          <Tag
+                            color={
+                              request.paymentStatus === "Paid"
+                                ? "green"
+                                : "gold"
+                            }
+                          >
+                            {request.paymentStatus}
+                          </Tag>
                         </p>
+                        <Link to={`/requestDetail/${request.id}`}>
+                          <Button type="primary">Detail</Button>
+                        </Link>
                       </div>
                     }
                   />
@@ -155,15 +180,11 @@ const FinishedRequests = ({
                   }
                 >
                   <Card.Meta
-                    title={`Request ID: ${request.requestId}`}
                     description={
                       <div>
                         <p>
                           <strong>Date</strong>:{" "}
                           {formatDate(request.createdDate)}
-                        </p>
-                        <p>
-                          <strong>Status</strong>: {request.status}
                         </p>
                         <p>
                           <strong>Service</strong>: {request.serviceName}
@@ -200,7 +221,7 @@ const Profile = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     const getUserProfile = async () => {
@@ -228,7 +249,7 @@ const Profile = () => {
             withCredentials: true,
           }
         );
-        console.log(res.data.data)
+        console.log(res.data.data);
         setFinishRequest(res.data.data);
       } catch (error) {
         console.log(error);
@@ -251,6 +272,7 @@ const Profile = () => {
     };
     getAllRequestsByUser();
   }, []);
+  console.log(requests);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -266,15 +288,15 @@ const Profile = () => {
         }
       );
       if (res.data.errCode === 0) {
-        message.success('Profile updated successfully');
+        message.success("Profile updated successfully");
         setUser({ ...user, ...values });
         setIsModalVisible(false);
       } else {
-        message.error('Failed to update profile');
+        message.error("Failed to update profile");
       }
     } catch (error) {
       console.error(error);
-      message.error('Server error');
+      message.error("Server error");
     }
   };
 
@@ -292,7 +314,8 @@ const Profile = () => {
     setCurrentPage(1);
   };
 
-  if (user === null || requests === null || finishRequest === null) return <MySpin />;
+  if (user === null || requests === null || finishRequest === null)
+    return <MySpin />;
 
   return (
     <div className="profilUserContainer">
