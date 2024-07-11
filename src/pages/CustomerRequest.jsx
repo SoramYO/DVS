@@ -144,7 +144,7 @@ const CustomerRequest = () => {
     handleCreateRequest(requestData);
   };
 
-  const handleCreatePayment = async (requestId, serviceId) => {
+  const handleCreatePayment = async (requestId) => {
     // const paymentData =
     //   serviceId === 1
     //     ? {
@@ -183,9 +183,8 @@ const CustomerRequest = () => {
       if (response.status === 200) {
         message.success("Created success");
         const requestId = response.data.requestId
-        const serviceId = values.serviceId
         setLoading(false)
-        handleCreatePayment(requestId, serviceId)
+        handleCreatePayment(requestId)
       }
     } catch (error) {
       setLoading(false)
@@ -193,9 +192,9 @@ const CustomerRequest = () => {
     }
   };
   const handleServiceChange = (value) => {
-    const selectedService = service.find((service) => service.serviceId === value);
+    const selectedService = service.find((service) => service.id === value);
     if (selectedService) {
-      setSelectedService(selectedService.serviceId);
+      setSelectedService(selectedService.id);
       setPrice(selectedService.price);
     }
   };
