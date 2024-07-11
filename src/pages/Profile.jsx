@@ -190,8 +190,20 @@ const FinishedRequests = ({
                           <strong>Service</strong>: {request.serviceName}
                         </p>
                         <p>
-                          <strong>Process</strong>: {request.paymentStatus}
+                          <strong>Process</strong>:{" "}
+                          <Tag
+                            color={
+                              request.paymentStatus === "Paid"
+                                ? "green"
+                                : "gold"
+                            }
+                          >
+                            {request.paymentStatus}
+                          </Tag>
                         </p>
+                        <Link to={`/requestDetail/${request.id}`}>
+                          <Button type="primary">Detail</Button>
+                        </Link>
                       </div>
                     }
                   />
