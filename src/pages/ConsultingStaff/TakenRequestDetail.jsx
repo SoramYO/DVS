@@ -45,7 +45,7 @@ const TakenRequestDetail = () => {
                 `https://dvs-be-sooty.vercel.app/api/requests/${id}`,
                 { withCredentials: true }
             );
-            setRequest(res.data.request[0]);
+            setRequest(res.data.request);
         } catch (error) {
             console.error("Error fetching request detail:", error);
             message.error("Failed to fetch request detail");

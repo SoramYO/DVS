@@ -35,7 +35,7 @@ const RequestDetail = () => {
         `https://dvs-be-sooty.vercel.app/api/requests/${id}`,
         { withCredentials: true }
       );
-      setRequest(res.data.request[0]);
+      setRequest(res.data.request);
     } catch (error) {
       console.log(error);
     } finally {
