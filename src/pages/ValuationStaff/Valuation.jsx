@@ -152,10 +152,8 @@ function Valuation() {
                                     <Select
                                         placeholder="Select or enter proportions"
                                         showSearch={false}
-                                        mode="tags"
                                         value={proportions}
                                         onChange={handleChangeProportions}
-                                        allowClear
                                     >
                                         {proportionsOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -198,10 +196,8 @@ function Valuation() {
                                     <Select
                                         placeholder="Select or enter measurements"
                                         showSearch={false}
-                                        mode="tags"
                                         value={measurements}
                                         onChange={handleChangeMeasurements}
-                                        allowClear
                                     >
                                         {measurementsOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -218,10 +214,8 @@ function Valuation() {
                                     <Select
                                         placeholder="Select or enter polish"
                                         showSearch={false}
-                                        mode="tags"
                                         value={polish}
                                         onChange={handleChangePolish}
-                                        allowClear
                                     >
                                         {polishOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -238,10 +232,8 @@ function Valuation() {
                                     <Select
                                         placeholder="Select or enter fluorescence"
                                         showSearch={false}
-                                        mode="tags"
                                         value={fluorescence}
                                         onChange={handleChangeFluorescence}
-                                        allowClear
                                     >
                                         {fluorescenceOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -258,10 +250,8 @@ function Valuation() {
                                     <Select
                                         placeholder="Select or enter color"
                                         showSearch={false}
-                                        mode="tags"
                                         value={color}
                                         onChange={handleChangeColor}
-                                        allowClear
                                     >
                                         {colorOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -278,10 +268,8 @@ function Valuation() {
                                     <Select
                                         placeholder="Select or enter cut"
                                         showSearch={false}
-                                        mode="tags"
                                         value={cut}
                                         onChange={handleChangeCut}
-                                        allowClear
                                     >
                                         {cutOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -298,10 +286,8 @@ function Valuation() {
                                     <Select
                                         placeholder="Select or enter clarity"
                                         showSearch={false}
-                                        mode="tags"
                                         value={clarity}
                                         onChange={handleChangeClarity}
-                                        allowClear
                                     >
                                         {clarityOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -318,10 +304,8 @@ function Valuation() {
                                     <Select
                                         placeholder="Select or enter symmetry"
                                         showSearch={false}
-                                        mode="tags"
                                         value={symmetry}
                                         onChange={handleChangeSymmetry}
-                                        allowClear
                                     >
                                         {symmetryOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
