@@ -65,7 +65,7 @@ const FinishRequest = () => {
                         <PrinterOutlined /> Print Valuation Report
                     </Button>
                     <Button onClick={() => handleSendToCustomer(record.requestId)}>
-                        Send Result To Customer
+                        Send Notification Result To Customer
                     </Button>
                 </Space>
             );
