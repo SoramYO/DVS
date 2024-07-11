@@ -38,7 +38,7 @@ const Billing = () => {
       dataIndex: "paymentAmount",
       key: "paymentAmount",
       render: (amount) => (
-        <span>{`${(amount * 1000).toLocaleString()} VNĐ`}</span>
+        <span>{`${(amount).toLocaleString()} $`}</span>
       ),
     },
     {

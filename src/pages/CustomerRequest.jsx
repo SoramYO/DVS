@@ -242,7 +242,7 @@ const CustomerRequest = () => {
                   >
                     {service.map((service) => (
                       <Option key={service.id} value={service.id}>
-                        {service.serviceName}  {service.price}
+                        {service.serviceName}  {service.price}$
                       </Option>
                     ))}
                   </Select>
