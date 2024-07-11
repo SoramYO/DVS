@@ -18,10 +18,12 @@ const PaymentSucces = () => {
         `https://dvs-be-sooty.vercel.app/api/paypalReturn?paymentId=${paymentId}&PayerID=${payerId}`,
         { withCredentials: true }
       );
+      console.log(res.data)
       const requestId = res.data.data.transactions[0].item_list.items[0].sku;
+      const amount = res.data.data.transactions[0].amount.total;
       const update = await axios.put(
         "https://dvs-be-sooty.vercel.app/api/payment",
-        { requestId: requestId },
+        { requestId: requestId, amount: amount },
         { withCredentials: true }
       );
       if (update.status === 200) {
@@ -35,7 +37,7 @@ const PaymentSucces = () => {
 
   useEffect(() => {
     fetchSuccess();
-  }, [fetchSuccess]);
+  }, []);
 
   if (loading) {
     return <MySpin />
