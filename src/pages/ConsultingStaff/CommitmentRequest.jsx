@@ -8,7 +8,7 @@ const handlePrintCommitmentReport = async (recordForPrint, signatureUrl, signNam
         const response = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${requestId}`, { withCredentials: true });
 
         if (response.status === 200) {
-            const valuationData = response.data.request[0];
+            const valuationData = response.data.request;
             const currentDate = new Date().toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'medium' });
 
             const printableContent = `
