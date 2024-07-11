@@ -87,10 +87,10 @@ function Valuation() {
     const handleSubmit = async () => {
         try {
             //check nếu các trường là màng thì thông báo chỉ được chọn 1 giá trị
-            if (proportions.length > 1 || measurements.length > 1 || polish.length > 1 || fluorescence.length > 1 || color.length > 1 || cut.length > 1 || clarity.length > 1 || symmetry.length > 1) {
-                message.error('Please select only 1 value for each field');
-                return;
-            }
+            // if (proportions.length > 1 || measurements.length > 1 || polish.length > 1 || fluorescence.length > 1 || color.length > 1 || cut.length > 1 || clarity.length > 1 || symmetry.length > 1) {
+            //     message.error('Please select only 1 value for each field');
+            //     return;
+            // }
             await form.validateFields();
             const values = form.getFieldsValue();
             message.success('Submit valuation successfully');
