@@ -64,6 +64,7 @@ const RequestDetail = () => {
       message.success("Trạng thái xử lý đã được cập nhật thành công");
       getRequestDetail();
     } catch (error) {
+      navigate("/consultingStaff");
       message.error("Cập nhật trạng thái xử lý thất bại");
     }
   };
