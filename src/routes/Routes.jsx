@@ -39,6 +39,7 @@ import TakedRequestByValuation from "../pages/ValuationStaff/TakedRequestByValua
 import ValStaffProfile from "../pages/ValuationStaff/ValStaffProfile";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
+import Billing from "../pages/Billing";
 export const route = createBrowserRouter([
   {
     path: "/",
@@ -157,6 +158,15 @@ export const route = createBrowserRouter([
         element: (
           <ProtectedRoute requiredRoles={["Customer"]}>
             <CustomerRequest />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/billing",
+        element: (
+          <ProtectedRoute requiredRoles={["Customer"]}>
+            <Billing />
           </ProtectedRoute>
         ),
         errorElement: <ErrorPage />,

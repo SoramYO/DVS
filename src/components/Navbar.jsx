@@ -64,6 +64,9 @@ const Navbar = () => {
       <Menu.Item key="profile">
         {user ? <Link to={`/profile`}>Profile</Link> : null}
       </Menu.Item>
+      <Menu.Item key="billing">
+        {user ? <Link to={`/billing`}>Billing</Link> : null}
+      </Menu.Item>
       <Menu.Item key="logout" onClick={logout}>
         Logout
       </Menu.Item>
