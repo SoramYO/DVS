@@ -36,12 +36,12 @@ const TakedRequestByValuation = () => {
                 message.success(response.data.message);
                 getAllRequests();
             } else {
-                message.error('Failed to send request to valuation staff');
+                console.error('Failed to send request to valuation staff');
             }
         } catch (error) {
             setLoading(false);
             console.error('Error sending request to valuation staff:', error);
-            message.error('Error sending request to valuation staff');
+            console.error('Error sending request to valuation staff');
         }
     };
 

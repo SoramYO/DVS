@@ -80,7 +80,7 @@ const CustomerRequest = () => {
 
       // After a successful upload, get the download URL
       const downloadURL = await getDownloadURL(snapshot.ref);
-      console.log("File available at", downloadURL);
+      //  console.log("File available at", downloadURL);
       setImage(downloadURL);
       onSuccess("ok");
       // Update the fileList state with the new uploaded file
@@ -111,7 +111,7 @@ const CustomerRequest = () => {
   const beforeUpload = (file) => {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif";
     if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
+      console.error("You can only upload JPG/PNG file!");
       setImage("");
       setFileList([
         ...fileList,
@@ -131,7 +131,7 @@ const CustomerRequest = () => {
 
   const handleSubmit = () => {
     if (image === "") {
-      message.error("Please upload image");
+      console.error("Please upload image");
       return;
     }
     const requestData = {
@@ -140,7 +140,7 @@ const CustomerRequest = () => {
       userId: user?.id,
       serviceId: selectedService,
     };
-    console.log(requestData)
+    //  console.log(requestData)
     handleCreateRequest(requestData);
   };
 
@@ -155,7 +155,8 @@ const CustomerRequest = () => {
     //       amount: 450000,
     //       requestId: requestId
     //     };
-    console.log(price)
+    //  console.log(price)
+    setLoading(true);
     try {
       const response = await axios.post(
         `https://dvs-be-sooty.vercel.app/api/paypal`,
@@ -183,12 +184,11 @@ const CustomerRequest = () => {
       if (response.status === 200) {
         message.success("Created success");
         const requestId = response.data.requestId
-        setLoading(false)
         handleCreatePayment(requestId)
       }
     } catch (error) {
       setLoading(false)
-      message.error(error.response.data.message);
+      console.error(error.response.data.message);
     }
   };
   const handleServiceChange = (value) => {

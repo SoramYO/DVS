@@ -11,10 +11,10 @@ const ForgotPassword = () => {
             if (response.data.errCode === 0) {
                 message.success('Password reset link sent to your email.');
             } else {
-                message.error(response.data.message);
+                console.error(response.data.message);
             }
         } catch (error) {
-            message.error('An error occurred. Please try again.');
+            console.error('An error occurred. Please try again.');
         }
     };
 

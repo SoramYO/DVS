@@ -23,8 +23,6 @@ const CheckPriceByCertificateID = () => {
             const response = await axios.post('https://dvs-be-sooty.vercel.app/api/estimate-diamond-value-by-certificate', {
                 certificateId,
             });
-            console.log('response', response.data);
-
             // Display success message
             message.success(response.data.message);
 

@@ -48,11 +48,11 @@ const Login = () => {
           type: "LOGIN_FAILURE",
           payload: { message: "You are not allowed!" },
         });
-        message.error("You are not allowed to login!");
+        console.error("You are not allowed to login!");
       }
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
-      message.error(err.response.data.message);
+      console.error(err.response.data.message);
     }
   };
 

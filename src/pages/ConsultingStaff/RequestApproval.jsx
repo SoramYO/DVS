@@ -170,7 +170,7 @@ const RequestApproval = () => {
             const snapshot = await uploadBytes(storageRef, byteArray);
             const downloadURL = await getDownloadURL(snapshot.ref);
             setSignatureUrl(downloadURL);
-            console.log('Signature uploaded:', downloadURL);
+            //         console.log('Signature uploaded:', downloadURL);
             return downloadURL;
         } catch (error) {
             console.error('Error uploading image:', error);

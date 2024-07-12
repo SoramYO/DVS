@@ -261,7 +261,7 @@ const Profile = () => {
             withCredentials: true,
           }
         );
-        console.log(res.data.data);
+        //     console.log(res.data.data);
         setFinishRequest(res.data.data);
       } catch (error) {
         console.log(error);
@@ -284,7 +284,7 @@ const Profile = () => {
     };
     getAllRequestsByUser();
   }, []);
-  console.log(requests);
+  //  console.log(requests);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -304,11 +304,11 @@ const Profile = () => {
         setUser({ ...user, ...values });
         setIsModalVisible(false);
       } else {
-        message.error("Failed to update profile");
+        console.error("Failed to update profile");
       }
     } catch (error) {
       console.error(error);
-      message.error("Server error");
+      console.error("Server error");
     }
   };
 

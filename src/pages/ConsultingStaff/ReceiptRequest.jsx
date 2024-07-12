@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import axios from 'axios';
 
 const ReceiptRequest = async (recordForPrint, signatureUrl, signName) => {
@@ -139,16 +138,16 @@ const ReceiptRequest = async (recordForPrint, signatureUrl, signName) => {
                 printWindow.document.close();
                 printWindow.print();
             } else {
-                message.error('Failed to open print window. Please allow pop-ups for this site.');
+                console.error('Failed to open print window. Please allow pop-ups for this site.');
             }
         } else if (response.status === 404) {
-            message.error('Valuation report not found. Please check the request ID.');
+            console.error('Valuation report not found. Please check the request ID.');
         } else {
-            message.error('Failed to fetch valuation report. Please try again later.');
+            console.error('Failed to fetch valuation report. Please try again later.');
         }
     } catch (error) {
         console.error('Error fetching valuation report:', error);
-        message.error('Error fetching valuation report. Please try again later.');
+        console.error('Error fetching valuation report. Please try again later.');
     }
 };
 

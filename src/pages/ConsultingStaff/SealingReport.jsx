@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import axios from 'axios';
 
 const handlePrintSealingReport = async (record, signatureUrl, signName) => {
@@ -133,16 +132,16 @@ const handlePrintSealingReport = async (record, signatureUrl, signName) => {
                 printWindow.document.close();
                 printWindow.print();
             } else {
-                message.error('Failed to open print window. Please allow pop-ups for this site.');
+                console.error('Failed to open print window. Please allow pop-ups for this site.');
             }
         } else if (response.status === 404) {
-            message.error('Sealing report not found. Please check the request ID.');
+            console.error('Sealing report not found. Please check the request ID.');
         } else {
-            message.error('Error fetching sealing report data. Please try again later.');
+            console.error('Error fetching sealing report data. Please try again later.');
         }
     } catch (error) {
         console.error('Error fetching sealing report data:', error);
-        message.error('Error fetching sealing report data. Please try again later.');
+        console.error('Error fetching sealing report data. Please try again later.');
     }
 };
 

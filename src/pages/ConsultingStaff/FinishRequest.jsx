@@ -21,7 +21,7 @@ const FinishRequest = () => {
         setLoading(true);
         try {
             const res = await axios.get("https://dvs-be-sooty.vercel.app/api/finished-request", { withCredentials: true });
-            console.log(res.data.data);
+            //      console.log(res.data.data);
             setRequests(res.data.data);
             setLoading(false);
         } catch (error) {
@@ -44,12 +44,12 @@ const FinishRequest = () => {
                 message.success(response.data.message && sendMailResponse.data.message);
                 getAllRequests(); // Refresh the requests list
             } else {
-                message.error('Failed to send result to customer');
+                console.error('Failed to send result to customer');
             }
         } catch (error) {
             setLoading(false);
             console.error('Error sending result to customer:', error);
-            message.error('Error sending result to customer');
+            console.error('Error sending result to customer');
         }
     };
 
@@ -147,7 +147,7 @@ const FinishRequest = () => {
             const snapshot = await uploadBytes(storageRef, byteArray);
             const downloadURL = await getDownloadURL(snapshot.ref);
             setSignatureUrl(downloadURL);
-            console.log('Signature uploaded:', downloadURL);
+            //            console.log('Signature uploaded:', downloadURL);
             return downloadURL;
         } catch (error) {
             console.error('Error uploading image:', error);

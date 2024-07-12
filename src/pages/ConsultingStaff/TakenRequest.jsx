@@ -38,12 +38,12 @@ const TakedRequest = () => {
                 message.success(response.data.message);
                 getAllRequests();
             } else {
-                message.error('Failed to send request to valuation staff');
+                console.error('Failed to send request to valuation staff');
             }
         } catch (error) {
             setLoading(false);
             console.error('Error sending request to valuation staff:', error);
-            message.error('Error sending request to valuation staff');
+            console.error('Error sending request to valuation staff');
         }
     };
 
@@ -56,12 +56,12 @@ const TakedRequest = () => {
                 message.success(response.data.message);
                 getAllRequests();
             } else {
-                message.error('Failed to update request status');
+                console.error('Failed to update request status');
             }
         } catch (error) {
             setLoading(false);
             console.error('Error updating request status:', error);
-            message.error('Error updating request status');
+            console.error('Error updating request status');
         }
     };
 
@@ -77,12 +77,12 @@ const TakedRequest = () => {
                 getAllRequests(); // Refresh the requests list
             } else {
                 setLoading(false);
-                message.error('Failed to update request status');
+                console.error('Failed to update request status');
             }
         } catch (error) {
             setLoading(false);
             console.error('Error updating request status:', error);
-            message.error('Error updating request status');
+            console.error('Error updating request status');
         }
     };
 
@@ -98,12 +98,12 @@ const TakedRequest = () => {
                 getAllRequests();
             } else {
                 setLoading(false);
-                message.error('Failed to update request status');
+                console.error('Failed to update request status');
             }
         } catch (error) {
             setLoading(false);
             console.error('Error updating request status:', error);
-            message.error('Error updating request status');
+            console.error('Error updating request status');
         }
     };
 

@@ -48,7 +48,7 @@ const TakenRequestDetail = () => {
             setRequest(res.data.request);
         } catch (error) {
             console.error("Error fetching request detail:", error);
-            message.error("Failed to fetch request detail");
+            console.error("Failed to fetch request detail");
         } finally {
             setLoading(false);
         }
@@ -73,11 +73,11 @@ const TakenRequestDetail = () => {
                 message.success(response.data.message);
                 setIsDiamondReceived(true);
             } else {
-                message.error("Failed to take request");
+                console.error("Failed to take request");
             }
         } catch (error) {
             console.error("Error taking request:", error);
-            message.error("Error taking request");
+            console.error("Error taking request");
         }
     };
 
@@ -87,7 +87,7 @@ const TakenRequestDetail = () => {
             appointmentDate &&
             new Date(appointmentDate) < new Date(request.createdDate)
         ) {
-            message.error("Ngày hẹn không thể trước ngày tạo yêu cầu");
+            console.error("Ngày hẹn không thể trước ngày tạo yêu cầu");
             return;
         }
         try {
@@ -99,7 +99,7 @@ const TakenRequestDetail = () => {
             message.success("Trạng thái xử lý đã được cập nhật thành công");
             getRequestDetail();
         } catch (error) {
-            message.error("Cập nhật trạng thái xử lý thất bại");
+            console.error("Cập nhật trạng thái xử lý thất bại");
         }
     };
 
