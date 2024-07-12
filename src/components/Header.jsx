@@ -23,13 +23,13 @@ const Header = () => {
 
   return (
     <div className="headerContainer">
-      <div className="headerLeft">
+      {/* <div className="headerLeft">
         <div className="languageIcon">
           <img src="../assets/language.png" alt="Language" className="languageIconImage" />
         </div>
         <DownOutlined className="downIcon" />
         <h4>English</h4>
-      </div>
+      </div> */}
       {/* <div className="headerCenter">
         <Link to="/">
           <img src={Logo} alt="Logo" className="headerLogo" />
