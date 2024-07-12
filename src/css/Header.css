@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* padding: 10px 20px; */
   background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
   color: #333;
   border-bottom: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* margin: 10px; */
-  border-radius: 0; /* Removed border-radius */
+  /* margin: 10px;
+  border-radius: 0; 
+   padding: 10px 20px; */
 }
 
 .headerLeft,
@@ -20,10 +20,11 @@
 
 .headerLeft {
   justify-content: flex-start;
+  margin-left: 10px;
 }
 
 .headerCenter {
-  flex: 1; /* Ensure the center section takes up space */
+  flex: 1; 
   display: flex;
   justify-content: center;
 }
@@ -31,16 +32,14 @@
 .headerLogo {
   width: 73px;
   height: auto;
-  /* Center the logo */
-  margin-left: 0;
-  margin-right: 0;
+
 }
 
-.headerLeft h4 {
+/* .headerLeft h4 {
   font-size: 14px;
   margin: 0 10px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+} */
 
 .languageIcon {
   width: 42px;
@@ -63,9 +62,16 @@
 .headerRight {
   justify-content: flex-end;
   gap: 20px;
+  margin-right: 10px;
 }
 
 .headerRight h5 {
+  font-size: 14px;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.headerLeft h5 {
   font-size: 14px;
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
