@@ -15,9 +15,9 @@ import {
 } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import MySpin from "../components/MySpin";
 import "../css/Profile.css";
-import { Link } from "react-router-dom";
 
 const UserInfo = ({ user, showModal }) => {
   return (
@@ -201,7 +201,7 @@ const FinishedRequests = ({
                             {request.paymentStatus}
                           </Tag>
                         </p>
-                        <Link to={`/requestDetail/${request.id}`}>
+                        <Link to={`/requestDetail/${request.requestId}`}>
                           <Button type="primary">Detail</Button>
                         </Link>
                       </div>
