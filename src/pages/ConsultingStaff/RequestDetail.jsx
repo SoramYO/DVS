@@ -52,7 +52,7 @@ const RequestDetail = () => {
       appointmentDate &&
       new Date(appointmentDate) < new Date(request.createdDate)
     ) {
-      message.error("Ngày hẹn không thể trước ngày tạo yêu cầu");
+      console.error("Ngày hẹn không thể trước ngày tạo yêu cầu");
       return;
     }
     try {
@@ -65,7 +65,7 @@ const RequestDetail = () => {
       getRequestDetail();
     } catch (error) {
       navigate("/consultingStaff");
-      message.error("Cập nhật trạng thái xử lý thất bại");
+      console.error("Cập nhật trạng thái xử lý thất bại");
     }
   };
 

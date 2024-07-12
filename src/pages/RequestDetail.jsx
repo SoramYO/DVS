@@ -1,7 +1,6 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import MySpin from "../components/MySpin";
+import {
+  InfoCircleOutlined,
+} from "@ant-design/icons";
 import {
   Card,
   Col,
@@ -9,9 +8,10 @@ import {
   Row,
   Typography,
 } from "antd";
-import {
-  InfoCircleOutlined,
-} from "@ant-design/icons";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import MySpin from "../components/MySpin";
 import "../css/RequestDetail.css";
 
 const { Title, Text } = Typography;
@@ -39,12 +39,12 @@ const RequestDetail = () => {
   useEffect(() => {
     getRequest();
   }, []);
-  console.log(request);
+  // console.log(request);
   if (loading) {
     return <MySpin />;
   }
   return (
-      <div className="request-detail-container">
+    <div className="request-detail-container">
       <Title level={1} className="page-title">
         Valuation Request Detail
       </Title>

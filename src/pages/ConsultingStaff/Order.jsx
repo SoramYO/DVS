@@ -38,12 +38,12 @@ const Request = () => {
         message.success(response.data.message);
         getAllRequests();
       } else {
-        message.error('Failed to take request');
+        console.error('Failed to take request');
       }
     } catch (error) {
       setLoading(false)
       console.error('Error taking request:', error);
-      message.error('Error taking request');
+      console.error('Error taking request');
     }
   };
 

@@ -75,11 +75,11 @@ const Profile = () => {
         setUser({ ...user, ...values });
         setIsModalVisible(false);
       } else {
-        message.error('Failed to update profile');
+        console.error('Failed to update profile');
       }
     } catch (error) {
       console.error(error);
-      message.error('Server error');
+      console.error('Server error');
     }
   };
 

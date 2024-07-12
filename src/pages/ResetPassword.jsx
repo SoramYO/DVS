@@ -19,7 +19,7 @@ const ResetPassword = () => {
             setToken(token);
             setUserId(id);
         } else {
-            message.error('Invalid or missing token');
+            console.error('Invalid or missing token');
             navigate("/login");
         }
     }, [location, navigate]);
@@ -36,10 +36,10 @@ const ResetPassword = () => {
                 message.success('Password reset successfully');
                 navigate("/login");
             } else {
-                message.error(response.data.message);
+                console.error(response.data.message);
             }
         } catch (error) {
-            message.error('An error occurred. Please try again.');
+            console.error('An error occurred. Please try again.');
         }
     };
 

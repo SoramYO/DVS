@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import axios from 'axios';
 
 const handlePrintCommitmentReport = async (recordForPrint, signatureUrl, signName, preview = false) => {
@@ -135,16 +134,16 @@ const handlePrintCommitmentReport = async (recordForPrint, signatureUrl, signNam
                     printWindow.print();
                 }
             } else {
-                message.error('Failed to open print window. Please allow pop-ups for this site.');
+                console.error('Failed to open print window. Please allow pop-ups for this site.');
             }
         } else if (response.status === 404) {
-            message.error('Return record not found. Please check the request ID.');
+            console.error('Return record not found. Please check the request ID.');
         } else {
-            message.error('Failed to fetch return record. Please try again later.');
+            console.error('Failed to fetch return record. Please try again later.');
         }
     } catch (error) {
         console.error('Error fetching return record:', error);
-        message.error('Error fetching return record. Please try again later.');
+        console.error('Error fetching return record. Please try again later.');
     }
 };
 
