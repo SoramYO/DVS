@@ -23,13 +23,17 @@ const Header = () => {
 
   return (
     <div className="headerContainer">
-      {/* <div className="headerLeft">
-        <div className="languageIcon">
+      <div className="headerLeft">
+        {/* <div className="languageIcon">
           <img src="../assets/language.png" alt="Language" className="languageIconImage" />
         </div>
         <DownOutlined className="downIcon" />
-        <h4>English</h4>
-      </div> */}
+        <h4>English</h4> */}
+        <div className="clockContainer">
+          <ClockCircleOutlined className="headerIcon" />
+          <h5>8:00 - 21:00</h5>
+        </div>
+      </div>
       <div className="headerCenter">
         <Link to="/">
           <img src={Logo} alt="Logo" className="headerLogo" />
@@ -37,10 +41,7 @@ const Header = () => {
       </div>
       <div className="headerRight">
         <MailFilled className="headerIcon emailIcon" onClick={showContactModal} />
-        <div className="clockContainer">
-          <ClockCircleOutlined className="headerIcon" />
-          <h5>8:00 - 21:00</h5>
-        </div>
+        
         <div className="phoneContainer">
           <PhoneFilled className="headerIcon" />
           <h5>0976457150</h5>
