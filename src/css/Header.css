@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
   color: #333;
   border-bottom: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin: 10px;
+  /* margin: 10px; */
+  border-radius: 0; /* Removed border-radius */
 }
 
 .headerLeft,
@@ -23,7 +23,7 @@
 }
 
 .headerCenter {
-  flex: 0 0 auto;
+  flex: 1; /* Ensure the center section takes up space */
   display: flex;
   justify-content: center;
 }
@@ -31,7 +31,9 @@
 .headerLogo {
   width: 73px;
   height: auto;
-  border-radius: 8px;
+  /* Center the logo */
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .headerLeft h4 {
@@ -44,8 +46,8 @@
   width: 42px;
   height: 30px;
   overflow: hidden;
-  border-radius: 50%;
   border: 1px solid #ccc;
+  border-radius: 0; /* Removed border-radius */
 }
 
 .languageIconImage {
