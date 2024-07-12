@@ -1,4 +1,4 @@
-import { SearchOutlined, UserOutlined, HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { AutoComplete, Button, Col, Dropdown, Input, Menu, Row } from "antd";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
@@ -83,6 +83,7 @@ const Navbar = () => {
                 <HomeOutlined style={{ fontSize: '24px' }} />
               </Link>
               <Link to="/request" className="navbarItem">Valuation</Link>
+              <Link to="/calculateDiamond" className="navbarItem">Calculate</Link>
               <Dropdown overlay={educationMenu}>
                 <Link to="/education" className="navbarItem">Education</Link>
               </Dropdown>

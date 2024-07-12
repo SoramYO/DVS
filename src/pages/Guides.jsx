@@ -72,7 +72,7 @@ const Guides = () => {
         Let us enlighten you today: <a href="https://www.diamonds.pro/education/" target="_blank" rel="noopener noreferrer">Diamond Education</a>
       </Paragraph>
       <div className="button-container">
-        <Link to="/requests">
+        <Link to="/request">
           <button type="button" className="booking-button">Book an Appointment</button>
         </Link>
       </div>
