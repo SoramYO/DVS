@@ -8,7 +8,7 @@ import { serviceColors, statusColors, statusIcons } from '../../components/const
 
 const TakedRequest = () => {
     const [requests, setRequests] = useState([]);
-    const [serviceFilter, setServiceFilter] = useState("All");
+    // const [serviceFilter, setServiceFilter] = useState("All");
     const [loading, setLoading] = useState(false);
 
     const getAllRequests = async () => {

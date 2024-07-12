@@ -1,4 +1,4 @@
-import { Button, Card, Form, Input, Typography, message } from 'antd';
+import { Button, Card, Form, Image, Input, Typography, message } from 'antd';
 import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -9,11 +9,15 @@ const { Title, Paragraph } = Typography;
 const CheckPriceByCertificateID = () => {
     const [form] = Form.useForm();
     const [priceData, setPriceData] = useState(null);
+    const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [notFound, setNotFound] = useState(false);
+
 
     const handleReset = () => {
         form.resetFields();
         setPriceData(null);
+        setNotFound(false);
     };
 
     const handleCheckPrice = async () => {
@@ -27,13 +31,20 @@ const CheckPriceByCertificateID = () => {
             message.success(response.data.message);
 
             // Extract estimated price from API response
-            const { estimatedPrice } = response.data.diamond;
-            if (!estimatedPrice) {
-                setPriceData(0);
+            const { errCode } = response.data;
+            if (errCode === 2) {
+                setNotFound(true);
+                setPriceData(null);
+            } else {
+                const { estimatedPrice, image } = response.data.diamond;
+                setImage(image);
+                setNotFound(false);
+                setPriceData({ estimatedPrice });
             }
-            setPriceData({ estimatedPrice });
         } catch (error) {
             console.error('Error checking diamond price by certificate ID:', error);
+            setPriceData(null);
+            setNotFound(false);
         } finally {
             setLoading(false);
         }
@@ -64,12 +75,21 @@ const CheckPriceByCertificateID = () => {
                             </Button>
                         </Form.Item>
                     </Form>
+                    {notFound && (
+                        <div className="resultCard">
+                            <Title level={4}>Diamond Price Details</Title>
+                            <Paragraph className="result-card-price">
+                                No matching diamond found with the provided Certificate ID.
+                            </Paragraph>
+                        </div>
+                    )}
                     {priceData && (
                         <div className="resultCard">
                             <Title level={4}>Diamond Price Details</Title>
                             <Paragraph className="result-card-price">
                                 Estimated Price: ${priceData.estimatedPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                             </Paragraph>
+                            <Image src={image} />
                         </div>
                     )}
                 </Card>
