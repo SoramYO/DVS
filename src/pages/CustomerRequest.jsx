@@ -13,7 +13,7 @@ import {
 } from "antd";
 import "antd/dist/reset.css";
 import React, { useContext, useEffect, useState } from "react";
-import "../css/CalculateDiamond.css";
+import "../css/CustomerRequest.css";
 
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -204,9 +204,9 @@ const CustomerRequest = () => {
   }
 
   return (
-    <Layout className="layout">
+    <Layout className="layouts">
       <Content style={{ padding: "0 50px" }}>
-        <div className="site-layout-content">
+        <div className="layout-content">
           <Title>VALUATION REQUEST</Title>
           <Form
             layout="vertical"
@@ -214,7 +214,7 @@ const CustomerRequest = () => {
             form={form}
             onFinish={handleSubmit}
           >
-            <Row gutter={16} className="section-spacing">
+            <Row gutter={16} className="sectionSpacing">
               {/* <Col span={12}>
                 <Form.Item
                   label="Origin"
