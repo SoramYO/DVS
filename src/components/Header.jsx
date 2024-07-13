@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import "../css/Header.css";
 import Contact from "../pages/Contact";
-import Logo from "../assets/imgs/logoweb.png";
+import Logo from "../assets/imgs/logoweb1.png";
 
 const Header = () => {
   const [isContactModalVisible, setIsContactModalVisible] = useState(false);
