@@ -1,12 +1,14 @@
 .navbarContainer {
   align-items: center;
   padding: 0 15px;
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
   color: #333;
-  border-bottom: 1px solid #ddd;
+  background: rgb(250, 81, 81);
+  /* background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); */
+
+  /* border-bottom: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  margin: 10px;
+  margin: 10px; */
 }
 
 .navbarLeft {
@@ -14,9 +16,9 @@
   align-items: center;
 }
 
-.navbarMenu {
+/* .navbarMenu {
   display: flex;
-}
+} */
 
 .navbarItem {
   font-size: 17px;
@@ -46,7 +48,7 @@
 
 .searchContainer {
   width: 350px;
-  margin-right: 40px;
+  /* margin-right: 40px; */
 }
 
 .searchIcon {
@@ -55,7 +57,7 @@
 
 .signInButton {
   display: flex;
-  align-items: center;
+  align-items: left;
   cursor: pointer;
 }
 

@@ -76,9 +76,9 @@ const Navbar = () => {
   return (
     <div className="navbarContainer">
       <Row justify="space-between" align="middle">
-        <Col xs={24} sm={12} md={12} lg={12}>
+        <Col xs={24} sm={12} md={12} lg={16}>
           <div className="navbarLeft">
-            <div className="navbarMenu">
+            {/* <div className="navbarMenu"> */}
               <Link to="/" className="navbarItem">
                 <HomeOutlined style={{ fontSize: '24px' }} />
               </Link>
@@ -90,10 +90,10 @@ const Navbar = () => {
               <Link to="/guides" className="navbarItem">Guides</Link>
               <Link to="/services" className="navbarItem">Services</Link>
               <Link to="/pricing" className="navbarItem">Pricing</Link>
-            </div>
+            {/* </div> */}
           </div>
         </Col>
-        <Col xs={4} sm={12} md={12} lg={10} className="navbarRightContainer">
+        <Col xs={24} sm={12} md={12} lg={8} className="navbarRightContainer">
           <div className="navbarRight">
             <div className="searchContainer">
               <AutoComplete
