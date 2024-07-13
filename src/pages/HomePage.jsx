@@ -119,10 +119,10 @@ const HomePage = () => {
           </div>
           <div className="check-price-card">
             <div className="check-price-content">
-              <Title level={2} style={{ color: "green", marginBottom: 0 }}>Check Prices</Title>
+              <Title level={2} style={{ color: "red", marginBottom: 0 }}><strong>CHECK PRICE</strong></Title>
               <Paragraph style={{ marginBottom: 20 }}>Track diamond prices with our historical price charts & proprietary diamond price indexes.</Paragraph>
               <div className="check-button">
-                <Button type="primary" size="large" className="check-price-button" onClick={calculateDiamond}>Check Price</Button>
+                <Button type="primary" size="large" className="check-price-button" onClick={calculateDiamond}>CHECK PRICE</Button>
               </div>
             </div>
           </div>
