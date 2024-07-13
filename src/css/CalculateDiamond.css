@@ -9,6 +9,7 @@
   min-height: 280px;
 
 } */
+
 .buttonContainer {
   display: flex;
   justify-content: center;
@@ -156,11 +157,11 @@
 
 .check-button .calculate-btn {
   background-color: #000000; /* Red background */
-  border-color: #000000; /* Red border */
-  color: white; /* White text */
+  border-color: #000000; 
+  color: white; 
 }
 
 .check-button .calculate-btn:hover {
-  background-color: #000000; /* Lighter red on hover */
-  border-color: #000000; /* Lighter red border on hover */
+  background-color: #000000; 
+  border-color: #000000; 
 }
