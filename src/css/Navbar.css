@@ -57,8 +57,9 @@
 
 .signInButton {
   display: flex;
-  align-items: left;
+  align-items: center;
   cursor: pointer;
+  width: 30%;
 }
 
 .profileContainer {
@@ -71,6 +72,8 @@
 .profileContainer p {
   font-size: 16px;
   margin-left: 10px;
+  margin-top: 15px;
+  font-weight: bold;
 }
 
 .userIcon {

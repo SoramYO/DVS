@@ -80,16 +80,16 @@ const Navbar = () => {
           <div className="navbarLeft">
             {/* <div className="navbarMenu"> */}
               <Link to="/" className="navbarItem">
-                <HomeOutlined style={{ fontSize: '24px' }} />
+                <HomeOutlined style={{ fontSize: '26px' }} />
               </Link>
-              <Link to="/request" className="navbarItem">Valuation</Link>
-              <Link to="/calculateDiamond" className="navbarItem">Calculate</Link>
+              <Link to="/request" className="navbarItem"><strong>Valuation</strong></Link>
+              <Link to="/calculateDiamond" className="navbarItem"><strong>Calculate</strong></Link>
               <Dropdown overlay={educationMenu}>
-                <Link to="/education" className="navbarItem">Education</Link>
+                <Link to="/education" className="navbarItem"><strong>Education</strong></Link>
               </Dropdown>
-              <Link to="/guides" className="navbarItem">Guides</Link>
-              <Link to="/services" className="navbarItem">Services</Link>
-              <Link to="/pricing" className="navbarItem">Pricing</Link>
+              <Link to="/guides" className="navbarItem"><strong>Guides</strong></Link>
+              <Link to="/services" className="navbarItem"><strong>Services</strong></Link>
+              <Link to="/pricing" className="navbarItem"><strong>Pricing</strong></Link>
             {/* </div> */}
           </div>
         </Col>
