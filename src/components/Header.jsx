@@ -1,17 +1,35 @@
 import {
   ClockCircleOutlined,
-  DownOutlined,
   MailFilled,
   PhoneFilled
 } from "@ant-design/icons";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import Logo from "../assets/imgs/logoweb1.png";
 import "../css/Header.css";
 import Contact from "../pages/Contact";
-import Logo from "../assets/imgs/logoweb1.png";
 
 const Header = () => {
   const [isContactModalVisible, setIsContactModalVisible] = useState(false);
+  const [timeStatus, setTimeStatus] = useState({ time: '', status: '' });
+
+  useEffect(() => {
+    const updateTimeStatus = () => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const currentTime = `${hours}:${minutes}:${seconds}`;
+      const status = (hours >= 8 && hours < 21) ? 'Openning' : 'We are Closing';
+
+      setTimeStatus({ time: currentTime, status });
+    };
+
+    updateTimeStatus();
+    const interval = setInterval(updateTimeStatus, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const showContactModal = () => {
     setIsContactModalVisible(true);
@@ -19,6 +37,10 @@ const Header = () => {
 
   const handleContactClose = () => {
     setIsContactModalVisible(false);
+  };
+  const openZalo = () => {
+    const zaloUrl = "https://zalo.me/0976457150";
+    window.open(zaloUrl, "_blank");
   };
 
   return (
@@ -31,7 +53,7 @@ const Header = () => {
         <h4>English</h4> */}
         <div className="clockContainer">
           <ClockCircleOutlined className="headerIcon" />
-          <h5>8:00 - 21:00</h5>
+          <h5>{timeStatus.time} - {timeStatus.status}</h5>
         </div>
       </div>
       <div className="headerCenter">
@@ -41,9 +63,9 @@ const Header = () => {
       </div>
       <div className="headerRight">
         <MailFilled className="headerIcon emailIcon" onClick={showContactModal} />
-        
+
         <div className="phoneContainer">
-          <PhoneFilled className="headerIcon" />
+          <PhoneFilled className="headerIcon" onClick={openZalo} />
           <h5>0976457150</h5>
         </div>
       </div>

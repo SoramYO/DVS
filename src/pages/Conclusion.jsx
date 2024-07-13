@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import '../css/Conclusion.css';
 import { Link } from 'react-router-dom';
+import '../css/Conclusion.css';
 
 const Conclusion = () => {
     const conSectionContainerRef = useRef(null);
@@ -61,7 +61,7 @@ const Conclusion = () => {
             <h3><strong>Still afraid of getting ripped off?</strong></h3>
             <h3>Our team are on standby for any questions you may have, just a call away!!</h3>
             <div className="button-container">
-                <Link to="/requests">
+                <Link to="/request">
                     <button type="button" className="booking-button">Book an Appointment</button>
                 </Link>
             </div>
