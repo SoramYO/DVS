@@ -63,20 +63,20 @@
 .button-container {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+ 
 }
 
 .booking-button {
-  background-color: #35cd4e;
+  background-color: #000000;
   color: white;
-  padding: 15px 30px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 1.2em;
   transition: background-color 0.3s;
 }
 
 .booking-button:hover {
-  background-color: #2ca53c;
+  background-color: #ff0000;
 }
