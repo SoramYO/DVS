@@ -207,7 +207,7 @@ const CustomerRequest = () => {
     <Layout className="layout">
       <Content style={{ padding: "0 50px" }}>
         <div className="site-layout-content">
-          <Title>Valuation Request</Title>
+          <Title>VALUATION REQUEST</Title>
           <Form
             layout="vertical"
             className="input-form"
@@ -378,7 +378,7 @@ const CustomerRequest = () => {
               <Col span={24}>
                 <Form.Item label="Note" name="note">
                   <TextArea
-                    rows={4}
+                    rows={3}
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                   />
@@ -386,7 +386,7 @@ const CustomerRequest = () => {
               </Col>
             </Row>
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" className="send-button">
                 Send
               </Button>
             </Form.Item>
