@@ -5,7 +5,8 @@
     justify-content: center;
     height: 100vh;
     padding: 0 15px;
-    background: linear-gradient(135deg, #fed6e3 0%, #1677ff 100%);
+    /* background: linear-gradient(135deg, #fed6e3 0%, #1677ff 100%); */
+    /* background-image: url('../assets/imgs/homepage2.webp'); */
     border-radius: 8px;
 }
 
@@ -13,7 +14,7 @@
 .login-form {
     width: 100%;
     max-width: 400px;
-    background: #fff;
+    background: #fdd2d2;
     padding: 40px 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -22,7 +23,7 @@
 
 .login-form h2 {
     font-size: 32px;
-    color: #333;
+    color: #000000;
     margin-bottom: 30px;
 }
 
@@ -40,17 +41,17 @@
 }
 
 .input-field:focus {
-    border-color: #1677ff;
+    border-color: #000000;
     outline: none;
 }
 
 /* Button styling */
 .login-button {
-    background-color: #1677ff;
+    background-color: #000000;
     border: none;
     border-radius: 8px;
     font-size: 18px;
-    width: 100%;
+    width: 60%;
     height: 40px;
     color: white;
     cursor: pointer;
@@ -59,7 +60,7 @@
 
 .login-button:hover,
 .login-button:focus {
-    background-color: #4096f8;
+    background-color: #f70000;
 }
 
 /* Additional links styling */
@@ -70,12 +71,12 @@
 .register-link,
 .forgot-password-link {
     font-size: 16px;
-    color: #1677ff;
+    color: #000000;
 }
 
 .register-link a,
 .forgot-password-link a {
-    color: #1677ff;
+    color: #ff1616;
     text-decoration: none;
 }
 
