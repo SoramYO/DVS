@@ -134,11 +134,11 @@
   }
   
   .check-price-button {
-    background-color: #34d8f5;
+    background-color: #000000;
     border-color: #34d8f5;
-    color: #333;
+    color: #ffffff;
     transition: background-color 0.3s, border-color 0.3s;
-    width: 100%;
+    width: 50%;
   }
   
   .check-price-button:hover {

@@ -83,38 +83,38 @@ const HomePage = () => {
       <div className="section-space"></div>
       <hr />
       <section className="help-section">
-        <Title level={1} className="help-title">How us helps you buy better</Title>
+        <Title level={1} className="help-title">HOW US HELPS YOU BUY BETTER</Title>
         <div className="help-section-detail">
           <div className="help-cards-container">
             <Card className="help-card">
-              <SketchOutlined style={{ fontSize: '30px' }} />
+              <SketchOutlined style={{ fontSize: '30px', color: "red" }} />
               <Title level={2}>Expert Valuation</Title>
-              <Paragraph>Receive precise diamond valuations from our team of experts, ensuring you understand the true worth of your gem.</Paragraph>
+              <Paragraph><i>Receive precise diamond valuations from our team of experts, ensuring you understand the true worth of your gem.</i></Paragraph>
             </Card>
             <Card className="help-card">
-              <SketchOutlined style={{ fontSize: '30px' }} />
+              <SketchOutlined style={{ fontSize: '30px', color: "red" }} />
               <Title level={2}>Ethical Standards</Title>
-              <Paragraph>Our valuations are conducted with the highest ethical standards, guaranteeing conflict-free and responsibly sourced diamonds.</Paragraph>
+              <Paragraph><i>Our valuations are conducted with the highest ethical standards, guaranteeing conflict-free and responsibly sourced diamonds.</i></Paragraph>
             </Card>
             <Card className="help-card">
-              <SketchOutlined style={{ fontSize: '30px' }} />
+              <SketchOutlined style={{ fontSize: '30px', color: "red" }} />
               <Title level={2}>Cost-Effective Service</Title>
-              <Paragraph>Our transparent pricing structure ensures you get a fair valuation without hidden fees, saving you money compared to traditional appraisal methods.</Paragraph>
+              <Paragraph><i>Our transparent pricing structure ensures you get a fair valuation without hidden fees, saving you money compared to traditional appraisal methods.</i></Paragraph>
             </Card>
             <Card className="help-card">
-              <SketchOutlined style={{ fontSize: '30px' }} />
+              <SketchOutlined style={{ fontSize: '30px', color: "red" }} />
               <Title level={2}>Convenient and Secure</Title>
-              <Paragraph>Enjoy the convenience of free shipping and a 14-day return policy, with all valuations certified and guaranteed for accuracy.</Paragraph>
+              <Paragraph><i>Enjoy the convenience of free shipping and a 14-day return policy, with all valuations certified and guaranteed for accuracy.</i></Paragraph>
             </Card>
             <Card className="help-card">
-              <SketchOutlined style={{ fontSize: '30px' }} />
+              <SketchOutlined style={{ fontSize: '30px', color: "red" }} />
               <Title level={2}>Expert Advice</Title>
-              <Paragraph>Our team of experts is on hand to provide advice and guidance on your diamond valuation, ensuring you make an informed decision.</Paragraph>
+              <Paragraph><i>Our team of experts is on hand to provide advice and guidance on your diamond valuation, ensuring you make an informed decision.</i></Paragraph>
             </Card>
             <Card className="help-card">
-              <SketchOutlined style={{ fontSize: '30px' }} />
+              <SketchOutlined style={{ fontSize: '30px', color: "red" }} />
               <Title level={2}>Secure Payment</Title>
-              <Paragraph>Our secure payment system ensures your transaction is safe and protected, with multiple payment options available for your convenience.</Paragraph>
+              <Paragraph><i>Our secure payment system ensures your transaction is safe and protected, with multiple payment options available for your convenience.</i></Paragraph>
             </Card>
           </div>
           <div className="check-price-card">
@@ -122,7 +122,7 @@ const HomePage = () => {
               <Title level={2} style={{ color: "red", marginBottom: 0 }}><strong>CHECK PRICE</strong></Title>
               <Paragraph style={{ marginBottom: 20 }}>Track diamond prices with our historical price charts & proprietary diamond price indexes.</Paragraph>
               <div className="check-button">
-                <Button type="primary" size="large" className="check-price-button" onClick={calculateDiamond}>CHECK PRICE</Button>
+                <Button type="primary" size="large" className="check-price-button" onClick={calculateDiamond}>Calculate Diamond</Button>
               </div>
             </div>
           </div>
