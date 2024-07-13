@@ -9,32 +9,30 @@ import {
   Select,
   Typography,
   Upload,
-  message
+  message,
 } from "antd";
 import "antd/dist/reset.css";
 import React, { useContext, useEffect, useState } from "react";
-import "../css/CalculateDiamond.css";
+import "../css/CustomerRequest.css";
 
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import MySpin from "../components/MySpin";
 import { AuthContext } from "../context/AuthContext";
 import { storage } from "../firebase/firebase";
+
 const { Content } = Layout;
 const { Title } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
 
-
 const CustomerRequest = () => {
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [service, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
-  const [price, setPrice] = useState(0)
-
-
+  const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [note, setNote] = useState("");
   const { user } = useContext(AuthContext);
@@ -42,7 +40,10 @@ const CustomerRequest = () => {
   const getAllServices = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://dvs-be-sooty.vercel.app/api/user-service", { withCredentials: true });
+      const res = await axios.get(
+        "https://dvs-be-sooty.vercel.app/api/user-service",
+        { withCredentials: true }
+      );
       setLoading(false);
       setServices(res.data.services.data); // Access the nested data array here
       if (res.data.services.data.length > 0) {
@@ -56,7 +57,6 @@ const CustomerRequest = () => {
       console.log(error);
     }
   };
-
 
   useEffect(() => {
     getAllServices();
@@ -109,7 +109,10 @@ const CustomerRequest = () => {
   };
 
   const beforeUpload = (file) => {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif";
+    const isJpgOrPng =
+      file.type === "image/jpeg" ||
+      file.type === "image/png" ||
+      file.type === "image/gif";
     if (!isJpgOrPng) {
       console.error("You can only upload JPG/PNG file!");
       setImage("");
@@ -145,17 +148,6 @@ const CustomerRequest = () => {
   };
 
   const handleCreatePayment = async (requestId) => {
-    // const paymentData =
-    //   serviceId === 1
-    //     ? {
-    //       amount: service.price,
-    //       requestId: requestId
-    //     }
-    //     : {
-    //       amount: 450000,
-    //       requestId: requestId
-    //     };
-    //  console.log(price)
     setLoading(true);
     try {
       const response = await axios.post(
@@ -165,9 +157,9 @@ const CustomerRequest = () => {
           withCredentials: true,
         }
       );
-      window.open(response.data.data, '_self')
+      window.open(response.data.data, "_self");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -183,14 +175,15 @@ const CustomerRequest = () => {
       );
       if (response.status === 200) {
         message.success("Created success");
-        const requestId = response.data.requestId
-        handleCreatePayment(requestId)
+        const requestId = response.data.requestId;
+        handleCreatePayment(requestId);
       }
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.error(error.response.data.message);
     }
   };
+
   const handleServiceChange = (value) => {
     const selectedService = service.find((service) => service.id === value);
     if (selectedService) {
@@ -200,12 +193,12 @@ const CustomerRequest = () => {
   };
 
   if (loading) {
-    return <MySpin />
+    return <MySpin />;
   }
 
   return (
-    <Layout className="layout">
-      <Content style={{ padding: "0 50px" }}>
+    <Layout className="layout centered-layout">
+      <Content>
         <div className="site-layout-content">
           <Title>VALUATION REQUEST</Title>
           <Form
@@ -215,25 +208,12 @@ const CustomerRequest = () => {
             onFinish={handleSubmit}
           >
             <Row gutter={16} className="section-spacing">
-              {/* <Col span={12}>
-                <Form.Item
-                  label="Origin"
-                  name="diamondOrigin"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input origin!",
-                    },
-                  ]}
-                >
-                  <Input
-                    value={origin}
-                    onChange={(e) => setOrigin(e.target.value)}
-                  />
-                </Form.Item>
-              </Col> */}
               <Col span={12}>
-                <Form.Item name="serviceId" label="Service" initialValue={selectedService}>
+                <Form.Item
+                  name="serviceId"
+                  label="Service"
+                  initialValue={selectedService}
+                >
                   <Select
                     value={selectedService}
                     onChange={handleServiceChange}
@@ -241,116 +221,13 @@ const CustomerRequest = () => {
                   >
                     {service.map((service) => (
                       <Option key={service.id} value={service.id}>
-                        {service.serviceName}  {service.price}$
+                        {service.serviceName} {service.price}$
                       </Option>
                     ))}
                   </Select>
                 </Form.Item>
               </Col>
             </Row>
-            {/* <Row gutter={16} className="section-spacing">
-              <Col span={24}>
-                <Form.Item
-                  label="Diamond Shape"
-                  name="shape"
-                  initialValue="ROUND"
-                >
-                  <Radio.Group
-                    value={selectedShape}
-                    onChange={(e) => setSelectedShape(e.target.value)}
-                    className="radio-group"
-                  >
-                    {shapes.map((shape) => (
-                      <Radio.Button
-                        key={shape.name}
-                        value={shape.name}
-                        className="radio-button"
-                      >
-                        <div className="radio-button-label">
-                          <img
-                            src={shape.img}
-                            alt={shape.name}
-                            className="radio-button-img"
-                          />
-                          <div className="radio-button-text">{shape.name}</div>
-                        </div>
-                      </Radio.Button>
-                    ))}
-                  </Radio.Group>
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={16} className="section-spacing">
-              <Col span={24}>
-                <Form.Item label="Carat">
-                  <Row>
-                    <Col span={12}>
-                      <Slider
-                        min={0.01}
-                        max={10.99}
-                        onChange={onCaratChange}
-                        value={typeof carat === "number" ? carat : 0}
-                        step={0.01}
-                      />
-                    </Col>
-                    <Col span={4}>
-                      <InputNumber
-                        min={0}
-                        max={10}
-                        style={{ margin: "0 16px" }}
-                        step={0.01}
-                        value={carat}
-                        onChange={onCaratChange}
-                      />
-                    </Col>
-                  </Row>
-                </Form.Item>
-              </Col>
-            </Row> */}
-            {/* <Row gutter={16} className="section-spacing">
-              <Col span={12}>
-                <Form.Item label="Color Grade" name="color" initialValue="D">
-                  <Radio.Group
-                    value={selectedColor}
-                    onChange={(e) => setSelectedColor(e.target.value)}
-                    className="radio-group-styled"
-                  >
-                    {colors.map((color) => (
-                      <Radio.Button
-                        key={color.id}
-                        value={color.name}
-                        className="radio-button-styled"
-                      >
-                        {color.name}
-                      </Radio.Button>
-                    ))}
-                  </Radio.Group>
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  label="Clarity Grade"
-                  name="clarity"
-                  initialValue="IF"
-                >
-                  <Radio.Group
-                    value={selectedClarity}
-                    className="radio-group-styled"
-                  >
-                    {claritys.map((clarity) => (
-                      <Radio.Button
-                        key={clarity.id}
-                        value={clarity.name}
-                        onChange={(e) => setSelectedClarity(e.target.value)}
-                        className="radio-button-styled"
-                      >
-                        {clarity.name}
-                      </Radio.Button>
-                    ))}
-                  </Radio.Group>
-                </Form.Item>
-              </Col>
-            </Row> */}
             <Row>
               <Form.Item
                 label="Request Image"
@@ -386,7 +263,11 @@ const CustomerRequest = () => {
               </Col>
             </Row>
             <Form.Item>
-              <Button type="primary" htmlType="submit" className="send-button">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="send-button"
+              >
                 Send
               </Button>
             </Form.Item>
