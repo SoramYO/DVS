@@ -152,16 +152,16 @@ const CalculateDiamond = () => {
     <div style={{ padding: '12px' }}>
       <div className="buttonContainer" style={{ marginBottom: '16px' }}>
         <Link to="/calculateDiamond">
-          <Button type="primary">Calculate Diamond</Button>
+          <Button type="primary" className="calculate-btn">Calculate Diamond</Button>
         </Link>
         <Link to="/checkPriceByCertificateID">
-          <Button type="primary" style={{ marginLeft: '8px' }}>Check Price by Certificate ID</Button>
+          <Button type="primary" className="calculate-btn" style={{ marginLeft: '8px' }}>Check Price by Certificate ID</Button>
         </Link>
       </div>
       <Layout className="layout">
         <Content style={{ padding: '0 50px' }}>
           <div className="site-layout-content">
-            <Title>Calculate Diamond Price</Title>
+            <Title>CALCULATE DIAMOND PRICE</Title>
             <Form layout="vertical" className="input-form" form={form}>
               <Row gutter={16} className="section-spacing">
                 <Col span={24}>
@@ -307,12 +307,14 @@ const CalculateDiamond = () => {
                 </Panel>
               </Collapse>
               <Form.Item>
-                <Button type="primary" onClick={handleCalculatePrice}>
+              <div className="check-button">
+                <Button type="primary" className="calculate-btn" onClick={handleCalculatePrice}>
                   Check Price
                 </Button>
                 <Button style={{ marginLeft: 8 }} onClick={handleReset}>
                   Reset
                 </Button>
+                </div>
               </Form.Item>
             </Form>
             {detailsVisible && priceData && (
