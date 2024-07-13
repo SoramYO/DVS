@@ -2,7 +2,7 @@
     background: #f0f2f5;
     padding-top: 20px; 
   }
-  
+
   .centered-layout {
     display: flex;
     justify-content: center;
@@ -11,7 +11,7 @@
     background: #f0f2f5;
     padding-top: 90px; 
   }
-  
+
   .site-layout-content {
     background: #fff;
     padding: 40px;
@@ -21,9 +21,8 @@
     max-width: 800px; 
     width: 100%;
   }
-  
+
   .input-form .ant-btn {
     width: 100%;
     margin-top: 20px;
   }
-  
