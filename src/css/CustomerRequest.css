@@ -1,28 +1,53 @@
 .layout {
-    background: #f0f2f5;
-    padding-top: 20px; 
-  }
+  background: #f0f2f5;
+  padding-top: 20px;
+}
 
-  .centered-layout {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #f0f2f5;
-    padding-top: 90px; 
-  }
+.centered-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f0f2f5;
+  padding-top: 90px;
+}
 
-  .site-layout-content {
-    background: #fff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-width: 750px; 
-    max-width: 800px; 
-    width: 100%;
-  }
+.site-layout-content {
+  background: #fff;
+  padding: 70px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 750px;
+  max-width: 830px;
+  width: 100%;
+}
 
-  .input-form .ant-btn {
-    width: 100%;
-    margin-top: 20px;
-  }
+.input-form .ant-btn {
+  width: 100%;
+  margin-top: 17px;
+}
+
+.horizontal-services {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 10px; 
+}
+
+.service-button {
+  flex: 1 0 200px; 
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap; 
+}
+
+.service-button.selected {
+  background-color: #ff0000;
+  color: #fff;
+  border-color: #ff0000;
+}
+
+.service-button:hover {
+  background-color: #f0f0f0;
+}

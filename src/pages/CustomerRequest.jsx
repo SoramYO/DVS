@@ -6,7 +6,6 @@ import {
   Input,
   Layout,
   Row,
-  Select,
   Typography,
   Upload,
   message,
@@ -24,13 +23,12 @@ import { storage } from "../firebase/firebase";
 const { Content } = Layout;
 const { Title } = Typography;
 const { TextArea } = Input;
-const { Option } = Select;
 
 const CustomerRequest = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const [service, setServices] = useState([]);
+  const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
@@ -45,9 +43,8 @@ const CustomerRequest = () => {
         { withCredentials: true }
       );
       setLoading(false);
-      setServices(res.data.services.data); // Access the nested data array here
+      setServices(res.data.services.data);
       if (res.data.services.data.length > 0) {
-        // Set the default selected service and price
         const defaultService = res.data.services.data[0];
         setSelectedService(defaultService.id);
         setPrice(defaultService.price);
@@ -63,27 +60,18 @@ const CustomerRequest = () => {
   }, []);
 
   const handleRemove = (file) => {
-    // Update the state to remove the file from the list
     setFileList((prevList) => prevList.filter((item) => item.uid !== file.uid));
     setImage("");
     return false;
   };
 
-  // Function to upload image to Firebase
   const uploadImage = async ({ onError, onSuccess, file }) => {
     try {
-      // Create a reference for the file in Firebase Storage
       const storageRef = ref(storage, "images/" + file.name);
-
-      // Upload the file to the reference
       const snapshot = await uploadBytes(storageRef, file);
-
-      // After a successful upload, get the download URL
       const downloadURL = await getDownloadURL(snapshot.ref);
-      //  console.log("File available at", downloadURL);
       setImage(downloadURL);
       onSuccess("ok");
-      // Update the fileList state with the new uploaded file
       setFileList([
         ...fileList,
         {
@@ -143,7 +131,6 @@ const CustomerRequest = () => {
       userId: user?.id,
       serviceId: selectedService,
     };
-    //  console.log(requestData)
     handleCreateRequest(requestData);
   };
 
@@ -151,11 +138,9 @@ const CustomerRequest = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `https://dvs-be-sooty.vercel.app/api/paypal`,
+        "https://dvs-be-sooty.vercel.app/api/paypal",
         { amount: price, requestId: requestId },
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
       window.open(response.data.data, "_self");
     } catch (error) {
@@ -169,9 +154,7 @@ const CustomerRequest = () => {
       const response = await axios.post(
         "https://dvs-be-sooty.vercel.app/api/request",
         values,
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
       if (response.status === 200) {
         message.success("Created success");
@@ -184,8 +167,8 @@ const CustomerRequest = () => {
     }
   };
 
-  const handleServiceChange = (value) => {
-    const selectedService = service.find((service) => service.id === value);
+  const handleServiceChange = (serviceId) => {
+    const selectedService = services.find((service) => service.id === serviceId);
     if (selectedService) {
       setSelectedService(selectedService.id);
       setPrice(selectedService.price);
@@ -208,24 +191,20 @@ const CustomerRequest = () => {
             onFinish={handleSubmit}
           >
             <Row gutter={16} className="section-spacing">
-              <Col span={12}>
-                <Form.Item
-                  name="serviceId"
-                  label="Service"
-                  initialValue={selectedService}
-                >
-                  <Select
-                    value={selectedService}
-                    onChange={handleServiceChange}
-                    placeholder="Select a service"
-                  >
-                    {service.map((service) => (
-                      <Option key={service.id} value={service.id}>
-                        {service.serviceName} {service.price}$
-                      </Option>
-                    ))}
-                  </Select>
-                </Form.Item>
+              <Col span={24}>
+                <div className="horizontal-services">
+                  {services.map((service) => (
+                    <Button
+                      key={service.id}
+                      className={`service-button ${
+                        selectedService === service.id ? "selected" : ""
+                      }`}
+                      onClick={() => handleServiceChange(service.id)}
+                    >
+                      {service.serviceName} ${service.price}
+                    </Button>
+                  ))}
+                </div>
               </Col>
             </Row>
             <Row>
