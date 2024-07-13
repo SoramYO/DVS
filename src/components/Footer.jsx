@@ -41,11 +41,11 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="contact-information">
-          <h1>Contact information</h1>
+          <h1><strong>CONTACT US</strong></h1>
           <address>
             <div className="contact-item">
               <MailOutlined /><> </>
-              diamondvaluation@gmail.com
+              diamondvaluation@mail.com
             </div>
             <div className="contact-item">
               <PhoneOutlined /><> </>
@@ -53,13 +53,13 @@ const Footer = () => {
             </div>
             <div className="contact-item">
               <PushpinOutlined /><> </>
-              VRG2+27 Dĩ An, Bình Dương, Việt Nam
+              D1 Street Saigon Hi-tech Park, Ho Chi Minh City, Vietnam
             </div>
           </address>
         </div>
         <hr />
         <div className="newsletter">
-          <h1>Sign up to not miss any news</h1>
+          <h2>Sign up to not miss any news</h2>
           <Form
             form={form}
             className="email-form"
@@ -71,13 +71,13 @@ const Footer = () => {
             >
               <Input type="email" placeholder="Enter your email" />
             </Form.Item>
+            <p><i>Receive our latest offers, news, and promotions straight to your inbox. Just enter your email address to join our world of diamonds!</i></p>
             <Form.Item>
               <Button type="primary" htmlType="submit" loading={loading} className="subscribe-button">
                 Subscribe
               </Button>
             </Form.Item>
           </Form>
-          <p>Receive our latest offers, news, and promotions straight to your inbox. Just enter your email address to join our world of diamonds!</p>
         </div>
       </div>
 
