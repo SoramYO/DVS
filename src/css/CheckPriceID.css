@@ -1,7 +1,6 @@
-/* CheckPriceByCertificateID.css */
 
 .checkPriceContainer {
-    padding: 24px;
+    padding: 13px;
     background-color: #f5f5f5;
     min-height: 100vh;
   }
@@ -15,6 +14,7 @@
   .buttonContainer .ant-btn {
     margin-right: 8px;
   }
+  
   
   .cardContainer {
     max-width: 600px;
@@ -43,17 +43,18 @@
   }
   
   .ant-btn-primary {
-    background-color: #1890ff;
-    border-color: #1890ff;
+    background-color: #ff0000;
+    border-color: #ff0000;
   }
   
   .ant-btn-primary:hover {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
+    background-color: #000000;
+    border-color: #000000;
   }
   
   .ant-btn-primary:focus {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
+    background-color: #000000;
+    border-color: #000000;
   }
+  
   
