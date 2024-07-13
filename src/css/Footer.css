@@ -1,8 +1,9 @@
 .footer {
   padding: 20px;
-  background-color: #a8edea; 
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); 
-  color: #333; 
+  /* background-color: #a8edea; 
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);  */
+  background-color: black;
+  color: #ffffff; 
   margin: 10px;
   border-radius: 8px;
 }
@@ -16,6 +17,11 @@
   text-align: center;
 }
 
+.contact-information h1{
+  color:red;
+  font-weight: bolder;
+}
+
 .newsletter {
 text-align: center;
 }
@@ -25,7 +31,7 @@ text-align: center;
 
 
 .subscribe-button {
-  color: white;
+  color: rgb(0, 0, 0);
   margin-left: 20px;
   width: 100px;
   height: 46px;
@@ -46,15 +52,21 @@ h1 {
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  width:80%;
+}
+
+.email-form p{
+color:#f0f0f0;
+font-size: 13px;
 }
 
 .email-form button {
-  padding: 10px;
+  /* padding: 15px; */
   font-size: 16px;
-  background-color: #34D8F5;
+  background-color: #f53434;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -78,7 +90,8 @@ h1 {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #ffffff;
+    border-radius: 8px;
     width: 100%;
     flex-wrap: wrap;
   }
@@ -87,6 +100,7 @@ h1 {
     flex: 1;
     margin: 10px;
     text-align: center;
+    color: black;
   }
   
   .certificates img,
