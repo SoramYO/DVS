@@ -1,5 +1,5 @@
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
-import { Dropdown, Layout, Menu } from "antd";
+import { Avatar, Dropdown, Layout, Menu } from "antd";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -32,7 +32,7 @@ const AppHeader = () => {
         width: "100%",
         padding: "0 17%",
         boxSizing: "border-box",
-        position: 'fixed'
+        position: "fixed",
       }}
     >
       <Dropdown overlay={userMenu}>
@@ -44,6 +44,17 @@ const AppHeader = () => {
           }}
         >
           <span style={{ color: "#fff" }}>
+            <Avatar
+              size="large"
+              style={{
+                backgroundColor: "#1890ff",
+                marginRight: "10px",
+                fontSize: "20px",
+              }}
+            >
+              {user.firstName.charAt(0)}
+              {user.lastName.charAt(0)}
+            </Avatar>
             {user.firstName} {user.lastName}
           </span>
         </div>

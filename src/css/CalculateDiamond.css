@@ -1,5 +1,8 @@
 .layout {
   background: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* .site-layout-content {

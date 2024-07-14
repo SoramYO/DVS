@@ -62,10 +62,10 @@ const RequestApproval = () => {
                                 <PrinterOutlined /> Print Commitment Report
                             </Button>
                         ) : (
-                            <>
+                            <div style={{display: 'flex'}}>
                                 <Button
                                     onClick={() => handlePrintCommitmentReport(record, setShowSignatureModal, setRecordForPrint, true)}
-                                    style={{ backgroundColor: '#007bff', color: '#fff', border: 'none', marginBottom: '10px' }}
+                                    style={{ backgroundColor: '#007bff', color: '#fff', border: 'none', marginRight: '10px' }}
                                 >
                                     <PrinterOutlined /> Read Commitment Report
                                 </Button>
@@ -78,7 +78,7 @@ const RequestApproval = () => {
                                 >
                                     Sign
                                 </Button>
-                            </>
+                            </div>
                         )}
                     </>
                 );

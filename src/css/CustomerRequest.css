@@ -7,9 +7,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
   background: #f0f2f5;
-  padding-top: 90px;
+  padding-top: 20px;
+  padding-bottom: 30px;
 }
 
 .site-layout-content {
