@@ -58,6 +58,7 @@
   cursor: pointer;
   background-color: #f53434;
   color: white;
+  margin-top: 10px; /* Add margin-top to create space between the button and the input box */
 }
 
 .subscribe-button:hover {
@@ -71,6 +72,7 @@
   border-radius: 4px;
   width: 80%;
   margin-right: 10px;
+  margin-bottom: 10px; /* Add margin-bottom to create space between the input box and the button */
 }
 
 .message {
