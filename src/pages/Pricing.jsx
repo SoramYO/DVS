@@ -1,4 +1,5 @@
-import { Col, Form, Image, Radio, Row } from 'antd';
+// Pricing.jsx
+import { Col, Image, Radio, Row } from 'antd';
 import React, { useState } from 'react';
 import asscherImg from '../assets/imgs/asscher.png';
 import cushionImg from '../assets/imgs/cushion.png';
@@ -40,18 +41,16 @@ const Pricing = () => {
 
             <Row gutter={16} className="section-spacing">
                 <Col span={24}>
-                    <Form.Item label="Diamond Shape" name="shape" initialValue="ROUND">
-                        <Radio.Group value={selectedShape} onChange={(e) => handleShapeChange(e.target.value)} className="radio-group">
-                            {shapes.map(shape => (
-                                <Radio.Button key={shape.name} value={shape.name} className="radio-button">
-                                    <div className="radio-button-label">
-                                        <img src={shape.img} alt={shape.name} className="radio-button-img" />
-                                        <div className="radio-button-text">{shape.name}</div>
-                                    </div>
-                                </Radio.Button>
-                            ))}
-                        </Radio.Group>
-                    </Form.Item>
+                    <Radio.Group value={selectedShape} onChange={(e) => handleShapeChange(e.target.value)} className="radio-group">
+                        {shapes.map(shape => (
+                            <Radio.Button key={shape.name} value={shape.name} className={`radio-button ${selectedShape === shape.name ? 'selected' : ''}`}>
+                                <div className="radio-button-label">
+                                    <img src={shape.img} alt={shape.name} className="radio-button-img" />
+                                    <div className="radio-button-text" style={{ color: "red" }}>{shape.name}</div>
+                                </div>
+                            </Radio.Button>
+                        ))}
+                    </Radio.Group>
                 </Col>
             </Row>
 
