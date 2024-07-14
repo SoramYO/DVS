@@ -40,6 +40,8 @@ import ValStaffProfile from "../pages/ValuationStaff/ValStaffProfile";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
 import Billing from "../pages/Billing";
+import 'leaflet/dist/leaflet.css';
+
 export const route = createBrowserRouter([
   {
     path: "/",

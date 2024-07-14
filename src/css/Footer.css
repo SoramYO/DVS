@@ -1,50 +1,67 @@
 .footer {
   padding: 20px;
-  /* background-color: #a8edea; 
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);  */
   background-color: black;
-  color: #ffffff; 
+  color: #ffffff;
   margin: 10px;
   border-radius: 8px;
 }
 
 .footer-content {
   display: flex;
+  justify-content: space-between;
+}
+
+.footer-map {
+  flex: 2;
+  margin-right: 20px;
+}
+
+.leaflet-container {
+  height: 400px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  display: none !important;
 }
 
 .contact-information {
-  flex: 1 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-.contact-information h1{
-  color:red;
+.contact-information h1 {
+  color: red;
   font-weight: bolder;
 }
 
-.newsletter {
-text-align: center;
-}
 .contact-item {
   margin-bottom: 20px;
+  font-size: 18px;
 }
 
+.newsletter {
+  margin-top: 20px;
+}
 
 .subscribe-button {
   color: rgb(0, 0, 0);
-  margin-left: 20px;
   width: 100px;
-  height: 46px;
+  height: 40px;
   border: none;
+  border-radius: 8px;
   cursor: pointer;
+  background-color: #f53434;
+  color: white;
 }
 
-h1 {
-  margin-bottom: 10px;
-}
-
-.newsletter h1 {
-  margin-bottom: 10px;
+.subscribe-button:hover {
+  background-color: #4596FF;
 }
 
 .email-form input[type="email"] {
@@ -52,97 +69,19 @@ h1 {
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  width:80%;
-}
-
-.email-form p{
-color:#f0f0f0;
-font-size: 13px;
-}
-
-.email-form button {
-  /* padding: 15px; */
-  font-size: 16px;
-  background-color: #f53434;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.email-form button:hover {
-  background-color: #4596FF;
-}
-
-.contact-item .icon {
+  width: 80%;
   margin-right: 10px;
-  width: 24px;
-  height: 24px;
 }
 
-.contact-item {
-  font-size: 18px;
+.message {
+  margin-top: 10px;
+  font-size: 14px;
 }
 
-  
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    width: 100%;
-    flex-wrap: wrap;
-  }
-  
-  .footer-section {
-    flex: 1;
-    margin: 10px;
-    text-align: center;
-    color: black;
-  }
-  
-  .certificates img,
-  .payment-methods img,
-  .shipping-methods img {
-    margin: 5px;
-    width: 60px;
-    height: auto;
-    transition: transform 0.3s;
-  }
-  .payment-methods {
-    max-width: 300px;
-    margin: 0 auto;
-  }
-  .shipping-methods {
-    max-width: 200px;
-    margin: 23px auto;
-  }
+.message.success {
+  color: green;
+}
 
-  .certificates img:hover,
-  .payment-methods img:hover,
-  .shipping-methods img:hover {
-    transform: scale(1.1);
-  }
-  
-  .footer-bottom span {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .trustpilot {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    font-size: 16px;
-    line-height: 24px;
-    vertical-align: middle;
-    word-spacing: 0px;
-  }
-  
-  .trustpilot iframe {
-    border: none;
-  }
-  
+.message.error {
+  color: red;
+}
