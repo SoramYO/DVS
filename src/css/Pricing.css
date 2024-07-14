@@ -1,33 +1,56 @@
 .pricingContainer {
-    font-family: Arial, sans-serif;
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 40px;
-    line-height: 1.6;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 1800px;
+    margin: auto;
+    padding: 20px;
     text-align: center;
 }
 
-.pricingContainer h1 {
-    font-size: 2em;
-    color: #333; 
+.chartGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
 }
 
-.pricingContainer h2,
-.pricingContainer h3 {
-    margin-top: 15px;
-    color: #555; 
+.chartItem {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
 }
 
-.pricingContainer p {
-    margin-bottom: 15px; 
+.chartItem p {
+    margin-bottom: 10px;
 }
-.report-image {
+
+.chartItem img {
     width: 100%;
-    height:  100%;
+    height: auto;
 }
-.pricingContainer a {
-    color: #007bff; 
+
+.radio-button-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio-button-img {
+    width: 50px;
+    height: 50px;
+    border: none;
+    margin-right: 10px;
+}
+
+.radio-button-text {
+    flex: 1;
+    margin-top: 4px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.ant-radio-button-wrapper {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
 }

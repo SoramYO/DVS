@@ -1,7 +1,7 @@
+import { Button, Table, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import MySpin from "../components/MySpin";
-import { Table, Tag } from "antd";
 
 const Billing = () => {
   const [billings, setBillings] = useState([]);
@@ -23,9 +23,29 @@ const Billing = () => {
       });
   };
 
+  const handleCreatePayment = async (requestId, amount) => {
+    setLoading(true);
+    try {
+      console.log(requestId, amount);
+      const response = await axios.post(
+        `https://dvs-be-sooty.vercel.app/api/paypal`,
+        { amount, requestId },
+        {
+          withCredentials: true,
+        }
+      );
+
+      window.open(response.data.data, '_self');
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getBillings();
   }, []);
+
   const columns = [
     {
       title: "No.",
@@ -38,7 +58,7 @@ const Billing = () => {
       dataIndex: "paymentAmount",
       key: "paymentAmount",
       render: (amount) => (
-        <span>{`${(amount).toLocaleString()} $`}</span>
+        <span>{`${amount.toLocaleString()} $`}</span>
       ),
     },
     {
@@ -54,6 +74,19 @@ const Billing = () => {
       render: (status) => (
         <Tag color={status === "Paid" ? "green" : "gold"}>{status}</Tag>
       ),
+    },
+    {
+      title: "Action",
+      key: "continuePay",
+      render: (_, record) =>
+        record.paymentStatus === "Pending" ? (
+          <Button
+            type="primary"
+            onClick={() => handleCreatePayment(record.id, record.paymentAmount)}
+          >
+            Continue Pay
+          </Button>
+        ) : null,
     },
   ];
 
@@ -71,7 +104,7 @@ const Billing = () => {
       }}
     >
       <h1 style={{ textAlign: "center" }}>Your Billings</h1>
-      <Table columns={columns} dataSource={billings} />
+      <Table columns={columns} dataSource={billings} rowKey="id" />
     </div>
   );
 };
