@@ -99,7 +99,7 @@ const FinishRequest = () => {
                 <img
                     src={image}
                     alt="Request"
-                    style={{ width: "50px", height: "50px" }}
+                    style={{ width: "50px", height: "50px", borderRadius: 180 }}
                 />
             ),
         },

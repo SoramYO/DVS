@@ -47,7 +47,7 @@
 }
 
 .searchContainer {
-  width: 350px;
+  width: 360px;
   /* margin-right: 40px; */
 }
 
@@ -70,12 +70,8 @@
 }
 
 .profileContainer p {
-  font-size: 16px;
+  font-size: 14px;
   margin-left: 10px;
   margin-top: 15px;
   font-weight: bold;
-}
-
-.userIcon {
-  font-size: 22px;
 }

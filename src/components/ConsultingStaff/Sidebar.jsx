@@ -1,4 +1,4 @@
-import { DesktopOutlined, SolutionOutlined } from "@ant-design/icons";
+import { ExceptionOutlined, SolutionOutlined, FileOutlined, FileDoneOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -23,16 +23,16 @@ const Sidebar = () => {
         />
       </div>
       <Menu theme='dark' defaultSelectedKeys={["1"]} mode="inline">
-        <Menu.Item key="1" icon={<DesktopOutlined />}>
+        <Menu.Item key="1" icon={<FileOutlined />}>
           <Link to="/consultingStaff">Orders</Link>
         </Menu.Item>
-        <Menu.Item key="2" icon={<DesktopOutlined />}>
+        <Menu.Item key="2" icon={<ExceptionOutlined />}>
           <Link to="/consultingStaff/takedRequest">Request received</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<SolutionOutlined />}>
           <Link to="/consultingStaff/finishRequest">Request Finish</Link>
         </Menu.Item>
-        <Menu.Item key="4" icon={<SolutionOutlined />}>
+        <Menu.Item key="4" icon={<FileDoneOutlined />}>
           <Link to="/consultingStaff/requestApproval">Request Approval</Link>
         </Menu.Item>
       </Menu>

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Layout, Menu, Dropdown } from "antd";
+import { Layout, Menu, Dropdown, Avatar } from "antd";
 import { Link } from "react-router-dom";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { AuthContext } from "../../context/AuthContext";
@@ -44,6 +44,17 @@ const AppHeader = () => {
           }}
         >
           <span style={{ color: "#fff", marginLeft: "10px" }}>
+            <Avatar
+              size="large"
+              style={{
+                backgroundColor: "#1890ff",
+                marginRight: "10px",
+                fontSize: "20px",
+              }}
+            >
+              {user.firstName.charAt(0)}
+              {user.lastName.charAt(0)}
+            </Avatar>
             {user.firstName} {user.lastName}
           </span>
         </div>

@@ -76,7 +76,7 @@ const Billing = () => {
       ),
     },
     {
-      title: "Payment",
+      title: "Action",
       key: "continuePay",
       render: (_, record) =>
         record.paymentStatus === "Pending" ? (
