@@ -28,7 +28,6 @@ const Service = () => {
         return <MySpin />
     }
 
-
     return (
         <div className="service-container">
             <h1><strong>Our Diamond Valuation Services</strong></h1>
