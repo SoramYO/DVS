@@ -1,126 +1,94 @@
-import { MailOutlined, PhoneOutlined, PushpinOutlined } from '@ant-design/icons';
-import { Button, Form, Input, notification } from 'antd';
-import axios from 'axios';
 import React, { useState } from 'react';
-import Bancontact from '../assets/imgs/Bancontact.png';
-import DHL from '../assets/imgs/DHL.png';
-import Fedex from '../assets/imgs/Fedex.png';
-import GIA from '../assets/imgs/GIA.png';
-import HRD from '../assets/imgs/HRD.png';
-import IGI from '../assets/imgs/IGI.png';
-import Ideal from '../assets/imgs/Ideal.png';
-import Malca from '../assets/imgs/Malca.png';
-import Paypal from '../assets/imgs/PayPal.png';
-import Visa from '../assets/imgs/Visa.png';
-import Amex from '../assets/imgs/ameri.png';
-import Banktransfer from '../assets/imgs/bank.png';
-import Mastercard from '../assets/imgs/master.png';
+import axios from 'axios';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
 import "../css/Footer.css";
+
 const Footer = () => {
-  const onFinish = async (values) => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('https://dvs-be-sooty.vercel.app/api/registerMail', { email: values.email });
-      notification.success({
-        message: 'Subscription Successful',
-        description: response.data.message,
-      });
-      form.resetFields();
+      const response = await axios.post('https://dvs-be-sooty.vercel.app/api/registerMail', { email });
+      setMessage({ type: 'success', text: response.data.message });
+      setEmail('');
     } catch (error) {
-      notification.error({
-        message: 'Subscription Failed',
-        description: error.response ? error.response.data.message : 'Server error, please try again later.',
+      setMessage({
+        type: 'error',
+        text: error.response ? error.response.data.message : 'Server error, please try again later.',
       });
     } finally {
       setLoading(false);
     }
   };
-  const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+
+  // Define the position of the company address on the map
+  const position = [10.841976, 106.809537]; // Coordinates for D1 Street Saigon Hi-tech Park, Ho Chi Minh City, Vietnam
+
+  // Custom icon for the map marker
+  const customMarker = new L.Icon({
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  });
+
   return (
     <footer className="footer">
       <div className="footer-content">
+        <div className="footer-map">
+          <MapContainer center={position} zoom={15} className="leaflet-container">
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <Marker position={position} icon={customMarker}>
+              <Popup>
+                D1 Street Saigon Hi-tech Park, Ho Chi Minh City, Vietnam
+              </Popup>
+            </Marker>
+          </MapContainer>
+        </div>
         <div className="contact-information">
           <h1><strong>CONTACT US</strong></h1>
           <address>
             <div className="contact-item">
-              <MailOutlined /><> </>
+              <span className="icon">📧</span>
               diamondvaluation@mail.com
             </div>
             <div className="contact-item">
-              <PhoneOutlined /><> </>
-              0976457150
-            </div>
-            <div className="contact-item">
-              <PushpinOutlined /><> </>
+              <span className="icon">📍</span>
               D1 Street Saigon Hi-tech Park, Ho Chi Minh City, Vietnam
             </div>
           </address>
-        </div>
-        <hr />
-        <div className="newsletter">
-          <h2>Sign up to not miss any news</h2>
-          <Form
-            form={form}
-            className="email-form"
-            onFinish={onFinish}
-          >
-            <Form.Item
-              name="email"
-              rules={[{ required: true, type: 'email', message: 'Please enter a valid email!' }]}
-            >
-              <Input type="email" placeholder="Enter your email" />
-            </Form.Item>
-            <p><i>Receive our latest offers, news, and promotions straight to your inbox. Just enter your email address to join our world of diamonds!</i></p>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" loading={loading} className="subscribe-button">
-                Subscribe
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
-      </div>
-
-      <div className="footer-bottom">
-        <div className="footer-section">
-          <span>Certificates</span>
-          <div className="certificates">
-            <div className="trustpilot">
-              <iframe
-                src="https://widget.trustpilot.com/review/antwerpdiamonds.direct?utm_medium=trustbox&utm_source=Mini"
-                width="100%"
-                height="52px"
-                title="Trustpilot"
-              ></iframe>
-            </div>
-            <img src={GIA} alt="GIA" />
-            <img src={HRD} alt="HRD" />
-            <img src={IGI} alt="IGI" />
-          </div>
-        </div>
-        <div className="footer-section">
-          <span>Payment methods</span>
-          <div className="payment-methods">
-            <img src={Visa} alt="Visa" />
-            <img src={Mastercard} alt="Mastercard" />
-            <img src={Amex} alt="Amex" />
-            <img src={Paypal} alt="Paypal" />
-            <img src={Bancontact} alt="Bancontact" />
-            <img src={Banktransfer} alt="Bank Transfer" />
-          </div>
-        </div>
-        <div className="footer-section">
-          <span>Carriers</span>
-          <div className="shipping-methods">
-            <img style={{ width: '100px' }} src={DHL} alt="DHL" />
-            <img src={Fedex} alt="Fedex" />
-            <img src={Ideal} alt="Ideal" />
-            <img src={Malca} alt="Malca" />
+          <div className="newsletter">
+            <h2>Sign up to not miss any news</h2>
+            <form className="email-form" onSubmit={handleSubmit}>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={handleEmailChange}
+                required
+              />
+              <button type="submit" className="subscribe-button" disabled={loading}>
+                {loading ? 'Subscribing...' : 'Subscribe'}
+              </button>
+            </form>
+            {message && (
+              <p className={`message ${message.type}`}>
+                {message.text}
+              </p>
+            )}
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
