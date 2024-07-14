@@ -159,7 +159,7 @@ const CalculateDiamond = () => {
         </Link>
       </div>
       <Layout className="layout">
-      <Content style={{ padding: '0 404px' }}>
+        <Content style={{paddingTop: "20px", paddingBottom: "30px"}}>
           <div className="site-layout-content">
             <Title>CALCULATE DIAMOND PRICE</Title>
             <Form layout="vertical" className="input-form" form={form}>
