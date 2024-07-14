@@ -1,6 +1,7 @@
-import { UploadOutlined } from "@ant-design/icons";
+import { LeftOutlined, RightOutlined, UploadOutlined } from "@ant-design/icons";
 import {
   Button,
+  Carousel,
   Col,
   Form,
   Input,
@@ -11,7 +12,7 @@ import {
   message,
 } from "antd";
 import "antd/dist/reset.css";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../css/CustomerRequest.css";
 
 import axios from "axios";
@@ -33,7 +34,9 @@ const CustomerRequest = () => {
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [note, setNote] = useState("");
+  const [isAutoplay, setIsAutoplay] = useState(true);
   const { user } = useContext(AuthContext);
+  const carouselRef = useRef(null);
 
   const getAllServices = async () => {
     setLoading(true);
@@ -172,6 +175,7 @@ const CustomerRequest = () => {
     if (selectedService) {
       setSelectedService(selectedService.id);
       setPrice(selectedService.price);
+      setIsAutoplay(false);
     }
   };
 
@@ -192,24 +196,44 @@ const CustomerRequest = () => {
           >
             <Row gutter={16} className="section-spacing">
               <Col span={24}>
-                <div className="horizontal-services">
-                  {services.map((service) => (
-                    <Button
-                      key={service.id}
-                      className={`service-button ${
-                        selectedService === service.id ? "selected" : ""
-                      }`}
-                      onClick={() => handleServiceChange(service.id)}
-                    >
-                      {service.serviceName} ${service.price}
-                    </Button>
-                  ))}
+                <div className="carousel-wrapper">
+                  <Button
+                    icon={<LeftOutlined />}
+                    onClick={() => carouselRef.current.prev()}
+                    className="carousel-nav-button left"
+                  />
+                  <Carousel
+                    dots={true}
+                    slidesToShow={4}
+                    slidesToScroll={1}
+                    autoplay={isAutoplay}
+                    autoplaySpeed={2000}
+                    arrows={false}
+                    ref={carouselRef}
+                  >
+                    {services.map((service) => (
+                      <div key={service.id} className="service-container">
+                        <Button
+                          className={`service-button ${selectedService === service.id ? "selected" : ""
+                            }`}
+                          onClick={() => handleServiceChange(service.id)}
+                        >
+                          {service.serviceName} ${service.price}
+                        </Button>
+                      </div>
+                    ))}
+                  </Carousel>
+                  <Button
+                    icon={<RightOutlined />}
+                    onClick={() => carouselRef.current.next()}
+                    className="carousel-nav-button right"
+                  />
                 </div>
               </Col>
             </Row>
             <Row>
               <Form.Item
-                label="Request Image"
+                label="Diamond Image"
                 name="requestImage"
                 rules={[
                   {
