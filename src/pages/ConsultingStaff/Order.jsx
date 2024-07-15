@@ -132,7 +132,7 @@ const Request = () => {
         tooltip={<div>New diamond for valuate</div>}
         badge={{
           count: filteredRequests.length,
-          color: 'blue',
+          color: 'red',
         }}
       />
       <Row gutter={[24, 0]}>
@@ -140,7 +140,7 @@ const Request = () => {
           <Card
             bordered={false}
             className="criclebox tablespace mb-24"
-            title="Requests Table"
+            title="REQUESTS TABLE"
             extra={
               <>
                 <div style={{ textAlign: "center", margin: "10px 0" }}>
