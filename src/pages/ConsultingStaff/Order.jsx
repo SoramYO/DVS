@@ -132,7 +132,7 @@ const Request = () => {
         tooltip={<div>New diamond for valuate</div>}
         badge={{
           count: filteredRequests.length,
-          color: 'red',
+          color: '#003366',
         }}
       />
       <Row gutter={[24, 0]}>
