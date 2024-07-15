@@ -1,13 +1,4 @@
-import {
-  InfoCircleOutlined,
-} from "@ant-design/icons";
-import {
-  Card,
-  Col,
-  Image,
-  Row,
-  Typography,
-} from "antd";
+import { Card, Col, Image, Row, Typography } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -56,33 +47,69 @@ const RequestDetail = () => {
             bordered={false}
             className="info-card"
           >
-            <div className="info-item">
-              <Text strong>Created Date:</Text>{" "}
-              {new Date(request?.createdDate).toLocaleDateString("en-GB")}
-              <InfoCircleOutlined className="info-icon" />
-            </div>
-            <div className="info-item">
-              <Text strong>Appointed Date:</Text>{" "}
-              {request.appointmentDate
-                ? new Date(request?.appointmentDate)?.toLocaleDateString("en-GB")
-                : "Chưa có"}
-            </div>
-            <div className="info-item">
-              <Text strong>Note:</Text> {request.note}
-            </div>
-            <div className="info-item">
-              <Text strong>Service Type:</Text> {request.serviceName}
-            </div>
-            <div className="info-item">
-              <Text strong>Process Status:</Text> {request.processStatus}
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <div>
+                <div className="info-item">
+                  <Text strong>Created Date:</Text>{" "}
+                  {new Date(request?.createdDate).toLocaleDateString("en-GB")}
+                  {/* <InfoCircleOutlined className="info-icon" /> */}
+                </div>
+                <div className="info-item">
+                  <Text strong>Appointed Date:</Text>{" "}
+                  {request.appointmentDate
+                    ? new Date(request?.appointmentDate)?.toLocaleDateString(
+                        "en-GB"
+                      )
+                    : "Chưa có"}
+                </div>
+                <div className="info-item">
+                  <Text strong>Note:</Text> {request.note}
+                </div>
+                <div className="info-item">
+                  <Text strong>Service Type:</Text> {request.serviceName}
+                </div>
+                <div className="info-item">
+                  <Text strong>Process Status:</Text> {request.processStatus}
+                </div>
+              </div>
+              {request.processStatus === "Done" && (
+                <div>
+                  <div className="info-item">
+                    <Text strong>Certificate ID:</Text> {request.certificateId}
+                  </div>
+                  <div className="info-item">
+                    <Text strong>Clarity:</Text> {request.clarity}
+                  </div>
+                  <div className="info-item">
+                    <Text strong>Color:</Text> {request.color}
+                  </div>
+                  <div className="info-item">
+                    <Text strong>Cut:</Text> {request.cut}
+                  </div>
+                  <div className="info-item">
+                    <Text strong>Diamond Origin:</Text> {request.diamondOrigin}
+                  </div>
+                  <div className="info-item">
+                    <Text strong>Florescence:</Text> {request.fluorescence}
+                  </div>
+                  <div className="info-item">
+                    <Text strong>Polish:</Text> {request.polish}
+                  </div>
+                  <div className="info-item">
+                    <Text strong>Proportions:</Text> {request.proportions}
+                  </div>
+                  <div className="info-item">
+                    <Text strong>Shape:</Text> {request.shape}
+                  </div>
+                  <div className="info-item">
+                    <Text strong>Symmetry:</Text> {request.symmetry}
+                  </div>
+                </div>
+              )}
             </div>
           </Card>
 
-          <Card
-            title="User Information"
-            bordered={false}
-            className="info-card"
-          >
+          <Card title="User Information" bordered={false} className="info-card">
             <p>
               <Text strong>Fullname:</Text>{" "}
               {`${request.firstName} ${request.lastName}`}
@@ -99,10 +126,7 @@ const RequestDetail = () => {
         <Col span={12}>
           <Row gutter={16}>
             <Col span={24}>
-              <Card
-                bordered={false}
-                className="info-card"
-              >
+              <Card bordered={false} className="info-card">
                 <Image
                   src={request.requestImage}
                   alt="Diamond"
