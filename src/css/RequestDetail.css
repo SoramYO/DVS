@@ -4,15 +4,14 @@
 
 .page-title {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  position: relative;
-  /* Ensure relative positioning for children */
 }
 
 
 .info-card {
   margin-bottom: 24px;
+  text-align: center;
 }
 
 .info-item {
