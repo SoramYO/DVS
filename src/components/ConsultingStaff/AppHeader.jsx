@@ -23,7 +23,7 @@ const AppHeader = () => {
   return (
     <Header
       style={{
-        backgroundColor: "#5793D8",
+        backgroundColor: "#003366",
         color: "#fff",
         display: "flex",
         justifyContent: "end",
