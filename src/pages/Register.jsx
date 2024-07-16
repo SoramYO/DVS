@@ -89,6 +89,10 @@ const Register = () => {
                   max: 26,
                   message: "Username cannot be longer than 26 characters!",
                 },
+                {
+                  pattern: /^[a-zA-Z0-9]+$/,
+                  message: "Username cannot contain special characters!",
+                },
               ]}
             >
               <Input placeholder="Username" />
@@ -120,6 +124,10 @@ const Register = () => {
                   required: true,
                   message: "Please input your first name!",
                 },
+                {
+                  pattern: /^[a-zA-Z]+$/,
+                  message: "First name cannot contain special characters!",
+                },
               ]}
             >
               <Input placeholder="First Name" />
@@ -130,6 +138,10 @@ const Register = () => {
                 {
                   required: true,
                   message: "Please input your last name!",
+                },
+                {
+                  pattern: /^[a-zA-Z]+$/,
+                  message: "Last name cannot contain special characters!",
                 },
               ]}
             >
