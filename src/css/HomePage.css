@@ -69,11 +69,6 @@
     padding: 20px;
   }
   
-  .help-section-detail {
-    display: flex;
-    padding: 20px;
-  }
-  
   .help-section {
     padding: 20px;
   }
@@ -88,6 +83,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    padding: 20px;
   }
   
   .help-cards-container {
