@@ -12,24 +12,24 @@ const RequestDetail = () => {
   const [loading, setLoading] = useState(false);
 
   const { id } = useParams();
-  const getRequest = async () => {
-    setLoading(true);
-    await axios
-      .get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setRequest(res.data.request);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-      });
-  };
-
   useEffect(() => {
+    const getRequest = async () => {
+      setLoading(true);
+      await axios
+        .get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setRequest(res.data.request);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    };
+
     getRequest();
-  }, []);
+  }, [id]);
   // console.log(request);
   if (loading) {
     return <MySpin />;
