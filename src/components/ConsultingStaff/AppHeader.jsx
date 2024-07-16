@@ -23,7 +23,7 @@ const AppHeader = () => {
   return (
     <Header
       style={{
-        backgroundColor: "#5793D8",
+        backgroundColor: "#003366",
         color: "#fff",
         display: "flex",
         justifyContent: "end",
@@ -43,7 +43,7 @@ const AppHeader = () => {
             cursor: "pointer",
           }}
         >
-          <span style={{ fontSize:'15px', fontWeight: 'bold', color:'#003366' }}>
+          <span style={{ fontSize:'15px', fontWeight: 'bold', color:'#fff' }}>
             <Avatar
               size="large"
               style={{
