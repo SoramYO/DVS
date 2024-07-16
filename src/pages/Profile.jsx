@@ -17,6 +17,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MySpin from "../components/MySpin";
+import FeedbackForm from '../pages/Feedback';
 import "../css/Profile.css";
 
 const UserInfo = ({ user, showModal }) => {
@@ -153,13 +154,22 @@ const FinishedRequests = ({
   pageSize,
   handlePageChange,
 }) => {
+  const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
+  const [selectedRequestId, setSelectedRequestId] = useState(null);
+
   const formatDate = (dateString) => {
-    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   const paginatedRequests =
-    requests?.slice((currentPage - 1) * pageSize, currentPage * pageSize) || [];
+    requests?.slice((currentPage - 1) * pageSize, currentPage * pageSize) ||
+    [];
+
+  const handleFeedback = (requestId) => {
+    setSelectedRequestId(requestId);
+    setIsFeedbackVisible(true);
+  };
 
   return (
     <div className="content">
@@ -183,27 +193,27 @@ const FinishedRequests = ({
                     description={
                       <div>
                         <p>
-                          <strong>Date</strong>:{" "}
-                          {formatDate(request.createdDate)}
+                          <strong>Date</strong>: {formatDate(request.createdDate)}
                         </p>
                         <p>
                           <strong>Service</strong>: {request.serviceName}
                         </p>
                         <p>
-                          <strong>Process</strong>:{" "}
-                          <Tag
-                            color={
-                              request.paymentStatus === "Paid"
-                                ? "green"
-                                : "gold"
-                            }
-                          >
+                          <strong>Process</strong>:{' '}
+                          <Tag color={request.paymentStatus === 'Paid' ? 'green' : 'gold'}>
                             {request.paymentStatus}
                           </Tag>
                         </p>
-                        <Link to={`/requestDetail/${request.requestId}`}>
-                          <Button type="primary">Detail</Button>
-                        </Link>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                          <Link to={`/requestDetail/${request.requestId}`}>
+                            <Button type="primary" style={{ marginRight: 10 }}>
+                              Detail
+                            </Button>
+                          </Link>
+                          <Button type="primary" onClick={() => handleFeedback(request.requestId)}>
+                            Feedback
+                          </Button>
+                        </div>
                       </div>
                     }
                   />
@@ -217,10 +227,16 @@ const FinishedRequests = ({
             pageSize={pageSize}
             total={requests?.length || 0}
             onChange={handlePageChange}
-            style={{ textAlign: "center", marginTop: "16px" }}
+            style={{ textAlign: 'center', marginTop: '16px' }}
           />
         </>
       )}
+
+      <FeedbackForm
+        visible={isFeedbackVisible}
+        onClose={() => setIsFeedbackVisible(false)}
+        requestId={selectedRequestId}
+      />
     </div>
   );
 };
