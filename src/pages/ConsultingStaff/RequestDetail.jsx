@@ -52,7 +52,7 @@ const RequestDetail = () => {
       appointmentDate &&
       new Date(appointmentDate) < new Date(request.createdDate)
     ) {
-      console.error("Ngày hẹn không thể trước ngày tạo yêu cầu");
+      console.error("The appointment date cannot be before the request creation date");
       return;
     }
     try {
@@ -61,11 +61,11 @@ const RequestDetail = () => {
         { appointmentDate, id },
         { withCredentials: true }
       );
-      message.success("Trạng thái xử lý đã được cập nhật thành công");
+      message.success("Processing status has been updated successfull");
       getRequestDetail();
     } catch (error) {
       navigate("/consultingStaff");
-      console.error("Cập nhật trạng thái xử lý thất bại");
+      console.error("Update failure processing status");
     }
   };
 
@@ -92,7 +92,7 @@ const RequestDetail = () => {
   return (
     <div className="request-detail-container">
       <Title level={1} className="page-title">
-        Chi Tiết Yêu Cầu Định Giá
+      Details of Valuation Request
         <Button
           icon={<ArrowLeftOutlined />}
           onClick={handleBack}
@@ -109,34 +109,34 @@ const RequestDetail = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Card
-            title="Thông tin đơn hàng"
+            title="Order Information"
             bordered={false}
             className="info-card"
           >
             <div className="info-item">
-              <Text strong>Ngày tạo:</Text>{" "}
+              <Text strong>Create Date:</Text>{" "}
               {new Date(request.createdDate).toLocaleDateString("en-GB")}
               <InfoCircleOutlined className="info-icon" />
             </div>
             <div className="info-item">
-              <Text strong>Ngày hẹn:</Text>{" "}
+              <Text strong>Appointment Date :</Text>{" "}
               {request.appointmentDate
                 ? new Date(request.appointmentDate)?.toLocaleDateString("en-GB")
                 : "Chưa có"}
             </div>
             <div className="info-item">
-              <Text strong>Ghi chú:</Text> {request.note}
+              <Text strong>Note:</Text> {request.note}
             </div>
             <div className="info-item">
-              <Text strong>Loại dịch vụ:</Text> {request.serviceName}
+              <Text strong>Service Name:</Text> {request.serviceName}
             </div>
             <div className="info-item">
-              <Text strong>Trạng thái xử lý:</Text> {request.processStatus}
+              <Text strong>Process Status:</Text> {request.processStatus}
             </div>
           </Card>
 
           <Card
-            title="Thông tin chủ kim cương"
+            title="Owner Diamond Information"
             bordered={false}
             className="info-card"
           >
@@ -144,28 +144,28 @@ const RequestDetail = () => {
               <UserOutlined className="icon" />
             </div>
             <p>
-              <Text strong>Họ và tên:</Text>{" "}
+              <Text strong>Full Name:</Text>{" "}
               {`${request.firstName} ${request.lastName}`}
             </p>
             <p>
               <Text strong>Email:</Text> {request.email}
             </p>
             <p>
-              <Text strong>Số điện thoại:</Text> {request.phone}
+              <Text strong>Phone Number:</Text> {request.phone}
             </p>
           </Card>
           <Col span={24}>
-            <Card title="Chọn ngày hẹn" bordered={false} className="info-card">
+            <Card title="Select Appointment Date" bordered={false} className="info-card">
               <DatePicker
                 picker="date"
                 onChange={handleDateChange}
                 format="DD/MM/YYYY"
-                placeholder="Chọn ngày hẹn"
+                placeholder="Select Appointment Date"
                 style={{ marginBottom: 16 }}
               />
 
               <Button icon={<CheckOutlined />} onClick={handleOk}>
-                Hoàn thành đặt lịch hẹn
+              Complete appointment booking
               </Button>
 
             </Card>
@@ -176,7 +176,7 @@ const RequestDetail = () => {
           <Row gutter={16}>
             <Col span={24}>
               <Card
-                title="Ảnh kim cương"
+                title="Diamond image"
                 bordered={false}
                 className="info-card"
               >

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Logo from "../../assets/imgs/logoweb.png";
+
 
 const handlePrintSealingReport = async (record, signatureUrl, signName) => {
     try {
@@ -94,7 +96,7 @@ const handlePrintSealingReport = async (record, signatureUrl, signName) => {
                 <body>
                     <div class="container">
                         <div class="header">
-                        <img src="https://marketplace.canva.com/EAFqberfhMA/1/0/1600w/canva-black-gold-luxury-modern-diamond-brand-store-logo-VmwEPkcpqzE.jpg" alt="Logo"/>
+                            <img src="${Logo}" alt="Logo"/>
                             <h1>Sealing Report</h1>
                         </div>
                         <div class="details">
@@ -116,9 +118,9 @@ const handlePrintSealingReport = async (record, signatureUrl, signName) => {
                         </div>
                         <div class="footer">
                             <h3>Diamond Valuation</h3>
-                            <p>VRG2+27 Dĩ An, Bình Dương, Việt Nam</p>
+                            <p>D1 Street Saigon Hi-tech Park, Ho Chi Minh City, Vietnam</p>
                             <p>Phone: 0976457150</p>
-                            <p>Email: diamondvaluation@gmail.com</p>
+                            <p>Email: diamondvaluation@mail.com</p>
                         </div>
                     </div>
                 </body>
