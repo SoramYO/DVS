@@ -83,10 +83,7 @@ const TakenRequestDetail = () => {
 
 
     const handleOk = async () => {
-        if (
-            appointmentDate &&
-            new Date(appointmentDate) < new Date(request.createdDate)
-        ) {
+        if (appointmentDate && new Date(appointmentDate) < new Date(request.createdDate)) {
             console.error("The appointment date cannot be before the request creation date");
             return;
         }
@@ -98,10 +95,12 @@ const TakenRequestDetail = () => {
             );
             message.success("Processing status has been updated successfully");
             getRequestDetail();
+            navigate("/consultingStaff");
         } catch (error) {
-            console.error("Update failure processing status");
+            console.error("Update failure processing status:", error);
         }
     };
+
 
     const uploadSignatureToFirebase = async (signatureUrl) => {
         const byteArray = Uint8Array.from(
@@ -171,7 +170,7 @@ const TakenRequestDetail = () => {
     return (
         <div className="request-detail-container">
             <Title level={1} className="page-title">
-            Valuation Request Details
+                Valuation Request Details
                 <Button
                     icon={<ArrowLeftOutlined />}
                     onClick={handleBack}
