@@ -203,8 +203,13 @@ const TakedRequest = () => {
                         <Button disabled={record.processStatus === "Done"}>
                             Customer Took Sample
                         </Button>
+                    ) : record.processStatus === "Booking Appointment" ? (
+                        <Button disabled={record.processStatus === "Booking Appointment"}>
+                            <Link to={`/consultingStaff/takedRequest/detail/${record.requestId}`}>View Detail</Link>
+                        </Button>
+
                     ) : (
-                        <Button disabled={record.processStatus === "Start Valuated" || record.processStatus === "Sent to Consulting" || record.processStatus === "Valuated"}>
+                        <Button disabled={record.processStatus === "Start Valuated" || record.processStatus === "Sent to Consulting" || record.processStatus === "Valuated" || record.processStatus === "Rejected Commitment" || record.processStatus === "Rejected Sealing"}>
                             <Link to={`/consultingStaff/takedRequest/detail/${record.requestId}`}>Receive Diamond</Link>
                         </Button>
                     )}
