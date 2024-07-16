@@ -34,9 +34,9 @@ const PaymentSucces = () => {
     }
   }, [paymentId, payerId]);
 
-  useEffect(() => {
+    useEffect(() => {
     fetchSuccess();
-  }, []);
+  }, [fetchSuccess]);
 
   if (loading) {
     return <MySpin />
