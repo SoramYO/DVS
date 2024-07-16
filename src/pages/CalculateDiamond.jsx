@@ -1,9 +1,8 @@
 import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, Radio, Row, Slider, Typography } from 'antd';
 import 'antd/dist/reset.css';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../css/CalculateDiamond.css';
-
 import { Link } from 'react-router-dom';
 import asscherImg from '../assets/imgs/asscher.png';
 import cushionImg from '../assets/imgs/cushion.png';
@@ -48,6 +47,7 @@ const CalculateDiamond = () => {
   const [carat, setInputValue] = useState(0.01);
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [detailsVisible, setDetailsVisible] = useState(false);
+  const priceResultRef = useRef(null);
 
   const handleShapeChange = (shape) => {
     setSelectedShape(shape);
@@ -148,6 +148,12 @@ const CalculateDiamond = () => {
     }
   };
 
+  useEffect(() => {
+    if (priceResultRef.current) {
+      priceResultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [priceData]);
+
   return (
     <div style={{ padding: '12px' }}>
       <div className="buttonContainer" style={{ marginBottom: '16px' }}>
@@ -159,7 +165,7 @@ const CalculateDiamond = () => {
         </Link>
       </div>
       <Layout className="layout">
-        <Content style={{paddingTop: "20px", paddingBottom: "30px"}}>
+        <Content style={{ paddingTop: "20px", paddingBottom: "30px" }}>
           <div className="site-layout-content">
             <Title>CALCULATE DIAMOND PRICE</Title>
             <Form layout="vertical" className="input-form" form={form}>
@@ -307,41 +313,43 @@ const CalculateDiamond = () => {
                 </Panel>
               </Collapse>
               <Form.Item>
-              <div className="check-button">
-                <Button type="primary" className="calculate-btn" onClick={handleCalculatePrice}>
-                  Check Price
-                </Button>
-                <Button style={{ marginLeft: 8 }} onClick={handleReset}>
-                  Reset
-                </Button>
+                <div className="check-button">
+                  <Button type="primary" className="calculate-btn" onClick={handleCalculatePrice}>
+                    Check Price
+                  </Button>
+                  <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+                    Reset
+                  </Button>
                 </div>
               </Form.Item>
             </Form>
             {detailsVisible && priceData && (
-              <Card title="Price Information" className="result-card">
-                <div className="result-card-content">
-                  <Title level={4} className="price-detail-title">Diamond Price Details</Title>
-                  <Divider />
-                  <Paragraph><strong>Shape:</strong> {priceData.shape}</Paragraph>
-                  <Paragraph><strong>Carat:</strong> {priceData.carat}</Paragraph>
-                  <Paragraph><strong>Color:</strong> {priceData.color}</Paragraph>
-                  <Paragraph><strong>Clarity:</strong> {priceData.clarity}</Paragraph>
-                  {advancedOpen && (
-                    <>
-                      <Paragraph><strong>Fluorescence:</strong> {priceData.fluorescence}</Paragraph>
-                      <Paragraph><strong>Origin:</strong> {priceData.origin}</Paragraph>
-                      <Paragraph><strong>Polish:</strong> {priceData.polish}</Paragraph>
-                      <Paragraph><strong>Symmetry:</strong> {priceData.symmetry}</Paragraph>
-                      <Paragraph><strong>Proportions:</strong> {priceData.proportions}</Paragraph>
-                      <Paragraph><strong>Measurements:</strong> {priceData.measurements}</Paragraph>
-                    </>
-                  )}
-                  <Divider />
-                  <Paragraph className="result-card-price">
-                    <strong>Fair Price:</strong> ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  </Paragraph>
-                </div>
-              </Card>
+              <div ref={priceResultRef}>
+                <Card title="Price Information" className="result-card">
+                  <div className="result-card-content">
+                    <Title level={4} className="price-detail-title">Diamond Price Details</Title>
+                    <Divider />
+                    <Paragraph><strong>Shape:</strong> {priceData.shape}</Paragraph>
+                    <Paragraph><strong>Carat:</strong> {priceData.carat}</Paragraph>
+                    <Paragraph><strong>Color:</strong> {priceData.color}</Paragraph>
+                    <Paragraph><strong>Clarity:</strong> {priceData.clarity}</Paragraph>
+                    {advancedOpen && (
+                      <>
+                        <Paragraph><strong>Fluorescence:</strong> {priceData.fluorescence}</Paragraph>
+                        <Paragraph><strong>Origin:</strong> {priceData.origin}</Paragraph>
+                        <Paragraph><strong>Polish:</strong> {priceData.polish}</Paragraph>
+                        <Paragraph><strong>Symmetry:</strong> {priceData.symmetry}</Paragraph>
+                        <Paragraph><strong>Proportions:</strong> {priceData.proportions}</Paragraph>
+                        <Paragraph><strong>Measurements:</strong> {priceData.measurements}</Paragraph>
+                      </>
+                    )}
+                    <Divider />
+                    <Paragraph className="result-card-price">
+                      <strong>Fair Price:</strong> ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </Paragraph>
+                  </div>
+                </Card>
+              </div>
             )}
           </div>
         </Content>
