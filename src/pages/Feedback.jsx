@@ -6,7 +6,6 @@ import '../css/FeedbackForm.css';
 const FeedbackForm = ({ visible, onClose, requestId }) => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
