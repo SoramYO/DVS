@@ -29,7 +29,7 @@ const RequestDetail = () => {
 
   useEffect(() => {
     getRequest();
-  }, []);
+  }, [getRequest]);
   // console.log(request);
   if (loading) {
     return <MySpin />;
