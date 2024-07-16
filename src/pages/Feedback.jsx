@@ -40,10 +40,8 @@ const FeedbackForm = ({ visible, onClose, requestId }) => {
                 })
                 .then(res => {
                     setLoading(false);
-                    setSuccess(true);
                     form.resetFields();
                     setTimeout(() => {
-                        setSuccess(false);
                         onClose();
                     }, 300);
                     message.success('Feedback submitted successfully'); 
