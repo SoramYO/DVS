@@ -93,7 +93,6 @@ function Valuation() {
             // }
             await form.validateFields();
             const values = form.getFieldsValue();
-            message.success('Submit valuation successfully');
             const response = await axios.put(`https://dvs-be-sooty.vercel.app/api/valuation/${id}`, values, { withCredentials: true });
             if (response.data.errCode === 0) {
                 message.success(response.data.message);
