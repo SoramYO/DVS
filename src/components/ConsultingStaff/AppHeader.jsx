@@ -43,7 +43,7 @@ const AppHeader = () => {
             cursor: "pointer",
           }}
         >
-          <span style={{ fontSize:'15px', fontWeight: 'bold', color:'#003366' }}>
+          <span style={{ fontSize:'15px', fontWeight: 'bold', color:'#fff' }}>
             <Avatar
               size="large"
               style={{
