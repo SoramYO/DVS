@@ -12,8 +12,8 @@ const Service = () => {
         setLoading(true);
         const fetchServices = async () => {
             try {
-                const response = await axios.get('https://dvs-be-sooty.vercel.app/api/services');
-                setServices(response.data.services);
+                const response = await axios.get('https://dvs-be-sooty.vercel.app/api/user-service');
+                setServices(response.data.services.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching services:', error);
@@ -38,7 +38,6 @@ const Service = () => {
                             <li>{service.serviceName}</li>
                             <li>Price: ${service.price}</li>
                             <li>Description: {service.description}</li>
-                            <li>Status: {service.status ? 'Active' : 'Inactive'}</li>
                         </ul>
                     </Card>
                 </div>
