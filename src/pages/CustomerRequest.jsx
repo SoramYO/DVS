@@ -85,7 +85,7 @@ const CustomerRequest = () => {
         },
       ]);
     } catch (error) {
-      console.error("Error uploading file: ", error);
+      message.error("Error uploading file: ", error);
       onError(error);
       setFileList([
         ...fileList,
@@ -105,7 +105,7 @@ const CustomerRequest = () => {
       file.type === "image/png" ||
       file.type === "image/gif";
     if (!isJpgOrPng) {
-      console.error("You can only upload JPG/PNG file!");
+      message.error("You can only upload JPG/PNG file!");
       setImage("");
       setFileList([
         ...fileList,
@@ -125,7 +125,7 @@ const CustomerRequest = () => {
 
   const handleSubmit = () => {
     if (image === "") {
-      console.error("Please upload image");
+      message.error("Please upload image");
       return;
     }
     const requestData = {
@@ -166,7 +166,7 @@ const CustomerRequest = () => {
       }
     } catch (error) {
       setLoading(false);
-      console.error(error.response.data.message);
+      message.error(error.response.data.message);
     }
   };
 

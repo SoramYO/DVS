@@ -17,10 +17,10 @@ const ActivateAccount = () => {
                 message.success('Account activated successfully.');
                 navigate("/login");
             } else {
-                console.error(response.data.message);
+                message.error(response.data.message);
             }
         } catch (error) {
-            console.error('An error occurred. Please try again.');
+            message.error('An error occurred. Please try again.');
         }
     };
 

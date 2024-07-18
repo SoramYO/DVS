@@ -1,7 +1,7 @@
 import {
     PrinterOutlined
 } from '@ant-design/icons';
-import { Button, Card, Col, Radio, Row, Table, Tag } from 'antd';
+import { Button, Card, Col, message, Radio, Row, Table, Tag } from 'antd';
 import axios from 'axios';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
@@ -62,7 +62,7 @@ const RequestApproval = () => {
                                 <PrinterOutlined /> Print Commitment Report
                             </Button>
                         ) : (
-                            <div style={{display: 'flex'}}>
+                            <div style={{ display: 'flex' }}>
                                 <Button
                                     onClick={() => handlePrintCommitmentReport(record, setShowSignatureModal, setRecordForPrint, true)}
                                     style={{ backgroundColor: '#007bff', color: '#fff', border: 'none', marginRight: '10px' }}
@@ -173,7 +173,7 @@ const RequestApproval = () => {
             //         console.log('Signature uploaded:', downloadURL);
             return downloadURL;
         } catch (error) {
-            console.error('Error uploading image:', error);
+            message.error('Error uploading image:', error);
             return null;
         }
     };

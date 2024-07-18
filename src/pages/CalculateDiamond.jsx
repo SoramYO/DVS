@@ -1,4 +1,4 @@
-import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, Radio, Row, Slider, Typography } from 'antd';
+import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, message, Radio, Row, Slider, Typography } from 'antd';
 import 'antd/dist/reset.css';
 import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
@@ -144,7 +144,7 @@ const CalculateDiamond = () => {
       });
       setDetailsVisible(true);
     } catch (error) {
-      console.error('Error calculating diamond price:', error);
+      message.error('Error calculating diamond price:', error);
     }
   };
 

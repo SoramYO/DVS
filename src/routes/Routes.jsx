@@ -1,9 +1,11 @@
+import 'leaflet/dist/leaflet.css';
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRoute from "../config/ProtectedRoute";
 import ConsultingStaffLayout from "../layout/ConsultingStaffLayout";
 import CustomerLayout from "../layout/CustomerLayout";
 import ValuationStaffLayout from "../layout/ValuationStaffLayout";
 import ActivateAccount from "../pages/ActivateAccount";
+import Billing from "../pages/Billing";
 import CalculateDiamond from "../pages/CalculateDiamond";
 import CaratSection from "../pages/CaratSection";
 import CheckPriceByCertificateID from "../pages/CheckPriceByCertificateID";
@@ -17,6 +19,7 @@ import Order from "../pages/ConsultingStaff/Order";
 import RequestApproval from "../pages/ConsultingStaff/RequestApproval";
 import RequestDetailConsul from "../pages/ConsultingStaff/RequestDetail";
 import SealingReport from "../pages/ConsultingStaff/SealingReport";
+import Chat from "../pages/ConsultingStaff/StaffChat";
 import TakedRequest from "../pages/ConsultingStaff/TakenRequest";
 import TakenRequestDetail from "../pages/ConsultingStaff/TakenRequestDetail";
 import CustomerRequest from "../pages/CustomerRequest";
@@ -39,8 +42,6 @@ import TakedRequestByValuation from "../pages/ValuationStaff/TakedRequestByValua
 import ValStaffProfile from "../pages/ValuationStaff/ValStaffProfile";
 import Valuation from "../pages/ValuationStaff/Valuation";
 import ValuationResult from "../pages/ValuationStaff/ValuationResult";
-import Billing from "../pages/Billing";
-import 'leaflet/dist/leaflet.css';
 
 export const route = createBrowserRouter([
   {
@@ -229,6 +230,10 @@ export const route = createBrowserRouter([
       {
         path: "sealingReport",
         element: <SealingReport />,
+      },
+      {
+        path: "chat",
+        element: <Chat />,
       }
     ],
   },

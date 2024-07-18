@@ -34,7 +34,7 @@ const AccountCreate = () => {
         navigate("/accounts");
       })
       .catch((error) => {
-        console.error(error.response.data.message);
+        message.error(error.response.data.message);
       });
   };
 

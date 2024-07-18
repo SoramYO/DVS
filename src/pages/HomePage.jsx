@@ -1,6 +1,6 @@
 import { SketchOutlined } from '@ant-design/icons';
-import { Button, Card, Carousel, Typography } from 'antd';
-import React from 'react';
+import { Button, Card, Carousel, Drawer, Typography } from 'antd';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import HomePageImage3 from '../assets/imgs/homepage3.jpg';
 import HomePageImage5 from '../assets/imgs/homepage5.jpg';
@@ -8,11 +8,16 @@ import HomePageImage6 from '../assets/imgs/homepage6.jpg';
 import HomePageImage2 from '../assets/imgs/homepage7.jpg';
 import HomePageImage4 from '../assets/imgs/homepage8.jpg';
 import HomePageImage1 from '../assets/imgs/hompage1.jpg';
+import Chat from '../components/CustomerChat';
+import { AuthContext } from "../context/AuthContext";
 import '../css/HomePage.css';
+
 const { Title, Paragraph } = Typography;
 
 const HomePage = () => {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
   const calculateDiamond = () => {
     navigate(`/calculateDiamond`);
   };
@@ -59,7 +64,6 @@ const HomePage = () => {
       buttonLink: '/request',
       image: HomePageImage6,
     }
-
   ];
 
   return (
@@ -128,7 +132,24 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
+      <div className="message-button">
+        <Button type="primary" size="large" onClick={() => setVisible(true)}>
+          Message
+        </Button>
+      </div>
+      <Drawer
+        title="Chat"
+        placement="left"
+        closable={true}
+        onClose={() => setVisible(false)}
+        visible={visible}
+        bodyStyle={{ paddingBottom: 80 }}
+        style={{ position: 'fixed' }}
+        height="400px"
+        width="300px"
+      >
+        <Chat user={user} />
+      </Drawer>
     </div>
   );
 };
