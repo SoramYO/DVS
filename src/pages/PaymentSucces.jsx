@@ -1,3 +1,4 @@
+import { message } from "antd";
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -29,12 +30,12 @@ const PaymentSucces = () => {
         setLoading(false);
       }
     } catch (error) {
-      console.error('Error fetching success:', error);
+      message.error('Error fetching success:', error);
       setLoading(false); // Ensure to set loading to false in case of an error
     }
   }, [paymentId, payerId]);
 
-    useEffect(() => {
+  useEffect(() => {
     fetchSuccess();
   }, [fetchSuccess]);
 

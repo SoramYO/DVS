@@ -11,7 +11,7 @@ const ForgotPassword = () => {
             if (response.data.errCode === 0) {
                 message.success('Password reset link sent to your email.');
             } else {
-                console.error(response.data.message);
+                message.error(response.data.message);
             }
         } catch (error) {
             console.error('An error occurred. Please try again.');

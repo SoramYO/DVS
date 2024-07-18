@@ -26,7 +26,7 @@ const Contact = ({ visible, onClose }) => {
                         onClose();
                     })
                     .catch(error => {
-                        console.error('Failed to submit feedback');
+                        message.error('Failed to submit feedback');
                         console.error('Error:', error);
                     })
                     .finally(() => {

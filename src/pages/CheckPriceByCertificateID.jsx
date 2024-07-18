@@ -44,7 +44,7 @@ const CheckPriceByCertificateID = () => {
         setPriceData({ estimatedPrice });
       }
     } catch (error) {
-      console.error("Error checking diamond price by certificate ID:", error);
+      message.error("Error checking diamond price by certificate ID:", error);
       setPriceData(null);
       setNotFound(false);
     } finally {
@@ -91,7 +91,7 @@ const CheckPriceByCertificateID = () => {
               >
                 Check Price
               </Button>
-              <Button style={{ marginLeft: 8 }} onClick={handleReset}className="check-price-btn"> 
+              <Button style={{ marginLeft: 8 }} onClick={handleReset} className="check-price-btn">
                 Reset
               </Button>
             </Form.Item>

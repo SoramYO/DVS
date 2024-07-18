@@ -67,7 +67,7 @@ const CommitmentForm = () => {
                 },
             ]);
         } catch (error) {
-            console.error("Error uploading file: ", error);
+            message.error("Error uploading file: ", error);
             onError(error);
             setFileList([
                 ...fileList,
@@ -83,7 +83,7 @@ const CommitmentForm = () => {
 
     const handleSubmit = async () => {
         if (!formData.customerName || !formData.commitmentDate) {
-            console.error("Please fill in all required fields");
+            message.error("Please fill in all required fields");
             return;
         }
         setLoading(true);
@@ -104,7 +104,7 @@ const CommitmentForm = () => {
             }
         } catch (error) {
             setLoading(false);
-            console.error(error.response?.data?.message || "Error creating commitment");
+            message.error(error.response?.data?.message || "Error creating commitment");
         }
     };
 
@@ -177,7 +177,7 @@ const CommitmentForm = () => {
                                     beforeUpload={(file) => {
                                         const isPdf = file.type === "application/pdf";
                                         if (!isPdf) {
-                                            console.error("You can only upload PDF file!");
+                                            message.error("You can only upload PDF file!");
                                         }
                                         return isPdf;
                                     }}

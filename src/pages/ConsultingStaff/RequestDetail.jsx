@@ -52,7 +52,7 @@ const RequestDetail = () => {
       appointmentDate &&
       new Date(appointmentDate) < new Date(request.createdDate)
     ) {
-      console.error("The appointment date cannot be before the request creation date");
+      message.error("The appointment date cannot be before the request creation date");
       return;
     }
     try {
@@ -65,7 +65,7 @@ const RequestDetail = () => {
       getRequestDetail();
     } catch (error) {
       navigate("/consultingStaff");
-      console.error("Update failure processing status");
+      message.error("Update failure processing status");
     }
   };
 
@@ -92,7 +92,7 @@ const RequestDetail = () => {
   return (
     <div className="request-detail-container">
       <Title level={1} className="page-title">
-      Details of Valuation Request
+        Details of Valuation Request
         <Button
           icon={<ArrowLeftOutlined />}
           onClick={handleBack}
@@ -165,7 +165,7 @@ const RequestDetail = () => {
               />
 
               <Button icon={<CheckOutlined />} onClick={handleOk}>
-              Complete appointment booking
+                Complete appointment booking
               </Button>
 
             </Card>

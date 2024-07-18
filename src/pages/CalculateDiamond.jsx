@@ -1,4 +1,4 @@
-import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, Radio, Row, Slider, Typography } from 'antd';
+import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, message, Radio, Row, Slider, Typography } from 'antd';
 import 'antd/dist/reset.css';
 import axios from 'axios';
 import React, { useState } from 'react';
@@ -144,7 +144,7 @@ const CalculateDiamond = () => {
       });
       setDetailsVisible(true);
     } catch (error) {
-      console.error('Error calculating diamond price:', error);
+      message.error('Error calculating diamond price:', error);
     }
   };
 
@@ -159,7 +159,7 @@ const CalculateDiamond = () => {
         </Link>
       </div>
       <Layout className="layout">
-        <Content style={{paddingTop: "20px", paddingBottom: "30px"}}>
+        <Content style={{ paddingTop: "20px", paddingBottom: "30px" }}>
           <div className="site-layout-content">
             <Title>CALCULATE DIAMOND PRICE</Title>
             <Form layout="vertical" className="input-form" form={form}>
@@ -307,13 +307,13 @@ const CalculateDiamond = () => {
                 </Panel>
               </Collapse>
               <Form.Item>
-              <div className="check-button">
-                <Button type="primary" className="calculate-btn" onClick={handleCalculatePrice}>
-                  Check Price
-                </Button>
-                <Button style={{ marginLeft: 8 }} onClick={handleReset}>
-                  Reset
-                </Button>
+                <div className="check-button">
+                  <Button type="primary" className="calculate-btn" onClick={handleCalculatePrice}>
+                    Check Price
+                  </Button>
+                  <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+                    Reset
+                  </Button>
                 </div>
               </Form.Item>
             </Form>
