@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import '../css/CustomerChat.css';
-const socket = io('https://dvs-be-sooty.vercel.app');
+const socket = io('https://dvs-be-sooty.vercel.app/socket');
 
 const CustomerChat = ({ user }) => {
     const [messages, setMessages] = useState([]);
