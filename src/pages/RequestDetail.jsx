@@ -30,29 +30,29 @@ const RequestDetail = () => {
 
     getRequest();
   }, [id]);
-  // console.log(request);
+
   if (loading) {
     return <MySpin />;
   }
+
   return (
     <div className="request-detail-container">
       <Title level={1} className="page-title">
         Valuation Request Detail
       </Title>
 
-      <Row gutter={16}>
-        <Col span={12}>
+      <Row gutter={16} justify="center">
+        <Col span={8}>
           <Card
             title="Diamond Information"
             bordered={false}
-            className="info-card"
+            className="info-card diamond-info-card"
           >
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div className="info-section">
               <div>
                 <div className="info-item">
                   <Text strong>Created Date:</Text>{" "}
                   {new Date(request?.createdDate).toLocaleDateString("en-GB")}
-                  {/* <InfoCircleOutlined className="info-icon" /> */}
                 </div>
                 <div className="info-item">
                   <Text strong>Appointed Date:</Text>{" "}
@@ -108,8 +108,32 @@ const RequestDetail = () => {
               )}
             </div>
           </Card>
+        </Col>
 
-          <Card title="User Information" bordered={false} className="info-card">
+        <Col span={8}>
+          <Card bordered={false} className="info-card image-card">
+            <Image
+              src={request.requestImage}
+              alt="Diamond"
+              className="diamond-image"
+              placeholder={
+                <Image
+                  preview={false}
+                  src={request.requestImage}
+                  alt="Diamond"
+                  className="diamond-image"
+                />
+              }
+            />
+          </Card>
+        </Col>
+
+        <Col span={8}>
+          <Card
+            title="User Information"
+            bordered={false}
+            className="info-card user-info-card"
+          >
             <p>
               <Text strong>Fullname:</Text>{" "}
               {`${request.firstName} ${request.lastName}`}
@@ -122,30 +146,9 @@ const RequestDetail = () => {
             </p>
           </Card>
         </Col>
-
-        <Col span={12}>
-          <Row gutter={16}>
-            <Col span={24}>
-              <Card bordered={false} className="info-card">
-                <Image
-                  src={request.requestImage}
-                  alt="Diamond"
-                  className="diamond-image"
-                  placeholder={
-                    <Image
-                      preview={false}
-                      src={request.requestImage}
-                      alt="Diamond"
-                      className="diamond-image"
-                    />
-                  }
-                />
-              </Card>
-            </Col>
-          </Row>
-        </Col>
       </Row>
     </div>
   );
 };
+
 export default RequestDetail;
