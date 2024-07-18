@@ -11,7 +11,6 @@ import HomePageImage1 from '../assets/imgs/hompage1.jpg';
 import Chat from '../components/CustomerChat';
 import { AuthContext } from "../context/AuthContext";
 import '../css/HomePage.css';
-
 const { Title, Paragraph } = Typography;
 
 const HomePage = () => {
@@ -65,6 +64,13 @@ const HomePage = () => {
       image: HomePageImage6,
     }
   ];
+  const handleOpenChatDrawer = () => {
+    if (user) {
+      setVisible(true);
+    } else {
+      navigate('/login'); // Redirect to login if user is not logged in
+    }
+  };
 
   return (
     <div className="homepage">
@@ -148,7 +154,13 @@ const HomePage = () => {
         height="400px"
         width="300px"
       >
-        <Chat user={user} />
+        {user ? (
+          <Chat user={user} />
+        ) : (
+          <div>
+            Please log in to start messaging.
+          </div>
+        )}
       </Drawer>
     </div>
   );
