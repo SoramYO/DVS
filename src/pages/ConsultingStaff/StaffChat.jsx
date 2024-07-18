@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { AuthContext } from '../../context/AuthContext';
 import '../../css/StaffChat.css';
-const socket = io('https://dvs-be-sooty.vercel.app');
+const socket = io('https://dvs-be-sooty.vercel.app/socket');
 
 const StaffChat = () => {
     const [activeChats, setActiveChats] = useState([]);
