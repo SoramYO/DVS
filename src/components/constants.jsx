@@ -234,3 +234,25 @@ export const chartData = [
     { carat: '4', url: 'https://stonealgo.blob.core.windows.net/img-q4m8c3hsmq/1m_All_4_carat.svg' },
     { carat: '5', url: 'https://stonealgo.blob.core.windows.net/img-q4m8c3hsmq/1m_All_5_carat.svg' },
 ];
+
+export const emojiMap = {
+    ':)': '😊',
+    ':(': '😞',
+    '<3': '❤️',
+    ':D': '😄',
+    ';)': '😉',
+    ':P': '😛',
+    ':O': '😮',
+    ':*': '😘',
+    ':|': '😐',
+    ':/': '😕',
+    ':B': '😎',
+    '>:(': '😡',
+    ':X': '🤐',
+    ':>': '😏',
+    'O:)': '😇',
+    ':poop:': '💩',
+    ':fire:': '🔥',
+    ':thumbsup:': '👍',
+    ':thumbsdown:': '👎',
+};

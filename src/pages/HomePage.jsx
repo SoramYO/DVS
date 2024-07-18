@@ -64,13 +64,6 @@ const HomePage = () => {
       image: HomePageImage6,
     }
   ];
-  const handleOpenChatDrawer = () => {
-    if (user) {
-      setVisible(true);
-    } else {
-      navigate('/login'); // Redirect to login if user is not logged in
-    }
-  };
 
   return (
     <div className="homepage">
