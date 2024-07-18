@@ -2,14 +2,12 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  background:black ;
-  /* background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); */
+  background: black;
   color: #ffffff;
   border-bottom: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* margin: 10px;
-  border-radius: 0; 
-   padding: 10px 20px; */
+  padding: 10px 20px;
+  flex-wrap: wrap;
 }
 
 .headerLeft,
@@ -33,31 +31,6 @@
 .headerLogo {
   width: 73px;
   height: auto;
-
-}
-
-/* .headerLeft h4 {
-  font-size: 14px;
-  margin: 0 10px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} */
-
-.languageIcon {
-  width: 42px;
-  height: 30px;
-  overflow: hidden;
-  border: 1px solid #ccc;
-  border-radius: 0; /* Removed border-radius */
-}
-
-.languageIconImage {
-  width: 100%;
-  height: 100%;
-}
-
-.downIcon {
-  font-size: 14px;
-  margin-left: 5px;
 }
 
 .headerRight {
@@ -66,12 +39,7 @@
   margin-right: 10px;
 }
 
-.headerRight h5 {
-  font-size: 14px;
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
+.headerRight h5,
 .headerLeft h5 {
   font-size: 14px;
   margin: 0;
@@ -103,4 +71,26 @@
 .clockContainer h5,
 .phoneContainer h5 {
   margin-left: 8px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .headerContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .headerLeft, .headerRight {
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .headerCenter {
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .headerLogo {
+    width: 50px;
+  }
 }

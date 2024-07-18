@@ -1,11 +1,56 @@
+/* Responsive adjustments for HomePage */
+
+@media screen and (max-width: 1200px) {
+  .slide-content {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .slide-content {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .slide-content {
+    width: 90%;
+  }
+
+  .help-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .check-price-card {
+    padding: 20px;
+  }
+
+  .check-price-button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .slide-content {
+    width: 100%;
+  }
+
+  .slide-button {
+    font-size: 1em;
+  }
+
+  .help-card {
+    max-width: 100%;
+  }
+}
+
+/* General styles */
 .homepage {
   font-family: Arial, sans-serif;
-  /* padding: 20px; */
-  /* background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); */
   color: #333;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* margin: 10px; */
 }
 
 .homepage-section {
@@ -145,7 +190,6 @@
   background-color: #34c4f0;
   border-color: #34c4f0;
 }
-
 
 .message-button {
   position: fixed;

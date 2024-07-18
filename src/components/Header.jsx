@@ -46,11 +46,6 @@ const Header = () => {
   return (
     <div className="headerContainer">
       <div className="headerLeft">
-        {/* <div className="languageIcon">
-          <img src="../assets/language.png" alt="Language" className="languageIconImage" />
-        </div>
-        <DownOutlined className="downIcon" />
-        <h4>English</h4> */}
         <div className="clockContainer">
           <ClockCircleOutlined className="headerIcon" />
           <h5>{timeStatus.time} - {timeStatus.status}</h5>
@@ -63,7 +58,6 @@ const Header = () => {
       </div>
       <div className="headerRight">
         <MailFilled className="headerIcon emailIcon" onClick={showContactModal} />
-
         <div className="phoneContainer">
           <PhoneFilled className="headerIcon" onClick={openZalo} />
           <h5>0976457150</h5>
