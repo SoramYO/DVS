@@ -92,9 +92,8 @@ const Navbar = () => {
   return (
     <div className="navbarContainer">
       <Row justify="space-between" align="middle">
-        <Col xs={24} sm={12} md={12} lg={16}>
+        <Col xs={24} md={16}>
           <div className="navbarLeft">
-            {/* <div className="navbarMenu"> */}
             <Link to="/" className="navbarItem">
               <HomeOutlined style={{ fontSize: "26px" }} />
             </Link>
@@ -118,10 +117,9 @@ const Navbar = () => {
             <Link to="/pricing" className="navbarItem">
               <strong>Pricing</strong>
             </Link>
-            {/* </div> */}
           </div>
         </Col>
-        <Col xs={24} sm={12} md={12} lg={8} className="navbarRightContainer">
+        <Col xs={24} md={8} className="navbarRightContainer">
           <div className="navbarRight">
             <div className="searchContainer">
               <AutoComplete
@@ -140,18 +138,15 @@ const Navbar = () => {
               {!user ? (
                 <>
                   <Link to="/login">
-                    <Button style={{ marginRight: "20px" }} type="primary">
-                      Sign in
-                    </Button>
+                    <Button type="primary" className="signInBtn">Sign in</Button>
                   </Link>
                   <Link to="/register">
-                    <Button type="primary">Sign up</Button>
+                    <Button type="primary" className="signUpBtn">Sign up</Button>
                   </Link>
                 </>
               ) : (
                 <Dropdown overlay={userMenu}>
                   <div className="profileContainer">
-                    {/* <UserOutlined className="userIcon" /> */}
                     <Avatar
                       size="large"
                       style={{

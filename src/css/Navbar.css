@@ -1,28 +1,19 @@
 .navbarContainer {
-  align-items: center;
   padding: 0 15px;
   color: #333;
   background: rgb(250, 81, 81);
-  /* background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); */
-
-  /* border-bottom: 1px solid #ddd;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin: 10px; */
+  max-width: 100%;
 }
 
 .navbarLeft {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
-
-/* .navbarMenu {
-  display: flex;
-} */
 
 .navbarItem {
   font-size: 17px;
-  padding: 30px;
+  padding: 10px 15px;
   color: black;
   display: flex;
   align-items: center;
@@ -47,8 +38,9 @@
 }
 
 .searchContainer {
-  width: 360px;
-  /* margin-right: 40px; */
+  width: 100%;
+  max-width: 360px;
+  margin-right: 20px;
 }
 
 .searchIcon {
@@ -59,7 +51,6 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  width: 30%;
 }
 
 .profileContainer {
@@ -74,4 +65,39 @@
   margin-left: 10px;
   margin-top: 15px;
   font-weight: bold;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .navbarLeft {
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .navbarItem {
+    padding: 10px;
+  }
+
+  .navbarRightContainer {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .searchContainer {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .signInButton {
+    flex-direction: column;
+  }
+
+  .signInBtn, .signUpBtn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .profileContainer p {
+    display: none;
+  }
 }
