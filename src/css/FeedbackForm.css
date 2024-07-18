@@ -1,0 +1,53 @@
+.feedback-modal .feedback-modal-content {
+    background-color: #e0b1b1; 
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.feedback-modal .feedback-modal-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.feedback-modal .feedback-modal-header h2 {
+    color: #fff; 
+    font-size: 24px;
+}
+
+.feedback-modal .feedback-modal-body {
+    margin-bottom: 20px;
+}
+
+.feedback-modal-body label {
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
+    cursor: default;
+}
+
+.feedback-modal .feedback-modal-body .ant-input,
+.feedback-modal .feedback-modal-body .ant-input-textarea {
+    background-color: #c58989; 
+    color: #130f0f; 
+    border-color: #ed5a5a; 
+}
+
+.feedback-modal .feedback-modal-body .ant-input:hover,
+.feedback-modal .feedback-modal-body .ant-input:focus,
+.feedback-modal .feedback-modal-body .ant-input-textarea:hover,
+.feedback-modal .feedback-modal-body .ant-input-textarea:focus {
+    border-color: #ed5a5a; 
+}
+
+.feedback-modal .feedback-modal-footer {
+    text-align: right;
+}
+
+.feedback-modal .feedback-modal-footer button {
+    margin-left: 8px;
+}
