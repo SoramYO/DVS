@@ -1,85 +1,74 @@
-// import React, { useEffect, useState } from 'react';
-// import io from 'socket.io-client';
-// import '../css/CustomerChat.css';
-// const socket = io('https://dvs-be-sooty.vercel.app/socket');
+import { getDatabase, onValue, push, ref, serverTimestamp } from 'firebase/database';
+import React, { useEffect, useState } from 'react';
+import '../css/CustomerChat.css';
 
-// const CustomerChat = ({ user }) => {
-//     const [messages, setMessages] = useState([]);
-//     const [inputMessage, setInputMessage] = useState('');
-//     const [chatId, setChatId] = useState(null);
-//     const [isChatActive, setIsChatActive] = useState(true);
+const CustomerChat = ({ user }) => {
+    const [messages, setMessages] = useState([]);
+    const [inputMessage, setInputMessage] = useState('');
+    const [chatId, setChatId] = useState(`chat_${user.id}`);
+    const [isChatActive, setIsChatActive] = useState(true);
 
-//     useEffect(() => {
-//         socket.emit('initiate_chat', user);
+    const db = getDatabase();
 
-//         socket.on('chat_initiated', (data) => {
-//             setChatId(data.chatId);
-//             setMessages(prev => [...prev, { sender: 'System', message: data.message }]);
-//         });
+    useEffect(() => {
+        const messagesRef = ref(db, `messages/${chatId}`);
 
-//         socket.on('staff_joined', (data) => {
-//             setMessages(prev => [...prev, { sender: 'System', message: data.message }]);
-//         });
+        onValue(messagesRef, (snapshot) => {
+            const data = snapshot.val();
+            const messagesArray = data ? Object.values(data) : [];
+            setMessages(messagesArray);
+        });
 
-//         socket.on('chat_message', (data) => {
-//             setMessages(prev => [...prev, data]);
-//         });
+        return () => {
+            // Cleanup
+        };
+    }, [chatId, db]);
 
-//         socket.on('chat_closed', (data) => {
-//             setMessages(prev => [...prev, { sender: 'System', message: data.message }]);
-//             setIsChatActive(false);
-//         });
+    const sendMessage = (e) => {
+        e.preventDefault();
+        if (inputMessage.trim() && isChatActive) {
+            const newMessage = {
+                message: inputMessage,
+                sender: `${user.firstName} ${user.lastName}`,
+                timestamp: serverTimestamp()
+            };
+            push(ref(db, `messages/${chatId}`), newMessage);
+            setInputMessage('');
+        }
+    };
 
-//         return () => {
-//             socket.off('chat_initiated');
-//             socket.off('staff_joined');
-//             socket.off('chat_message');
-//             socket.off('chat_closed');
-//         };
-//     }, [user]);
+    const closeChat = () => {
+        setIsChatActive(false);
+        // Notify staff that chat has been closed
+    };
 
-//     const sendMessage = (e) => {
-//         e.preventDefault();
-//         if (inputMessage.trim() && chatId && isChatActive) {
-//             socket.emit('chat_message', { chatId, message: inputMessage, sender: `${user.firstName} ${user.lastName}` });
-//             setInputMessage('');
-//         }
-//     };
+    return (
+        <div className="chat-container">
+            <div className="chat-messages">
+                {messages.map((msg, index) => (
+                    <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === `${user.firstName} ${user.lastName}` ? 'user-message' : 'staff-message')}`}>
+                        <span className="sender">{msg.sender}</span>
+                        <p>{msg.message}</p>
+                    </div>
+                ))}
+            </div>
+            {isChatActive ? (
+                <form onSubmit={sendMessage} className="chat-input">
+                    <input
+                        type="text"
+                        value={inputMessage}
+                        onChange={(e) => setInputMessage(e.target.value)}
+                        placeholder="Type your message here..."
+                        className="message-input"
+                    />
+                    <button type="submit" className="send-button">Send</button>
+                    <button type="button" onClick={closeChat} className="close-button">Close Chat</button>
+                </form>
+            ) : (
+                <div className="chat-closed">Chat has been closed</div>
+            )}
+        </div>
+    );
+};
 
-//     const closeChat = () => {
-//         if (chatId && isChatActive) {
-//             socket.emit('close_chat', { chatId, closedBy: `${user.firstName} ${user.lastName}` });
-//             setIsChatActive(false);
-//         }
-//     };
-
-//     return (
-//         <div className="chat-container">
-//             <div className="chat-messages">
-//                 {messages.map((msg, index) => (
-//                     <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === `${user.firstName} ${user.lastName}` ? 'user-message' : 'staff-message')}`}>
-//                         <span className="sender">{msg.sender}</span>
-//                         <p>{msg.message}</p>
-//                     </div>
-//                 ))}
-//             </div>
-//             {isChatActive ? (
-//                 <form onSubmit={sendMessage} className="chat-input">
-//                     <input
-//                         type="text"
-//                         value={inputMessage}
-//                         onChange={(e) => setInputMessage(e.target.value)}
-//                         placeholder="Type your message here..."
-//                         className="message-input"
-//                     />
-//                     <button type="submit" className="send-button">Send</button>
-//                     <button type="button" onClick={closeChat} className="close-button">Close Chat</button>
-//                 </form>
-//             ) : (
-//                 <div className="chat-closed">Chat has been closed</div>
-//             )}
-//         </div>
-//     );
-// };
-
-// export default CustomerChat;
+export default CustomerChat;
