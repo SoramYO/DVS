@@ -12,7 +12,7 @@ const Service = () => {
         setLoading(true);
         const fetchServices = async () => {
             try {
-                const response = await axios.get('https://dvs-be-sooty.vercel.app/api/user-service');
+                const response = await axios.get('https://dvs-be-sooty.vercel.app/api/services');
                 setServices(response.data.services);
                 setLoading(false);
             } catch (error) {
