@@ -29,8 +29,6 @@ const StaffChat = () => {
             })) : [];
             setActiveChats(chatsArray);
         });
-
-
     }, [db]);
 
     useEffect(() => {
@@ -107,8 +105,7 @@ const StaffChat = () => {
                             onClick={() => joinChat(chat.chatId)}
                             className="chat-button"
                         >
-                            <span className="customer-name">{chat.customerName}</span>
-                            <span className="message-count">{chat.messageCount}</span>
+                            <span className="customer-name">{chat.chatId}</span>
                         </button>
                     ))}
                 </div>
