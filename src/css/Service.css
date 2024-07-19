@@ -28,3 +28,36 @@
   list-style-type: disc;
   padding-left: 20px;
 }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .service-container {
+    padding: 20px;
+  }
+
+  .service-container h1 {
+    font-size: 20px;
+  }
+
+  .service-card ul {
+    padding-left: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-container {
+    padding: 10px;
+  }
+
+  .service-container h1 {
+    font-size: 18px;
+  }
+
+  .service-card ul {
+    padding-left: 10px;
+  }
+
+  .service-card {
+    font-size: 14px;
+  }
+}

@@ -63,7 +63,6 @@
 .button-container {
   display: flex;
   justify-content: center;
- 
 }
 
 .booking-button {
@@ -79,4 +78,67 @@
 
 .booking-button:hover {
   background-color: #ff0000;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .guidesContainer {
+    padding: 20px;
+  }
+
+  .guidesContainer h1 {
+    font-size: 2em;
+  }
+
+  .guidesContainer h2 {
+    font-size: 1.75em;
+  }
+
+  .guidesContainer h3 {
+    font-size: 1.25em;
+  }
+
+  .guidesContainer p, .guidesContainer ul {
+    font-size: 0.9em;
+  }
+
+  .guidesContainer ul {
+    padding-left: 15px;
+  }
+
+  .booking-button {
+    font-size: 1em;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .guidesContainer {
+    padding: 10px;
+  }
+
+  .guidesContainer h1 {
+    font-size: 1.75em;
+  }
+
+  .guidesContainer h2 {
+    font-size: 1.5em;
+  }
+
+  .guidesContainer h3 {
+    font-size: 1em;
+  }
+
+  .guidesContainer p, .guidesContainer ul {
+    font-size: 0.8em;
+  }
+
+  .guidesContainer ul {
+    padding-left: 10px;
+  }
+
+  .booking-button {
+    font-size: 0.9em;
+    padding: 8px 12px;
+  }
 }
