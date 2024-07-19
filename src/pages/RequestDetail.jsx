@@ -58,8 +58,8 @@ const RequestDetail = () => {
                   <Text strong>Appointed Date:</Text>{" "}
                   {request.appointmentDate
                     ? new Date(request?.appointmentDate)?.toLocaleDateString(
-                        "en-GB"
-                      )
+                      "en-GB"
+                    )
                     : "Chưa có"}
                 </div>
                 <div className="info-item">

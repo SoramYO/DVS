@@ -1,4 +1,4 @@
-import { Button, Card, Col, FloatButton, Row, Space, Table, Tag, message } from "antd";
+import { Button, Card, Col, FloatButton, message, Modal, Row, Space, Table, Tag } from "antd";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -10,7 +10,8 @@ const TakedRequest = () => {
     const [requests, setRequests] = useState([]);
     // const [serviceFilter, setServiceFilter] = useState("All");
     const [loading, setLoading] = useState(false);
-
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedRequestId, setSelectedRequestId] = useState(null);
     const getAllRequests = async () => {
         setLoading(true);
         await axios
@@ -106,6 +107,33 @@ const TakedRequest = () => {
             console.error('Error updating request status');
         }
     };
+    const showConfirmModal = (requestId) => {
+        setSelectedRequestId(requestId);
+        setIsModalVisible(true);
+    };
+
+    const handleModalConfirm = async () => {
+        setIsModalVisible(false);
+        setLoading(true);
+        try {
+            const response = await axios.post('https://dvs-be-sooty.vercel.app/api/customer-took-sample', { requestId: selectedRequestId }, { withCredentials: true });
+            if (response.data.message) {
+                setLoading(false);
+                message.success(response.data.message);
+                getAllRequests();
+            } else {
+                console.error('Failed to update request status');
+            }
+        } catch (error) {
+            setLoading(false);
+            console.error('Error updating request status:', error);
+            console.error('Error updating request status');
+        }
+    };
+
+    const handleModalCancel = () => {
+        setIsModalVisible(false);
+    };
 
 
 
@@ -196,7 +224,7 @@ const TakedRequest = () => {
                             Send to valuation staff
                         </Button>
                     ) : record.processStatus === "Completed" || record.processStatus === "Sealing" || record.processStatus === "Commitment" ? (
-                        <Button onClick={() => handleCustomerTookSample(record.requestId)}>
+                        <Button onClick={() => showConfirmModal(record.requestId)}>
                             Customer Took Sample
                         </Button>
                     ) : record.processStatus === "Done" ? (
@@ -207,7 +235,6 @@ const TakedRequest = () => {
                         <Button disabled={record.processStatus === "Booking Appointment"}>
                             <Link to={`/consultingStaff/takedRequest/detail/${record.requestId}`}>View Detail</Link>
                         </Button>
-
                     ) : (
                         <Button disabled={record.processStatus === "Start Valuated" || record.processStatus === "Sent to Consulting" || record.processStatus === "Valuated" || record.processStatus === "Rejected Commitment" || record.processStatus === "Rejected Sealing"}>
                             <Link to={`/consultingStaff/takedRequest/detail/${record.requestId}`}>Receive Diamond</Link>
@@ -315,6 +342,14 @@ const TakedRequest = () => {
                     </Card>
                 </Col>
             </Row>
+            <Modal
+                title="Confirm Action"
+                visible={isModalVisible}
+                onOk={handleModalConfirm}
+                onCancel={handleModalCancel}
+            >
+                <p>Are you sure the customer took the sample?</p>
+            </Modal>
         </div>
     );
 };

@@ -42,7 +42,7 @@ export const statusIcons = {
     "Unprocessed": <MinusCircleOutlined />,
     "Ready for valuation": <CheckCircleOutlined />
 };
-
+export const shapeOptions = ["Round", "Princess", "Oval", "Marquise", "Pear", "Heart", "Cushion", "Radiant", "Emerald", "Asscher"];
 export const colorOptions = ["D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"];
 export const clarityOptions = ["IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2", "SI", "I1", "I2", "I3"];
 export const cutOptions = ["Affinity", "Excellent", "VeryGood", "Good", "Fair"];

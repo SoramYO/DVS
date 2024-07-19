@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { Button, Form, Input, message, Modal, Spin } from 'antd';
 import axios from 'axios';
-import { Modal, Form, Input, Button, message, Spin } from 'antd';
+import React, { useEffect, useState } from 'react';
 import '../css/FeedbackForm.css';
 
 const FeedbackForm = ({ visible, onClose, requestId }) => {
@@ -38,19 +38,19 @@ const FeedbackForm = ({ visible, onClose, requestId }) => {
                 axios.post("https://dvs-be-sooty.vercel.app/api/feedback", feedbackData, {
                     withCredentials: true,
                 })
-                .then(res => {
-                    setLoading(false);
-                    form.resetFields();
-                    setTimeout(() => {
-                        onClose();
-                    }, 300);
-                    message.success('Feedback submitted successfully'); 
-                })
-                .catch(error => {
-                    setLoading(false);
-                    console.error('Failed to submit feedback:', error);
-                    message.error('Failed to submit feedback');
-                });
+                    .then(res => {
+                        setLoading(false);
+                        form.resetFields();
+                        setTimeout(() => {
+                            onClose();
+                        }, 300);
+                        message.success('Feedback submitted successfully');
+                    })
+                    .catch(error => {
+                        setLoading(false);
+                        console.error('Failed to submit feedback:', error);
+                        message.error('Failed to submit feedback');
+                    });
             })
             .catch(error => {
                 console.error('Validate Failed:', error);
