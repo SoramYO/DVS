@@ -1,5 +1,7 @@
-import { getDatabase, onValue, push, ref, serverTimestamp } from 'firebase/database';
-import React, { useEffect, useState } from 'react';
+import { message } from 'antd';
+import { getDatabase, onValue, push, ref, remove, serverTimestamp } from 'firebase/database';
+import React, { useEffect, useRef, useState } from 'react';
+import Fileicon from '../../assets/imgs/file-icon.jpg';
 import '../../css/StaffChat.css';
 
 const StaffChat = () => {
@@ -10,6 +12,11 @@ const StaffChat = () => {
     const [isChatActive, setIsChatActive] = useState(true);
 
     const db = getDatabase();
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
     useEffect(() => {
         const chatsRef = ref(db, 'messages');
@@ -23,20 +30,28 @@ const StaffChat = () => {
             setActiveChats(chatsArray);
         });
 
-        return () => {
-            // Cleanup
-        };
+
     }, [db]);
+
+    useEffect(() => {
+        if (currentChat) {
+            const messagesRef = ref(db, `messages/${currentChat}`);
+
+            onValue(messagesRef, (snapshot) => {
+                const data = snapshot.val();
+                const messagesArray = data ? Object.values(data) : [];
+                setMessages(messagesArray);
+            });
+        }
+    }, [currentChat, db]);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages, currentChat]);
 
     const joinChat = (chatId) => {
         setCurrentChat(chatId);
-        const messagesRef = ref(db, `messages/${chatId}`);
-
-        onValue(messagesRef, (snapshot) => {
-            const data = snapshot.val();
-            const messagesArray = data ? Object.values(data) : [];
-            setMessages(messagesArray);
-        });
+        setIsChatActive(true);
     };
 
     const sendMessage = (e) => {
@@ -53,8 +68,32 @@ const StaffChat = () => {
     };
 
     const closeChat = () => {
-        setIsChatActive(false);
-        // Notify the chat participants that the chat has been closed
+        if (currentChat) {
+            remove(ref(db, `messages/${currentChat}`));
+            setCurrentChat(null);
+            setMessages([]);
+            setIsChatActive(false);
+            message.success("Delete chat success");
+        }
+    };
+
+    const renderMessage = (msg) => {
+        if (msg.message.startsWith('https://firebasestorage.googleapis.com')) {
+            const fileName = msg.message.split('/').pop().split('?')[0].split('%2F').pop().split('%20').join(' ').split('%3A').join(':');
+            return (
+                <div className="file-message">
+                    <img src={Fileicon} alt="File" className="file-icon" />
+                    <div className="file-info">
+                        <span className="file-name">{fileName}</span>
+                        <a href={msg.message} target="_blank" rel="noopener noreferrer" className="file-link">
+                            View
+                        </a>
+                    </div>
+                </div>
+            );
+        } else {
+            return <p>{msg.message}</p>;
+        }
     };
 
     return (
@@ -81,9 +120,11 @@ const StaffChat = () => {
                         {messages.map((msg, index) => (
                             <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === 'Staff' ? 'staff-message' : 'customer-message')}`}>
                                 <span className="sender">{msg.sender}</span>
-                                <p>{msg.message}</p>
+                                {renderMessage(msg)}
+                                <div ref={messagesEndRef} />
                             </div>
                         ))}
+                        
                     </div>
                     <form onSubmit={sendMessage} className="chat-input">
                         <input

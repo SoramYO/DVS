@@ -1,8 +1,9 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, message, Upload } from 'antd';
-import { onValue, push, ref, serverTimestamp } from 'firebase/database';
+import { onValue, push, ref, remove, serverTimestamp } from 'firebase/database';
 import { getDownloadURL, ref as storageRef, uploadBytes } from 'firebase/storage';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Fileicon from '../assets/imgs/file-icon.jpg';
 import '../css/CustomerChat.css';
 import { db, storage } from '../firebase/firebase';
 import { emojiMap } from './constants';
@@ -14,6 +15,12 @@ const CustomerChat = ({ user }) => {
     const [chatId, setChatId] = useState(`chat_${user.id}`);
     const [isChatActive, setIsChatActive] = useState(true);
     const [downloadURL, setDownloadURL] = useState('');
+
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
     useEffect(() => {
         const messagesRef = ref(db, `messages/${chatId}`);
@@ -28,6 +35,10 @@ const CustomerChat = ({ user }) => {
             // Cleanup
         };
     }, [chatId]);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages, chatId]);
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -81,8 +92,10 @@ const CustomerChat = ({ user }) => {
     };
 
     const closeChat = () => {
+        remove(ref(db, `messages/${chatId}`));
         setIsChatActive(false);
-        // Notify staff that chat has been closed
+        setMessages([]);
+        message.success("Close chat success");
     };
 
     const convertTextToEmoji = (text) => {
@@ -107,15 +120,15 @@ const CustomerChat = ({ user }) => {
 
     const renderMessage = (msg) => {
         if (msg.message.startsWith('https://firebasestorage.googleapis.com')) {
-            // This is an uploaded file
-            const fileName = msg.message.split('/').pop().split('?')[0];
+            // Đây là một file đã upload
+            const fileName = msg.message.split('/').pop().split('?')[0].split('%2F').pop().split('%20').join(' ').split('%3A').join(':');
             return (
                 <div className="file-message">
-                    <img src='../assets/imgs/file-icon.jpg' alt="File" className="file-icon" />
+                    <img src={Fileicon} alt="File" className="file-icon" />
                     <div className="file-info">
                         <span className="file-name">{fileName}</span>
                         <a href={msg.message} target="_blank" rel="noopener noreferrer" className="file-link">
-                            View / Download
+                            View
                         </a>
                     </div>
                 </div>
@@ -128,40 +141,41 @@ const CustomerChat = ({ user }) => {
 
     return (
         <div className="chat-background">
-        <div className="chat-container">
-            <div className="chat-messages">
-                {messages.map((msg, index) => (
-                    <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === `${user.firstName} ${user.lastName}` ? 'user-message' : 'staff-message')}`}>
-                        <span className="sender">{msg.sender}</span>
-                        {renderMessage(msg)}
-                    </div>
-                ))}
+            <div className="chat-container">
+                <div className="chat-messages">
+                    {messages.map((msg, index) => (
+                        <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === `${user.firstName} ${user.lastName}` ? 'user-message' : 'staff-message')}`}>
+                            <span className="sender">{msg.sender}</span>
+                            {renderMessage(msg)}
+                        </div>
+                    ))}
+                    <div ref={messagesEndRef} />
+                </div>
+                {isChatActive ? (
+                    <form onSubmit={sendMessage} className="chat-input">
+                        <input
+                            type="text"
+                            value={inputMessage}
+                            onChange={(e) => setInputMessage(e.target.value)}
+                            placeholder="Type your message here..."
+                            className="message-input"
+                        />
+                        <Upload
+                            maxCount={1}
+                            listType="picture"
+                            fileList={fileList}
+                            customRequest={uploadImage}
+                            onChange={handleFileChange}
+                        >
+                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                        </Upload>
+                        <button type="submit" className="send-button">Send</button>
+                        <button type="button" onClick={closeChat} className="close-button">Close Chat</button>
+                    </form>
+                ) : (
+                    <div className="chat-closed">Chat has been closed</div>
+                )}
             </div>
-            {isChatActive ? (
-                <form onSubmit={sendMessage} className="chat-input">
-                    <input
-                        type="text"
-                        value={inputMessage}
-                        onChange={(e) => setInputMessage(e.target.value)}
-                        placeholder="Type your message here..."
-                        className="message-input"
-                    />
-                    <Upload
-                        maxCount={1}
-                        listType="picture"
-                        fileList={fileList}
-                        customRequest={uploadImage}
-                        onChange={handleFileChange}
-                    >
-                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                    </Upload>
-                    <button type="submit" className="send-button">Send</button>
-                    <button type="button" onClick={closeChat} className="close-button">Close Chat</button>
-                </form>
-            ) : (
-                <div className="chat-closed">Chat has been closed</div>
-            )}
-        </div>
         </div>
     );
 };
