@@ -139,13 +139,13 @@ const CustomerChat = ({ user }) => {
             return <p>{msg.message}</p>;
         }
     };
-
+    
     return (
         <div className="chat-background">
             <div className="chat-container">
                 <div className="chat-messages">
                     {messages.map((msg, index) => (
-                        <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === `${user.firstName} ${user.lastName}` ? 'user-message' : 'staff-message')}`}>
+                        <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === `${user.firstName} ${user.lastName}` ? 'customer-message1' : 'staff-message1')}`}>
                             <span className="sender">{msg.sender}</span>
                             {renderMessage(msg)}
                         </div>
@@ -178,7 +178,7 @@ const CustomerChat = ({ user }) => {
                 )}
             </div>
         </div>
-    );
+    );    
 };
 
 export default CustomerChat;
