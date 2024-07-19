@@ -23,6 +23,7 @@ const CustomerChat = ({ user }) => {
     };
 
     useEffect(() => {
+        setChatId(`${user.firstName} ${user.lastName}`)
         const messagesRef = ref(db, `messages/${chatId}`);
 
         onValue(messagesRef, (snapshot) => {
