@@ -24,17 +24,17 @@
     padding: 20px;
     overflow-y: auto;
     background-color: #f9f9f9;
-    background-image: url('https://www.transparenttextures.com/patterns/shattered.png');
-    /* Add your desired background image URL */
+    background-image: url('https://bazaarvietnam.vn/wp-content/uploads/2021/08/nhung-kieu-cat-da-quy-argyle-blue-diamond.jpg');
 }
 
 .message {
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
+    max-width: 70%;
     display: flex;
     flex-direction: column;
-    max-width: 70%;
+    clear: both;
 }
 
 .system-message {
@@ -42,21 +42,22 @@
     background-color: #ffe0b2;
 }
 
-.user-message {
-    align-self: flex-end;
-    background-color: #d1e7dd;
-    color: #0f5132;
+.customer-message1 {
+    background-color: #dcf8c6;
+    margin-left: auto;
+    margin-right: 0; 
 }
 
-.staff-message {
-    align-self: flex-start;
-    background-color: #fff;
-    border: 1px solid #ddd;
+.staff-message1 {
+    background-color: #ffffff;
+    margin-right: auto;
+    margin-left: 0; 
 }
 
 .sender {
     font-size: 12px;
     color: #666;
+    margin-bottom: 5px;
 }
 
 .chat-input {
