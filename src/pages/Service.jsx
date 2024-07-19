@@ -17,12 +17,12 @@ const Service = () => {
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching services:', error);
+                setLoading(false); // Ensure loading is set to false in case of an error
             }
         };
 
         fetchServices();
     }, []);
-
 
     if (loading) {
         return <MySpin />
