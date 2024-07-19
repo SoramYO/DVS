@@ -35,7 +35,7 @@ const CustomerChat = ({ user }) => {
         return () => {
             // Cleanup
         };
-    }, [chatId]);
+    }, [chatId, user.firstName, user.lastName]);
 
     useEffect(() => {
         scrollToBottom();
