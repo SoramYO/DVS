@@ -1,7 +1,8 @@
-import { getDatabase, onValue, push, ref, serverTimestamp } from 'firebase/database';
+import { message } from 'antd';
+import { getDatabase, onValue, push, ref, remove, serverTimestamp } from 'firebase/database';
 import React, { useEffect, useState } from 'react';
+import Fileicon from '../../assets/imgs/file-icon.jpg';
 import '../../css/StaffChat.css';
-
 const StaffChat = () => {
     const [activeChats, setActiveChats] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
@@ -51,12 +52,34 @@ const StaffChat = () => {
             setInputMessage('');
         }
     };
-
+    //delete chat also delete on firebase
     const closeChat = () => {
         setIsChatActive(false);
-        // Notify the chat participants that the chat has been closed
+        setMessages([]);
+        setCurrentChat(null);
+        remove(ref(db, `messages/${currentChat}`));
+        message.success("Delete chat success")
     };
-
+    const renderMessage = (msg) => {
+        if (msg.message.startsWith('https://firebasestorage.googleapis.com')) {
+            // Đây là một file đã upload
+            const fileName = msg.message.split('/').pop().split('?')[0].split('%2F').pop().split('%20').join(' ').split('%3A').join(':');
+            return (
+                <div className="file-message">
+                    <img src={Fileicon} alt="File" className="file-icon" />
+                    <div className="file-info">
+                        <span className="file-name">{fileName}</span>
+                        <a href={msg.message} target="_blank" rel="noopener noreferrer" className="file-link">
+                            Xem
+                        </a>
+                    </div>
+                </div>
+            );
+        } else {
+            // Đây là tin nhắn văn bản thông thường
+            return <p>{msg.message}</p>;
+        }
+    };
     return (
         <div className="staff-chat-container">
             <div className="active-chats-panel">
@@ -81,7 +104,7 @@ const StaffChat = () => {
                         {messages.map((msg, index) => (
                             <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === 'Staff' ? 'staff-message' : 'customer-message')}`}>
                                 <span className="sender">{msg.sender}</span>
-                                <p>{msg.message}</p>
+                                {renderMessage(msg)}
                             </div>
                         ))}
                     </div>

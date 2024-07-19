@@ -3,6 +3,7 @@ import { Button, message, Upload } from 'antd';
 import { onValue, push, ref, serverTimestamp } from 'firebase/database';
 import { getDownloadURL, ref as storageRef, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
+import Fileicon from '../assets/imgs/file-icon.jpg';
 import '../css/CustomerChat.css';
 import { db, storage } from '../firebase/firebase';
 import { emojiMap } from './constants';
@@ -107,14 +108,14 @@ const CustomerChat = ({ user }) => {
     const renderMessage = (msg) => {
         if (msg.message.startsWith('https://firebasestorage.googleapis.com')) {
             // Đây là một file đã upload
-            const fileName = msg.message.split('/').pop().split('?')[0];
+            const fileName = msg.message.split('/').pop().split('?')[0].split('%2F').pop().split('%20').join(' ').split('%3A').join(':');
             return (
                 <div className="file-message">
-                    <img src='../assets/imgs/file-icon.jpg' alt="File" className="file-icon" />
+                    <img src={Fileicon} alt="File" className="file-icon" />
                     <div className="file-info">
                         <span className="file-name">{fileName}</span>
                         <a href={msg.message} target="_blank" rel="noopener noreferrer" className="file-link">
-                            Xem / Tải xuống
+                            Xem
                         </a>
                     </div>
                 </div>
