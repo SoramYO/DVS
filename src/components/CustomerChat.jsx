@@ -105,6 +105,7 @@ const CustomerChat = ({ user }) => {
             message.error("Failed to upload file.");
         }
     };
+
     const renderMessage = (msg) => {
         if (msg.message.startsWith('https://firebasestorage.googleapis.com')) {
             // Đây là một file đã upload
@@ -115,17 +116,19 @@ const CustomerChat = ({ user }) => {
                     <div className="file-info">
                         <span className="file-name">{fileName}</span>
                         <a href={msg.message} target="_blank" rel="noopener noreferrer" className="file-link">
-                            Xem
+                            View
                         </a>
                     </div>
                 </div>
             );
         } else {
-            // Đây là tin nhắn văn bản thông thường
+            // This is a regular text message
             return <p>{msg.message}</p>;
         }
     };
+
     return (
+        <div className="chat-background">
         <div className="chat-container">
             <div className="chat-messages">
                 {messages.map((msg, index) => (
@@ -159,6 +162,7 @@ const CustomerChat = ({ user }) => {
             ) : (
                 <div className="chat-closed">Chat has been closed</div>
             )}
+        </div>
         </div>
     );
 };
