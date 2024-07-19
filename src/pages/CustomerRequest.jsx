@@ -32,6 +32,7 @@ const CustomerRequest = () => {
   const [fileList, setFileList] = useState([]);
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [note, setNote] = useState("");
@@ -60,9 +61,8 @@ const CustomerRequest = () => {
   };
 
   useEffect(() => {
-    setSelectedService(services[0]);
     getAllServices();
-  }, [services]);
+  }, []);
 
   if (services.length === 0) {
     return <MySpin />
@@ -183,7 +183,7 @@ const CustomerRequest = () => {
     );
     if (selectedService) {
       setPrice(selectedService.price);
-      setSelectedService(selectedService.serviceId);
+      setSelectedServiceId(selectedService.serviceId);
       setIsAutoplay(false);
     }
   };
@@ -224,7 +224,7 @@ const CustomerRequest = () => {
                       {services.map((service) => (
                         <div key={service.serviceId} className="service-container">
                           <Button
-                            className={`service-button ${selectedService === service.serviceId ? "selected" : ""
+                            className={`service-button ${selectedServiceId === service.serviceId ? "selected" : ""
                               }`}
                             onClick={() => handleServiceChange(service.serviceId)}
                           >
