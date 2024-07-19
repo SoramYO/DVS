@@ -79,7 +79,7 @@ const UserRequests = ({
       <Select
         value={filter}
         onChange={handleFilterChange}
-        style={{ marginBottom: 16, width: 200 }}
+        style={{ marginBottom: 16, width: "100%", maxWidth: 200 }}
       >
         <Select.Option value="all">All</Select.Option>
         <Select.Option value="Paid">Paid</Select.Option>
@@ -92,7 +92,7 @@ const UserRequests = ({
         <>
           <Row gutter={[16, 16]}>
             {paginatedRequests.map((request) => (
-              <Col key={request.id} xs={24} sm={12} md={8}>
+              <Col key={request.id} xs={24} sm={12} md={8} lg={6}>
                 <Card
                   cover={
                     <img
@@ -148,6 +148,7 @@ const UserRequests = ({
   );
 };
 
+
 const FinishedRequests = ({
   requests,
   currentPage,
@@ -179,7 +180,7 @@ const FinishedRequests = ({
         <>
           <Row gutter={[16, 16]}>
             {paginatedRequests.map((request) => (
-              <Col key={request.id} xs={24} sm={12} md={8}>
+              <Col key={request.id} xs={24} sm={12} md={8} lg={6}>
                 <Card
                   cover={
                     <img
@@ -188,6 +189,7 @@ const FinishedRequests = ({
                       className="profile-card-img"
                     />
                   }
+                  style={{ position: 'relative' }}
                 >
                   <Card.Meta
                     description={
@@ -204,19 +206,17 @@ const FinishedRequests = ({
                             {request.paymentStatus}
                           </Tag>
                         </p>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                          <Link to={`/requestDetail/${request.requestId}`}>
-                            <Button type="primary" style={{ marginRight: 10 }}>
-                              Detail
-                            </Button>
-                          </Link>
-                          <Button type="primary" onClick={() => handleFeedback(request.requestId)}>
-                            Feedback
-                          </Button>
-                        </div>
                       </div>
                     }
                   />
+                    <Link to={`/requestDetail/${request.requestId}`}>
+                      <Button type="primary" style={{ marginRight: 10, marginBottom: 9 }}>
+                        Detail
+                      </Button>
+                    </Link>
+                    <Button type="primary" onClick={() => handleFeedback(request.requestId)}>
+                      Feedback
+                    </Button>
                 </Card>
               </Col>
             ))}
@@ -240,6 +240,7 @@ const FinishedRequests = ({
     </div>
   );
 };
+
 
 const Profile = () => {
   const [user, setUser] = useState(null);
