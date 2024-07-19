@@ -9,11 +9,14 @@
 .footer-content {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .footer-map {
   flex: 2;
   margin-right: 20px;
+  min-width: 300px; /* Ensure a minimum width */
+  margin-bottom: 20px;
 }
 
 .leaflet-container {
@@ -33,6 +36,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  min-width: 300px; /* Ensure a minimum width */
 }
 
 .contact-information h1 {
@@ -57,7 +61,7 @@
   cursor: pointer;
   background-color: #f53434;
   color: white;
-  margin-top: 10px; /* Add margin-top to create space between the button and the input box */
+  margin-top: 10px;
 }
 
 .subscribe-button:hover {
@@ -72,7 +76,7 @@
   width: 80%;
   margin-right: 10px;
   color: black;
-  margin-bottom: 10px; /* Add margin-bottom to create space between the input box and the button */
+  margin-bottom: 10px;
 }
 
 .message {
@@ -86,4 +90,42 @@
 
 .message.error {
   color: red;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-map, .contact-information {
+    min-width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .leaflet-container {
+    height: 300px; /* Adjust map height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-item {
+    font-size: 16px;
+  }
+
+  .subscribe-button {
+    width: 90px;
+    height: 35px;
+  }
+
+  .email-form input[type="email"] {
+    font-size: 14px;
+    width: 70%;
+  }
+
+  .message {
+    font-size: 12px;
+  }
 }
