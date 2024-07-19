@@ -4,11 +4,11 @@
   margin: 50px auto;
   padding: 30px;
   background: rgb(65, 65, 65);
-  /* background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); */
   color: #333;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   display: flex;
+  flex-wrap: wrap; /* Allow flex items to wrap */
   position: relative;
   padding-bottom: 80px;
 }
@@ -27,8 +27,7 @@
   margin: 8px 0;
   padding: 8px;
   cursor: pointer;
-  background:rgb(255, 77, 77);
-  /* background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); */
+  background: rgb(255, 77, 77);
   color: #f7f7f7;
   border: none;
   border-radius: 5px;
@@ -37,8 +36,12 @@
   font-size: 14px;
 }
 
+.feedback-button-container {
+  display: flex; 
+  gap: 0px; 
+}
+
 .sideNavbar button:hover {
-  /* background: linear-gradient(135deg, #fcb69f 0%, #ffecd2 100%); */
   background: black;
   transform: scale(1.05);
 }
@@ -82,8 +85,7 @@
 }
 
 .edit-button-container button {
-  /* background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); */
-  background:rgb(93, 90, 90);
+  background: rgb(93, 90, 90);
   border: none;
   border-radius: 8px;
   color: #ffffff;
@@ -139,3 +141,41 @@
 .ant-select-selector {
   border-radius: 8px !important;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .profilUserContainer {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .sideNavbar {
+    flex-basis: 100%;
+    margin-bottom: 20px;
+  }
+
+  .contentContainer {
+    flex-basis: 100%;
+  }
+
+  .profile-card {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .profilUserContainer {
+    padding: 15px;
+  }
+
+  .sideNavbar button {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .edit-button-container button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
