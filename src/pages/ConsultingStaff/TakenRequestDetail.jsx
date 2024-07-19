@@ -84,7 +84,7 @@ const TakenRequestDetail = () => {
 
     const handleOk = async () => {
         if (appointmentDate && new Date(appointmentDate) < new Date(request.createdDate)) {
-            console.error("The appointment date cannot be before the request creation date");
+            message.error("The appointment date cannot be before the request creation date");
             return;
         }
         try {
@@ -94,13 +94,15 @@ const TakenRequestDetail = () => {
                 { withCredentials: true }
             );
             message.success("Processing status has been updated successfully");
-            getRequestDetail();
+            await getRequestDetail();
             navigate("/consultingStaff");
         } catch (error) {
             console.error("Update failure processing status:", error);
+            message.error("Failed to update processing status");
+        } finally {
+            navigate("/consultingStaff");
         }
     };
-
 
     const uploadSignatureToFirebase = async (signatureUrl) => {
         const byteArray = Uint8Array.from(

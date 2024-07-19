@@ -55,10 +55,6 @@
   border-color: #ff0000;
 }
 
-.service-button:hover {
-  background-color: #f0f0f0;
-}
-
 .carousel-wrapper {
   position: relative;
   margin: 20px 0;

@@ -91,7 +91,7 @@ const Register = () => {
                 },
                 {
                   pattern: /^[a-zA-Z0-9]+$/,
-                  message: "Username cannot contain special characters!",
+                  message: "Username can only contain letters and numbers!",
                 },
               ]}
             >
@@ -116,6 +116,24 @@ const Register = () => {
               ]}
             >
               <Input.Password placeholder="Password" />
+            </Form.Item>
+            <Form.Item
+              name="confirm"
+              dependencies={['password']}
+              hasFeedback
+              rules={[
+                { required: true, message: 'Please confirm your new password!' },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('The two passwords do not match!'));
+                  },
+                }),
+              ]}
+            >
+              <Input.Password placeholder="Confirm New Password" />
             </Form.Item>
             <Form.Item
               name="firstName"

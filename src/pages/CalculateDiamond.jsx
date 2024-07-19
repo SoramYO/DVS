@@ -1,8 +1,7 @@
 import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, message, Radio, Row, Slider, Typography } from 'antd';
 import 'antd/dist/reset.css';
 import axios from 'axios';
-import React, { useState, useRef, useEffect } from 'react';
-import '../css/CalculateDiamond.css';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import asscherImg from '../assets/imgs/asscher.png';
 import cushionImg from '../assets/imgs/cushion.png';
@@ -14,6 +13,7 @@ import pearImg from '../assets/imgs/pear.png';
 import princessImg from '../assets/imgs/princess.png';
 import radiantImg from '../assets/imgs/radiant.png';
 import roundImg from '../assets/imgs/round.png';
+import '../css/CalculateDiamond.css';
 
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;

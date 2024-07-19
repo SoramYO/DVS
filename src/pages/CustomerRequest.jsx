@@ -7,6 +7,7 @@ import {
   Input,
   Layout,
   Row,
+  Spin,
   Typography,
   Upload,
   message,
@@ -37,7 +38,7 @@ const CustomerRequest = () => {
   const [isAutoplay, setIsAutoplay] = useState(true);
   const { user } = useContext(AuthContext);
   const carouselRef = useRef(null);
-
+  const [uploading, setUploading] = useState(false);
   const getAllServices = async () => {
     setLoading(true);
     try {
@@ -59,8 +60,9 @@ const CustomerRequest = () => {
   };
 
   useEffect(() => {
+    setSelectedService(services[0]);
     getAllServices();
-  }, []);
+  }, [services]);
 
   const handleRemove = (file) => {
     setFileList((prevList) => prevList.filter((item) => item.uid !== file.uid));
@@ -69,6 +71,7 @@ const CustomerRequest = () => {
   };
 
   const uploadImage = async ({ onError, onSuccess, file }) => {
+    setUploading(true);
     try {
       const storageRef = ref(storage, "images/" + file.name);
       const snapshot = await uploadBytes(storageRef, file);
@@ -76,7 +79,6 @@ const CustomerRequest = () => {
       setImage(downloadURL);
       onSuccess("ok");
       setFileList([
-        ...fileList,
         {
           uid: file.uid,
           name: file.name,
@@ -88,7 +90,6 @@ const CustomerRequest = () => {
       message.error("Error uploading file: ", error);
       onError(error);
       setFileList([
-        ...fileList,
         {
           uid: file.uid,
           name: file.name,
@@ -96,6 +97,8 @@ const CustomerRequest = () => {
           error: { status: "error", message: "Upload failed!" },
         },
       ]);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -171,10 +174,10 @@ const CustomerRequest = () => {
   };
 
   const handleServiceChange = (serviceId) => {
-    const selectedService = services.find((service) => service.id === serviceId);
+    const selectedService = services.find((service) => service.serviceId === serviceId);
     if (selectedService) {
-      setSelectedService(selectedService.id);
       setPrice(selectedService.price);
+      setSelectedService(selectedService.serviceId);
       setIsAutoplay(false);
     }
   };
@@ -212,11 +215,11 @@ const CustomerRequest = () => {
                     ref={carouselRef}
                   >
                     {services.map((service) => (
-                      <div key={service.id} className="service-container">
+                      <div key={service.serviceId} className="service-container">
                         <Button
-                          className={`service-button ${selectedService === service.id ? "selected" : ""
+                          className={`service-button ${selectedService === service.serviceId ? "selected" : ""
                             }`}
-                          onClick={() => handleServiceChange(service.id)}
+                          onClick={() => handleServiceChange(service.serviceId)}
                         >
                           {service.serviceName} ${service.price}
                         </Button>
@@ -242,16 +245,21 @@ const CustomerRequest = () => {
                   },
                 ]}
               >
-                <Upload
-                  maxCount={1}
-                  listType="picture"
-                  beforeUpload={beforeUpload}
-                  customRequest={uploadImage}
-                  fileList={fileList}
-                  onRemove={handleRemove}
-                >
-                  <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                </Upload>
+                <Spin spinning={uploading}>
+                  <Upload
+                    maxCount={1}
+                    listType="picture"
+                    beforeUpload={beforeUpload}
+                    customRequest={uploadImage}
+                    fileList={fileList}
+                    onRemove={handleRemove}
+                    disabled={uploading}
+                  >
+                    <Button icon={<UploadOutlined />} disabled={uploading}>
+                      {uploading ? 'Uploading...' : 'Click to Upload'}
+                    </Button>
+                  </Upload>
+                </Spin>
               </Form.Item>
             </Row>
             <Row>

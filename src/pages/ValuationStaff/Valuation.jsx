@@ -16,12 +16,12 @@ import {
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { clarityOptions, colorOptions, countries, cutOptions, fluorescenceOptions, measurementsOptions, polishOptions, proportionsOptions, symmetryOptions } from '../../components/constants';
+import { clarityOptions, colorOptions, countries, cutOptions, fluorescenceOptions, measurementsOptions, polishOptions, proportionsOptions, shapeOptions, symmetryOptions } from '../../components/constants';
 const { Option } = Select;
 const { Text } = Typography;
 
 
-function Valuation() {
+const Valuation = () => {
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
     const [results, setResults] = useState(null);
@@ -34,36 +34,7 @@ function Valuation() {
     const [cut, setCut] = useState('');
     const [clarity, setClarity] = useState('');
     const [symmetry, setSymmetry] = useState('');
-
-
-
-
-    const handleChangeProportions = (value) => {
-        setProportions(value);
-    };
-
-    const handleChangeMeasurements = (value) => {
-        setMeasurements(value);
-    };
-    const handleChangePolish = (value) => {
-        setPolish(value);
-    };
-    const handleChangeFluorescence = (value) => {
-        setFluorescence(value);
-    };
-    const handleChangeColor = (value) => {
-        setColor(value);
-    };
-    const handleChangeCut = (value) => {
-        setCut(value);
-    };
-    const handleChangeClarity = (value) => {
-        setClarity(value);
-    };
-    const handleChangeSymmetry = (value) => {
-        setSymmetry(value);
-    };
-
+    const [shape, setShape] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -103,6 +74,45 @@ function Valuation() {
         } catch (error) {
             console.error(error);
             console.error('An error occurred while submitting the valuation.');
+        }
+    };
+
+    const handleFieldChange = (fieldName, value) => {
+        form.setFieldsValue({ [fieldName]: value });
+    };
+
+    const estimatePrice = async () => {
+        try {
+            const values = form.getFieldsValue();
+            const requiredFields = [
+                'proportions', 'diamondOrigin', 'caratWeight', 'measurements',
+                'polish', 'fluorescence', 'color', 'cut', 'clarity', 'symmetry', 'shape'
+            ];
+
+            const allFilled = requiredFields.every(field => values[field] !== undefined && values[field] !== '');
+
+            if (allFilled) {
+                const response = await axios.post('https://dvs-be-sooty.vercel.app/api/estimate-diamond-value', {
+                    caratWeight: values.caratWeight,
+                    color: values.color,
+                    clarity: values.clarity,
+                    cut: values.cut,
+                    fluorescence: values.fluorescence,
+                    origin: values.diamondOrigin,
+                    shape: values.shape,
+                    polish: values.polish,
+                    symmetry: values.symmetry,
+                    proportions: values.proportions,
+                    measurements: values.measurements
+                }, { withCredentials: true });
+
+                form.setFieldsValue({ estimatedPrice: response.data.estimatedPrice });
+            } else {
+                message.error('Please fill all required fields before estimating the price.');
+            }
+        } catch (error) {
+            console.error('Error estimating price:', error);
+            message.error('An error occurred while estimating the price.');
         }
     };
 
@@ -152,15 +162,13 @@ function Valuation() {
                                         placeholder="Select or enter proportions"
                                         showSearch={false}
                                         value={proportions}
-                                        onChange={handleChangeProportions}
+                                        onChange={(value) => handleFieldChange('proportions', value)}
                                     >
                                         {proportionsOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
                                         ))}
                                     </Select>
-
                                 </Form.Item>
-
                             </Col>
                             <Col span={12}>
                                 <Form.Item
@@ -174,6 +182,7 @@ function Valuation() {
                                         filterOption={(inputValue, option) =>
                                             option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                                         }
+                                        onChange={(value) => handleFieldChange('diamondOrigin', value)}
                                     />
                                 </Form.Item>
                             </Col>
@@ -183,7 +192,12 @@ function Valuation() {
                                     name="caratWeight"
                                     rules={[{ required: true, message: 'Please enter carat weight' }]}
                                 >
-                                    <Slider min={0.01} max={10.99} step={0.01} />
+                                    <Slider
+                                        min={0.01}
+                                        max={10.99}
+                                        step={0.01}
+                                        onChange={(value) => handleFieldChange('caratWeight', value)}
+                                    />
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -196,7 +210,7 @@ function Valuation() {
                                         placeholder="Select or enter measurements"
                                         showSearch={false}
                                         value={measurements}
-                                        onChange={handleChangeMeasurements}
+                                        onChange={(value) => handleFieldChange('measurements', value)}
                                     >
                                         {measurementsOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -214,7 +228,7 @@ function Valuation() {
                                         placeholder="Select or enter polish"
                                         showSearch={false}
                                         value={polish}
-                                        onChange={handleChangePolish}
+                                        onChange={(value) => handleFieldChange('polish', value)}
                                     >
                                         {polishOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -232,7 +246,7 @@ function Valuation() {
                                         placeholder="Select or enter fluorescence"
                                         showSearch={false}
                                         value={fluorescence}
-                                        onChange={handleChangeFluorescence}
+                                        onChange={(value) => handleFieldChange('fluorescence', value)}
                                     >
                                         {fluorescenceOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -250,7 +264,7 @@ function Valuation() {
                                         placeholder="Select or enter color"
                                         showSearch={false}
                                         value={color}
-                                        onChange={handleChangeColor}
+                                        onChange={(value) => handleFieldChange('color', value)}
                                     >
                                         {colorOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -268,7 +282,7 @@ function Valuation() {
                                         placeholder="Select or enter cut"
                                         showSearch={false}
                                         value={cut}
-                                        onChange={handleChangeCut}
+                                        onChange={(value) => handleFieldChange('cut', value)}
                                     >
                                         {cutOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -286,7 +300,7 @@ function Valuation() {
                                         placeholder="Select or enter clarity"
                                         showSearch={false}
                                         value={clarity}
-                                        onChange={handleChangeClarity}
+                                        onChange={(value) => handleFieldChange('clarity', value)}
                                     >
                                         {clarityOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -304,7 +318,7 @@ function Valuation() {
                                         placeholder="Select or enter symmetry"
                                         showSearch={false}
                                         value={symmetry}
-                                        onChange={handleChangeSymmetry}
+                                        onChange={(value) => handleFieldChange('symmetry', value)}
                                     >
                                         {symmetryOptions.map(option => (
                                             <Option key={option} value={option}>{option}</Option>
@@ -318,19 +332,15 @@ function Valuation() {
                                     name="shape"
                                     rules={[{ required: true, message: 'Please select a shape' }]}
                                 >
-                                    <Select placeholder="Select a shape">
-                                        <Option value="Round">Round</Option>
-                                        <Option value="Princess">Princess</Option>
-                                        <Option value="Emerald">Emerald</Option>
-                                        <Option value="Cushion">Cushion</Option>
-                                        <Option value="Radiant">Radiant</Option>
-                                        <Option value="Asscher">Asscher</Option>
-                                        <Option value="Heart">Heart</Option>
-                                        <Option value="Trilliant">Trilliant</Option>
-                                        <Option value="Oval">Oval</Option>
-                                        <Option value="Pear">Pear</Option>
-                                        <Option value="Marquise">Marquise</Option>
-                                        <Option value="Baguette">Baguette</Option>
+                                    <Select
+                                        placeholder="Select a shape"
+                                        showSearch={false}
+                                        value={shape}
+                                        onChange={(value) => handleFieldChange('shape', value)}
+                                    >
+                                        {shapeOptions.map(option => (
+                                            <Option key={option} value={option}>{option}</Option>
+                                        ))}
                                     </Select>
                                 </Form.Item>
                             </Col>
@@ -342,14 +352,30 @@ function Valuation() {
                                 >
                                     <InputNumber
                                         style={{ width: '100%' }}
-                                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} // Format input as currency
-                                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')} // Parse value into a number
+                                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                                    />
+                                </Form.Item>
+                            </Col>
+                            <Col span={24}>
+                                <Form.Item
+                                    label="Estimated Price"
+                                    name="estimatedPrice"
+                                >
+                                    <InputNumber
+                                        style={{ width: '100%' }}
+                                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                                        disabled
                                     />
                                 </Form.Item>
                             </Col>
                             <Col span={24}>
                                 <Button type="primary" onClick={handleSubmit}>
                                     Submit Valuation
+                                </Button>
+                                <Button type="default" onClick={estimatePrice} style={{ marginLeft: 8 }}>
+                                    Estimate
                                 </Button>
                             </Col>
                         </Row>
