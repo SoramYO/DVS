@@ -41,31 +41,43 @@ const Register = () => {
   };
 
   if (loading) {
-    return <MySpin />
+    return <MySpin />;
   }
 
   return (
     <Row className="register-container">
-      <Col span={12} className="info-section">
+      <Col xs={24} md={12} className="info-section">
         <div className="benefit-content">
           <h2>Diamond Valuation</h2>
           <ul>
             <div style={styleText}>
               <CheckOutlined style={styleIcon} />
-              <p>Accurate and instant valuations<br />Enter your diamond details to get a precise valuation in minutes.</p>
+              <p>
+                Accurate and instant valuations
+                <br />
+                Enter your diamond details to get a precise valuation in minutes.
+              </p>
             </div>
             <div style={styleText}>
               <CheckOutlined style={styleIcon} />
-              <p>Expert insights<br />Gain access to professional evaluations and detailed diamond reports.</p>
+              <p>
+                Expert insights
+                <br />
+                Gain access to professional evaluations and detailed diamond reports.
+              </p>
             </div>
             <div style={styleText}>
               <CheckOutlined style={styleIcon} />
-              <p>Trusted by industry professionals<br />Thousands of jewelers and collectors rely on us for accurate diamond assessments.</p>
+              <p>
+                Trusted by industry professionals
+                <br />
+                Thousands of jewelers and collectors rely on us for accurate diamond assessments.
+              </p>
             </div>
           </ul>
         </div>
       </Col>
-      <Col span={12} className="form-section">
+      <Col xs={24} md={12} className="form-section">
         <div className="form-container">
           <h2>Register</h2>
           <Form
@@ -203,7 +215,9 @@ const Register = () => {
             <Form.Item>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <div>Already has an account?</div>
-                <Link style={{ paddingLeft: "10px" }} to={"/login"}>Login</Link>
+                <Link style={{ paddingLeft: "10px" }} to={"/login"}>
+                  Login
+                </Link>
               </div>
               <div className="forgotPasswordLink">
                 <Link to={"/forgot-password"}>Forgot password?</Link>

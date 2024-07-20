@@ -1,73 +1,85 @@
-.benefit-container {
-    display: flex;
-    min-height: 100vh;
-  }
-  
-  .info-section,
-  .form-section {
-    background-color: #ffffff; 
-  }
-  
-  .info-section {
-    padding: 50px;
-  }
-  
+.register-container {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+
+.info-section,
+.form-section {
+  padding: 20px;
+}
+
+.info-section {
+  background-color: #ffffff;
+}
+
+.benefit-content {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 130px;
+}
+
+.benefit-content h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.benefit-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.benefit-content p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.form-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  background-color: #f8f8f8; /* Form container background */
+  border-radius: 8px;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #1677FF;
+}
+
+.button-create {
+  background-color: #1677FF;
+}
+
+.forgotPasswordLink {
+  font-size: 15px;
+  display: block;
+  text-align: center;
+  color: #1677FF;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .benefit-content {
-    max-width: 400px;
-    margin-top: 100px;
-    margin-left: 200px;
-  }
-  
-  .benefit-content h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .benefit-content ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .benefit-content p {
-    margin-bottom: 20px;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-  
-  .form-section {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-  }
-  
-  .form-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 30px;
-    background-color: #f8f8f8; /* Form container background */
-    border-radius: 8px;
-  }
-  
-  .form-container h2 {
-    text-align: center;
-    margin-top: 30px;
-  }
-  
-  .login-link {
-    display: block;
-    text-align: center;
     margin-top: 20px;
-    color: #1677FF;
+    margin-left: 0;
   }
-  
-  .button-create{
-    background-color: #1677FF;
+
+  .form-container {
+    margin-top: 20px;
   }
-  .forgotPasswordLink{
-    font-size: 15px;
-    display: block;
-    text-align: center;
-    color: #1677FF;
-  }
+}
