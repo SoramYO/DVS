@@ -169,7 +169,7 @@ const StaffChat = () => {
                     <h3 className="panel-title">Chat with {currentChat}</h3>
                     <div className="chat-messages">
                         {messages.map((msg, index) => (
-                            <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === 'Staff' ? 'staff-message' : 'customer-message')}`}>
+                            <div key={index} className={`message ${msg.sender === 'System' ? 'system-message' : (msg.sender === `${user.firstName} ${user.lastName}` ? 'staff-message' : 'customer-message')}`}>
                                 <span className="sender">{msg.sender}</span>
                                 {renderMessage(msg)}
                                 <div ref={messagesEndRef} />
