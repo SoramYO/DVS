@@ -186,7 +186,7 @@ const StaffChat = () => {
                         />
                         <button type="submit" className="send-button">Send</button>
                     </form>
-                    <button onClick={closeChat} className="close-button">Close Chat</button>
+                    <button onClick={closeChat} className="close-button">Delete Chat</button>
                 </div>
             )}
         </div>

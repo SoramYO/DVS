@@ -177,7 +177,7 @@ const CustomerChat = ({ user }) => {
                             <Button icon={<UploadOutlined />}>Click to Upload</Button>
                         </Upload>
                         <button type="submit" className="send-button">Send</button>
-                        <button type="button" onClick={closeChat} className="close-button">Close Chat</button>
+                        <button type="button" onClick={closeChat} className="close-button">Delete Chat</button>
                     </form>
                 ) : (
                     <div className="chat-closed">Chat has been closed</div>
