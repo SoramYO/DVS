@@ -17,10 +17,11 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "../css/CustomerRequest.css";
 
 import axios from "axios";
+import { push, serverTimestamp } from "firebase/database";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import MySpin from "../components/MySpin";
 import { AuthContext } from "../context/AuthContext";
-import { storage } from "../firebase/firebase";
+import { db, storage } from "../firebase/firebase";
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -40,6 +41,7 @@ const CustomerRequest = () => {
   const { user } = useContext(AuthContext);
   const carouselRef = useRef(null);
   const [uploading, setUploading] = useState(false);
+  const chatId = `${user.id} ${user.firstName} ${user.lastName}`;
 
   const getAllServices = async () => {
     try {
@@ -169,6 +171,22 @@ const CustomerRequest = () => {
       if (response.status === 200) {
         message.success("Created success");
         const requestId = response.data.requestId;
+
+        const newMessage = {
+          message: `New Request Created:
+            Service: ${services.find(s => s.serviceId === selectedService).serviceName}
+            Price: $${price}
+            Note: ${note}
+            Request ID: ${requestId}`,
+          sender: `${user.firstName} ${user.lastName}`,
+          timestamp: serverTimestamp(),
+          read: true
+        };
+
+        // Gửi tin nhắn lên Firebase
+        await push(ref(db, `messages/${chatId}`), newMessage);
+
+        // Tiếp tục với quá trình thanh toán
         handleCreatePayment(requestId);
       }
     } catch (error) {
