@@ -2,8 +2,9 @@ import {
     ArrowLeftOutlined,
     CheckOutlined,
     InfoCircleOutlined,
+    MessageOutlined,
     PrinterOutlined,
-    UserOutlined,
+    UserOutlined
 } from "@ant-design/icons";
 import {
     Button,
@@ -15,7 +16,7 @@ import {
     Row,
     Spin,
     Typography,
-    message,
+    message
 } from "antd";
 import axios from "axios";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -157,6 +158,11 @@ const TakenRequestDetail = () => {
         setIsModalVisible(false);
     };
 
+    const handleOpenChat = () => {
+        const chatId = `${request.userId} ${request.firstName} ${request.lastName}`;
+        navigate('/chat', { state: { openChatId: chatId } });
+    };
+
     if (loading) {
         return (
             <div className="loading">
@@ -225,6 +231,12 @@ const TakenRequestDetail = () => {
                         <p>
                             <Text strong>Phone Number:</Text> {request.phone}
                         </p>
+                        <Button
+                            icon={<MessageOutlined />}
+                            onClick={handleOpenChat}
+                        >
+                            Message
+                        </Button>
                     </Card>
 
                     {request.processStatus === "Approved" ? (

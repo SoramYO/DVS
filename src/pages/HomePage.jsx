@@ -1,6 +1,7 @@
-import { SketchOutlined } from '@ant-design/icons';
-import { Button, Card, Carousel, Drawer, Typography } from 'antd';
-import React, { useContext, useState } from 'react';
+import { MessageOutlined, SketchOutlined } from '@ant-design/icons';
+import { Badge, Button, Card, Carousel, Drawer, Typography } from 'antd';
+import { onValue, ref, update } from 'firebase/database';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import HomePageImage3 from '../assets/imgs/homepage3.jpg';
 import HomePageImage5 from '../assets/imgs/homepage5.jpg';
@@ -11,14 +12,59 @@ import HomePageImage1 from '../assets/imgs/hompage1.jpg';
 import Chat from '../components/CustomerChat';
 import { AuthContext } from "../context/AuthContext";
 import '../css/HomePage.css';
+import { db } from '../firebase/firebase';
 const { Title, Paragraph } = Typography;
 
 const HomePage = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
+  const [newMessageCount, setNewMessageCount] = useState(0);
   const calculateDiamond = () => {
     navigate(`/calculateDiamond`);
+  };
+  useEffect(() => {
+    if (user) {
+      const chatId = `${user.firstName} ${user.lastName}`;
+      const messagesRef = ref(db, `messages/${chatId}`);
+
+      const unsubscribe = onValue(messagesRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const messages = Object.entries(data);
+          const unreadMessages = messages.filter(([key, msg]) =>
+            msg.sender !== `${user.firstName} ${user.lastName}` && !msg.read
+          );
+          setNewMessageCount(unreadMessages.length);
+        }
+      });
+
+      return () => unsubscribe();
+    }
+  }, [user]);
+  const handleOpenChat = () => {
+    setVisible(true);
+    if (user) {
+      const chatId = `${user.firstName} ${user.lastName}`;
+      const messagesRef = ref(db, `messages/${chatId}`);
+
+      // Đọc tất cả tin nhắn hiện tại
+      onValue(messagesRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const updates = {};
+          Object.entries(data).forEach(([key, msg]) => {
+            if (msg.sender !== `${user.firstName} ${user.lastName}` && !msg.read) {
+              updates[`${key}/read`] = true;
+            }
+          });
+
+          // Cập nhật tất cả tin nhắn chưa đọc thành đã đọc
+          update(messagesRef, updates);
+        }
+      }, { onlyOnce: true });
+    }
+    setNewMessageCount(0);
   };
   const slides = [
     {
@@ -132,9 +178,14 @@ const HomePage = () => {
         </div>
       </section>
       <div className="message-button">
-        <Button type="primary" size="large" onClick={() => setVisible(true)}>
-          Message
-        </Button>
+        <Badge count={newMessageCount} offset={[-10, 0]}>
+          <Button
+            icon={<MessageOutlined />}
+            onClick={handleOpenChat}
+          >
+            Message
+          </Button>
+        </Badge>
       </div>
       <Drawer
         title="Chat"
@@ -149,6 +200,7 @@ const HomePage = () => {
       >
         {user ? (
           <Chat user={user} />
+
         ) : (
           <div>
             Please log in to start messaging.

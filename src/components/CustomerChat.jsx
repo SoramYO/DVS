@@ -9,10 +9,10 @@ import { db, storage } from '../firebase/firebase';
 import { emojiMap } from './constants';
 
 const CustomerChat = ({ user }) => {
+    const chatId = `${user.id} ${user.firstName} ${user.lastName}`;
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
     const [fileList, setFileList] = useState([]); // State to hold selected files
-    const [chatId, setChatId] = useState(`chat_${user.id}`);
     const [isChatActive, setIsChatActive] = useState(true);
     const [downloadURL, setDownloadURL] = useState('');
 
@@ -23,19 +23,23 @@ const CustomerChat = ({ user }) => {
     };
 
     useEffect(() => {
-        setChatId(`${user.firstName} ${user.lastName}`)
         const messagesRef = ref(db, `messages/${chatId}`);
 
-        onValue(messagesRef, (snapshot) => {
+        const unsubscribe = onValue(messagesRef, (snapshot) => {
             const data = snapshot.val();
-            const messagesArray = data ? Object.values(data) : [];
-            setMessages(messagesArray);
+            if (data) {
+                const messagesArray = Object.entries(data).map(([key, value]) => ({
+                    ...value,
+                    id: key
+                }));
+                setMessages(messagesArray);
+            } else {
+                setMessages([]);
+            }
         });
 
-        return () => {
-            // Cleanup
-        };
-    }, [chatId, user.firstName, user.lastName]);
+        return () => unsubscribe();
+    }, [chatId]);
 
     useEffect(() => {
         scrollToBottom();
@@ -51,7 +55,7 @@ const CustomerChat = ({ user }) => {
 
             if (fileList.length > 0) {
                 try {
-                    const file = fileList[0].originFileObj; // Access the original file object
+                    const file = fileList[0].originFileObj;
 
                     if (!file) {
                         throw new Error('File object is undefined or null.');
@@ -60,7 +64,8 @@ const CustomerChat = ({ user }) => {
                     const newMessage = {
                         message: downloadURL,
                         sender: `${user.firstName} ${user.lastName}`,
-                        timestamp: serverTimestamp()
+                        timestamp: serverTimestamp(),
+                        read: true
                     };
 
                     // Push new message to Firebase
@@ -78,7 +83,8 @@ const CustomerChat = ({ user }) => {
                 const newMessage = {
                     message: messageToSend,
                     sender: `${user.firstName} ${user.lastName}`,
-                    timestamp: serverTimestamp()
+                    timestamp: serverTimestamp(),
+                    read: true
                 };
                 push(ref(db, `messages/${chatId}`), newMessage);
 
@@ -139,7 +145,7 @@ const CustomerChat = ({ user }) => {
             return <p>{msg.message}</p>;
         }
     };
-    
+
     return (
         <div className="chat-background">
             <div className="chat-container">
@@ -178,7 +184,7 @@ const CustomerChat = ({ user }) => {
                 )}
             </div>
         </div>
-    );    
+    );
 };
 
 export default CustomerChat;

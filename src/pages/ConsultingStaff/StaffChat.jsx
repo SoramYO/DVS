@@ -1,47 +1,97 @@
 import { message } from 'antd';
-import { getDatabase, onValue, push, ref, remove, serverTimestamp } from 'firebase/database';
-import React, { useEffect, useRef, useState } from 'react';
+import { getDatabase, onValue, push, ref, remove, serverTimestamp, update } from 'firebase/database';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Fileicon from '../../assets/imgs/file-icon.jpg';
+import { AuthContext } from "../../context/AuthContext";
 import '../../css/StaffChat.css';
-
 const StaffChat = () => {
+    const { user } = useContext(AuthContext);
     const [activeChats, setActiveChats] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
     const [isChatActive, setIsChatActive] = useState(true);
-
+    const [unreadCounts, setUnreadCounts] = useState({});
     const db = getDatabase();
     const messagesEndRef = useRef(null);
+    const location = useLocation();
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+    useEffect(() => {
+        if (location.state && location.state.openChatId) {
+            setCurrentChat(location.state.openChatId);
+            setIsChatActive(true);
+        }
+    }, [location]);
 
     useEffect(() => {
         const chatsRef = ref(db, 'messages');
 
-        onValue(chatsRef, (snapshot) => {
+        const unsubscribe = onValue(chatsRef, (snapshot) => {
             const data = snapshot.val();
-            const chatsArray = data ? Object.keys(data).map(key => ({
-                chatId: key,
-                ...data[key]
-            })) : [];
+            const newUnreadCounts = {};
+            const chatsArray = [];
+
+            if (data) {
+                Object.entries(data).forEach(([chatId, chatData]) => {
+                    const chat = { chatId, ...chatData };
+                    chatsArray.push(chat);
+
+                    const unreadCount = Object.values(chatData).filter(
+                        msg => msg.read === true && msg.sender !== `${user.firstName} ${user.lastName}`
+                    ).length;
+                    newUnreadCounts[chatId] = unreadCount;
+                });
+            }
+
             setActiveChats(chatsArray);
+            setUnreadCounts(newUnreadCounts);
         });
-    }, [db]);
+
+        return () => unsubscribe();
+    }, [db, user]);
 
     useEffect(() => {
         if (currentChat) {
             const messagesRef = ref(db, `messages/${currentChat}`);
 
-            onValue(messagesRef, (snapshot) => {
+            const unsubscribe = onValue(messagesRef, (snapshot) => {
                 const data = snapshot.val();
-                const messagesArray = data ? Object.values(data) : [];
-                setMessages(messagesArray);
+                if (data) {
+                    const messagesArray = Object.entries(data).map(([key, value]) => ({
+                        id: key,
+                        ...value
+                    }));
+                    setMessages(messagesArray);
+
+                    // Đánh dấu tin nhắn mới là đã đọc chỉ khi nó không phải do người dùng hiện tại gửi
+                    const updates = {};
+                    messagesArray.forEach((message) => {
+                        if (message.read === true && message.sender !== `${user.firstName} ${user.lastName}`) {
+                            updates[`${message.id}/read`] = false;
+                        }
+                    });
+                    if (Object.keys(updates).length > 0) {
+                        update(messagesRef, updates);
+                    }
+
+                    // Cập nhật số lượng tin chưa đọc
+                    const unreadCount = messagesArray.filter(
+                        msg => msg.read === true && msg.sender !== `${user.firstName} ${user.lastName}`
+                    ).length;
+                    setUnreadCounts(prevCounts => ({
+                        ...prevCounts,
+                        [currentChat]: unreadCount
+                    }));
+                }
             });
+
+            return () => unsubscribe();
         }
-    }, [currentChat, db]);
+    }, [currentChat, db, user]);
 
     useEffect(() => {
         scrollToBottom();
@@ -57,8 +107,9 @@ const StaffChat = () => {
         if (inputMessage.trim() && currentChat && isChatActive) {
             const newMessage = {
                 message: inputMessage,
-                sender: 'Staff',
-                timestamp: serverTimestamp()
+                sender: `${user.firstName} ${user.lastName}`,
+                timestamp: serverTimestamp(),
+                read: false  // Tin nhắn của người dùng hiện tại không cần đánh dấu là chưa đọc
             };
             push(ref(db, `messages/${currentChat}`), newMessage);
             setInputMessage('');
@@ -106,6 +157,9 @@ const StaffChat = () => {
                             className="chat-button"
                         >
                             <span className="customer-name">{chat.chatId}</span>
+                            {unreadCounts[chat.chatId] > 0 && (
+                                <span className="unread-count">{unreadCounts[chat.chatId]}</span>
+                            )}
                         </button>
                     ))}
                 </div>
@@ -121,7 +175,6 @@ const StaffChat = () => {
                                 <div ref={messagesEndRef} />
                             </div>
                         ))}
-                        
                     </div>
                     <form onSubmit={sendMessage} className="chat-input">
                         <input

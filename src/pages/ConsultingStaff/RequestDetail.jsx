@@ -2,6 +2,7 @@ import {
   ArrowLeftOutlined,
   CheckOutlined,
   InfoCircleOutlined,
+  MessageOutlined,
   UserOutlined
 } from "@ant-design/icons";
 import {
@@ -85,6 +86,11 @@ const RequestDetail = () => {
     );
   }
 
+  const handleOpenChat = () => {
+    const chatId = `${request.userId} ${request.firstName} ${request.lastName}`;
+    navigate('/chat', { state: { openChatId: chatId } });
+  };
+
   if (!request) {
     return <div>No request found</div>;
   }
@@ -153,6 +159,12 @@ const RequestDetail = () => {
             <p>
               <Text strong>Phone Number:</Text> {request.phone}
             </p>
+            <Button
+              icon={<MessageOutlined />}
+              onClick={handleOpenChat}
+            >
+              Message
+            </Button>
           </Card>
           <Col span={24}>
             <Card title="Select Appointment Date" bordered={false} className="info-card">
