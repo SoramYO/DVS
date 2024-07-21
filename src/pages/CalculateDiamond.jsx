@@ -38,7 +38,6 @@ const CalculateDiamond = () => {
   const [selectedMeasurements, setSelectedMeasurements] = useState('Medium');
   const [carat, setInputValue] = useState(0.01);
   const [advancedOpen, setAdvancedOpen] = useState(false);
-  const [detailsVisible, setDetailsVisible] = useState(false);
   const priceResultRef = useRef(null);
 
   const handleShapeChange = (shape) => setSelectedShape(shape);
@@ -71,7 +70,6 @@ const CalculateDiamond = () => {
     setSelectedProportions('Ideal');
     setSelectedMeasurements('Medium');
     setInputValue(0.01);
-    setDetailsVisible(false);
   };
 
   const handleCalculatePrice = async () => {
@@ -109,7 +107,6 @@ const CalculateDiamond = () => {
         proportions: selectedProportions,
         measurements: selectedMeasurements
       });
-      setDetailsVisible(true);
     } catch (error) {
       alert('Error calculating diamond price: ' + error.message);
     }
@@ -121,7 +118,7 @@ const CalculateDiamond = () => {
     }
   }, [priceData]);
 
-  return (
+return (
     <div className="calculate-diamond-container">
       <div className="button-container">
         <Link to="/calculateDiamond">
@@ -206,7 +203,7 @@ const CalculateDiamond = () => {
                   </label>
                 ))}
               </div>
-            </div>
+            </div> 
             <div className="form-section">
               <button type="button" className="advanced-toggle" onClick={handleAdvancedToggle}>
                 {advancedOpen ? 'Hide Advanced Options' : 'Show Advanced Options'}
@@ -232,7 +229,7 @@ const CalculateDiamond = () => {
                   <div className="form-section">
                     <label>Origin</label>
                     <div className="radio-group">
-                      {['Natural', 'Synthetic'].map(origin => (
+                      {['Natural', 'Synthetic', 'Lab-Created'].map(origin => (
                         <label key={origin} className="radio-button">
                           <input
                             type="radio"
@@ -320,10 +317,6 @@ const CalculateDiamond = () => {
           </form>
           {priceData && (
             <div ref={priceResultRef} className="price-result">
-              <button onClick={() => setDetailsVisible(!detailsVisible)}>
-                {detailsVisible ? 'Hide Details' : 'Show Details'}
-              </button>
-              {detailsVisible && (
                 <div className="details">
                   <p>Carat Weight: {priceData.carat}</p>
                   <p>Color: {priceData.color}</p>
@@ -338,9 +331,7 @@ const CalculateDiamond = () => {
                   <h1 style={{ color: 'blue', fontWeight: 'bold' }}>
                     Estimated Price: ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   </h1>
-
                 </div>
-              )}
             </div>
           )}
         </div>
