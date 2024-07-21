@@ -1,92 +1,214 @@
 .layout {
-  background: #f0f2f5;
-  padding-top: 20px;
-}
-
-.centered-layout {
   display: flex;
   justify-content: center;
-  align-items: center;
-  /* height: 100vh; */
-  background: #f0f2f5;
-  padding-top: 20px;
-  padding-bottom: 30px;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: #f5f6f8;
+  padding: 20px;
 }
 
 .site-layout-content {
-  background: #fff;
-  padding: 70px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  min-width: 750px;
-  max-width: 830px;
+  background: #ffffff;
+  padding: 70px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  max-width: 880px;
   width: 100%;
+  min-height: 680px; 
+  margin-top: 30px;
 }
 
-.input-form .ant-btn {
-  width: 100%;
-  margin-top: 17px;
-}
-
-.horizontal-services {
+.input-form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
 }
 
-.service-container {
-  padding: 8px;
-  box-sizing: border-box;
-}
-
-.service-button {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  white-space: normal;
-}
-
-.service-button.selected {
-  background-color: #ff0000;
-  color: #fff;
-  border-color: #ff0000;
+.section-spacing {
+  margin-bottom: 15px;
 }
 
 .carousel-wrapper {
   position: relative;
-  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 20px;
 }
 
 .carousel-nav-button {
+  background: #ff0000;
+  border: none;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: background 0.3s;
+  padding: 8px;
   border-radius: 50%;
-  transition: background-color 0.3s;
 }
 
 .carousel-nav-button.left {
-  left: -30px;
-  width: 30px;
+  left: 10px;
 }
 
 .carousel-nav-button.right {
-  right: -30px;
-  width: 30px;
+  right: 10px;
 }
 
 .carousel-nav-button:hover {
-  background-color: rgba(0, 0, 0, 0.7);
+  background: #ff0000;
+}
+
+.carousel {
+  display: flex;
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ff0000 #f5f6f8;
+}
+
+.carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+  background-color: #1890ff;
+  border-radius: 10px;
+}
+
+.carousel::-webkit-scrollbar-track {
+  background: #f5f6f8;
+}
+
+.service-container {
+  flex: 0 0 auto;
+  min-width: 200px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Service Button */
+.service-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: #f0f2f5;
+  color: #000;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.service-button.selected {
+  background: #ff0000;
+  color: #fff;
+}
+
+.service-button:hover {
+  background: #e6f7ff;
+  color: #ff0000;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 15px 0;
+}
+
+input[type="file"]::file-selector-button {
+  padding: 8px 16px; 
+  border: 2px solid #ff0000; 
+  border-radius: 8px;
+  background: #ff0000; 
+  color: #fff; 
+  font-size: 16px; 
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s; 
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: #ff0000; 
+  border-color: #ff0000; 
+}
+  
+/* Textarea */
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  font-size: 16px;
+  resize: vertical;
+  min-height: 180px;
+  margin-top: 14px;
+}
+
+.send-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: #000;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.send-button:hover {
+  background: #ff0000;
+  transform: scale(1.05);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .carousel-wrapper {
+    padding: 0 10px;
+  }
+  
+  .carousel-nav-button {
+    font-size: 24px;
+    padding: 6px;
+  }
+
+  .service-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .send-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .layout {
+    padding: 10px;
+  }
+
+  .carousel-wrapper {
+    flex-direction: column;
+    padding: 0;
+  }
+  
+  .carousel {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .carousel-nav-button {
+    display: none;
+  }
+
+  .service-container {
+    min-width: 100%;
+  }
+
+  .send-button {
+    width: 100%;
+  }
 }
