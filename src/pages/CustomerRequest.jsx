@@ -8,17 +8,16 @@ import { AuthContext } from "../context/AuthContext";
 import { db, storage } from "../firebase/firebase";
 
 const CustomerRequest = () => {
-  const [form] = useState({});
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [services, setServices] = useState([]);
-  const [selectedService, setSelectedService] = useState(null);
+  const [setSelectedService] = useState(null);
   const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [selectedServiceName, setSelectedServiceName] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [note, setNote] = useState("");
-  const [isAutoplay, setIsAutoplay] = useState(true);
+  const [setIsAutoplay] = useState(true);
   const { user } = useContext(AuthContext);
   const carouselRef = useRef(null);
   const [uploading, setUploading] = useState(false);
@@ -50,12 +49,6 @@ const CustomerRequest = () => {
   if (services.length === 0) {
     return <MySpin />;
   }
-
-  const handleRemove = (file) => {
-    setFileList((prevList) => prevList.filter((item) => item.uid !== file.uid));
-    setImage("");
-    return false;
-  };
 
   const uploadImage = async ({ onError, onSuccess, file }) => {
     setUploading(true);
