@@ -44,7 +44,7 @@ const CustomerRequest = () => {
 
   useEffect(() => {
     getAllServices();
-  }, []);
+  },);
 
   if (services.length === 0) {
     return <MySpin />;
