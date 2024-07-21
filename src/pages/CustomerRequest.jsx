@@ -17,7 +17,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "../css/CustomerRequest.css";
 
 import axios from "axios";
-import { push, serverTimestamp } from "firebase/database";
+import { push, ref as refDB, serverTimestamp } from "firebase/database";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import MySpin from "../components/MySpin";
 import { AuthContext } from "../context/AuthContext";
@@ -34,6 +34,7 @@ const CustomerRequest = () => {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [selectedServiceName, setSelectedServiceName] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [note, setNote] = useState("");
@@ -174,24 +175,22 @@ const CustomerRequest = () => {
 
         const newMessage = {
           message: `New Request Created:
-            Service: ${services.find(s => s.serviceId === selectedService).serviceName}
+            Service: ${selectedServiceName}
             Price: $${price}
-            Note: ${note}
-            Request ID: ${requestId}`,
+            Note: ${note}`,
           sender: `${user.firstName} ${user.lastName}`,
           timestamp: serverTimestamp(),
           read: true
         };
 
         // Gửi tin nhắn lên Firebase
-        await push(ref(db, `messages/${chatId}`), newMessage);
-
+        push(refDB(db, `messages/${chatId}`), newMessage);
         // Tiếp tục với quá trình thanh toán
         handleCreatePayment(requestId);
       }
     } catch (error) {
       setLoading(false);
-      message.error(error.response.data.message);
+      console.log(error);
     }
   };
 
@@ -202,6 +201,7 @@ const CustomerRequest = () => {
     if (selectedService) {
       setPrice(selectedService.price);
       setSelectedServiceId(selectedService.serviceId);
+      setSelectedServiceName(selectedService.serviceName);
       setIsAutoplay(false);
     }
   };
