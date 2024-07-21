@@ -59,7 +59,7 @@ const Pricing = () => {
                     >
                         <div className="radio-button-label">
                             <img src={shape.img} alt={shape.name} className="radio-button-img" />
-                            <div className="radio-button-text" style={{ color: "red" }}>{shape.name}</div>
+                            <div className="radio-button-text" style={{ color: "black" }}>{shape.name}</div>
                         </div>
                     </div>
                 ))}

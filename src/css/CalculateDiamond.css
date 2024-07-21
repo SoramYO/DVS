@@ -20,7 +20,7 @@
   border: none;
   border-radius: 6px;
   color: #fff;
-  background-color: #007bff;
+  background-color: #ff0000;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s, box-shadow 0.3s;
@@ -28,10 +28,11 @@
 
 .reset-btn {
   background-color: #ff0000;
+  margin-left: 10px;
 }
 
 .reset-btn:hover, .calculate-btn:hover {
-  background-color: #0056b3;
+  background-color: #000000;
 }
 
 .calculate-btn:focus, .reset-btn:focus {
@@ -90,7 +91,7 @@ h1 {
 }
 
 .radio-button.selected {
-  background-color: #007bff;
+  background-color: #000000;
   border-color: #007bff;
   color: #fff;
 }
@@ -129,7 +130,7 @@ h1 {
   border: none;
   border-radius: 6px;
   color: #fff;
-  background-color: #007bff;
+  background-color: #000000;
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s, box-shadow 0.3s;

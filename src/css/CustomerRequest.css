@@ -149,7 +149,7 @@ textarea {
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
-  background: #000;
+  background: #ff0000 !important;
   cursor: pointer;
   transition: background 0.3s, transform 0.3s;
   font-size: 16px;
