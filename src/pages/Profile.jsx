@@ -209,14 +209,14 @@ const FinishedRequests = ({
                       </div>
                     }
                   />
-                    <Link to={`/requestDetail/${request.requestId}`}>
-                      <Button type="primary" style={{ marginRight: 10, marginBottom: 9 }}>
-                        Detail
-                      </Button>
-                    </Link>
-                    <Button type="primary" onClick={() => handleFeedback(request.requestId)}>
-                      Feedback
+                  <Link to={`/requestDetail/${request.requestId}`}>
+                    <Button type="primary" style={{ marginRight: 10, marginBottom: 9 }}>
+                      Detail
                     </Button>
+                  </Link>
+                  <Button type="primary" onClick={() => handleFeedback(request.requestId)}>
+                    Feedback
+                  </Button>
                 </Card>
               </Col>
             ))}

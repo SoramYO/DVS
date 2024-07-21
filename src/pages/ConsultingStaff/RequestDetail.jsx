@@ -88,7 +88,7 @@ const RequestDetail = () => {
 
   const handleOpenChat = () => {
     const chatId = `${request.userId} ${request.firstName} ${request.lastName}`;
-    navigate('/chat', { state: { openChatId: chatId } });
+    navigate('/consultingStaff/chat', { state: { openChatId: chatId } });
   };
 
   if (!request) {

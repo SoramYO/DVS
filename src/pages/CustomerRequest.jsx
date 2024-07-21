@@ -142,7 +142,7 @@ const CustomerRequest = () => {
       requestImage: image,
       note: note,
       userId: user?.id,
-      serviceId: selectedService,
+      serviceId: selectedServiceId,
     };
     handleCreateRequest(requestData);
   };
