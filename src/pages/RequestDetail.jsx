@@ -1,31 +1,28 @@
-import { Card, Col, Image, Row, Typography } from "antd";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import MySpin from "../components/MySpin";
 import "../css/RequestDetail.css";
-
-const { Title, Text } = Typography;
 
 const RequestDetail = () => {
   const [request, setRequest] = useState({});
   const [loading, setLoading] = useState(false);
 
   const { id } = useParams();
+
   useEffect(() => {
     const getRequest = async () => {
       setLoading(true);
-      await axios
-        .get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, {
+      try {
+        const res = await axios.get(`https://dvs-be-sooty.vercel.app/api/requests/${id}`, {
           withCredentials: true,
-        })
-        .then((res) => {
-          setRequest(res.data.request);
-          setLoading(false);
-        })
-        .catch((error) => {
-          setLoading(false);
         });
+        setRequest(res.data.request);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getRequest();
@@ -37,116 +34,75 @@ const RequestDetail = () => {
 
   return (
     <div className="request-detail-container">
-      <Title level={1} className="page-title">
-        Valuation Request Detail
-      </Title>
+      <h1 className="page-title">Valuation Request Detail</h1>
 
-      <Row gutter={16} justify="center">
-        <Col span={8}>
-          <Card
-            title="Diamond Information"
-            bordered={false}
-            className="info-card diamond-info-card"
-          >
-            <div className="info-section">
-              <div>
+      <div className="info-sections">
+        <div className="info-card diamond-info-card">
+          <h2>Diamond Information</h2>
+          <div className="info-section">
+            <div className="info-item">
+              <strong>Created Date:</strong> {new Date(request?.createdDate).toLocaleDateString("en-GB")}
+            </div>
+            <div className="info-item">
+              <strong>Appointed Date:</strong> {request.appointmentDate ? new Date(request?.appointmentDate)?.toLocaleDateString("en-GB") : "Chưa có"}
+            </div>
+            <div className="info-item">
+              <strong>Note:</strong> {request.note}
+            </div>
+            <div className="info-item">
+              <strong>Service Type:</strong> {request.serviceName}
+            </div>
+            <div className="info-item">
+              <strong>Process Status:</strong> {request.processStatus}
+            </div>
+            {request.processStatus === "Done" && (
+              <div className="additional-info">
                 <div className="info-item">
-                  <Text strong>Created Date:</Text>{" "}
-                  {new Date(request?.createdDate).toLocaleDateString("en-GB")}
+                  <strong>Certificate ID:</strong> {request.certificateId}
                 </div>
                 <div className="info-item">
-                  <Text strong>Appointed Date:</Text>{" "}
-                  {request.appointmentDate
-                    ? new Date(request?.appointmentDate)?.toLocaleDateString(
-                      "en-GB"
-                    )
-                    : "Chưa có"}
+                  <strong>Clarity:</strong> {request.clarity}
                 </div>
                 <div className="info-item">
-                  <Text strong>Note:</Text> {request.note}
+                  <strong>Color:</strong> {request.color}
                 </div>
                 <div className="info-item">
-                  <Text strong>Service Type:</Text> {request.serviceName}
+                  <strong>Cut:</strong> {request.cut}
                 </div>
                 <div className="info-item">
-                  <Text strong>Process Status:</Text> {request.processStatus}
+                  <strong>Diamond Origin:</strong> {request.diamondOrigin}
+                </div>
+                <div className="info-item">
+                  <strong>Florescence:</strong> {request.fluorescence}
+                </div>
+                <div className="info-item">
+                  <strong>Polish:</strong> {request.polish}
+                </div>
+                <div className="info-item">
+                  <strong>Proportions:</strong> {request.proportions}
+                </div>
+                <div className="info-item">
+                  <strong>Shape:</strong> {request.shape}
+                </div>
+                <div className="info-item">
+                  <strong>Symmetry:</strong> {request.symmetry}
                 </div>
               </div>
-              {request.processStatus === "Done" && (
-                <div>
-                  <div className="info-item">
-                    <Text strong>Certificate ID:</Text> {request.certificateId}
-                  </div>
-                  <div className="info-item">
-                    <Text strong>Clarity:</Text> {request.clarity}
-                  </div>
-                  <div className="info-item">
-                    <Text strong>Color:</Text> {request.color}
-                  </div>
-                  <div className="info-item">
-                    <Text strong>Cut:</Text> {request.cut}
-                  </div>
-                  <div className="info-item">
-                    <Text strong>Diamond Origin:</Text> {request.diamondOrigin}
-                  </div>
-                  <div className="info-item">
-                    <Text strong>Florescence:</Text> {request.fluorescence}
-                  </div>
-                  <div className="info-item">
-                    <Text strong>Polish:</Text> {request.polish}
-                  </div>
-                  <div className="info-item">
-                    <Text strong>Proportions:</Text> {request.proportions}
-                  </div>
-                  <div className="info-item">
-                    <Text strong>Shape:</Text> {request.shape}
-                  </div>
-                  <div className="info-item">
-                    <Text strong>Symmetry:</Text> {request.symmetry}
-                  </div>
-                </div>
-              )}
-            </div>
-          </Card>
-        </Col>
+            )}
+          </div>
+        </div>
 
-        <Col span={8}>
-          <Card bordered={false} className="info-card image-card">
-            <Image
-              src={request.requestImage}
-              alt="Diamond"
-              className="diamond-image"
-              placeholder={
-                <Image
-                  preview={false}
-                  src={request.requestImage}
-                  alt="Diamond"
-                  className="diamond-image"
-                />
-              }
-            />
-          </Card>
-        </Col>
+        <div className="info-card image-card">
+          <img src={request.requestImage} alt="Diamond" className="diamond-image" />
+        </div>
 
-        <Col span={8}>
-          <Card
-            title="User Information"
-            bordered={false}
-            className="info-card user-info-card"
-          >
-            <p>
-              <Text strong>Fullname:</Text>{" "}
-              {`${request.firstName} ${request.lastName}`}
-            </p>
-            <p>
-              <Text strong>Email:</Text> {request.email}
-            </p>
-            <p>
-              <Text strong>Phone:</Text> {request.phone}
-            </p>
-          </Card>
-        </Col>
-      </Row>
+        <div className="info-card user-info-card">
+          <h2>User Information</h2>
+          <p><strong>Fullname:</strong> {`${request.firstName} ${request.lastName}`}</p>
+          <p><strong>Email:</strong> {request.email}</p>
+          <p><strong>Phone:</strong> {request.phone}</p>
+        </div>
+      </div>
     </div>
   );
 };
