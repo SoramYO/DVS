@@ -50,7 +50,11 @@
 }
 
 .newsletter {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+.newsletter h2{
+  margin-bottom: 5px;
 }
 
 .subscribe-button {
@@ -60,12 +64,13 @@
   border-radius: 8px;
   cursor: pointer;
   background-color: #f53434;
-  color: white;
+  color: rgb(255, 255, 255);
   margin-top: 10px;
+  font-size: 15px;
 }
 
 .subscribe-button:hover {
-  background-color: #4596FF;
+  background-color: #464646;
 }
 
 .email-form input[type="email"] {
