@@ -1,21 +1,5 @@
-import { LeftOutlined, RightOutlined, UploadOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Carousel,
-  Col,
-  Form,
-  Input,
-  Layout,
-  Row,
-  Spin,
-  Typography,
-  Upload,
-  message,
-} from "antd";
-import "antd/dist/reset.css";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import "../css/CustomerRequest.css";
-
 import axios from "axios";
 import { push, ref as refDB, serverTimestamp } from "firebase/database";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -23,12 +7,8 @@ import MySpin from "../components/MySpin";
 import { AuthContext } from "../context/AuthContext";
 import { db, storage } from "../firebase/firebase";
 
-const { Content } = Layout;
-const { Title } = Typography;
-const { TextArea } = Input;
-
 const CustomerRequest = () => {
-  const [form] = Form.useForm();
+  const [form] = useState({});
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [services, setServices] = useState([]);
@@ -68,7 +48,7 @@ const CustomerRequest = () => {
   }, []);
 
   if (services.length === 0) {
-    return <MySpin />
+    return <MySpin />;
   }
 
   const handleRemove = (file) => {
@@ -94,7 +74,7 @@ const CustomerRequest = () => {
         },
       ]);
     } catch (error) {
-      message.error("Error uploading file: ", error);
+      alert("Error uploading file: " + error);
       onError(error);
       setFileList([
         {
@@ -115,7 +95,7 @@ const CustomerRequest = () => {
       file.type === "image/png" ||
       file.type === "image/gif";
     if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
+      alert("You can only upload JPG/PNG file!");
       setImage("");
       setFileList([
         ...fileList,
@@ -133,9 +113,10 @@ const CustomerRequest = () => {
     return isJpgOrPng;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (image === "") {
-      message.error("Please upload image");
+      alert("Please upload image");
       return;
     }
     const requestData = {
@@ -170,7 +151,7 @@ const CustomerRequest = () => {
         { withCredentials: true }
       );
       if (response.status === 200) {
-        message.success("Created success");
+        alert("Created success");
         const requestId = response.data.requestId;
 
         const newMessage = {
@@ -180,7 +161,7 @@ const CustomerRequest = () => {
             Note: ${note}`,
           sender: `${user.firstName} ${user.lastName}`,
           timestamp: serverTimestamp(),
-          read: true
+          read: true,
         };
 
         // Gửi tin nhắn lên Firebase
@@ -206,112 +187,88 @@ const CustomerRequest = () => {
     }
   };
 
+  const handleNext = () => {
+    const carousel = carouselRef.current;
+    if (carousel) {
+      carousel.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
+  const handlePrev = () => {
+    const carousel = carouselRef.current;
+    if (carousel) {
+      carousel.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
   if (loading) {
     return <MySpin />;
   }
 
   return (
-    <Layout className="layout centered-layout">
-      <Content>
-        <div className="site-layout-content">
-          <Title>VALUATION REQUEST</Title>
-          <Form
-            layout="vertical"
-            className="input-form"
-            form={form}
-            onFinish={handleSubmit}
-          >
-            <Row gutter={16} className="section-spacing">
-              <Col span={24}>
-                <div className="carousel-wrapper">
-                  <Button
-                    icon={<LeftOutlined />}
-                    onClick={() => carouselRef.current.prev()}
-                    className="carousel-nav-button left"
-                  />
-                  <Spin spinning={loading}>
-                    <Carousel
-                      dots={true}
-                      slidesToShow={4}
-                      slidesToScroll={1}
-                      autoplay={isAutoplay}
-                      autoplaySpeed={2000}
-                      arrows={false}
-                      ref={carouselRef}
-                    >
-                      {services.map((service) => (
-                        <div key={service.serviceId} className="service-container">
-                          <Button
-                            className={`service-button ${selectedServiceId === service.serviceId ? "selected" : ""
-                              }`}
-                            onClick={() => handleServiceChange(service.serviceId)}
-                          >
-                            {service.serviceName} ${service.price}
-                          </Button>
-                        </div>
-                      ))}
-                    </Carousel>
-                  </Spin>
-                  <Button
-                    icon={<RightOutlined />}
-                    onClick={() => carouselRef.current.next()}
-                    className="carousel-nav-button right"
-                  />
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Form.Item
-                label="Diamond Image"
-                name="requestImage"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please upload image!",
-                  },
-                ]}
-              >
-                <Spin spinning={uploading}>
-                  <Upload
-                    maxCount={1}
-                    listType="picture"
-                    beforeUpload={beforeUpload}
-                    customRequest={uploadImage}
-                    fileList={fileList}
-                    onRemove={handleRemove}
-                    disabled={uploading}
+    <div className="layout centered-layout">
+      <div className="site-layout-content">
+        <h1>VALUATION REQUEST</h1>
+        <form className="input-form" onSubmit={handleSubmit}>
+          <div className="section-spacing carousel-wrapper">
+            <button
+              type="button"
+              onClick={handlePrev}
+              className="carousel-nav-button left"
+            >
+              &lt;
+            </button>
+            <div className="carousel" ref={carouselRef}>
+              {services.map((service) => (
+                <div key={service.serviceId} className="service-container">
+                  <button
+                    type="button"
+                    className={`service-button ${selectedServiceId === service.serviceId ? "selected" : ""
+                      }`}
+                    onClick={() => handleServiceChange(service.serviceId)}
                   >
-                    <Button icon={<UploadOutlined />} disabled={uploading}>
-                      {uploading ? 'Uploading...' : 'Click to Upload'}
-                    </Button>
-                  </Upload>
-                </Spin>
-              </Form.Item>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <Form.Item label="Note" name="note">
-                  <TextArea
-                    rows={3}
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="send-button"
-              >
-                Send
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
-      </Content>
-    </Layout>
+                    {service.serviceName} ${service.price}
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="carousel-nav-button right"
+            >
+              &gt;
+            </button>
+          </div>
+          <div>
+            <label htmlFor="requestImage">Diamond Image</label>
+            <input
+              type="file"
+              id="requestImage"
+              name="requestImage"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                beforeUpload(file) && uploadImage({ file });
+              }}
+              disabled={uploading}
+            />
+          </div>
+          <div>
+            <label htmlFor="note"><strong>Note</strong></label>
+            <textarea
+              id="note"
+              name="note"
+              rows="3"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+            ></textarea>
+          </div>
+          <button type="submit" className="send-button">
+            Send
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
