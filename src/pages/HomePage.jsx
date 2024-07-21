@@ -1,6 +1,6 @@
 import { MessageOutlined, SketchOutlined } from '@ant-design/icons';
 import { Badge, Button, Card, Carousel, Drawer, Typography } from 'antd';
-import { onValue, ref, update } from 'firebase/database';
+import { onValue, ref } from 'firebase/database';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import HomePageImage3 from '../assets/imgs/homepage3.jpg';
@@ -20,52 +20,59 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [newMessageCount, setNewMessageCount] = useState(0);
+  const [lastOpenMessageCount, setLastOpenMessageCount] = useState(0);
   const calculateDiamond = () => {
     navigate(`/calculateDiamond`);
   };
+
   useEffect(() => {
     if (user) {
-      const chatId = `${user.firstName} ${user.lastName}`;
+      const chatId = `${user.id} ${user.firstName} ${user.lastName}`;
       const messagesRef = ref(db, `messages/${chatId}`);
 
       const unsubscribe = onValue(messagesRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-          const messages = Object.entries(data);
-          const unreadMessages = messages.filter(([key, msg]) =>
-            msg.sender !== `${user.firstName} ${user.lastName}` && !msg.read
-          );
-          setNewMessageCount(unreadMessages.length);
+          const totalMessages = Object.keys(data).length;
+          const newMessages = totalMessages - lastOpenMessageCount;
+          setNewMessageCount(newMessages > 0 ? newMessages : 0);
         }
       });
 
       return () => unsubscribe();
     }
-  }, [user]);
+  }, [user, lastOpenMessageCount]);
+
+  useEffect(() => {
+    // Load lastOpenMessageCount từ localStorage khi component mount
+    const savedCount = localStorage.getItem('lastOpenMessageCount');
+    if (savedCount) {
+      setLastOpenMessageCount(parseInt(savedCount, 10));
+    } else {
+      // Nếu không có giá trị trong localStorage, set về 0
+      setLastOpenMessageCount(0);
+    }
+  }, []);
+
   const handleOpenChat = () => {
     setVisible(true);
     if (user) {
-      const chatId = `${user.firstName} ${user.lastName}`;
+      const chatId = `${user.id} ${user.firstName} ${user.lastName}`;
       const messagesRef = ref(db, `messages/${chatId}`);
 
-      // Đọc tất cả tin nhắn hiện tại
       onValue(messagesRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-          const updates = {};
-          Object.entries(data).forEach(([key, msg]) => {
-            if (msg.sender !== `${user.firstName} ${user.lastName}` && !msg.read) {
-              updates[`${key}/read`] = true;
-            }
-          });
-
-          // Cập nhật tất cả tin nhắn chưa đọc thành đã đọc
-          update(messagesRef, updates);
+          const totalMessages = Object.keys(data).length;
+          setLastOpenMessageCount(totalMessages);
+          setNewMessageCount(0);
+          // Lưu lastOpenMessageCount vào localStorage
+          localStorage.setItem('lastOpenMessageCount', totalMessages.toString());
         }
       }, { onlyOnce: true });
     }
-    setNewMessageCount(0);
   };
+
   const slides = [
     {
       title: 'Compare Top-Rated Jewelers & Save',
