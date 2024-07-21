@@ -26,15 +26,15 @@ const Valuation = () => {
     const [loading, setLoading] = useState(true);
     const [results, setResults] = useState(null);
     const [form] = Form.useForm();
-    const [proportions, setProportions] = useState('');
-    const [measurements, setMeasurements] = useState('');
-    const [polish, setPolish] = useState('');
-    const [fluorescence, setFluorescence] = useState('');
-    const [color, setColor] = useState('');
-    const [cut, setCut] = useState('');
-    const [clarity, setClarity] = useState('');
-    const [symmetry, setSymmetry] = useState('');
-    const [shape, setShape] = useState('');
+    const [proportions] = useState('');
+    const [measurements] = useState('');
+    const [polish] = useState('');
+    const [fluorescence] = useState('');
+    const [color] = useState('');
+    const [cut] = useState('');
+    const [clarity] = useState('');
+    const [symmetry] = useState('');
+    const [shape] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
