@@ -1,5 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, message, Upload } from 'antd';
+import { Button, message, Modal, Upload } from 'antd';
 import { onValue, push, ref, remove, serverTimestamp } from 'firebase/database';
 import { getDownloadURL, ref as storageRef, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useRef, useState } from 'react';
@@ -15,11 +15,26 @@ const CustomerChat = ({ user }) => {
     const [fileList, setFileList] = useState([]); // State to hold selected files
     const [isChatActive, setIsChatActive] = useState(true);
     const [downloadURL, setDownloadURL] = useState('');
-
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    const showDeleteConfirm = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        remove(ref(db, `messages/${chatId}`));
+        setIsChatActive(false);
+        setMessages([]);
+        setIsModalVisible(false);
+        message.success("Chat deleted successfully");
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
     };
 
     useEffect(() => {
@@ -177,13 +192,22 @@ const CustomerChat = ({ user }) => {
                             <Button icon={<UploadOutlined />}>Click to Upload</Button>
                         </Upload>
                         <button type="submit" className="send-button">Send</button>
-                        <button type="button" onClick={closeChat} className="close-button">Delete Chat</button>
+                        <button type="button" onClick={showDeleteConfirm} className="close-button">Delete Chat</button>
                     </form>
                 ) : (
                     <div className="chat-closed">Chat has been closed</div>
                 )}
             </div>
+            <Modal
+                title="Confirm Delete"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <p>Are you sure you want to delete this chat?</p>
+            </Modal>
         </div>
+
     );
 };
 
