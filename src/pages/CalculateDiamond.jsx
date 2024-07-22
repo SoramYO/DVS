@@ -340,7 +340,7 @@ const CalculateDiamond = () => {
                     <span className="custom-result-label">Clarity:</span>
                     <span className="custom-result-value">{priceData.clarity}</span>
                   </div>
-                  {!advancedOpen && (
+                  {advancedOpen && (
                     <>
                       <div className="custom-result-detail">
                         <span className="custom-result-label">Fluorescence:</span>
