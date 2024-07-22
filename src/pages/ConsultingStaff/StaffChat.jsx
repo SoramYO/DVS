@@ -1,4 +1,4 @@
-import { message } from 'antd';
+import { message, Modal } from 'antd';
 import { getDatabase, onValue, push, ref, remove, serverTimestamp, update } from 'firebase/database';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -13,12 +13,16 @@ const StaffChat = () => {
     const [inputMessage, setInputMessage] = useState('');
     const [isChatActive, setIsChatActive] = useState(true);
     const [unreadCounts, setUnreadCounts] = useState({});
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const db = getDatabase();
     const messagesEndRef = useRef(null);
     const location = useLocation();
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    const showDeleteConfirm = () => {
+        setIsModalVisible(true);
     };
     useEffect(() => {
         if (location.state && location.state.openChatId) {
@@ -116,14 +120,23 @@ const StaffChat = () => {
         }
     };
 
-    const closeChat = () => {
+    const handleOk = () => {
         if (currentChat) {
             remove(ref(db, `messages/${currentChat}`));
             setCurrentChat(null);
             setMessages([]);
             setIsChatActive(false);
-            message.success("Delete chat success");
+            setIsModalVisible(false);
+            message.success("Chat deleted successfully");
         }
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const closeChat = () => {
+        showDeleteConfirm();
     };
 
     const renderMessage = (msg) => {
@@ -189,6 +202,14 @@ const StaffChat = () => {
                     <button onClick={closeChat} className="close-button">Delete Chat</button>
                 </div>
             )}
+            <Modal
+                title="Confirm Delete"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <p>Are you sure you want to delete this chat?</p>
+            </Modal>
         </div>
     );
 };
