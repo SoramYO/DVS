@@ -1,3 +1,4 @@
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button, message } from "antd";
 import axios from "axios";
 import React, { useContext, useState } from "react";
@@ -11,7 +12,7 @@ const Login = () => {
     username: "",
     password: "",
   });
-
+  const [showPassword, setShowPassword] = useState(false);
   const { dispatch, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -73,6 +74,7 @@ const Login = () => {
               value={credentials.username}
               onChange={handleChange}
               className="input-field"
+              autoComplete="username"
             />
           </div>
           <div className="form-item">
@@ -83,7 +85,15 @@ const Login = () => {
               value={credentials.password}
               onChange={handleChange}
               className="input-field"
+              autoComplete="current-password"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="password-toggle-button"
+            >
+              {showPassword ? <EyeInvisibleOutlined /> : <EyeTwoTone />}
+            </button>
           </div>
           <div className="form-item">
             <Button
