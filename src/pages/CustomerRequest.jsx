@@ -301,9 +301,8 @@ const CustomerRequest = () => {
             </Row>
             <Form.Item>
               <Button
-                type="primary"
                 htmlType="submit"
-                className="send-button"
+                style={{backgroundColor: 'black', color: 'white'}}
               >
                 Send
               </Button>
