@@ -18,7 +18,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MySpin from "../components/MySpin";
 import "../css/Profile.css";
-import FeedbackForm from '../pages/Feedback';
+import FeedbackForm from "../pages/Feedback";
 
 const UserInfo = ({ user, showModal }) => {
   return (
@@ -92,7 +92,7 @@ const UserRequests = ({
         <>
           <Row gutter={[16, 16]}>
             {paginatedRequests.map((request) => (
-              <Col key={request.id} xs={24} sm={12} md={8} lg={6}>
+              <Col key={request.id} xs={24} sm={12} md={8} lg={8}>
                 <Card
                   cover={
                     <img
@@ -125,7 +125,11 @@ const UserRequests = ({
                           </Tag>
                         </p>
                         <Link to={`/requestDetail/${request.id}`}>
-                          <Button type="primary">Detail</Button>
+                          <Button
+                            style={{ color: "white", backgroundColor: "black" }}
+                          >
+                            Detail
+                          </Button>
                         </Link>
                       </div>
                     }
@@ -148,7 +152,6 @@ const UserRequests = ({
   );
 };
 
-
 const FinishedRequests = ({
   requests,
   currentPage,
@@ -159,13 +162,12 @@ const FinishedRequests = ({
   const [selectedRequestId, setSelectedRequestId] = useState(null);
 
   const formatDate = (dateString) => {
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   const paginatedRequests =
-    requests?.slice((currentPage - 1) * pageSize, currentPage * pageSize) ||
-    [];
+    requests?.slice((currentPage - 1) * pageSize, currentPage * pageSize) || [];
 
   const handleFeedback = (requestId) => {
     setSelectedRequestId(requestId);
@@ -180,7 +182,7 @@ const FinishedRequests = ({
         <>
           <Row gutter={[16, 16]}>
             {paginatedRequests.map((request) => (
-              <Col key={request.id} xs={24} sm={12} md={8} lg={6}>
+              <Col key={request.id} xs={24} sm={12} md={8} lg={8}>
                 <Card
                   cover={
                     <img
@@ -189,20 +191,27 @@ const FinishedRequests = ({
                       className="profile-card-img"
                     />
                   }
-                  style={{ position: 'relative' }}
+                  style={{ position: "relative" }}
                 >
                   <Card.Meta
                     description={
                       <div>
                         <p>
-                          <strong>Date</strong>: {formatDate(request.createdDate)}
+                          <strong>Date</strong>:{" "}
+                          {formatDate(request.createdDate)}
                         </p>
                         <p>
                           <strong>Service</strong>: {request.serviceName}
                         </p>
                         <p>
-                          <strong>Process</strong>:{' '}
-                          <Tag color={request.paymentStatus === 'Paid' ? 'green' : 'gold'}>
+                          <strong>Process</strong>:{" "}
+                          <Tag
+                            color={
+                              request.paymentStatus === "Paid"
+                                ? "green"
+                                : "gold"
+                            }
+                          >
                             {request.paymentStatus}
                           </Tag>
                         </p>
@@ -210,11 +219,21 @@ const FinishedRequests = ({
                     }
                   />
                   <Link to={`/requestDetail/${request.requestId}`}>
-                    <Button type="primary" style={{ marginRight: 10, marginBottom: 9 }}>
+                    <Button
+                      style={{
+                        marginRight: 10,
+                        marginTop: 10,
+                        backgroundColor: "black",
+                        color: "white",
+                      }}
+                    >
                       Detail
                     </Button>
                   </Link>
-                  <Button type="primary" onClick={() => handleFeedback(request.requestId)}>
+                  <Button
+                    style={{ backgroundColor: "black", color: "white" }}
+                    onClick={() => handleFeedback(request.requestId)}
+                  >
                     Feedback
                   </Button>
                 </Card>
@@ -227,7 +246,7 @@ const FinishedRequests = ({
             pageSize={pageSize}
             total={requests?.length || 0}
             onChange={handlePageChange}
-            style={{ textAlign: 'center', marginTop: '16px' }}
+            style={{ textAlign: "center", marginTop: "16px" }}
           />
         </>
       )}
@@ -240,7 +259,6 @@ const FinishedRequests = ({
     </div>
   );
 };
-
 
 const Profile = () => {
   const [user, setUser] = useState(null);

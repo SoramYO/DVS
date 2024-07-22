@@ -214,13 +214,11 @@ const RequestApproval = () => {
                         className="criclebox tablespace mb-24"
                         // title="Requests Table"
                         extra={
-                            <div style={{ margin: '10px 0' }}>
-                                <Radio.Group onChange={handleServiceFilterChange} defaultValue="All">
+                                <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" style={{display: 'flex'}}>
                                     <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>All</Radio.Button>
                                     <Radio.Button value="Sealing" style={{ padding: "10px 20px", backgroundColor: "#e62263", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Sealing</Radio.Button>
                                     <Radio.Button value="Commitment" style={{ padding: "10px 20px", backgroundColor: "#1bbc9b", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Commitment</Radio.Button>
                                 </Radio.Group>
-                            </div>
                         }
                     >
                         <div className="table-responsive">

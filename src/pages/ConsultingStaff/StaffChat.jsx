@@ -197,9 +197,11 @@ const StaffChat = () => {
                             placeholder="Type your message here..."
                             className="message-input"
                         />
-                        <button type="submit" className="send-button">Send</button>
+                        <div style={{display: 'flex', flexDirection: 'column'}}>
+                            <button type="submit" className="send-button">Send</button>
+                            <button onClick={closeChat} className="close-button">Delete Chat</button>
+                        </div>
                     </form>
-                    <button onClick={closeChat} className="close-button">Delete Chat</button>
                 </div>
             )}
             <Modal
