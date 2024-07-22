@@ -1,5 +1,4 @@
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Button, message } from "antd";
+import { Button, Form, Input, message } from "antd";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,23 +11,17 @@ const Login = () => {
     username: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
   const { dispatch, loading } = useContext(AuthContext);
+  const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (values) => {
     dispatch({ type: "LOGIN_START" });
 
     try {
       const res = await axios.post(
         "https://dvs-be-sooty.vercel.app/api/login",
-        credentials,
+        values,
         { withCredentials: true }
       );
 
@@ -65,37 +58,39 @@ const Login = () => {
     <div className="login-container">
       <div className="login-form">
         <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-item">
-            <input
-              type="text"
-              placeholder="Username"
-              id="username"
-              value={credentials.username}
-              onChange={handleChange}
-              className="input-field"
-              autoComplete="username"
-            />
-          </div>
-          <div className="form-item">
-            <input
-              type="password"
-              placeholder="Password"
-              id="password"
-              value={credentials.password}
-              onChange={handleChange}
-              className="input-field"
-              autoComplete="current-password"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="password-toggle-button"
-            >
-              {showPassword ? <EyeInvisibleOutlined /> : <EyeTwoTone />}
-            </button>
-          </div>
-          <div className="form-item">
+        <Form
+          form={form}
+          name='login'
+          onFinish={handleSubmit}
+          layout="vertical"
+        >
+          <Form.Item
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Please input your username!",
+              },
+              {
+                pattern: /^[a-zA-Z0-9]+$/,
+                message: "Username can only contain letters and numbers!",
+              },
+            ]}
+          >
+            <Input placeholder="Username" />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+          >
+            <Input.Password placeholder="Password" />
+          </Form.Item>
+          <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
@@ -104,8 +99,8 @@ const Login = () => {
             >
               Log in
             </Button>
-          </div>
-        </form>
+          </Form.Item>
+        </Form>
         <div className="additional-links">
           <div className="register-link">
             Don't have an account? <Link to={"/register"}>Sign up</Link>
