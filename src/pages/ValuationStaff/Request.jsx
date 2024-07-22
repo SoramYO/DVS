@@ -1,4 +1,4 @@
-import { Button, Card, Col, FloatButton, Radio, Row, Space, Table, Tag, message } from "antd";
+import { Button, Card, Col, FloatButton, Row, Space, Table, Tag, message } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import { serviceColors, statusColors, statusIcons } from '../../components/const
 
 const Request = () => {
   const [requests, setRequests] = useState([]);
-  const [serviceFilter, setServiceFilter] = useState("All");
+  // const [serviceFilter, setServiceFilter] = useState("All");
   const [loading, setLoading] = useState(false);
 
   const getAllRequests = async () => {
@@ -90,6 +90,18 @@ const Request = () => {
     {
       title: "Service",
       key: "service",
+      dataIndex: "service",
+      filters: [
+        {
+            text: 'Advanced Valuation',
+            value: 'Advanced Valuation',
+        },
+        {
+            text: 'Basic Valuation',
+            value: 'Basic Valuation',
+        },
+    ],
+    onFilter: (value, record) => record.serviceName.indexOf(value) === 0,
       render: (text, record) => (
         <Tag color={serviceColors[record.serviceName]}>
           {record.serviceName}
@@ -109,16 +121,16 @@ const Request = () => {
     },
   ];
 
-  const handleServiceFilterChange = (e) => {
-    setServiceFilter(e.target.value);
-  };
+  // const handleServiceFilterChange = (e) => {
+  //   setServiceFilter(e.target.value);
+  // };
 
-  const filteredRequests = requests.filter(request => {
-    if (serviceFilter !== "All" && request.serviceName !== serviceFilter) {
-      return false;
-    }
-    return true;
-  });
+  // const filteredRequests = requests.filter(request => {
+  //   if (serviceFilter !== "All" && request.serviceName !== serviceFilter) {
+  //     return false;
+  //   }
+  //   return true;
+  // });
 
   if (loading) {
     return <MySpin />
@@ -130,10 +142,10 @@ const Request = () => {
       <FloatButton
         href=""
         tooltip={<div>New diamond for valuate</div>}
-        badge={{
-          count: filteredRequests.length,
-          color: 'blue',
-        }}
+        // badge={{
+        //   count: filteredRequests.length,
+        //   color: 'blue',
+        // }}
       />
       <Row gutter={[24, 0]}>
         <Col xs="24" xl={24}>
@@ -141,28 +153,28 @@ const Request = () => {
             bordered={false}
             className="criclebox tablespace mb-24"
             title="Requests Table"
-            extra={
-              <>
-                <div style={{ textAlign: "center", margin: "10px 0" }}>
-                  <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
-                    <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      All
-                    </Radio.Button>
-                    <Radio.Button value="Advanced Valuation" style={{ padding: "10px 20px", backgroundColor: "#ffc107", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      Advanced Valuation
-                    </Radio.Button>
-                    <Radio.Button value="Basic Valuation" style={{ padding: "10px 20px", backgroundColor: "#6c757d", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      Basic Valuation
-                    </Radio.Button>
-                  </Radio.Group>
-                </div>
-              </>
-            }
+            // extra={
+            //   <>
+            //     <div style={{ textAlign: "center", margin: "10px 0" }}>
+            //       <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
+            //         <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            //           All
+            //         </Radio.Button>
+            //         <Radio.Button value="Advanced Valuation" style={{ padding: "10px 20px", backgroundColor: "#ffc107", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            //           Advanced Valuation
+            //         </Radio.Button>
+            //         <Radio.Button value="Basic Valuation" style={{ padding: "10px 20px", backgroundColor: "#6c757d", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            //           Basic Valuation
+            //         </Radio.Button>
+            //       </Radio.Group>
+            //     </div>
+            //   </>
+            // }
           >
             <div className="table-responsive">
               <Table
                 columns={columns}
-                dataSource={filteredRequests}
+                dataSource={requests}
                 pagination={{ pageSize: 10 }}
                 className="ant-border-space"
               />

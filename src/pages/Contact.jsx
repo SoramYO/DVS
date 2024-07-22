@@ -49,7 +49,7 @@ const Contact = ({ visible, onClose }) => {
                 <Button key="back" onClick={onClose} disabled={loading}>
                     Cancel
                 </Button>,
-                <Button key="submit" type="primary" onClick={handleOk} loading={loading}>
+                <Button key="submit" style={{backgroundColor: 'black', color: 'white'}} onClick={handleOk} loading={loading}>
                     Submit
                 </Button>,
             ]}

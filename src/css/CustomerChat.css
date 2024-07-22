@@ -9,19 +9,18 @@
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 70vh;
+    height: 90%;
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     margin: auto;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
 }
 
 .chat-messages {
-    flex: 1;
     padding: 20px;
     overflow-y: auto;
     background-color: #f9f9f9;
@@ -79,6 +78,7 @@
 .send-button,
 .close-button {
     padding: 10px 20px;
+    margin-bottom: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;

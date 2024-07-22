@@ -37,7 +37,7 @@ const RequestDetail = () => {
       <h1 className="page-title">Valuation Request Detail</h1>
 
       <div className="info-sections">
-        <div className="info-card diamond-info-card">
+        <div className="info-card">
           <h2>Diamond Information</h2>
           <div className="info-section">
             <div className="info-item">
@@ -96,7 +96,7 @@ const RequestDetail = () => {
           <img src={request.requestImage} alt="Diamond" className="diamond-image" />
         </div>
 
-        <div className="info-card user-info-card">
+        <div className="info-card">
           <h2>User Information</h2>
           <p><strong>Fullname:</strong> {`${request.firstName} ${request.lastName}`}</p>
           <p><strong>Email:</strong> {request.email}</p>

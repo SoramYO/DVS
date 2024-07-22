@@ -138,10 +138,10 @@ const Navbar = () => {
               {!user ? (
                 <>
                   <Link to="/login">
-                    <Button style={{marginRight: 10, backgroundColor: 'black', color: 'white'}}>Sign in</Button>
+                    <Button style={{marginRight: 10, backgroundColor: 'black', color: 'white', border: 'none'}}>Sign in</Button>
                   </Link>
                   <Link to="/register">
-                    <Button style={{backgroundColor: 'black', color: 'white'}}>Sign up</Button>
+                    <Button style={{backgroundColor: 'black', color: 'white', border: 'none'}}>Sign up</Button>
                   </Link>
                 </>
               ) : (
