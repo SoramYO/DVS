@@ -1,7 +1,9 @@
-import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, message, Radio, Row, Slider, Typography } from 'antd';
+import { Button, Card, Col, Collapse, Form, InputNumber, Layout, Radio, Row, Slider, Typography } from 'antd';
 import 'antd/dist/reset.css';
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import '../css/CalculateDiamond.css';
+
 import { Link } from 'react-router-dom';
 import asscherImg from '../assets/imgs/asscher.png';
 import cushionImg from '../assets/imgs/cushion.png';
@@ -13,13 +15,10 @@ import pearImg from '../assets/imgs/pear.png';
 import princessImg from '../assets/imgs/princess.png';
 import radiantImg from '../assets/imgs/radiant.png';
 import roundImg from '../assets/imgs/round.png';
-import '../css/CalculateDiamond.css';
-
 
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 const { Panel } = Collapse;
-
 
 const shapes = [
   { name: "ROUND", img: roundImg },
@@ -33,7 +32,6 @@ const shapes = [
   { name: "ASSCHER", img: asscherImg },
   { name: "HEART", img: heartImg }
 ];
-
 
 const CalculateDiamond = () => {
   const [form] = Form.useForm();
@@ -50,62 +48,53 @@ const CalculateDiamond = () => {
   const [carat, setInputValue] = useState(0.01);
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [detailsVisible, setDetailsVisible] = useState(false);
-  const priceResultRef = useRef(null);
-
 
   const handleShapeChange = (shape) => {
     setSelectedShape(shape);
   };
 
-
   const handleColorChange = (color) => {
     setSelectedColor(color);
   };
-
 
   const handleClarityChange = (clarity) => {
     setSelectedClarity(clarity);
   };
 
-
   const handleFluorescenceChange = (fluorescence) => {
     setSelectedFluorescence(fluorescence);
   };
-
 
   const handleOriginChange = (origin) => {
     setSelectedOrigin(origin);
   };
 
-
   const handlePolishChange = (polish) => {
     setSelectedPolish(polish);
   };
-
 
   const handleSymmetryChange = (symmetry) => {
     setSelectedSymmetry(symmetry);
   };
 
-
   const handleProportionsChange = (proportions) => {
     setSelectedProportions(proportions);
   };
 
-
   const handleMeasurementsChange = (measurements) => {
     setSelectedMeasurements(measurements);
   };
+
   const handleAdvancedToggle = () => {
     setAdvancedOpen(!advancedOpen);
   };
+
   const onChange = (value) => {
     if (isNaN(value)) {
       return;
     }
     setInputValue(value);
   };
-
 
   const handleReset = () => {
     form.resetFields();
@@ -123,7 +112,6 @@ const CalculateDiamond = () => {
     setDetailsVisible(false);
   };
 
-
   const handleCalculatePrice = async () => {
     try {
       const response = await axios.post('https://dvs-be-sooty.vercel.app/api/estimate-diamond-value', {
@@ -139,6 +127,7 @@ const CalculateDiamond = () => {
         proportions: selectedProportions,
         measurements: selectedMeasurements
       });
+
       const { estimatedPrice } = response.data;
       setPriceData({
         fairPrice: estimatedPrice,
@@ -155,40 +144,34 @@ const CalculateDiamond = () => {
       });
       setDetailsVisible(true);
     } catch (error) {
-      message.error('Error calculating diamond price:', error);
+      console.error('Error calculating diamond price:', error);
     }
   };
-  useEffect(() => {
-    if (priceResultRef.current) {
-      priceResultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [priceData]);
-
 
   return (
     <div style={{ padding: '12px' }}>
-      <div className="buttonContainer" style={{ marginBottom: '16px' }}>
+      <div className="custom-button-container" style={{ marginBottom: '16px' }}>
         <Link to="/calculateDiamond">
-          <Button type="primary" className="calculate-btn">Calculate Diamond</Button>
+          <Button type="primary" className="custom-calculate-btn">Calculate Diamond</Button>
         </Link>
         <Link to="/checkPriceByCertificateID">
-          <Button type="primary" className="calculate-btn" style={{ marginLeft: '8px' }}>Check Price by Certificate ID</Button>
+          <Button type="primary" className="custom-calculate-btn" style={{ marginLeft: '8px' }}>Check Price by Certificate ID</Button>
         </Link>
       </div>
-      <Layout className="layout">
+      <Layout className="custom-layout">
         <Content style={{ paddingTop: "20px", paddingBottom: "30px" }}>
-          <div className="site-layout-content">
+          <div className="custom-site-layout-content">
             <Title>CALCULATE DIAMOND PRICE</Title>
-            <Form layout="vertical" className="input-form" form={form}>
-              <Row gutter={16} className="section-spacing">
+            <Form layout="vertical" className="custom-input-form" form={form}>
+              <Row gutter={16} className="custom-section-spacing">
                 <Col span={24}>
                   <Form.Item label="Diamond Shape" name="shape" initialValue="ROUND">
-                    <Radio.Group value={selectedShape} onChange={(e) => handleShapeChange(e.target.value)} className="radio-group">
+                    <Radio.Group value={selectedShape} onChange={(e) => handleShapeChange(e.target.value)} className="custom-radio-group">
                       {shapes.map(shape => (
-                        <Radio.Button key={shape.name} value={shape.name} className="radio-button">
-                          <div className="radio-button-label">
-                            <img src={shape.img} alt={shape.name} className="radio-button-img" />
-                            <div className="radio-button-text">{shape.name}</div>
+                        <Radio.Button key={shape.name} value={shape.name} className="custom-radio-button">
+                          <div className="custom-radio-button-label">
+                            <img src={shape.img} alt={shape.name} className="custom-radio-button-img" />
+                            <div className="custom-radio-button-text">{shape.name}</div>
                           </div>
                         </Radio.Button>
                       ))}
@@ -196,7 +179,7 @@ const CalculateDiamond = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Row gutter={16} className="section-spacing">
+              <Row gutter={16} className="custom-section-spacing">
                 <Col span={24}>
                   <Form.Item label="Carat">
                     <Row>
@@ -223,12 +206,12 @@ const CalculateDiamond = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Row gutter={16} className="section-spacing">
+              <Row gutter={16} className="custom-section-spacing">
                 <Col span={12}>
                   <Form.Item label="Color Grade" name="color" rules={[{ required: true, message: 'Please select the color grade!' }]}>
-                    <Radio.Group value={selectedColor} onChange={(e) => handleColorChange(e.target.value)} className="radio-group-styled">
+                    <Radio.Group value={selectedColor} onChange={(e) => handleColorChange(e.target.value)} className="custom-radio-group-styled">
                       {['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'].map(color => (
-                        <Radio.Button key={color} value={color} className="radio-button-styled">
+                        <Radio.Button key={color} value={color} className="custom-radio-button-styled">
                           {color}
                         </Radio.Button>
                       ))}
@@ -237,9 +220,9 @@ const CalculateDiamond = () => {
                 </Col>
                 <Col span={12}>
                   <Form.Item label="Clarity Grade" name="clarity" rules={[{ required: true, message: 'Please select the clarity grade!' }]}>
-                    <Radio.Group value={selectedClarity} onChange={(e) => handleClarityChange(e.target.value)} className="radio-group-styled">
+                    <Radio.Group value={selectedClarity} onChange={(e) => handleClarityChange(e.target.value)} className="custom-radio-group-styled">
                       {['IF', 'VVS1', 'VVS2', 'VS1', 'VS2', 'SI1', 'SI2', 'SI3', 'I1', 'I2', 'I3'].map(clarity => (
-                        <Radio.Button key={clarity} value={clarity} className="radio-button-styled">
+                        <Radio.Button key={clarity} value={clarity} className="custom-radio-button-styled">
                           {clarity}
                         </Radio.Button>
                       ))}
@@ -247,7 +230,7 @@ const CalculateDiamond = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Collapse className="section-spacing">
+              <Collapse className="custom-section-spacing">
                 <Panel header="Advanced Options" key="1" onClick={handleAdvancedToggle}>
                   <Row gutter={16} className="section-spacing">
                     <Col span={12}>
@@ -324,8 +307,8 @@ const CalculateDiamond = () => {
                 </Panel>
               </Collapse>
               <Form.Item>
-                <div className="check-button">
-                  <Button type="primary" className="calculate-btn" onClick={handleCalculatePrice}>
+                <div className="custom-check-button">
+                  <Button type="primary" className="custom-calculate-btn" onClick={handleCalculatePrice}>
                     Check Price
                   </Button>
                   <Button style={{ marginLeft: 8 }} onClick={handleReset}>
@@ -335,32 +318,65 @@ const CalculateDiamond = () => {
               </Form.Item>
             </Form>
             {detailsVisible && priceData && (
-              <div ref={priceResultRef}>
-                <Card title="Price Information" className="result-card">
-                  <div className="result-card-content">
-                    <Title level={4} className="price-detail-title">Diamond Price Details</Title>
-                    <Divider />
-                    <Paragraph><strong>Shape:</strong> {priceData.shape}</Paragraph>
-                    <Paragraph><strong>Carat:</strong> {priceData.carat}</Paragraph>
-                    <Paragraph><strong>Color:</strong> {priceData.color}</Paragraph>
-                    <Paragraph><strong>Clarity:</strong> {priceData.clarity}</Paragraph>
-                    {advancedOpen && (
-                      <>
-                        <Paragraph><strong>Fluorescence:</strong> {priceData.fluorescence}</Paragraph>
-                        <Paragraph><strong>Origin:</strong> {priceData.origin}</Paragraph>
-                        <Paragraph><strong>Polish:</strong> {priceData.polish}</Paragraph>
-                        <Paragraph><strong>Symmetry:</strong> {priceData.symmetry}</Paragraph>
-                        <Paragraph><strong>Proportions:</strong> {priceData.proportions}</Paragraph>
-                        <Paragraph><strong>Measurements:</strong> {priceData.measurements}</Paragraph>
-                      </>
-                    )}
-                    <Divider />
-                    <Paragraph className="result-card-price">
-                      <strong>Fair Price:</strong> ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </Paragraph>
+              <Card className="custom-result-card">
+                <div className="custom-result-card-header">
+                  <h3 className="custom-result-card-title">Diamond Price Details</h3>
+                </div>
+                <div className="custom-result-card-content">
+                  <h4 className="custom-price-detail-title">Specifications</h4>
+                  <div className="custom-result-detail">
+                    <span className="custom-result-label">Shape:</span>
+                    <span className="custom-result-value">{priceData.shape}</span>
                   </div>
-                </Card>
-              </div>
+                  <div className="custom-result-detail">
+                    <span className="custom-result-label">Carat:</span>
+                    <span className="custom-result-value">{priceData.carat}</span>
+                  </div>
+                  <div className="custom-result-detail">
+                    <span className="custom-result-label">Color:</span>
+                    <span className="custom-result-value">{priceData.color}</span>
+                  </div>
+                  <div className="custom-result-detail">
+                    <span className="custom-result-label">Clarity:</span>
+                    <span className="custom-result-value">{priceData.clarity}</span>
+                  </div>
+                  {!advancedOpen && (
+                    <>
+                      <div className="custom-result-detail">
+                        <span className="custom-result-label">Fluorescence:</span>
+                        <span className="custom-result-value">{priceData.fluorescence}</span>
+                      </div>
+                      <div className="custom-result-detail">
+                        <span className="custom-result-label">Origin:</span>
+                        <span className="custom-result-value">{priceData.origin}</span>
+                      </div>
+                      <div className="custom-result-detail">
+                        <span className="custom-result-label">Polish:</span>
+                        <span className="custom-result-value">{priceData.polish}</span>
+                      </div>
+                      <div className="custom-result-detail">
+                        <span className="custom-result-label">Symmetry:</span>
+                        <span className="custom-result-value">{priceData.symmetry}</span>
+                      </div>
+                      <div className="custom-result-detail">
+                        <span className="custom-result-label">Proportions:</span>
+                        <span className="custom-result-value">{priceData.proportions}</span>
+                      </div>
+                      <div className="custom-result-detail">
+                        <span className="custom-result-label">Measurements:</span>
+                        <span className="custom-result-value">{priceData.measurements}</span>
+                      </div>
+                    </>
+                  )}
+                  <div className="custom-result-divider"></div>
+                  <div className="custom-result-card-price">
+                    <div className="custom-result-card-price-label">Fair Price:</div>
+                    <div className="custom-result-card-price-value">
+                      ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </div>
+                  </div>
+                </div>
+              </Card>
             )}
           </div>
         </Content>
@@ -368,6 +384,5 @@ const CalculateDiamond = () => {
     </div>
   );
 };
-
 
 export default CalculateDiamond;
