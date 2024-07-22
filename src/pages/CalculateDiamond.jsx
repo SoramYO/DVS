@@ -1,3 +1,6 @@
+import { Button, Card, Col, Collapse, Divider, Form, InputNumber, Layout, message, Radio, Row, Slider, Typography } from 'antd';
+import 'antd/dist/reset.css';
+import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import asscherImg from '../assets/imgs/asscher.png';
@@ -12,6 +15,12 @@ import radiantImg from '../assets/imgs/radiant.png';
 import roundImg from '../assets/imgs/round.png';
 import '../css/CalculateDiamond.css';
 
+
+const { Content } = Layout;
+const { Title, Paragraph } = Typography;
+const { Panel } = Collapse;
+
+
 const shapes = [
   { name: "ROUND", img: roundImg },
   { name: "CUSHION", img: cushionImg },
@@ -25,7 +34,9 @@ const shapes = [
   { name: "HEART", img: heartImg }
 ];
 
+
 const CalculateDiamond = () => {
+  const [form] = Form.useForm();
   const [priceData, setPriceData] = useState(null);
   const [selectedShape, setSelectedShape] = useState('ROUND');
   const [selectedColor, setSelectedColor] = useState('D');
@@ -38,27 +49,66 @@ const CalculateDiamond = () => {
   const [selectedMeasurements, setSelectedMeasurements] = useState('Medium');
   const [carat, setInputValue] = useState(0.01);
   const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [detailsVisible, setDetailsVisible] = useState(false);
   const priceResultRef = useRef(null);
 
-  const handleShapeChange = (shape) => setSelectedShape(shape);
-  const handleColorChange = (color) => setSelectedColor(color);
-  const handleClarityChange = (clarity) => setSelectedClarity(clarity);
-  const handleFluorescenceChange = (fluorescence) => setSelectedFluorescence(fluorescence);
-  const handleOriginChange = (origin) => setSelectedOrigin(origin);
-  const handlePolishChange = (polish) => setSelectedPolish(polish);
-  const handleSymmetryChange = (symmetry) => setSelectedSymmetry(symmetry);
-  const handleProportionsChange = (proportions) => setSelectedProportions(proportions);
-  const handleMeasurementsChange = (measurements) => setSelectedMeasurements(measurements);
 
-  const handleAdvancedToggle = () => setAdvancedOpen(!advancedOpen);
-
-  const onChange = (value) => {
-    if (!isNaN(value)) {
-      setInputValue(value);
-    }
+  const handleShapeChange = (shape) => {
+    setSelectedShape(shape);
   };
 
+
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
+  };
+
+
+  const handleClarityChange = (clarity) => {
+    setSelectedClarity(clarity);
+  };
+
+
+  const handleFluorescenceChange = (fluorescence) => {
+    setSelectedFluorescence(fluorescence);
+  };
+
+
+  const handleOriginChange = (origin) => {
+    setSelectedOrigin(origin);
+  };
+
+
+  const handlePolishChange = (polish) => {
+    setSelectedPolish(polish);
+  };
+
+
+  const handleSymmetryChange = (symmetry) => {
+    setSelectedSymmetry(symmetry);
+  };
+
+
+  const handleProportionsChange = (proportions) => {
+    setSelectedProportions(proportions);
+  };
+
+
+  const handleMeasurementsChange = (measurements) => {
+    setSelectedMeasurements(measurements);
+  };
+  const handleAdvancedToggle = () => {
+    setAdvancedOpen(!advancedOpen);
+  };
+  const onChange = (value) => {
+    if (isNaN(value)) {
+      return;
+    }
+    setInputValue(value);
+  };
+
+
   const handleReset = () => {
+    form.resetFields();
     setPriceData(null);
     setSelectedShape('ROUND');
     setSelectedColor('D');
@@ -70,30 +120,26 @@ const CalculateDiamond = () => {
     setSelectedProportions('Ideal');
     setSelectedMeasurements('Medium');
     setInputValue(0.01);
+    setDetailsVisible(false);
   };
+
 
   const handleCalculatePrice = async () => {
     try {
-      const response = await fetch('https://dvs-be-sooty.vercel.app/api/estimate-diamond-value', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          caratWeight: carat,
-          color: selectedColor,
-          clarity: selectedClarity,
-          cut: selectedShape,
-          fluorescence: selectedFluorescence,
-          origin: selectedOrigin,
-          shape: selectedShape,
-          polish: selectedPolish,
-          symmetry: selectedSymmetry,
-          proportions: selectedProportions,
-          measurements: selectedMeasurements
-        })
+      const response = await axios.post('https://dvs-be-sooty.vercel.app/api/estimate-diamond-value', {
+        caratWeight: carat,
+        color: selectedColor,
+        clarity: selectedClarity,
+        cut: selectedShape,
+        fluorescence: selectedFluorescence,
+        origin: selectedOrigin,
+        shape: selectedShape,
+        polish: selectedPolish,
+        symmetry: selectedSymmetry,
+        proportions: selectedProportions,
+        measurements: selectedMeasurements
       });
-      const data = await response.json();
-      const { estimatedPrice } = data;
-
+      const { estimatedPrice } = response.data;
       setPriceData({
         fairPrice: estimatedPrice,
         carat,
@@ -107,237 +153,221 @@ const CalculateDiamond = () => {
         proportions: selectedProportions,
         measurements: selectedMeasurements
       });
+      setDetailsVisible(true);
     } catch (error) {
-      alert('Error calculating diamond price: ' + error.message);
+      message.error('Error calculating diamond price:', error);
     }
   };
-
   useEffect(() => {
     if (priceResultRef.current) {
       priceResultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [priceData]);
 
-return (
-    <div className="calculate-diamond-container">
-      <div className="button-container">
+
+  return (
+    <div style={{ padding: '12px' }}>
+      <div className="buttonContainer" style={{ marginBottom: '16px' }}>
         <Link to="/calculateDiamond">
-          <button className="calculate-btn">Calculate Diamond</button>
+          <Button type="primary" className="calculate-btn">Calculate Diamond</Button>
         </Link>
         <Link to="/checkPriceByCertificateID">
-          <button className="calculate-btn">Check Price by Certificate ID</button>
+          <Button type="primary" className="calculate-btn" style={{ marginLeft: '8px' }}>Check Price by Certificate ID</Button>
         </Link>
       </div>
-      <div className="layout">
-        <div className="content">
-          <h1>CALCULATE DIAMOND PRICE</h1>
-          <form className="input-form">
-            <div className="form-section">
-              <label>Diamond Shape</label>
-              <div className="radio-group">
-                {shapes.map(shape => (
-                  <label key={shape.name} className="radio-button">
-                    <input
-                      type="radio"
-                      value={shape.name}
-                      checked={selectedShape === shape.name}
-                      onChange={() => handleShapeChange(shape.name)}
-                    />
-                    <div className="radio-button-label">
-                      <img src={shape.img} alt={shape.name} className="radio-button-img" />
-                      <div className="radio-button-text">{shape.name}</div>
-                    </div>
-                  </label>
-                ))}
-              </div>
-            </div>
-            <div className="form-section">
-              <label>Carat</label>
-              <div className="slider-input">
-                <input
-                  type="range"
-                  min="0.01"
-                  max="10.99"
-                  step="0.01"
-                  value={carat}
-                  onChange={(e) => onChange(parseFloat(e.target.value))}
-                />
-                <input
-                  type="number"
-                  min="0.01"
-                  max="10.99"
-                  step="0.01"
-                  value={carat}
-                  onChange={(e) => onChange(parseFloat(e.target.value))}
-                />
-              </div>
-            </div>
-            <div className="form-section">
-              <label>Color Grade</label>
-              <div className="radio-group">
-                {['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'].map(color => (
-                  <label key={color} className="radio-button">
-                    <input
-                      type="radio"
-                      value={color}
-                      checked={selectedColor === color}
-                      onChange={() => handleColorChange(color)}
-                    />
-                    {color}
-                  </label>
-                ))}
-              </div>
-            </div>
-            <div className="form-section">
-              <label>Clarity Grade</label>
-              <div className="radio-group">
-                {['IF', 'VVS1', 'VVS2', 'VS1', 'VS2', 'SI1', 'SI2', 'SI3', 'I1', 'I2', 'I3'].map(clarity => (
-                  <label key={clarity} className="radio-button">
-                    <input
-                      type="radio"
-                      value={clarity}
-                      checked={selectedClarity === clarity}
-                      onChange={() => handleClarityChange(clarity)}
-                    />
-                    {clarity}
-                  </label>
-                ))}
-              </div>
-            </div> 
-            <div className="form-section">
-              <button type="button" className="advanced-toggle" onClick={handleAdvancedToggle}>
-                {advancedOpen ? 'Hide Advanced Options' : 'Show Advanced Options'}
-              </button>
-              {advancedOpen && (
-                <div className="advanced-options">
-                  <div className="form-section">
-                    <label>Fluorescence</label>
-                    <div className="radio-group">
-                      {['None', 'Faint', 'Medium', 'Strong', 'Very Strong'].map(fluorescence => (
-                        <label key={fluorescence} className="radio-button">
-                          <input
-                            type="radio"
-                            value={fluorescence}
-                            checked={selectedFluorescence === fluorescence}
-                            onChange={() => handleFluorescenceChange(fluorescence)}
-                          />
-                          {fluorescence}
-                        </label>
+      <Layout className="layout">
+        <Content style={{ paddingTop: "20px", paddingBottom: "30px" }}>
+          <div className="site-layout-content">
+            <Title>CALCULATE DIAMOND PRICE</Title>
+            <Form layout="vertical" className="input-form" form={form}>
+              <Row gutter={16} className="section-spacing">
+                <Col span={24}>
+                  <Form.Item label="Diamond Shape" name="shape" initialValue="ROUND">
+                    <Radio.Group value={selectedShape} onChange={(e) => handleShapeChange(e.target.value)} className="radio-group">
+                      {shapes.map(shape => (
+                        <Radio.Button key={shape.name} value={shape.name} className="radio-button">
+                          <div className="radio-button-label">
+                            <img src={shape.img} alt={shape.name} className="radio-button-img" />
+                            <div className="radio-button-text">{shape.name}</div>
+                          </div>
+                        </Radio.Button>
                       ))}
-                    </div>
-                  </div>
-                  <div className="form-section">
-                    <label>Origin</label>
-                    <div className="radio-group">
-                      {['Natural', 'Synthetic', 'Lab-Created'].map(origin => (
-                        <label key={origin} className="radio-button">
-                          <input
-                            type="radio"
-                            value={origin}
-                            checked={selectedOrigin === origin}
-                            onChange={() => handleOriginChange(origin)}
-                          />
-                          {origin}
-                        </label>
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16} className="section-spacing">
+                <Col span={24}>
+                  <Form.Item label="Carat">
+                    <Row>
+                      <Col span={12}>
+                        <Slider
+                          min={0.01}
+                          max={10.99}
+                          onChange={onChange}
+                          value={typeof carat === 'number' ? carat : 0}
+                          step={0.01}
+                        />
+                      </Col>
+                      <Col span={4}>
+                        <InputNumber
+                          min={0}
+                          max={10}
+                          style={{ margin: '0 16px' }}
+                          step={0.01}
+                          value={carat}
+                          onChange={onChange}
+                        />
+                      </Col>
+                    </Row>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16} className="section-spacing">
+                <Col span={12}>
+                  <Form.Item label="Color Grade" name="color" rules={[{ required: true, message: 'Please select the color grade!' }]}>
+                    <Radio.Group value={selectedColor} onChange={(e) => handleColorChange(e.target.value)} className="radio-group-styled">
+                      {['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'].map(color => (
+                        <Radio.Button key={color} value={color} className="radio-button-styled">
+                          {color}
+                        </Radio.Button>
                       ))}
-                    </div>
-                  </div>
-                  <div className="form-section">
-                    <label>Polish</label>
-                    <div className="radio-group">
-                      {['Excellent', 'Very Good', 'Good', 'Fair', 'Poor'].map(polish => (
-                        <label key={polish} className="radio-button">
-                          <input
-                            type="radio"
-                            value={polish}
-                            checked={selectedPolish === polish}
-                            onChange={() => handlePolishChange(polish)}
-                          />
-                          {polish}
-                        </label>
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item label="Clarity Grade" name="clarity" rules={[{ required: true, message: 'Please select the clarity grade!' }]}>
+                    <Radio.Group value={selectedClarity} onChange={(e) => handleClarityChange(e.target.value)} className="radio-group-styled">
+                      {['IF', 'VVS1', 'VVS2', 'VS1', 'VS2', 'SI1', 'SI2', 'SI3', 'I1', 'I2', 'I3'].map(clarity => (
+                        <Radio.Button key={clarity} value={clarity} className="radio-button-styled">
+                          {clarity}
+                        </Radio.Button>
                       ))}
-                    </div>
-                  </div>
-                  <div className="form-section">
-                    <label>Symmetry</label>
-                    <div className="radio-group">
-                      {['Excellent', 'Very Good', 'Good', 'Fair', 'Poor'].map(symmetry => (
-                        <label key={symmetry} className="radio-button">
-                          <input
-                            type="radio"
-                            value={symmetry}
-                            checked={selectedSymmetry === symmetry}
-                            onChange={() => handleSymmetryChange(symmetry)}
-                          />
-                          {symmetry}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="form-section">
-                    <label>Proportions</label>
-                    <div className="radio-group">
-                      {['Ideal', 'Excellent', 'Very Good', 'Good', 'Fair'].map(proportions => (
-                        <label key={proportions} className="radio-button">
-                          <input
-                            type="radio"
-                            value={proportions}
-                            checked={selectedProportions === proportions}
-                            onChange={() => handleProportionsChange(proportions)}
-                          />
-                          {proportions}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="form-section">
-                    <label>Measurements</label>
-                    <div className="radio-group">
-                      {['Small', 'Medium', 'Large'].map(measurements => (
-                        <label key={measurements} className="radio-button">
-                          <input
-                            type="radio"
-                            value={measurements}
-                            checked={selectedMeasurements === measurements}
-                            onChange={() => handleMeasurementsChange(measurements)}
-                          />
-                          {measurements}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Collapse className="section-spacing">
+                <Panel header="Advanced Options" key="1" onClick={handleAdvancedToggle}>
+                  <Row gutter={16} className="section-spacing">
+                    <Col span={12}>
+                      <Form.Item label="Fluorescence" name="fluorescence">
+                        <Radio.Group value={selectedFluorescence} onChange={(e) => handleFluorescenceChange(e.target.value)} className="radio-group-styled">
+                          {['None', 'Faint', 'Medium', 'Strong', 'VeryStrong'].map(fluorescence => (
+                            <Radio.Button key={fluorescence} value={fluorescence} className="radio-button-styled">
+                              {fluorescence}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item label="Origin" name="origin">
+                        <Radio.Group value={selectedOrigin} onChange={(e) => handleOriginChange(e.target.value)} className="radio-group-styled">
+                          {['Natural', 'Synthetic'].map(origin => (
+                            <Radio.Button key={origin} value={origin} className="radio-button-styled">
+                              {origin}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row gutter={16} className="section-spacing">
+                    <Col span={12}>
+                      <Form.Item label="Polish" name="polish">
+                        <Radio.Group value={selectedPolish} onChange={(e) => handlePolishChange(e.target.value)} className="radio-group-styled">
+                          {['Excellent', 'VeryGood', 'Good', 'Fair', 'Poor'].map(polish => (
+                            <Radio.Button key={polish} value={polish} className="radio-button-styled">
+                              {polish}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item label="Symmetry" name="symmetry">
+                        <Radio.Group value={selectedSymmetry} onChange={(e) => handleSymmetryChange(e.target.value)} className="radio-group-styled">
+                          {['Excellent', 'VeryGood', 'Good', 'Fair', 'Poor'].map(symmetry => (
+                            <Radio.Button key={symmetry} value={symmetry} className="radio-button-styled">
+                              {symmetry}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row gutter={16} className="section-spacing">
+                    <Col span={12}>
+                      <Form.Item label="Proportions" name="proportions">
+                        <Radio.Group value={selectedProportions} onChange={(e) => handleProportionsChange(e.target.value)} className="radio-group-styled">
+                          {['Ideal', 'Excellent', 'VeryGood', 'Good', 'Fair'].map(proportions => (
+                            <Radio.Button key={proportions} value={proportions} className="radio-button-styled">
+                              {proportions}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item label="Measurements" name="measurements">
+                        <Radio.Group value={selectedMeasurements} onChange={(e) => handleMeasurementsChange(e.target.value)} className="radio-group-styled">
+                          {['Small', 'Medium', 'Large'].map(measurements => (
+                            <Radio.Button key={measurements} value={measurements} className="radio-button-styled">
+                              {measurements}
+                            </Radio.Button>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Panel>
+              </Collapse>
+              <Form.Item>
+                <div className="check-button">
+                  <Button type="primary" className="calculate-btn" onClick={handleCalculatePrice}>
+                    Check Price
+                  </Button>
+                  <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+                    Reset
+                  </Button>
                 </div>
-              )}
-            </div>
-            <div className="button-group">
-              <button type="button" className="calculate-btn" onClick={handleCalculatePrice}>Calculate</button>
-              <button type="button" className="reset-btn" onClick={handleReset}>Reset</button>
-            </div>
-          </form>
-          {priceData && (
-            <div ref={priceResultRef} className="price-result">
-                <div className="details">
-                  <p>Carat Weight: {priceData.carat}</p>
-                  <p>Color: {priceData.color}</p>
-                  <p>Clarity: {priceData.clarity}</p>
-                  <p>Shape: {priceData.shape}</p>
-                  <p>Fluorescence: {priceData.fluorescence}</p>
-                  <p>Origin: {priceData.origin}</p>
-                  <p>Polish: {priceData.polish}</p>
-                  <p>Symmetry: {priceData.symmetry}</p>
-                  <p>Proportions: {priceData.proportions}</p>
-                  <p>Measurements: {priceData.measurements}</p>
-                  <h1 style={{ color: 'blue', fontWeight: 'bold' }}>
-                    Estimated Price: ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  </h1>
-                </div>
-            </div>
-          )}
-        </div>
-      </div>
+              </Form.Item>
+            </Form>
+            {detailsVisible && priceData && (
+              <div ref={priceResultRef}>
+                <Card title="Price Information" className="result-card">
+                  <div className="result-card-content">
+                    <Title level={4} className="price-detail-title">Diamond Price Details</Title>
+                    <Divider />
+                    <Paragraph><strong>Shape:</strong> {priceData.shape}</Paragraph>
+                    <Paragraph><strong>Carat:</strong> {priceData.carat}</Paragraph>
+                    <Paragraph><strong>Color:</strong> {priceData.color}</Paragraph>
+                    <Paragraph><strong>Clarity:</strong> {priceData.clarity}</Paragraph>
+                    {advancedOpen && (
+                      <>
+                        <Paragraph><strong>Fluorescence:</strong> {priceData.fluorescence}</Paragraph>
+                        <Paragraph><strong>Origin:</strong> {priceData.origin}</Paragraph>
+                        <Paragraph><strong>Polish:</strong> {priceData.polish}</Paragraph>
+                        <Paragraph><strong>Symmetry:</strong> {priceData.symmetry}</Paragraph>
+                        <Paragraph><strong>Proportions:</strong> {priceData.proportions}</Paragraph>
+                        <Paragraph><strong>Measurements:</strong> {priceData.measurements}</Paragraph>
+                      </>
+                    )}
+                    <Divider />
+                    <Paragraph className="result-card-price">
+                      <strong>Fair Price:</strong> ${priceData.fairPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </Paragraph>
+                  </div>
+                </Card>
+              </div>
+            )}
+          </div>
+        </Content>
+      </Layout>
     </div>
   );
 };
+
 
 export default CalculateDiamond;
