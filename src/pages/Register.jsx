@@ -208,7 +208,7 @@ const Register = () => {
               <Input placeholder="Phone" />
             </Form.Item>
             <Form.Item>
-              <Button className="button-create" type="primary" htmlType="submit" block>
+              <Button htmlType="submit" block style={{backgroundColor: 'black', color: 'white'}}>
                 Create an account
               </Button>
             </Form.Item>

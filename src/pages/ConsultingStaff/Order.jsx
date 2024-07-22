@@ -90,6 +90,18 @@ const Request = () => {
     {
       title: "Service",
       key: "service",
+      dataIndex: "service",
+      filters: [
+        {
+            text: 'Advanced Valuation',
+            value: 'Advanced Valuation',
+        },
+        {
+            text: 'Basic Valuation',
+            value: 'Basic Valuation',
+        },
+    ],
+    onFilter: (value, record) => record.serviceName.indexOf(value) === 0,
       render: (text, record) => (
         <Tag color={serviceColors[record.serviceName]}>
           {record.serviceName}
@@ -109,16 +121,16 @@ const Request = () => {
     },
   ];
 
-  const handleServiceFilterChange = (e) => {
-    setServiceFilter(e.target.value);
-  };
+  // const handleServiceFilterChange = (e) => {
+  //   setServiceFilter(e.target.value);
+  // };
 
-  const filteredRequests = requests.filter(request => {
-    if (serviceFilter !== "All" && request.serviceName !== serviceFilter) {
-      return false;
-    }
-    return true;
-  });
+  // const filteredRequests = requests.filter(request => {
+  //   if (serviceFilter !== "All" && request.serviceName !== serviceFilter) {
+  //     return false;
+  //   }
+  //   return true;
+  // });
 
   if (loading) {
     return <MySpin />
@@ -130,10 +142,10 @@ const Request = () => {
       <FloatButton
         href=""
         tooltip={<div>New diamond for valuate</div>}
-        badge={{
-          count: filteredRequests.length,
-          color: '#003366',
-        }}
+        // badge={{
+        //   count: filteredRequests.length,
+        //   color: '#003366',
+        // }}
       />
       <Row gutter={[24, 0]}>
         <Col xs="24" xl={24}>
@@ -143,7 +155,7 @@ const Request = () => {
             title="REQUESTS TABLE"
             extra={
               <>
-                <div style={{ textAlign: "center", margin: "10px 0" }}>
+                {/* <div style={{ textAlign: "center", margin: "10px 0" }}>
                   <Radio.Group onChange={handleServiceFilterChange} defaultValue="All" buttonStyle="solid">
                     <Radio.Button value="All" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", margin: "5px", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                       All
@@ -155,14 +167,14 @@ const Request = () => {
                       Basic Valuation
                     </Radio.Button>
                   </Radio.Group>
-                </div>
+                </div> */}
               </>
             }
           >
             <div className="table-responsive">
               <Table
                 columns={columns}
-                dataSource={filteredRequests}
+                dataSource={requests}
                 pagination={{ pageSize: 6 }}
                 className="ant-border-space"
               />

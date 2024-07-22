@@ -56,15 +56,14 @@ const CheckPriceByCertificateID = () => {
     <div className="checkPriceContainer">
       <div className="buttonContainer" style={{ marginBottom: "16px" }}>
         <Link to="/calculateDiamond">
-          <Button type="primary" className="calculate-btn">
+          <Button style={{backgroundColor: 'black', color: 'white'}}>
             Calculate Diamond
           </Button>
         </Link>
         <Link to="/checkPriceByCertificateID">
           <Button
-            type="primary"
             className="calculate-btn"
-            style={{ marginLeft: "8px" }}
+            style={{backgroundColor: 'black', color: 'white'}}
           >
             Check Price by Certificate ID
           </Button>
@@ -84,10 +83,9 @@ const CheckPriceByCertificateID = () => {
             </Form.Item>
             <Form.Item>
               <Button
-                type="primary"
                 loading={loading}
                 onClick={handleCheckPrice}
-                className="check-price-btn"
+                style={{backgroundColor: 'black', color: 'white'}}
               >
                 Check Price
               </Button>

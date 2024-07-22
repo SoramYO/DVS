@@ -24,7 +24,7 @@ const Sidebar = () => {
           style={{ width: "80%", height: "80%", marginLeft: "20px" }}
         />
       </div>
-      <Menu theme='light' defaultSelectedKeys={["1"]} mode="inline">
+      <Menu theme='dark' defaultSelectedKeys={["1"]} mode="inline">
         <Menu.Item key="1" icon={<FileOutlined />}>
           <Link to="/consultingStaff"><strong>Orders</strong></Link>
         </Menu.Item>
