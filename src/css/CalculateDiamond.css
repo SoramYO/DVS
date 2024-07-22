@@ -19,38 +19,52 @@
   justify-content: center;
 }
 
-
-.input-form .ant-form-item-label>label {
+.input-form .ant-form-item-label > label {
   color: #ff0000;
-    font-weight: bold;
-  }
+  font-weight: bold;
+}
 
+.calculate-btn, .reset-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #ff0000;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
 
-  .input-form .ant-btn {
-    margin-top: 20px;
-  }
+.reset-btn {
+  background-color: #ff0000;
+  margin-left: 10px;
+}
 
+.reset-btn:hover, .calculate-btn:hover {
+  background-color: #000000;
+}
 
-  .section-spacing {
-    margin-top: 40px;
-    margin-bottom: 40px;
-  }
+.input-form .ant-btn {
+  margin-top: 20px;
+}
 
+.section-spacing {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
 
-  .ant-radio-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+.ant-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
-
-  .radio-button-label {
-    display: flex;
+.radio-button-label {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
 
 .radio-button-img {
   width: 50px;
@@ -59,7 +73,6 @@
   border-radius: 5px;
 }
 
-
 .radio-button-text {
   flex: 1;
   margin-top: 4px;
@@ -67,7 +80,6 @@
   font-size: 12px;
   color: #ff0000;
 }
-
 
 .ant-radio-button-wrapper {
   background: none;
@@ -78,19 +90,16 @@
   padding: 6px 12px;
 }
 
-
 .ant-radio-button-wrapper-checked {
   border: none;
   box-shadow: none;
 }
-
 
 .ant-radio-button-wrapper-checked .radio-button-img {
   border: none;
   box-shadow: 0 0 0 2px #1890ff;
   border-radius: 4px;
 }
-
 
 .radio-group-styled .ant-radio-button-wrapper {
   margin: 4px;
@@ -105,18 +114,15 @@
   font-size: 16px;
 }
 
-
 .radio-group-styled .ant-radio-button-wrapper-checked {
   background-color: #1890ff;
   color: #fff;
   border-color: #1890ff;
 }
 
-
 .radio-group-styled .ant-radio-button-wrapper:hover {
   border-color: #1890ff;
 }
-
 
 .radio-button-styled {
   padding: 6px 14px;
@@ -128,11 +134,9 @@
   align-items: center;
 }
 
-
 .radio-button-styled:hover {
   background-color: #e6f7ff;
 }
-
 
 .radio-button-styled-checked {
   background-color: #1890ff;
@@ -140,48 +144,42 @@
   border-color: #1890ff;
 }
 
-
 .result-card {
   margin-top: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
 .result-card-content {
   padding: 20px;
 }
 
-
 .price-detail-title {
   margin-bottom: 12px;
 }
-
 
 .result-card-price {
   font-size: 32px;
   font-weight: bold;
   color: #1890ff;
 }
+
 .buttonContainer .calculate-btn {
-  background-color: #000000; /* Red background */
-  border-color: #000000; /* Red border */
-  color: white; /* White text */
-}
-
-
-.buttonContainer .calculate-btn:hover {
-  background-color: #000000; /* Lighter red on hover */
-  border-color: #000000; /* Lighter red border on hover */
-}
-
-
-.check-button .calculate-btn {
-  background-color: #000000; /* Red background */
+  background-color: #000000;
   border-color: #000000;
   color: white;
 }
 
+.buttonContainer .calculate-btn:hover {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+.check-button .calculate-btn {
+  background-color: #000000;
+  border-color: #000000;
+  color: white;
+}
 
 .check-button .calculate-btn:hover {
   background-color: #000000;

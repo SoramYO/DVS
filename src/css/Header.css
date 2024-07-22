@@ -6,7 +6,7 @@
   color: #ffffff;
   border-bottom: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
+  padding: 7px 20px 3px 20px;
   flex-wrap: wrap;
 }
 
@@ -41,7 +41,7 @@
 
 .headerRight h5,
 .headerLeft h5 {
-  font-size: 14px;
+  font-size: 17px;
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

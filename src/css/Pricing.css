@@ -34,13 +34,14 @@
   }
   
   .radio-button.selected {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
+    background-color: #ff0000;
+    border-color: #ff0000;
+    /* color: #000000; */
+    font-weight: bold;
   }
   
   .radio-button:hover {
-    background-color: #f0f0f0;
+    background-color: #ff0000;
   }
   
   .radio-button-label {
@@ -89,8 +90,13 @@
   .price-info {
     font-size: 35px;
     margin-top: 50px;
+    margin-bottom: 10px;
   }
   
+  .pricing-container h3 {
+    margin-top:10px;
+    font-size: 19px;
+  } 
   /* Responsive design */
   @media (max-width: 768px) {
     .pricing-container {
