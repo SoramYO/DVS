@@ -40,7 +40,6 @@ const Navbar = () => {
           { value: "Pricing", link: "/pricing" },
           { value: "Service", link: "/services" },
           { value: "Valuation Request", link: "/request" },
-          { value: "Contact", link: "/footer" },
           { value: "List Request", link: "/profile" },
         ].filter((item) =>
           item.value.toLowerCase().includes(value.toLowerCase())
